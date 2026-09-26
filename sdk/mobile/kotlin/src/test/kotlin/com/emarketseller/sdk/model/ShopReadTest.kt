@@ -58,16 +58,16 @@ class ShopReadTest : ShouldSpec() {
             //modelInstance.slug shouldBe ("TODO")
         }
 
-        // to test the property `logoUrl`
-        should("test logoUrl") {
+        // to test the property `logoKey`
+        should("test logoKey") {
             // uncomment below to test the property
-            //modelInstance.logoUrl shouldBe ("TODO")
+            //modelInstance.logoKey shouldBe ("TODO")
         }
 
-        // to test the property `bannerUrl`
-        should("test bannerUrl") {
+        // to test the property `bannerKey`
+        should("test bannerKey") {
             // uncomment below to test the property
-            //modelInstance.bannerUrl shouldBe ("TODO")
+            //modelInstance.bannerKey shouldBe ("TODO")
         }
 
         // to test the property `description`
@@ -116,6 +116,18 @@ class ShopReadTest : ShouldSpec() {
         should("test updatedAt") {
             // uncomment below to test the property
             //modelInstance.updatedAt shouldBe ("TODO")
+        }
+
+        // to test the property `logoUrl`
+        should("test logoUrl") {
+            // uncomment below to test the property
+            //modelInstance.logoUrl shouldBe ("TODO")
+        }
+
+        // to test the property `bannerUrl`
+        should("test bannerUrl") {
+            // uncomment below to test the property
+            //modelInstance.bannerUrl shouldBe ("TODO")
         }
 
     }

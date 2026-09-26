@@ -39,10 +39,10 @@ class ProductImageReadTest : ShouldSpec() {
             //modelInstance.id shouldBe ("TODO")
         }
 
-        // to test the property `url`
-        should("test url") {
+        // to test the property `key`
+        should("test key") {
             // uncomment below to test the property
-            //modelInstance.url shouldBe ("TODO")
+            //modelInstance.key shouldBe ("TODO")
         }
 
         // to test the property `sortOrder`
@@ -55,6 +55,12 @@ class ProductImageReadTest : ShouldSpec() {
         should("test isPrimary") {
             // uncomment below to test the property
             //modelInstance.isPrimary shouldBe ("TODO")
+        }
+
+        // to test the property `url`
+        should("test url") {
+            // uncomment below to test the property
+            //modelInstance.url shouldBe ("TODO")
         }
 
     }

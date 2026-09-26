@@ -33,10 +33,10 @@ class ProductImageInTest : ShouldSpec() {
         // uncomment below to create an instance of ProductImageIn
         //val modelInstance = ProductImageIn()
 
-        // to test the property `url`
-        should("test url") {
+        // to test the property `key`
+        should("test key") {
             // uncomment below to test the property
-            //modelInstance.url shouldBe ("TODO")
+            //modelInstance.key shouldBe ("TODO")
         }
 
         // to test the property `sortOrder`

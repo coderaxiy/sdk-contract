@@ -36,8 +36,8 @@ import kotlinx.serialization.Contextual
  * @param sellerId 
  * @param name 
  * @param slug 
- * @param logoUrl 
- * @param bannerUrl 
+ * @param logoKey 
+ * @param bannerKey 
  * @param description 
  * @param legalEntityOverride 
  * @param status 
@@ -46,6 +46,8 @@ import kotlinx.serialization.Contextual
  * @param ratingCount 
  * @param createdAt 
  * @param updatedAt 
+ * @param logoUrl 
+ * @param bannerUrl 
  */
 @Serializable
 
@@ -63,11 +65,11 @@ data class ShopRead (
     @SerialName(value = "slug")
     val slug: kotlin.String,
 
-    @SerialName(value = "logo_url")
-    val logoUrl: kotlin.String?,
+    @SerialName(value = "logo_key")
+    val logoKey: kotlin.String?,
 
-    @SerialName(value = "banner_url")
-    val bannerUrl: kotlin.String?,
+    @SerialName(value = "banner_key")
+    val bannerKey: kotlin.String?,
 
     @SerialName(value = "description")
     val description: kotlin.String?,
@@ -91,7 +93,13 @@ data class ShopRead (
     val createdAt: java.time.OffsetDateTime,
 
     @Contextual @SerialName(value = "updated_at")
-    val updatedAt: java.time.OffsetDateTime
+    val updatedAt: java.time.OffsetDateTime,
+
+    @SerialName(value = "logo_url")
+    val logoUrl: kotlin.String?,
+
+    @SerialName(value = "banner_url")
+    val bannerUrl: kotlin.String?
 
 ) {
 

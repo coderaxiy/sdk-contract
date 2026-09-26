@@ -79,9 +79,11 @@ the history).
 `type` values: `business_license`, `tax_certificate`, `id_document`,
 `bank_confirmation`, `other`.
 
-**There is no file upload endpoint.** `file_url` is a URL to a file the client
-has already stored somewhere. Until an upload endpoint exists, any reachable URL
-is accepted.
+Upload the file first with `POST /uploads?purpose=seller_document` (JPEG, PNG,
+WebP, or PDF — see [media-uploads-api.md](media-uploads-api.md)), then submit
+its key. Documents live in **private** storage: `file_url` in every
+`DocumentRead` is a signed link valid for 15 minutes, so re-fetch the documents
+list to view a document again rather than caching the link.
 
 ---
 
@@ -118,8 +120,11 @@ POST /seller/register
 
 ```json
 POST /seller/documents
-{ "type": "id_document", "file_url": "https://files.example.com/abc.pdf" }
+{ "type": "id_document", "file_key": "sellers/documents/33/9f3c….pdf" }
 ```
+
+`400 "Unknown upload key: …"` if the key isn't this seller's; `400 "Upload … is
+a product_image, not a seller_document"` if it was uploaded with another purpose.
 
 `shop_id` is optional and only used for shop-level legal documents.
 

@@ -5751,6 +5751,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/uploads:
+    post:
+      tags:
+      - uploads
+      summary: Create Upload
+      operationId: create_upload_api_v1_uploads_post
+      parameters:
+      - name: purpose
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/UploadPurpose'
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_create_upload_api_v1_uploads_post'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /:
     get:
       summary: Root
@@ -5963,6 +6002,16 @@ components:
       - seller
       - shop
       title: BankOwnerType
+    Body_create_upload_api_v1_uploads_post:
+      properties:
+        file:
+          type: string
+          title: File
+          format: binary
+      type: object
+      required:
+      - file
+      title: Body_create_upload_api_v1_uploads_post
     BrandRead:
       properties:
         id:
@@ -6969,9 +7018,9 @@ components:
           title: Shop Id
         type:
           $ref: '#/components/schemas/DocumentType'
-        file_url:
+        file_key:
           type: string
-          title: File Url
+          title: File Key
         status:
           $ref: '#/components/schemas/DocumentStatus'
         rejection_reason:
@@ -6994,18 +7043,26 @@ components:
           type: string
           format: date-time
           title: Created At
+        file_url:
+          type: string
+          title: File Url
+          description: 'Signed, time-limited link (STORAGE_PRESIGNED_URL_EXPIRE_SECONDS) —
+
+            documents live in the private bucket. Fetch a fresh one to view again.'
+          readOnly: true
       type: object
       required:
       - id
       - seller_id
       - shop_id
       - type
-      - file_url
+      - file_key
       - status
       - rejection_reason
       - reviewed_by
       - reviewed_at
       - created_at
+      - file_url
       title: DocumentRead
     DocumentReviewRequest:
       properties:
@@ -7031,9 +7088,9 @@ components:
       properties:
         type:
           $ref: '#/components/schemas/DocumentType'
-        file_url:
+        file_key:
           type: string
-          title: File Url
+          title: File Key
         shop_id:
           anyOf:
           - type: integer
@@ -7042,7 +7099,7 @@ components:
       type: object
       required:
       - type
-      - file_url
+      - file_key
       title: DocumentSubmitRequest
     DocumentType:
       type: string
@@ -8431,9 +8488,9 @@ components:
       title: ProductCreate
     ProductImageIn:
       properties:
-        url:
+        key:
           type: string
-          title: Url
+          title: Key
         sort_order:
           type: integer
           title: Sort Order
@@ -8444,28 +8501,33 @@ components:
           default: false
       type: object
       required:
-      - url
+      - key
       title: ProductImageIn
     ProductImageRead:
       properties:
         id:
           type: integer
           title: Id
-        url:
+        key:
           type: string
-          title: Url
+          title: Key
         sort_order:
           type: integer
           title: Sort Order
         is_primary:
           type: boolean
           title: Is Primary
+        url:
+          type: string
+          title: Url
+          readOnly: true
       type: object
       required:
       - id
-      - url
+      - key
       - sort_order
       - is_primary
+      - url
       title: ProductImageRead
     ProductModerationLogRead:
       properties:
@@ -9560,16 +9622,16 @@ components:
           - type: string
           - type: 'null'
           title: Slug
-        logo_url:
+        logo_key:
           anyOf:
           - type: string
           - type: 'null'
-          title: Logo Url
-        banner_url:
+          title: Logo Key
+        banner_key:
           anyOf:
           - type: string
           - type: 'null'
-          title: Banner Url
+          title: Banner Key
         description:
           anyOf:
           - type: string
@@ -9597,16 +9659,16 @@ components:
         slug:
           type: string
           title: Slug
-        logo_url:
+        logo_key:
           anyOf:
           - type: string
           - type: 'null'
-          title: Logo Url
-        banner_url:
+          title: Logo Key
+        banner_key:
           anyOf:
           - type: string
           - type: 'null'
-          title: Banner Url
+          title: Banner Key
         description:
           anyOf:
           - type: string
@@ -9639,14 +9701,26 @@ components:
           type: string
           format: date-time
           title: Updated At
+        logo_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Logo Url
+          readOnly: true
+        banner_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Banner Url
+          readOnly: true
       type: object
       required:
       - id
       - seller_id
       - name
       - slug
-      - logo_url
-      - banner_url
+      - logo_key
+      - banner_key
       - description
       - legal_entity_override
       - status
@@ -9655,6 +9729,8 @@ components:
       - rating_count
       - created_at
       - updated_at
+      - logo_url
+      - banner_url
       title: ShopRead
     ShopStaffRead:
       properties:
@@ -9697,16 +9773,16 @@ components:
           - type: string
           - type: 'null'
           title: Name
-        logo_url:
+        logo_key:
           anyOf:
           - type: string
           - type: 'null'
-          title: Logo Url
-        banner_url:
+          title: Logo Key
+        banner_key:
           anyOf:
           - type: string
           - type: 'null'
-          title: Banner Url
+          title: Banner Key
         description:
           anyOf:
           - type: string
@@ -9798,6 +9874,59 @@ components:
       required:
       - role
       title: UpdateStaffRoleRequest
+    UploadPurpose:
+      type: string
+      enum:
+      - shop_logo
+      - shop_banner
+      - product_image
+      - seller_document
+      title: UploadPurpose
+    UploadRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        key:
+          type: string
+          title: Key
+        url:
+          type: string
+          title: Url
+        purpose:
+          $ref: '#/components/schemas/UploadPurpose'
+        content_type:
+          type: string
+          title: Content Type
+        size_bytes:
+          type: integer
+          title: Size Bytes
+        width:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Width
+        height:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Height
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - key
+      - url
+      - purpose
+      - content_type
+      - size_bytes
+      - width
+      - height
+      - created_at
+      title: UploadRead
     UserAdminCreate:
       properties:
         email:

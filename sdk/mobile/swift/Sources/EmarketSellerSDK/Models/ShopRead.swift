@@ -14,8 +14,8 @@ public struct ShopRead: Sendable, Codable, Hashable {
     public var sellerId: Int
     public var name: String
     public var slug: String
-    public var logoUrl: String?
-    public var bannerUrl: String?
+    public var logoKey: String?
+    public var bannerKey: String?
     public var description: String?
     public var legalEntityOverride: Bool
     public var status: ShopStatus
@@ -24,14 +24,16 @@ public struct ShopRead: Sendable, Codable, Hashable {
     public var ratingCount: Int
     public var createdAt: Date
     public var updatedAt: Date
+    public var logoUrl: String?
+    public var bannerUrl: String?
 
-    public init(id: Int, sellerId: Int, name: String, slug: String, logoUrl: String?, bannerUrl: String?, description: String?, legalEntityOverride: Bool, status: ShopStatus, statusReason: String?, ratingAvg: String?, ratingCount: Int, createdAt: Date, updatedAt: Date) {
+    public init(id: Int, sellerId: Int, name: String, slug: String, logoKey: String?, bannerKey: String?, description: String?, legalEntityOverride: Bool, status: ShopStatus, statusReason: String?, ratingAvg: String?, ratingCount: Int, createdAt: Date, updatedAt: Date, logoUrl: String?, bannerUrl: String?) {
         self.id = id
         self.sellerId = sellerId
         self.name = name
         self.slug = slug
-        self.logoUrl = logoUrl
-        self.bannerUrl = bannerUrl
+        self.logoKey = logoKey
+        self.bannerKey = bannerKey
         self.description = description
         self.legalEntityOverride = legalEntityOverride
         self.status = status
@@ -40,6 +42,8 @@ public struct ShopRead: Sendable, Codable, Hashable {
         self.ratingCount = ratingCount
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.logoUrl = logoUrl
+        self.bannerUrl = bannerUrl
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -47,8 +51,8 @@ public struct ShopRead: Sendable, Codable, Hashable {
         case sellerId = "seller_id"
         case name
         case slug
-        case logoUrl = "logo_url"
-        case bannerUrl = "banner_url"
+        case logoKey = "logo_key"
+        case bannerKey = "banner_key"
         case description
         case legalEntityOverride = "legal_entity_override"
         case status
@@ -57,6 +61,8 @@ public struct ShopRead: Sendable, Codable, Hashable {
         case ratingCount = "rating_count"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+        case logoUrl = "logo_url"
+        case bannerUrl = "banner_url"
     }
 
     // Encodable protocol methods
@@ -67,8 +73,8 @@ public struct ShopRead: Sendable, Codable, Hashable {
         try container.encode(sellerId, forKey: .sellerId)
         try container.encode(name, forKey: .name)
         try container.encode(slug, forKey: .slug)
-        try container.encode(logoUrl, forKey: .logoUrl)
-        try container.encode(bannerUrl, forKey: .bannerUrl)
+        try container.encode(logoKey, forKey: .logoKey)
+        try container.encode(bannerKey, forKey: .bannerKey)
         try container.encode(description, forKey: .description)
         try container.encode(legalEntityOverride, forKey: .legalEntityOverride)
         try container.encode(status, forKey: .status)
@@ -77,6 +83,8 @@ public struct ShopRead: Sendable, Codable, Hashable {
         try container.encode(ratingCount, forKey: .ratingCount)
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(logoUrl, forKey: .logoUrl)
+        try container.encode(bannerUrl, forKey: .bannerUrl)
     }
 }
 

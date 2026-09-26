@@ -28,7 +28,24 @@ import yaml
 
 from app.main import app
 
+
+def binary_file_fields(node):
+    """FastAPI marks upload fields the OpenAPI 3.1 way (contentMediaType), which
+    the Kotlin/Swift generators don't understand yet — they'd type the file as a
+    String. Rewrite them to the `format: binary` form every generator supports."""
+    if isinstance(node, dict):
+        if node.get("type") == "string" and node.get("contentMediaType") == "application/octet-stream":
+            del node["contentMediaType"]
+            node["format"] = "binary"
+        for value in node.values():
+            binary_file_fields(value)
+    elif isinstance(node, list):
+        for value in node:
+            binary_file_fields(value)
+
+
 spec = app.openapi()
+binary_file_fields(spec)
 # Paths already carry the /api/v1 prefix. SDK consumers override the base URL per environment.
 spec.setdefault("servers", [{"url": "http://localhost:8000", "description": "Local dev"}])
 

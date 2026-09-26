@@ -168,6 +168,7 @@ Class | Method | HTTP request | Description
 *ShopsAPI* | [**submitShopForApprovalApiV1SellerShopsShopIdSubmitPost**](docs/ShopsAPI.md#submitshopforapprovalapiv1sellershopsshopidsubmitpost) | **POST** /api/v1/seller/shops/{shop_id}/submit | Submit Shop For Approval
 *ShopsAPI* | [**suspendShopApiV1AdminShopsShopIdSuspendPatch**](docs/ShopsAPI.md#suspendshopapiv1adminshopsshopidsuspendpatch) | **PATCH** /api/v1/admin/shops/{shop_id}/suspend | Suspend Shop
 *ShopsAPI* | [**updateShopApiV1SellerShopsShopIdPatch**](docs/ShopsAPI.md#updateshopapiv1sellershopsshopidpatch) | **PATCH** /api/v1/seller/shops/{shop_id} | Update Shop
+*UploadsAPI* | [**createUploadApiV1UploadsPost**](docs/UploadsAPI.md#createuploadapiv1uploadspost) | **POST** /api/v1/uploads | Create Upload
 *UsersAPI* | [**adminCreateUserApiV1UsersPost**](docs/UsersAPI.md#admincreateuserapiv1userspost) | **POST** /api/v1/users/ | Admin Create User
 *UsersAPI* | [**assignRoleToUserApiV1UsersUserIdRolesPost**](docs/UsersAPI.md#assignroletouserapiv1usersuseridrolespost) | **POST** /api/v1/users/{user_id}/roles | Assign Role To User
 *UsersAPI* | [**deactivateUserApiV1UsersUserIdDeactivatePost**](docs/UsersAPI.md#deactivateuserapiv1usersuseriddeactivatepost) | **POST** /api/v1/users/{user_id}/deactivate | Deactivate User
@@ -350,6 +351,8 @@ Class | Method | HTTP request | Description
  - [TranslationRead](docs/TranslationRead.md)
  - [UpdateShopLimitRequest](docs/UpdateShopLimitRequest.md)
  - [UpdateStaffRoleRequest](docs/UpdateStaffRoleRequest.md)
+ - [UploadPurpose](docs/UploadPurpose.md)
+ - [UploadRead](docs/UploadRead.md)
  - [UserAdminCreate](docs/UserAdminCreate.md)
  - [UserPasswordSet](docs/UserPasswordSet.md)
  - [UserRead](docs/UserRead.md)

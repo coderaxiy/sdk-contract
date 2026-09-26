@@ -177,6 +177,9 @@ docs/TranslationIn.md
 docs/TranslationRead.md
 docs/UpdateShopLimitRequest.md
 docs/UpdateStaffRoleRequest.md
+docs/UploadPurpose.md
+docs/UploadRead.md
+docs/UploadsApi.md
 docs/UserAdminCreate.md
 docs/UserPasswordSet.md
 docs/UserRead.md
@@ -200,6 +203,7 @@ src/main/kotlin/com/emarketseller/sdk/api/ProductsApi.kt
 src/main/kotlin/com/emarketseller/sdk/api/RolesApi.kt
 src/main/kotlin/com/emarketseller/sdk/api/SellersApi.kt
 src/main/kotlin/com/emarketseller/sdk/api/ShopsApi.kt
+src/main/kotlin/com/emarketseller/sdk/api/UploadsApi.kt
 src/main/kotlin/com/emarketseller/sdk/api/UsersApi.kt
 src/main/kotlin/com/emarketseller/sdk/infrastructure/ApiClient.kt
 src/main/kotlin/com/emarketseller/sdk/infrastructure/AtomicBooleanAdapter.kt
@@ -384,6 +388,8 @@ src/main/kotlin/com/emarketseller/sdk/model/TranslationIn.kt
 src/main/kotlin/com/emarketseller/sdk/model/TranslationRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/UpdateShopLimitRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/UpdateStaffRoleRequest.kt
+src/main/kotlin/com/emarketseller/sdk/model/UploadPurpose.kt
+src/main/kotlin/com/emarketseller/sdk/model/UploadRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/UserAdminCreate.kt
 src/main/kotlin/com/emarketseller/sdk/model/UserPasswordSet.kt
 src/main/kotlin/com/emarketseller/sdk/model/UserRead.kt
@@ -400,6 +406,7 @@ src/test/kotlin/com/emarketseller/sdk/api/ProductsApiTest.kt
 src/test/kotlin/com/emarketseller/sdk/api/RolesApiTest.kt
 src/test/kotlin/com/emarketseller/sdk/api/SellersApiTest.kt
 src/test/kotlin/com/emarketseller/sdk/api/ShopsApiTest.kt
+src/test/kotlin/com/emarketseller/sdk/api/UploadsApiTest.kt
 src/test/kotlin/com/emarketseller/sdk/api/UsersApiTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/AmountCollectedTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/AmountTest.kt
@@ -568,6 +575,8 @@ src/test/kotlin/com/emarketseller/sdk/model/TranslationInTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/TranslationReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/UpdateShopLimitRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/UpdateStaffRoleRequestTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/UploadPurposeTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/UploadReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/UserAdminCreateTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/UserPasswordSetTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/UserReadTest.kt

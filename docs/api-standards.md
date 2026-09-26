@@ -71,6 +71,13 @@ compare them as floats. Coordinates use the same convention.
 ISO 8601 strings with timezone, UTC: `"2026-09-26T08:51:00Z"`. Nullable
 timestamps (`verified_at`, `reviewed_at`, ...) are `null` until the event happens.
 
+## Files
+
+Files are uploaded once with `POST /uploads` and then referenced by **key**
+(`logo_key`, `images[].key`, `file_key`, ...). Responses add a URL built from
+each key for display. Send keys back, never URLs. Details:
+[media-uploads-api.md](media-uploads-api.md).
+
 ## Enums
 
 Lowercase snake_case strings (`pending_review`, `sole_proprietor`). New values can

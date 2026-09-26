@@ -5,7 +5,7 @@
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
 | **type** | [**DocumentType**](DocumentType.md) |  |  |
-| **fileUrl** | **kotlin.String** |  |  |
+| **fileKey** | **kotlin.String** |  |  |
 | **shopId** | **kotlin.Int** |  |  [optional] |
 
 

@@ -187,6 +187,7 @@ All URIs are relative to *http://localhost:8000*
 | *ShopsApi* | [**submitShopForApprovalApiV1SellerShopsShopIdSubmitPost**](docs/ShopsApi.md#submitshopforapprovalapiv1sellershopsshopidsubmitpost) | **POST** api/v1/seller/shops/{shop_id}/submit | Submit Shop For Approval |
 | *ShopsApi* | [**suspendShopApiV1AdminShopsShopIdSuspendPatch**](docs/ShopsApi.md#suspendshopapiv1adminshopsshopidsuspendpatch) | **PATCH** api/v1/admin/shops/{shop_id}/suspend | Suspend Shop |
 | *ShopsApi* | [**updateShopApiV1SellerShopsShopIdPatch**](docs/ShopsApi.md#updateshopapiv1sellershopsshopidpatch) | **PATCH** api/v1/seller/shops/{shop_id} | Update Shop |
+| *UploadsApi* | [**createUploadApiV1UploadsPost**](docs/UploadsApi.md#createuploadapiv1uploadspost) | **POST** api/v1/uploads | Create Upload |
 | *UsersApi* | [**adminCreateUserApiV1UsersPost**](docs/UsersApi.md#admincreateuserapiv1userspost) | **POST** api/v1/users/ | Admin Create User |
 | *UsersApi* | [**assignRoleToUserApiV1UsersUserIdRolesPost**](docs/UsersApi.md#assignroletouserapiv1usersuseridrolespost) | **POST** api/v1/users/{user_id}/roles | Assign Role To User |
 | *UsersApi* | [**deactivateUserApiV1UsersUserIdDeactivatePost**](docs/UsersApi.md#deactivateuserapiv1usersuseriddeactivatepost) | **POST** api/v1/users/{user_id}/deactivate | Deactivate User |
@@ -369,6 +370,8 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.TranslationRead](docs/TranslationRead.md)
  - [com.emarketseller.sdk.model.UpdateShopLimitRequest](docs/UpdateShopLimitRequest.md)
  - [com.emarketseller.sdk.model.UpdateStaffRoleRequest](docs/UpdateStaffRoleRequest.md)
+ - [com.emarketseller.sdk.model.UploadPurpose](docs/UploadPurpose.md)
+ - [com.emarketseller.sdk.model.UploadRead](docs/UploadRead.md)
  - [com.emarketseller.sdk.model.UserAdminCreate](docs/UserAdminCreate.md)
  - [com.emarketseller.sdk.model.UserPasswordSet](docs/UserPasswordSet.md)
  - [com.emarketseller.sdk.model.UserRead](docs/UserRead.md)

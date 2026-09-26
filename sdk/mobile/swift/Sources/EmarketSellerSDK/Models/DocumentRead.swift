@@ -13,24 +13,27 @@ public struct DocumentRead: Sendable, Codable, Hashable {
     public var sellerId: Int
     public var shopId: Int?
     public var type: DocumentType
-    public var fileUrl: String
+    public var fileKey: String
     public var status: DocumentStatus
     public var rejectionReason: String?
     public var reviewedBy: Int?
     public var reviewedAt: Date?
     public var createdAt: Date
+    /** Signed, time-limited link (STORAGE_PRESIGNED_URL_EXPIRE_SECONDS) — documents live in the private bucket. Fetch a fresh one to view again. */
+    public var fileUrl: String
 
-    public init(id: Int, sellerId: Int, shopId: Int?, type: DocumentType, fileUrl: String, status: DocumentStatus, rejectionReason: String?, reviewedBy: Int?, reviewedAt: Date?, createdAt: Date) {
+    public init(id: Int, sellerId: Int, shopId: Int?, type: DocumentType, fileKey: String, status: DocumentStatus, rejectionReason: String?, reviewedBy: Int?, reviewedAt: Date?, createdAt: Date, fileUrl: String) {
         self.id = id
         self.sellerId = sellerId
         self.shopId = shopId
         self.type = type
-        self.fileUrl = fileUrl
+        self.fileKey = fileKey
         self.status = status
         self.rejectionReason = rejectionReason
         self.reviewedBy = reviewedBy
         self.reviewedAt = reviewedAt
         self.createdAt = createdAt
+        self.fileUrl = fileUrl
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -38,12 +41,13 @@ public struct DocumentRead: Sendable, Codable, Hashable {
         case sellerId = "seller_id"
         case shopId = "shop_id"
         case type
-        case fileUrl = "file_url"
+        case fileKey = "file_key"
         case status
         case rejectionReason = "rejection_reason"
         case reviewedBy = "reviewed_by"
         case reviewedAt = "reviewed_at"
         case createdAt = "created_at"
+        case fileUrl = "file_url"
     }
 
     // Encodable protocol methods
@@ -54,12 +58,13 @@ public struct DocumentRead: Sendable, Codable, Hashable {
         try container.encode(sellerId, forKey: .sellerId)
         try container.encode(shopId, forKey: .shopId)
         try container.encode(type, forKey: .type)
-        try container.encode(fileUrl, forKey: .fileUrl)
+        try container.encode(fileKey, forKey: .fileKey)
         try container.encode(status, forKey: .status)
         try container.encode(rejectionReason, forKey: .rejectionReason)
         try container.encode(reviewedBy, forKey: .reviewedBy)
         try container.encode(reviewedAt, forKey: .reviewedAt)
         try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(fileUrl, forKey: .fileUrl)
     }
 }
 

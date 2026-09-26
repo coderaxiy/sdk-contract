@@ -59,10 +59,10 @@ class DocumentReadTest : ShouldSpec() {
             //modelInstance.type shouldBe ("TODO")
         }
 
-        // to test the property `fileUrl`
-        should("test fileUrl") {
+        // to test the property `fileKey`
+        should("test fileKey") {
             // uncomment below to test the property
-            //modelInstance.fileUrl shouldBe ("TODO")
+            //modelInstance.fileKey shouldBe ("TODO")
         }
 
         // to test the property `status`
@@ -93,6 +93,12 @@ class DocumentReadTest : ShouldSpec() {
         should("test createdAt") {
             // uncomment below to test the property
             //modelInstance.createdAt shouldBe ("TODO")
+        }
+
+        // to test the property `fileUrl` - Signed, time-limited link (STORAGE_PRESIGNED_URL_EXPIRE_SECONDS) — documents live in the private bucket. Fetch a fresh one to view again.
+        should("test fileUrl") {
+            // uncomment below to test the property
+            //modelInstance.fileUrl shouldBe ("TODO")
         }
 
     }

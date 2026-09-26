@@ -8,8 +8,8 @@
 | **sellerId** | **kotlin.Int** |  |  |
 | **name** | **kotlin.String** |  |  |
 | **slug** | **kotlin.String** |  |  |
-| **logoUrl** | **kotlin.String** |  |  |
-| **bannerUrl** | **kotlin.String** |  |  |
+| **logoKey** | **kotlin.String** |  |  |
+| **bannerKey** | **kotlin.String** |  |  |
 | **description** | **kotlin.String** |  |  |
 | **legalEntityOverride** | **kotlin.Boolean** |  |  |
 | **status** | [**ShopStatus**](ShopStatus.md) |  |  |
@@ -18,6 +18,8 @@
 | **ratingCount** | **kotlin.Int** |  |  |
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 | **updatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
+| **logoUrl** | **kotlin.String** |  |  [readonly] |
+| **bannerUrl** | **kotlin.String** |  |  [readonly] |
 
 
 

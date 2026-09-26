@@ -6,8 +6,8 @@
 | ------------ | ------------- | ------------- | ------------- |
 | **name** | **kotlin.String** |  |  |
 | **slug** | **kotlin.String** |  |  [optional] |
-| **logoUrl** | **kotlin.String** |  |  [optional] |
-| **bannerUrl** | **kotlin.String** |  |  [optional] |
+| **logoKey** | **kotlin.String** |  |  [optional] |
+| **bannerKey** | **kotlin.String** |  |  [optional] |
 | **description** | **kotlin.String** |  |  [optional] |
 | **legalEntityOverride** | **kotlin.Boolean** |  |  [optional] |
 

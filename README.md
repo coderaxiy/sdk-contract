@@ -19,6 +19,7 @@ sdk/
   mobile/swift/      # Swift client (iOS)
 docs/
   api-standards.md   # auth, errors, pagination, money, dates — applies everywhere
+  media-uploads-api.md        # file uploads: shop logo/banner, product images, KYC documents
   sellers-and-approval-api.md
   products-and-moderation-api.md
   orders-and-payments-api.md

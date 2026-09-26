@@ -10,21 +10,21 @@ import Foundation
 public struct ShopUpdateRequest: Sendable, Codable, Hashable {
 
     public var name: String?
-    public var logoUrl: String?
-    public var bannerUrl: String?
+    public var logoKey: String?
+    public var bannerKey: String?
     public var description: String?
 
-    public init(name: String? = nil, logoUrl: String? = nil, bannerUrl: String? = nil, description: String? = nil) {
+    public init(name: String? = nil, logoKey: String? = nil, bannerKey: String? = nil, description: String? = nil) {
         self.name = name
-        self.logoUrl = logoUrl
-        self.bannerUrl = bannerUrl
+        self.logoKey = logoKey
+        self.bannerKey = bannerKey
         self.description = description
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case name
-        case logoUrl = "logo_url"
-        case bannerUrl = "banner_url"
+        case logoKey = "logo_key"
+        case bannerKey = "banner_key"
         case description
     }
 
@@ -33,8 +33,8 @@ public struct ShopUpdateRequest: Sendable, Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(name, forKey: .name)
-        try container.encodeIfPresent(logoUrl, forKey: .logoUrl)
-        try container.encodeIfPresent(bannerUrl, forKey: .bannerUrl)
+        try container.encodeIfPresent(logoKey, forKey: .logoKey)
+        try container.encodeIfPresent(bannerKey, forKey: .bannerKey)
         try container.encodeIfPresent(description, forKey: .description)
     }
 }

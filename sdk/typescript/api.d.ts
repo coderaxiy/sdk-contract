@@ -2299,6 +2299,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/uploads": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create Upload */
+        post: operations["create_upload_api_v1_uploads_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/": {
         parameters: {
             query?: never;
@@ -2429,6 +2446,14 @@ export interface components {
          * @enum {string}
          */
         BankOwnerType: "seller" | "shop";
+        /** Body_create_upload_api_v1_uploads_post */
+        Body_create_upload_api_v1_uploads_post: {
+            /**
+             * File
+             * Format: binary
+             */
+            file: string;
+        };
         /** BrandRead */
         BrandRead: {
             /** Id */
@@ -2938,8 +2963,8 @@ export interface components {
             /** Shop Id */
             shop_id: number | null;
             type: components["schemas"]["DocumentType"];
-            /** File Url */
-            file_url: string;
+            /** File Key */
+            file_key: string;
             status: components["schemas"]["DocumentStatus"];
             /** Rejection Reason */
             rejection_reason: string | null;
@@ -2952,6 +2977,12 @@ export interface components {
              * Format: date-time
              */
             created_at: string;
+            /**
+             * File Url
+             * @description Signed, time-limited link (STORAGE_PRESIGNED_URL_EXPIRE_SECONDS) —
+             *     documents live in the private bucket. Fetch a fresh one to view again.
+             */
+            readonly file_url: string;
         };
         /** DocumentReviewRequest */
         DocumentReviewRequest: {
@@ -2967,8 +2998,8 @@ export interface components {
         /** DocumentSubmitRequest */
         DocumentSubmitRequest: {
             type: components["schemas"]["DocumentType"];
-            /** File Url */
-            file_url: string;
+            /** File Key */
+            file_key: string;
             /** Shop Id */
             shop_id?: number | null;
         };
@@ -3751,8 +3782,8 @@ export interface components {
         };
         /** ProductImageIn */
         ProductImageIn: {
-            /** Url */
-            url: string;
+            /** Key */
+            key: string;
             /**
              * Sort Order
              * @default 0
@@ -3768,12 +3799,14 @@ export interface components {
         ProductImageRead: {
             /** Id */
             id: number;
-            /** Url */
-            url: string;
+            /** Key */
+            key: string;
             /** Sort Order */
             sort_order: number;
             /** Is Primary */
             is_primary: boolean;
+            /** Url */
+            readonly url: string;
         };
         /** ProductModerationLogRead */
         ProductModerationLogRead: {
@@ -4313,10 +4346,10 @@ export interface components {
             name: string;
             /** Slug */
             slug?: string | null;
-            /** Logo Url */
-            logo_url?: string | null;
-            /** Banner Url */
-            banner_url?: string | null;
+            /** Logo Key */
+            logo_key?: string | null;
+            /** Banner Key */
+            banner_key?: string | null;
             /** Description */
             description?: string | null;
             /**
@@ -4335,10 +4368,10 @@ export interface components {
             name: string;
             /** Slug */
             slug: string;
-            /** Logo Url */
-            logo_url: string | null;
-            /** Banner Url */
-            banner_url: string | null;
+            /** Logo Key */
+            logo_key: string | null;
+            /** Banner Key */
+            banner_key: string | null;
             /** Description */
             description: string | null;
             /** Legal Entity Override */
@@ -4360,6 +4393,10 @@ export interface components {
              * Format: date-time
              */
             updated_at: string;
+            /** Logo Url */
+            readonly logo_url: string | null;
+            /** Banner Url */
+            readonly banner_url: string | null;
         };
         /** ShopStaffRead */
         ShopStaffRead: {
@@ -4385,10 +4422,10 @@ export interface components {
         ShopUpdateRequest: {
             /** Name */
             name?: string | null;
-            /** Logo Url */
-            logo_url?: string | null;
-            /** Banner Url */
-            banner_url?: string | null;
+            /** Logo Key */
+            logo_key?: string | null;
+            /** Banner Key */
+            banner_key?: string | null;
             /** Description */
             description?: string | null;
         };
@@ -4438,6 +4475,34 @@ export interface components {
         /** UpdateStaffRoleRequest */
         UpdateStaffRoleRequest: {
             role: components["schemas"]["PickupPointStaffRole"];
+        };
+        /**
+         * UploadPurpose
+         * @enum {string}
+         */
+        UploadPurpose: "shop_logo" | "shop_banner" | "product_image" | "seller_document";
+        /** UploadRead */
+        UploadRead: {
+            /** Id */
+            id: number;
+            /** Key */
+            key: string;
+            /** Url */
+            url: string;
+            purpose: components["schemas"]["UploadPurpose"];
+            /** Content Type */
+            content_type: string;
+            /** Size Bytes */
+            size_bytes: number;
+            /** Width */
+            width: number | null;
+            /** Height */
+            height: number | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
         };
         /**
          * UserAdminCreate
@@ -9683,6 +9748,43 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PickupStatusRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_upload_api_v1_uploads_post: {
+        parameters: {
+            query: {
+                purpose: components["schemas"]["UploadPurpose"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_create_upload_api_v1_uploads_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UploadRead"];
                 };
             };
             /** @description Validation Error */

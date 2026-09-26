@@ -23,34 +23,15 @@
 
 package com.emarketseller.sdk.model
 
-import com.emarketseller.sdk.model.DocumentType
+import io.kotlintest.shouldBe
+import io.kotlintest.specs.ShouldSpec
 
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Contextual
+import com.emarketseller.sdk.model.UploadPurpose
 
-/**
- * 
- *
- * @param type 
- * @param fileKey 
- * @param shopId 
- */
-@Serializable
+class UploadPurposeTest : ShouldSpec() {
+    init {
+        // uncomment below to create an instance of UploadPurpose
+        //val modelInstance = UploadPurpose()
 
-data class DocumentSubmitRequest (
-
-    @Contextual @SerialName(value = "type")
-    val type: DocumentType,
-
-    @SerialName(value = "file_key")
-    val fileKey: kotlin.String,
-
-    @SerialName(value = "shop_id")
-    val shopId: kotlin.Int? = null
-
-) {
-
-
+    }
 }
-

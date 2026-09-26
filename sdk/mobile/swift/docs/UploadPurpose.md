@@ -1,13 +1,8 @@
-# ProductImageRead
+# UploadPurpose
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **Int** |  | 
-**key** | **String** |  | 
-**sortOrder** | **Int** |  | 
-**isPrimary** | **Bool** |  | 
-**url** | **String** |  | [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

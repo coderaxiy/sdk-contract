@@ -37,12 +37,13 @@ import kotlinx.serialization.Contextual
  * @param sellerId 
  * @param shopId 
  * @param type 
- * @param fileUrl 
+ * @param fileKey 
  * @param status 
  * @param rejectionReason 
  * @param reviewedBy 
  * @param reviewedAt 
  * @param createdAt 
+ * @param fileUrl Signed, time-limited link (STORAGE_PRESIGNED_URL_EXPIRE_SECONDS) — documents live in the private bucket. Fetch a fresh one to view again.
  */
 @Serializable
 
@@ -60,8 +61,8 @@ data class DocumentRead (
     @Contextual @SerialName(value = "type")
     val type: DocumentType,
 
-    @SerialName(value = "file_url")
-    val fileUrl: kotlin.String,
+    @SerialName(value = "file_key")
+    val fileKey: kotlin.String,
 
     @Contextual @SerialName(value = "status")
     val status: DocumentStatus,
@@ -76,7 +77,11 @@ data class DocumentRead (
     val reviewedAt: java.time.OffsetDateTime?,
 
     @Contextual @SerialName(value = "created_at")
-    val createdAt: java.time.OffsetDateTime
+    val createdAt: java.time.OffsetDateTime,
+
+    /* Signed, time-limited link (STORAGE_PRESIGNED_URL_EXPIRE_SECONDS) — documents live in the private bucket. Fetch a fresh one to view again. */
+    @SerialName(value = "file_url")
+    val fileUrl: kotlin.String
 
 ) {
 

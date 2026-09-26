@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **sellerId** | **Int** |  | 
 **name** | **String** |  | 
 **slug** | **String** |  | 
-**logoUrl** | **String** |  | 
-**bannerUrl** | **String** |  | 
+**logoKey** | **String** |  | 
+**bannerKey** | **String** |  | 
 **description** | **String** |  | 
 **legalEntityOverride** | **Bool** |  | 
 **status** | [**ShopStatus**](ShopStatus.md) |  | 
@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **ratingCount** | **Int** |  | 
 **createdAt** | **Date** |  | 
 **updatedAt** | **Date** |  | 
+**logoUrl** | **String** |  | [readonly] 
+**bannerUrl** | **String** |  | [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

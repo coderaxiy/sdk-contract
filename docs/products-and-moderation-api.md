@@ -75,10 +75,14 @@ two distinct modes, not one form with optional fields.
 
 ### Images
 
-- No dedicated image-upload endpoint — the product's image list is replaced
-  wholesale on every `POST` (create) / `PATCH` (update) that includes an
-  `images` array. Upload files to your storage/CDN elsewhere first, then send
-  the resulting URLs.
+- Upload each image first with `POST /uploads?purpose=product_image` (see
+  [media-uploads-api.md](media-uploads-api.md)), then send the returned keys:
+  `images: [{ key, sort_order, is_primary }]`. The server rejects keys that
+  aren't yours or weren't uploaded as `product_image`.
+- The product's image list is replaced wholesale on every `POST` (create) /
+  `PATCH` (update) that includes an `images` array — **to keep an existing
+  image, send its `key` again** (it's in every `images[]` item of the response).
+- The same key can't appear twice in one `images` array (`400`).
 - Exactly one image in the array must have `is_primary: true` (only enforced
   when the array is non-empty).
 - Omitting `images` entirely on a `PATCH` leaves the current images untouched;
@@ -117,6 +121,10 @@ strings describing possible duplicate/counterfeit/price-outlier signals (e.g.
 `"Price is more than 5x the category median (120000 UZS)"`). These are
 **advisory only** — never block an approval, just surface them prominently in
 the admin queue UI (e.g. a warning badge) so the admin can make the final call.
+
+The image flag (`"Primary image matches product #N from a different shop with a
+different brand"`) compares perceptual hashes of primary images, so it catches
+resized and re-compressed copies of the same photo, but not heavily cropped ones.
 
 ---
 
@@ -197,7 +205,7 @@ catalog/search doc territory). Show an out-of-stock state in the UI based on
   moderated_at: string | null    // ISO timestamp
   created_at: string
   updated_at: string
-  images: { id, url, sort_order, is_primary }[]
+  images: { id, key, url, sort_order, is_primary }[]   // url is built from key — display only
   variants: ProductVariantRead[]
   attribute_values: { id, category_attribute_id, value }[]
 }

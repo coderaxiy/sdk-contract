@@ -14,6 +14,7 @@ Sources/EmarketSellerSDK/APIs/ProductsAPI.swift
 Sources/EmarketSellerSDK/APIs/RolesAPI.swift
 Sources/EmarketSellerSDK/APIs/SellersAPI.swift
 Sources/EmarketSellerSDK/APIs/ShopsAPI.swift
+Sources/EmarketSellerSDK/APIs/UploadsAPI.swift
 Sources/EmarketSellerSDK/APIs/UsersAPI.swift
 Sources/EmarketSellerSDK/Infrastructure/APIHelper.swift
 Sources/EmarketSellerSDK/Infrastructure/APIs.swift
@@ -196,6 +197,8 @@ Sources/EmarketSellerSDK/Models/TranslationIn.swift
 Sources/EmarketSellerSDK/Models/TranslationRead.swift
 Sources/EmarketSellerSDK/Models/UpdateShopLimitRequest.swift
 Sources/EmarketSellerSDK/Models/UpdateStaffRoleRequest.swift
+Sources/EmarketSellerSDK/Models/UploadPurpose.swift
+Sources/EmarketSellerSDK/Models/UploadRead.swift
 Sources/EmarketSellerSDK/Models/UserAdminCreate.swift
 Sources/EmarketSellerSDK/Models/UserPasswordSet.swift
 Sources/EmarketSellerSDK/Models/UserRead.swift
@@ -379,6 +382,9 @@ docs/TranslationIn.md
 docs/TranslationRead.md
 docs/UpdateShopLimitRequest.md
 docs/UpdateStaffRoleRequest.md
+docs/UploadPurpose.md
+docs/UploadRead.md
+docs/UploadsAPI.md
 docs/UserAdminCreate.md
 docs/UserPasswordSet.md
 docs/UserRead.md

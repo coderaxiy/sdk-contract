@@ -40,10 +40,10 @@ class DocumentSubmitRequestTest : ShouldSpec() {
             //modelInstance.type shouldBe ("TODO")
         }
 
-        // to test the property `fileUrl`
-        should("test fileUrl") {
+        // to test the property `fileKey`
+        should("test fileKey") {
             // uncomment below to test the property
-            //modelInstance.fileUrl shouldBe ("TODO")
+            //modelInstance.fileKey shouldBe ("TODO")
         }
 
         // to test the property `shopId`

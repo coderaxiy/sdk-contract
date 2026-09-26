@@ -594,7 +594,7 @@ Submit Document
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import EmarketSellerSDK
 
-let documentSubmitRequest = DocumentSubmitRequest(type: DocumentType(), fileUrl: "fileUrl_example", shopId: 123) // DocumentSubmitRequest | 
+let documentSubmitRequest = DocumentSubmitRequest(type: DocumentType(), fileKey: "fileKey_example", shopId: 123) // DocumentSubmitRequest | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Submit Document

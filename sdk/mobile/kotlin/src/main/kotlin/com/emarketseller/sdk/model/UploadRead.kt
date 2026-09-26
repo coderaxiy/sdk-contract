@@ -23,6 +23,7 @@
 
 package com.emarketseller.sdk.model
 
+import com.emarketseller.sdk.model.UploadPurpose
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -33,13 +34,17 @@ import kotlinx.serialization.Contextual
  *
  * @param id 
  * @param key 
- * @param sortOrder 
- * @param isPrimary 
  * @param url 
+ * @param purpose 
+ * @param contentType 
+ * @param sizeBytes 
+ * @param width 
+ * @param height 
+ * @param createdAt 
  */
 @Serializable
 
-data class ProductImageRead (
+data class UploadRead (
 
     @SerialName(value = "id")
     val id: kotlin.Int,
@@ -47,14 +52,26 @@ data class ProductImageRead (
     @SerialName(value = "key")
     val key: kotlin.String,
 
-    @SerialName(value = "sort_order")
-    val sortOrder: kotlin.Int,
-
-    @SerialName(value = "is_primary")
-    val isPrimary: kotlin.Boolean,
-
     @SerialName(value = "url")
-    val url: kotlin.String
+    val url: kotlin.String,
+
+    @Contextual @SerialName(value = "purpose")
+    val purpose: UploadPurpose,
+
+    @SerialName(value = "content_type")
+    val contentType: kotlin.String,
+
+    @SerialName(value = "size_bytes")
+    val sizeBytes: kotlin.Int,
+
+    @SerialName(value = "width")
+    val width: kotlin.Int?,
+
+    @SerialName(value = "height")
+    val height: kotlin.Int?,
+
+    @Contextual @SerialName(value = "created_at")
+    val createdAt: java.time.OffsetDateTime
 
 ) {
 

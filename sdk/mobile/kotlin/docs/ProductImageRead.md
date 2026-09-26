@@ -5,9 +5,10 @@
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
 | **id** | **kotlin.Int** |  |  |
-| **url** | **kotlin.String** |  |  |
+| **key** | **kotlin.String** |  |  |
 | **sortOrder** | **kotlin.Int** |  |  |
 | **isPrimary** | **kotlin.Boolean** |  |  |
+| **url** | **kotlin.String** |  |  [readonly] |
 
 
 

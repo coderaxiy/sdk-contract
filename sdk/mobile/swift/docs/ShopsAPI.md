@@ -187,7 +187,7 @@ Create Shop
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import EmarketSellerSDK
 
-let shopCreateRequest = ShopCreateRequest(name: "name_example", slug: "slug_example", logoUrl: "logoUrl_example", bannerUrl: "bannerUrl_example", description: "description_example", legalEntityOverride: false) // ShopCreateRequest | 
+let shopCreateRequest = ShopCreateRequest(name: "name_example", slug: "slug_example", logoKey: "logoKey_example", bannerKey: "bannerKey_example", description: "description_example", legalEntityOverride: false) // ShopCreateRequest | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Create Shop
@@ -964,7 +964,7 @@ Update Shop
 import EmarketSellerSDK
 
 let shopId = 987 // Int | 
-let shopUpdateRequest = ShopUpdateRequest(name: "name_example", logoUrl: "logoUrl_example", bannerUrl: "bannerUrl_example", description: "description_example") // ShopUpdateRequest | 
+let shopUpdateRequest = ShopUpdateRequest(name: "name_example", logoKey: "logoKey_example", bannerKey: "bannerKey_example", description: "description_example") // ShopUpdateRequest | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Update Shop

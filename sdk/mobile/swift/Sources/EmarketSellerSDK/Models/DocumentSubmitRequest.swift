@@ -10,18 +10,18 @@ import Foundation
 public struct DocumentSubmitRequest: Sendable, Codable, Hashable {
 
     public var type: DocumentType
-    public var fileUrl: String
+    public var fileKey: String
     public var shopId: Int?
 
-    public init(type: DocumentType, fileUrl: String, shopId: Int? = nil) {
+    public init(type: DocumentType, fileKey: String, shopId: Int? = nil) {
         self.type = type
-        self.fileUrl = fileUrl
+        self.fileKey = fileKey
         self.shopId = shopId
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case type
-        case fileUrl = "file_url"
+        case fileKey = "file_key"
         case shopId = "shop_id"
     }
 
@@ -30,7 +30,7 @@ public struct DocumentSubmitRequest: Sendable, Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type, forKey: .type)
-        try container.encode(fileUrl, forKey: .fileUrl)
+        try container.encode(fileKey, forKey: .fileKey)
         try container.encodeIfPresent(shopId, forKey: .shopId)
     }
 }

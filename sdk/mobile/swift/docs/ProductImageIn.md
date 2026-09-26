@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**url** | **String** |  | 
+**key** | **String** |  | 
 **sortOrder** | **Int** |  | [optional] [default to 0]
 **isPrimary** | **Bool** |  | [optional] [default to false]
 

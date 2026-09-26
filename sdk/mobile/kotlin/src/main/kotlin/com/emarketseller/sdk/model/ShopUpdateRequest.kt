@@ -32,8 +32,8 @@ import kotlinx.serialization.Contextual
  * 
  *
  * @param name 
- * @param logoUrl 
- * @param bannerUrl 
+ * @param logoKey 
+ * @param bannerKey 
  * @param description 
  */
 @Serializable
@@ -43,11 +43,11 @@ data class ShopUpdateRequest (
     @SerialName(value = "name")
     val name: kotlin.String? = null,
 
-    @SerialName(value = "logo_url")
-    val logoUrl: kotlin.String? = null,
+    @SerialName(value = "logo_key")
+    val logoKey: kotlin.String? = null,
 
-    @SerialName(value = "banner_url")
-    val bannerUrl: kotlin.String? = null,
+    @SerialName(value = "banner_key")
+    val bannerKey: kotlin.String? = null,
 
     @SerialName(value = "description")
     val description: kotlin.String? = null

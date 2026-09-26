@@ -31,7 +31,7 @@ import kotlinx.serialization.Contextual
 /**
  * 
  *
- * @param url 
+ * @param key 
  * @param sortOrder 
  * @param isPrimary 
  */
@@ -39,8 +39,8 @@ import kotlinx.serialization.Contextual
 
 data class ProductImageIn (
 
-    @SerialName(value = "url")
-    val url: kotlin.String,
+    @SerialName(value = "key")
+    val key: kotlin.String,
 
     @SerialName(value = "sort_order")
     val sortOrder: kotlin.Int? = 0,

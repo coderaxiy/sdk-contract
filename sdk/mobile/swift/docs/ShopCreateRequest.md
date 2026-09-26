@@ -5,8 +5,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | 
 **slug** | **String** |  | [optional] 
-**logoUrl** | **String** |  | [optional] 
-**bannerUrl** | **String** |  | [optional] 
+**logoKey** | **String** |  | [optional] 
+**bannerKey** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
 **legalEntityOverride** | **Bool** |  | [optional] [default to false]
 
