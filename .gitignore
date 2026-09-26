@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+*.log
+.idea/
+.vscode/
+.openapi-generator-cli/
+dist/
+build/
+
+# Gradle build output — not part of the SDK
+sdk/mobile/kotlin/.gradle/

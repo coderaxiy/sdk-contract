@@ -1,0 +1,23 @@
+{
+  "name": "@emarketseller/sdk-contract",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Single source of truth for the emarketseller API contract: OpenAPI spec, generated SDKs, integration docs, and the task inbox between backend, frontend, and mobile.",
+  "scripts": {
+    "export": "bash scripts/export-openapi.sh",
+    "validate": "bash scripts/validate-openapi.sh",
+    "gen:ts": "bash scripts/generate-ts.sh",
+    "gen:kotlin": "bash scripts/generate-kotlin.sh",
+    "gen:swift": "bash scripts/generate-swift.sh",
+    "gen:all": "bash scripts/generate-all.sh",
+    "preview": "redocly preview-docs openapi/api.yaml --config redocly.yaml",
+    "tasks": "node scripts/tasks.mjs list",
+    "tasks:check": "node scripts/tasks.mjs check",
+    "task:new": "node scripts/tasks.mjs new"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.13.0",
+    "@redocly/cli": "^1.25.0",
+    "openapi-typescript": "^7.4.0"
+  }
+}

@@ -1,0 +1,26 @@
+extends:
+  - recommended
+
+rules:
+  operation-operationId: error
+  operation-operationId-unique: error
+  operation-operationId-url-safe: error
+  operation-summary: warn
+  no-identical-paths: error
+  no-undefined-server-variable: error
+
+  # Collection roots like /users/ and /roles/ are declared with a trailing slash
+  # in the backend and clients already call them that way.
+  no-path-trailing-slash: off
+
+  # FastAPI declares auth via dependencies, not OpenAPI security schemes — every
+  # op would fail this. Auth rules live in docs/api-standards.md instead.
+  security-defined: off
+  # FastAPI emits a 422 on every op with inputs; that's our 4xx.
+  operation-4xx-response: off
+  # FastAPI doesn't emit these, and localhost is a real dev server.
+  info-license: off
+  no-server-example.com: off
+  operation-description: off
+  tag-description: off
+  operation-tag-defined: off

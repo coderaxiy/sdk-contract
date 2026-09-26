@@ -1,0 +1,245 @@
+# Products & Moderation API — Frontend Integration Guide
+
+Backend implementation of `03-products-and-moderation.md`. All paths below are
+relative to the API base (`/api/v1`), e.g. `GET /api/v1/seller/products`.
+
+## Auth
+
+Same as the rest of the app: login via `POST /api/v1/auth/login` sets an
+**httpOnly cookie** named `access_token`. There is no bearer token to store —
+every request from the browser must be made with credentials included
+(`fetch(..., { credentials: 'include' })` / `axios.defaults.withCredentials = true`).
+
+- **Admin** endpoints require the `products:moderate` permission on the logged-in
+  user's role. A `403` means the user is authenticated but lacks the permission.
+- **Seller** endpoints require the logged-in user to have an associated `Seller`
+  record (`403 "Not registered as a seller"` otherwise), and additionally check
+  that the seller **owns** the shop/product/variant being acted on
+  (`403 "You do not own this..."`).
+- **Buyer** endpoints are public — no auth required.
+
+## Error shape
+
+Standard FastAPI errors:
+- `400` / `403` / `404` → `{"detail": "<message string>"}`
+- `422` (request body failed validation) → `{"detail": [{"loc": [...], "msg": "...", "type": "..."}]}`
+
+Treat `400` `detail` strings as user-facing — they're written to be shown
+directly to the seller/admin (e.g. "Slug 'x' is already used by another
+product in this shop").
+
+---
+
+## 1. Core concepts the UI needs to model
+
+### Product status (state machine)
+
+```
+draft ──submit──▶ pending_review ──approve──▶ approved
+  ▲                     │                        │
+  │                  reject                    delist
+  │                     ▼                        ▼
+  └──────────────── rejected              delisted ──submit──▶ pending_review
+                                                │
+                                    approved/delisted ──archive──▶ archived (terminal)
+```
+
+- `draft` — seller is still editing; not submitted yet.
+- `pending_review` — awaiting admin action (reached via submit, resubmit, or
+  relist — same `POST /seller/products/{id}/submit` action for all three).
+- `approved` — live/visible to buyers.
+- `rejected` — admin rejected; `rejection_reason` is set; seller can edit and resubmit.
+- `delisted` — seller/admin took it down; not buyer-visible, but the record and
+  its variants/attributes are retained. Relisting goes through `pending_review`
+  again (no instant-reactivate).
+- `archived` — terminal. Hidden everywhere, including the seller's default
+  dashboard view (the frontend should filter these out of the default list and
+  only show them via an explicit "Archived" filter).
+
+**Editing a product that's `approved`** may silently flip it back to
+`pending_review` if a "sensitive field" (see §4 below) was changed — always
+re-read the `status` field from the `PATCH` response rather than assuming the
+edit was applied without a status change.
+
+### `has_variants` — a hard fork in the form
+
+- `has_variants: false` → the form must collect `base_price`, `stock_quantity`,
+  `sku` directly on the product, and these become **required** on create.
+- `has_variants: true` → those three fields must be `null`/omitted on the
+  product; price/stock/SKU are entered per-variant instead, via the separate
+  variant endpoints. A product can't be submitted for review until it has at
+  least one variant.
+
+This is enforced server-side (422 on mismatch) — build the create/edit form as
+two distinct modes, not one form with optional fields.
+
+### Images
+
+- No dedicated image-upload endpoint — the product's image list is replaced
+  wholesale on every `POST` (create) / `PATCH` (update) that includes an
+  `images` array. Upload files to your storage/CDN elsewhere first, then send
+  the resulting URLs.
+- Exactly one image in the array must have `is_primary: true` (only enforced
+  when the array is non-empty).
+- Omitting `images` entirely on a `PATCH` leaves the current images untouched;
+  sending `images: []` clears them.
+
+### Attribute values
+
+- The category's attribute schema comes from the **existing** Doc 02 endpoint:
+  `GET /api/v1/seller/categories/{category_id}/attributes` (already live) —
+  use this to render the dynamic attribute form (`data_type`, `options` for
+  select/multi_select, `is_required`).
+- Submit collected values as `attribute_values: [{category_attribute_id, value}]`
+  in the product create/update body — same "replace wholesale" semantics as
+  images. Required attributes aren't enforced at draft-save time, only at submit
+  (`POST /seller/products/{id}/submit` returns 400 listing missing keys by name).
+- Each `CategoryAttribute` in that response now also carries an
+  `is_variant_defining` boolean (new field) — attributes flagged `true` are the
+  ones allowed as **variant** attribute keys (e.g. `size`, `color`); everything
+  else is a flat product-level spec (e.g. `material`) and belongs in
+  `attribute_values`, not in a variant's `attributes` object.
+
+### Sensitive-field re-review
+
+Admins can configure which fields trigger re-review when edited on an
+`approved` product, via `GET`/`PUT /api/v1/admin/moderation-config`
+(`{"sensitive_fields": [...]}` — default `["title", "category_id", "brand_id",
+"primary_image"]`). This isn't in the original spec doc's endpoint table but is
+required for it to be admin-editable at runtime. The frontend doesn't need to
+special-case this — just always show the current `status` from the response
+after any edit, since it may have changed.
+
+### Moderation flags (advisory only)
+
+Moderation-queue items include a `flags: string[]` array — human-readable
+strings describing possible duplicate/counterfeit/price-outlier signals (e.g.
+`"Price is more than 5x the category median (120000 UZS)"`). These are
+**advisory only** — never block an approval, just surface them prominently in
+the admin queue UI (e.g. a warning badge) so the admin can make the final call.
+
+---
+
+## 2. Admin endpoints
+
+RBAC: `products:moderate` permission required on all of these.
+
+| Method | Path | Body | Notes |
+|---|---|---|---|
+| GET | `/admin/products` | — | Query: `status`, `shop_id`, `category_id` |
+| GET | `/admin/products/{product_id}` | — | Full detail incl. variants/images/attribute values |
+| GET | `/admin/moderation-queue` | — | Query: `category_id`, `shop_id`, `only_flagged` (bool). Returns `ModerationQueueItemRead[]` — `ProductRead` + `flags`. Flagged items sort first; ties preserve oldest-first order. |
+| PATCH | `/admin/products/{product_id}/approve` | — | 400 if not `pending_review`, or if the shop's category assignment is no longer approved |
+| PATCH | `/admin/products/{product_id}/reject` | `{reason: string}` | 400 if not `pending_review` |
+| PATCH | `/admin/products/{product_id}/delist` | `{reason?: string}` | 400 if not `approved` |
+| GET | `/admin/products/{product_id}/moderation-log` | — | Full history: `submitted` / `approved` / `rejected` / `auto_flagged` / `edited_after_approval` entries, each with a JSON `snapshot` |
+| GET | `/admin/moderation-config` | — | `{sensitive_fields, updated_at, updated_by}` |
+| PUT | `/admin/moderation-config` | `{sensitive_fields: string[]}` | |
+| GET | `/admin/brands` | — | Query: `status` (`pending`/`approved`/`rejected`) — use this for a brand-requests review queue |
+| PATCH | `/admin/brands/{brand_id}/approve` | — | |
+| PATCH | `/admin/brands/{brand_id}/reject` | `{reason: string}` | |
+
+## 3. Seller endpoints
+
+All require an authenticated seller; ownership of the target shop/product/variant
+is enforced server-side.
+
+| Method | Path | Body | Notes |
+|---|---|---|---|
+| POST | `/seller/shops/{shop_id}/products` | `ProductCreate` | Creates as `draft`. 400 if the shop lacks an approved category assignment isn't checked here — only at submit (draft creation is always allowed so the seller can save work in progress) |
+| PATCH | `/seller/products/{product_id}` | `ProductUpdate` (all fields optional) | May flip `approved → pending_review` — check the returned `status` |
+| POST | `/seller/products/{product_id}/submit` | — | `draft`/`rejected`/`delisted` → `pending_review`. 400 with missing-attribute list, or if category assignment isn't approved, or (variant products) zero variants exist |
+| POST | `/seller/products/{product_id}/delist` | `{reason?: string}` | Only from `approved` |
+| POST | `/seller/products/{product_id}/archive` | — | Only from `approved` or `delisted`; terminal |
+| GET | `/seller/products` | — | Query: `shop_id?`, `status?`. Omit `shop_id` to list across all of the seller's shops |
+| GET | `/seller/products/{product_id}` | — | Full detail incl. `rejection_reason` when applicable |
+| POST | `/seller/products/{product_id}/variants` | `ProductVariantCreate` | Only on `has_variants=true` products. 400 on duplicate SKU (SKUs are unique **platform-wide**) or duplicate attribute combination within the product |
+| PATCH | `/seller/variants/{variant_id}` | `ProductVariantUpdate` (all optional) | Changing `price` may also flip the parent product back to `pending_review` if `base_price` is a configured sensitive field |
+| DELETE | `/seller/variants/{variant_id}` | — | Soft-delete only (`is_active=false`); no body, `204` on success |
+| GET | `/seller/brands` | — | Approved brands only — populate the brand `<select>` from this |
+| POST | `/seller/brands/request` | `BrandRequestCreate` | `{shop_id, name, logo_url?}` — creates a `pending` brand for admin review; 400 if a brand with that name already exists/pending |
+
+## 4. Buyer endpoints (public)
+
+| Method | Path | Notes |
+|---|---|---|
+| GET | `/products/{product_id}` | 404 unless `status=approved` **and** the owning shop is `active` |
+| GET | `/shops/{shop_id}/products` | Same visibility rule; returns `[]` (not 404) if the shop isn't active |
+
+Note: `stock_quantity = 0` does **not** hide a product from these — it stays
+visible with zero stock (no "sold out" filtering happens here; that's future
+catalog/search doc territory). Show an out-of-stock state in the UI based on
+`stock_quantity === 0` (or, for variant products, all variants having
+`stock_quantity === 0` / `is_active === false`).
+
+---
+
+## 5. Response shapes (key fields)
+
+### `ProductRead`
+```ts
+{
+  id: number
+  shop_id: number
+  category_id: number
+  brand_id: number | null
+  title: string
+  slug: string
+  description: string | null
+  has_variants: boolean
+  base_price: string | null      // Decimal, serialized as string — parse before formatting
+  stock_quantity: number | null
+  sku: string | null
+  status: "draft" | "pending_review" | "approved" | "rejected" | "delisted" | "archived"
+  rejection_reason: string | null
+  needs_attention: boolean
+  moderated_by: number | null
+  moderated_at: string | null    // ISO timestamp
+  created_at: string
+  updated_at: string
+  images: { id, url, sort_order, is_primary }[]
+  variants: ProductVariantRead[]
+  attribute_values: { id, category_attribute_id, value }[]
+}
+```
+
+### `ProductVariantRead`
+```ts
+{
+  id: number
+  product_id: number
+  sku: string
+  price: string                  // Decimal as string
+  stock_quantity: number
+  is_active: boolean
+  attributes: Record<string, string | number | boolean>   // e.g. { size: "L", color: "red" }
+  image_ids: number[] | null
+  created_at: string
+  updated_at: string
+}
+```
+
+### `BrandRead`
+```ts
+{ id, name, logo_url, is_verified, status: "pending" | "approved" | "rejected", requested_by_shop_id, created_at }
+```
+
+**All `Decimal` money fields (`base_price`, `ProductVariant.price`) are
+serialized as JSON strings**, not numbers — this avoids floating-point drift
+on UZS amounts. Parse with a decimal-safe library (or `parseFloat` if you're
+only displaying, never doing further arithmetic client-side).
+
+---
+
+## 6. Suggested integration order
+
+1. Seller product list/detail pages (`GET /seller/products`, `GET /seller/products/{id}`) — read-only first.
+2. Product create/edit form — build the `has_variants` fork and attribute-value
+   form using the category's attribute schema (`GET /seller/categories/{id}/attributes`).
+3. Submit / delist / archive actions — simple state-transition buttons, disable
+   based on current `status`.
+4. Variant management (only relevant once `has_variants=true` forms exist).
+5. Brand picker + "request new brand" flow.
+6. Admin moderation queue + approve/reject/delist + moderation log view.
+7. Admin moderation-config editor (low priority — a simple settings page).
+8. Buyer-facing product detail / shop storefront pages.
