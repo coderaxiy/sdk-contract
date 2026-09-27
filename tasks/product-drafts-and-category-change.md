@@ -25,7 +25,13 @@ reply_to:
    require `attribute_values` to be resent with a category change and validate
    them against the new schema, or drop values that no longer apply, and `400`
    when variants don't fit. Document the rule.
-3. **Minor:** a simple product's `sku` isn't checked for uniqueness, while
+3. **A brand can't be removed.** `update` only assigns `brand_id` when it
+   `is not None`, so once a product has a brand, the seller can switch it but
+   never go back to "no brand". Expected: an explicit `null` clears it (use
+   `model_fields_set` to tell "sent null" from "omitted"). Same pattern as
+   `shop-image-removal`. The seller editor disables "No brand" on products
+   that have one until this lands.
+4. **Minor:** a simple product's `sku` isn't checked for uniqueness, while
    variant SKUs are unique platform-wide. Is that intended?
 
 ## Why

@@ -33,6 +33,13 @@ reply_to:
    just images of its own product. Expected: `400` for ids that aren't this
    product's images.
 
+4. **Submit counts deleted variants.** `submit_for_review` checks
+   `variant_repo.list_by_product(product.id)`, which doesn't filter
+   `is_active`. A variant product whose variants were all deleted still passes
+   "must have at least one variant" and goes to review with nothing to buy.
+   Expected: count active variants only. The seller UI already blocks submit
+   without an active variant.
+
 ## Why
 
 The seller variant builder lets sellers remove variants and attach photos
