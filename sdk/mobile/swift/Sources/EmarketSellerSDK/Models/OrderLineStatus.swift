@@ -7,8 +7,9 @@
 
 import Foundation
 
+/** Owned by RefundService (Doc 04 §3.1a). */
 public enum OrderLineStatus: String, Sendable, Codable, CaseIterable {
     case active = "active"
-    case returned = "returned"
+    case returnPending = "return_pending"
     case refunded = "refunded"
 }

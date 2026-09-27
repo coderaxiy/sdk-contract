@@ -10,6 +10,8 @@
 
     * `preparing` (value: `"preparing"`)
 
+    * `at_warehouse` (value: `"at_warehouse"`)
+
     * `shipped` (value: `"shipped"`)
 
     * `delivered` (value: `"delivered"`)
@@ -18,7 +20,7 @@
 
     * `return_requested` (value: `"return_requested"`)
 
-    * `returned` (value: `"returned"`)
+    * `partially_refunded` (value: `"partially_refunded"`)
 
     * `refunded` (value: `"refunded"`)
 

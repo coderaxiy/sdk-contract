@@ -27,7 +27,6 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.model.RefundApproveRequest
-import com.emarketseller.sdk.model.RefundAmount
 import com.emarketseller.sdk.model.WhoBearsCost
 
 class RefundApproveRequestTest : ShouldSpec() {
@@ -39,12 +38,6 @@ class RefundApproveRequestTest : ShouldSpec() {
         should("test whoBearsCost") {
             // uncomment below to test the property
             //modelInstance.whoBearsCost shouldBe ("TODO")
-        }
-
-        // to test the property `refundAmount`
-        should("test refundAmount") {
-            // uncomment below to test the property
-            //modelInstance.refundAmount shouldBe ("TODO")
         }
 
     }

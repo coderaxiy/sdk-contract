@@ -46,6 +46,7 @@ import com.emarketseller.sdk.model.OrderShopGroupStatus
 import com.emarketseller.sdk.model.PayoutRead
 import com.emarketseller.sdk.model.PayoutRunRequest
 import com.emarketseller.sdk.model.RefundApproveRequest
+import com.emarketseller.sdk.model.RefundConfirmReturnRequest
 import com.emarketseller.sdk.model.RefundRejectRequest
 import com.emarketseller.sdk.model.RefundRequestCreate
 import com.emarketseller.sdk.model.RefundRequestRead
@@ -93,6 +94,16 @@ class OrdersApiTest : ShouldSpec() {
             //val checkoutRequest : CheckoutRequest =  // CheckoutRequest | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : CheckoutResponse = apiInstance.checkoutApiV1CheckoutPost(checkoutRequest, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost
+        should("test confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost") {
+            // uncomment below to test confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost
+            //val refundId : kotlin.Int = 56 // kotlin.Int | 
+            //val refundConfirmReturnRequest : RefundConfirmReturnRequest =  // RefundConfirmReturnRequest | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : RefundRequestRead = apiInstance.confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost(refundId, refundConfirmReturnRequest, accessToken)
             //result shouldBe ("TODO")
         }
 
@@ -197,10 +208,11 @@ class OrdersApiTest : ShouldSpec() {
             //val buyerId : kotlin.Int = 56 // kotlin.Int | 
             //val dateFrom : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | 
             //val dateTo : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | 
+            //val search : kotlin.String = search_example // kotlin.String | Case-insensitive partial match on order_number
             //val skip : kotlin.Int = 56 // kotlin.Int | 
             //val limit : kotlin.Int = 56 // kotlin.Int | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : kotlin.collections.List<OrderAdminRead> = apiInstance.listOrdersAdminApiV1AdminOrdersGet(status, shopId, buyerId, dateFrom, dateTo, skip, limit, accessToken)
+            //val result : kotlin.collections.List<OrderAdminRead> = apiInstance.listOrdersAdminApiV1AdminOrdersGet(status, shopId, buyerId, dateFrom, dateTo, search, skip, limit, accessToken)
             //result shouldBe ("TODO")
         }
 

@@ -65,5 +65,11 @@ class ProductVariantUpdateTest : ShouldSpec() {
             //modelInstance.imageIds shouldBe ("TODO")
         }
 
+        // to test the property `isActive`
+        should("test isActive") {
+            // uncomment below to test the property
+            //modelInstance.isActive shouldBe ("TODO")
+        }
+
     }
 }

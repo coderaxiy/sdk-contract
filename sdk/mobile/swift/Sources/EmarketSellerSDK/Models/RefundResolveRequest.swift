@@ -10,19 +10,19 @@ import Foundation
 public struct RefundResolveRequest: Sendable, Codable, Hashable {
 
     public static let reasonRule = StringRule(minLength: 1, maxLength: nil, pattern: nil)
-    public var whoBearsCost: WhoBearsCost
-    public var refundAmount: RefundAmount
+    public var decision: RefundDecision
+    public var whoBearsCost: WhoBearsCost?
     public var reason: String
 
-    public init(whoBearsCost: WhoBearsCost, refundAmount: RefundAmount, reason: String) {
+    public init(decision: RefundDecision, whoBearsCost: WhoBearsCost? = nil, reason: String) {
+        self.decision = decision
         self.whoBearsCost = whoBearsCost
-        self.refundAmount = refundAmount
         self.reason = reason
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case decision
         case whoBearsCost = "who_bears_cost"
-        case refundAmount = "refund_amount"
         case reason
     }
 
@@ -30,8 +30,8 @@ public struct RefundResolveRequest: Sendable, Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(whoBearsCost, forKey: .whoBearsCost)
-        try container.encode(refundAmount, forKey: .refundAmount)
+        try container.encode(decision, forKey: .decision)
+        try container.encodeIfPresent(whoBearsCost, forKey: .whoBearsCost)
         try container.encode(reason, forKey: .reason)
     }
 }

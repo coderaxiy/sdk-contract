@@ -4,7 +4,8 @@
 ## Properties
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
-| **shippingAddress** | [**ShippingAddressIn**](ShippingAddressIn.md) |  |  |
+| **recipient** | [**Recipient**](Recipient.md) |  |  |
+| **pickupPointId** | **kotlin.Int** |  |  |
 | **paymentMethod** | [**PaymentMethod**](PaymentMethod.md) |  |  |
 
 

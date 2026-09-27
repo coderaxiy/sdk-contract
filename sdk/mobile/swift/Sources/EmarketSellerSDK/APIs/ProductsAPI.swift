@@ -683,14 +683,15 @@ open class ProductsAPI {
      - parameter status: (query)  (optional)
      - parameter shopId: (query)  (optional)
      - parameter categoryId: (query)  (optional)
+     - parameter search: (query) Case-insensitive partial match on title or SKU (incl. variant SKUs) (optional)
      - parameter skip: (query)  (optional, default to 0)
      - parameter limit: (query)  (optional, default to 50)
      - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: [ProductRead]
      */
-    open class func listProductsAdminApiV1AdminProductsGet(status: ProductStatus? = nil, shopId: Int? = nil, categoryId: Int? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [ProductRead] {
-        return try await listProductsAdminApiV1AdminProductsGetWithRequestBuilder(status: status, shopId: shopId, categoryId: categoryId, skip: skip, limit: limit, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    open class func listProductsAdminApiV1AdminProductsGet(status: ProductStatus? = nil, shopId: Int? = nil, categoryId: Int? = nil, search: String? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [ProductRead] {
+        return try await listProductsAdminApiV1AdminProductsGetWithRequestBuilder(status: status, shopId: shopId, categoryId: categoryId, search: search, skip: skip, limit: limit, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
@@ -699,13 +700,14 @@ open class ProductsAPI {
      - parameter status: (query)  (optional)
      - parameter shopId: (query)  (optional)
      - parameter categoryId: (query)  (optional)
+     - parameter search: (query) Case-insensitive partial match on title or SKU (incl. variant SKUs) (optional)
      - parameter skip: (query)  (optional, default to 0)
      - parameter limit: (query)  (optional, default to 50)
      - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: RequestBuilder<[ProductRead]> 
      */
-    open class func listProductsAdminApiV1AdminProductsGetWithRequestBuilder(status: ProductStatus? = nil, shopId: Int? = nil, categoryId: Int? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[ProductRead]> {
+    open class func listProductsAdminApiV1AdminProductsGetWithRequestBuilder(status: ProductStatus? = nil, shopId: Int? = nil, categoryId: Int? = nil, search: String? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[ProductRead]> {
         let localVariablePath = "/api/v1/admin/products"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters: [String: any Sendable]? = nil
@@ -715,6 +717,7 @@ open class ProductsAPI {
             "status": (wrappedValue: status?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
             "shop_id": (wrappedValue: shopId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
             "category_id": (wrappedValue: categoryId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "search": (wrappedValue: search?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
             "skip": (wrappedValue: skip?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
             "limit": (wrappedValue: limit?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
         ])

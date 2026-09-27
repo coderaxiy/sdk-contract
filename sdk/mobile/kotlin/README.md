@@ -69,22 +69,28 @@ All URIs are relative to *http://localhost:8000*
 | *LogisticsApi* | [**checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost**](docs/LogisticsApi.md#checkinshipmentapiv1pickupstaffshipmentsshipmentidcheckinpost) | **POST** api/v1/pickup-staff/shipments/{shipment_id}/check-in | Check In Shipment |
 | *LogisticsApi* | [**collectHoldingItemsApiV1PickupStaffHoldingsHoldingIdCollectPost**](docs/LogisticsApi.md#collectholdingitemsapiv1pickupstaffholdingsholdingidcollectpost) | **POST** api/v1/pickup-staff/holdings/{holding_id}/collect | Collect Holding Items |
 | *LogisticsApi* | [**createPickupPointApiV1AdminPickupPointsPost**](docs/LogisticsApi.md#createpickuppointapiv1adminpickuppointspost) | **POST** api/v1/admin/pickup-points | Create Pickup Point |
+| *LogisticsApi* | [**createWarehouseShipmentApiV1WarehouseShipmentsPost**](docs/LogisticsApi.md#createwarehouseshipmentapiv1warehouseshipmentspost) | **POST** api/v1/warehouse/shipments | Create Warehouse Shipment |
 | *LogisticsApi* | [**declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost**](docs/LogisticsApi.md#declarereconciliationapiv1pickupstaffreconciliationreconciliationiddeclarepost) | **POST** api/v1/pickup-staff/reconciliation/{reconciliation_id}/declare | Declare Reconciliation |
-| *LogisticsApi* | [**dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost**](docs/LogisticsApi.md#dispatchgrouptopointapiv1sellerordergroupsgroupiddispatchtopointpost) | **POST** api/v1/seller/order-groups/{group_id}/dispatch-to-point | Dispatch Group To Point |
 | *LogisticsApi* | [**getCurrentPickupStaffIdentityApiV1PickupStaffMeGet**](docs/LogisticsApi.md#getcurrentpickupstaffidentityapiv1pickupstaffmeget) | **GET** api/v1/pickup-staff/me | Get Current Pickup Staff Identity |
 | *LogisticsApi* | [**getCurrentReconciliationForStaffApiV1PickupStaffReconciliationCurrentGet**](docs/LogisticsApi.md#getcurrentreconciliationforstaffapiv1pickupstaffreconciliationcurrentget) | **GET** api/v1/pickup-staff/reconciliation/current | Get Current Reconciliation For Staff |
 | *LogisticsApi* | [**getGroupPickupStatusApiV1OrdersOrderIdGroupsGroupIdPickupStatusGet**](docs/LogisticsApi.md#getgrouppickupstatusapiv1ordersorderidgroupsgroupidpickupstatusget) | **GET** api/v1/orders/{order_id}/groups/{group_id}/pickup-status | Get Group Pickup Status |
+| *LogisticsApi* | [**getLastUsedPickupPointApiV1PickupPointsLastUsedGet**](docs/LogisticsApi.md#getlastusedpickuppointapiv1pickuppointslastusedget) | **GET** api/v1/pickup-points/last-used | Get Last Used Pickup Point |
 | *LogisticsApi* | [**invitePickupStaffApiV1PickupStaffStaffInvitePost**](docs/LogisticsApi.md#invitepickupstaffapiv1pickupstaffstaffinvitepost) | **POST** api/v1/pickup-staff/staff/invite | Invite Pickup Staff |
 | *LogisticsApi* | [**listCoStaffApiV1PickupStaffStaffGet**](docs/LogisticsApi.md#listcostaffapiv1pickupstaffstaffget) | **GET** api/v1/pickup-staff/staff | List Co Staff |
 | *LogisticsApi* | [**listHoldingsForStaffApiV1PickupStaffHoldingsGet**](docs/LogisticsApi.md#listholdingsforstaffapiv1pickupstaffholdingsget) | **GET** api/v1/pickup-staff/holdings | List Holdings For Staff |
 | *LogisticsApi* | [**listNearbyPickupPointsApiV1PickupPointsNearbyGet**](docs/LogisticsApi.md#listnearbypickuppointsapiv1pickuppointsnearbyget) | **GET** api/v1/pickup-points/nearby | List Nearby Pickup Points |
 | *LogisticsApi* | [**listPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffGet**](docs/LogisticsApi.md#listpickuppointstaffadminapiv1adminpickuppointspointidstaffget) | **GET** api/v1/admin/pickup-points/{point_id}/staff | List Pickup Point Staff Admin |
 | *LogisticsApi* | [**listPickupPointsAdminApiV1AdminPickupPointsGet**](docs/LogisticsApi.md#listpickuppointsadminapiv1adminpickuppointsget) | **GET** api/v1/admin/pickup-points | List Pickup Points Admin |
+| *LogisticsApi* | [**listPickupPointsApiV1PickupPointsGet**](docs/LogisticsApi.md#listpickuppointsapiv1pickuppointsget) | **GET** api/v1/pickup-points | List Pickup Points |
 | *LogisticsApi* | [**listReconciliationsAdminApiV1AdminReconciliationsGet**](docs/LogisticsApi.md#listreconciliationsadminapiv1adminreconciliationsget) | **GET** api/v1/admin/reconciliations | List Reconciliations Admin |
 | *LogisticsApi* | [**listRegionsAdminApiV1AdminRegionsGet**](docs/LogisticsApi.md#listregionsadminapiv1adminregionsget) | **GET** api/v1/admin/regions | List Regions Admin |
-| *LogisticsApi* | [**listSellerShipmentsApiV1SellerShipmentsGet**](docs/LogisticsApi.md#listsellershipmentsapiv1sellershipmentsget) | **GET** api/v1/seller/shipments | List Seller Shipments |
+| *LogisticsApi* | [**listRegionsApiV1RegionsGet**](docs/LogisticsApi.md#listregionsapiv1regionsget) | **GET** api/v1/regions | List Regions |
 | *LogisticsApi* | [**listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet**](docs/LogisticsApi.md#listshipmentdiscrepanciesadminapiv1adminshipmentsget) | **GET** api/v1/admin/shipments | List Shipment Discrepancies Admin |
 | *LogisticsApi* | [**listShipmentsForStaffApiV1PickupStaffShipmentsGet**](docs/LogisticsApi.md#listshipmentsforstaffapiv1pickupstaffshipmentsget) | **GET** api/v1/pickup-staff/shipments | List Shipments For Staff |
+| *LogisticsApi* | [**listWarehouseInboundApiV1WarehouseInboundGet**](docs/LogisticsApi.md#listwarehouseinboundapiv1warehouseinboundget) | **GET** api/v1/warehouse/inbound | List Warehouse Inbound |
+| *LogisticsApi* | [**listWarehouseOutboundApiV1WarehouseOutboundGet**](docs/LogisticsApi.md#listwarehouseoutboundapiv1warehouseoutboundget) | **GET** api/v1/warehouse/outbound | List Warehouse Outbound |
+| *LogisticsApi* | [**listWarehouseShipmentsApiV1WarehouseShipmentsGet**](docs/LogisticsApi.md#listwarehouseshipmentsapiv1warehouseshipmentsget) | **GET** api/v1/warehouse/shipments | List Warehouse Shipments |
+| *LogisticsApi* | [**receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost**](docs/LogisticsApi.md#receiveordergroupapiv1warehouseordergroupsgroupidreceivepost) | **POST** api/v1/warehouse/order-groups/{group_id}/receive | Receive Order Group |
 | *LogisticsApi* | [**rejectHoldingItemsApiV1PickupStaffHoldingsHoldingIdRejectPost**](docs/LogisticsApi.md#rejectholdingitemsapiv1pickupstaffholdingsholdingidrejectpost) | **POST** api/v1/pickup-staff/holdings/{holding_id}/reject | Reject Holding Items |
 | *LogisticsApi* | [**resolveReconciliationAdminApiV1AdminReconciliationsReconciliationIdResolvePatch**](docs/LogisticsApi.md#resolvereconciliationadminapiv1adminreconciliationsreconciliationidresolvepatch) | **PATCH** api/v1/admin/reconciliations/{reconciliation_id}/resolve | Resolve Reconciliation Admin |
 | *LogisticsApi* | [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](docs/LogisticsApi.md#resolveshipmentdiscrepancyapiv1adminshipmentsshipmentidresolvediscrepancypatch) | **PATCH** api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy |
@@ -96,6 +102,7 @@ All URIs are relative to *http://localhost:8000*
 | *OrdersApi* | [**approveRefundRequestApiV1SellerRefundRequestsRefundIdApprovePatch**](docs/OrdersApi.md#approverefundrequestapiv1sellerrefundrequestsrefundidapprovepatch) | **PATCH** api/v1/seller/refund-requests/{refund_id}/approve | Approve Refund Request |
 | *OrdersApi* | [**cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost**](docs/OrdersApi.md#cancelordergroupapiv1ordersorderidgroupsgroupidcancelpost) | **POST** api/v1/orders/{order_id}/groups/{group_id}/cancel | Cancel Order Group |
 | *OrdersApi* | [**checkoutApiV1CheckoutPost**](docs/OrdersApi.md#checkoutapiv1checkoutpost) | **POST** api/v1/checkout | Checkout |
+| *OrdersApi* | [**confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost**](docs/OrdersApi.md#confirmrefundreturnapiv1sellerrefundrequestsrefundidconfirmreturnpost) | **POST** api/v1/seller/refund-requests/{refund_id}/confirm-return | Confirm Refund Return |
 | *OrdersApi* | [**createManualAdjustmentApiV1AdminLedgerShopIdManualAdjustmentPost**](docs/OrdersApi.md#createmanualadjustmentapiv1adminledgershopidmanualadjustmentpost) | **POST** api/v1/admin/ledger/{shop_id}/manual-adjustment | Create Manual Adjustment |
 | *OrdersApi* | [**escalateRefundRequestApiV1RefundRequestsRefundIdEscalatePost**](docs/OrdersApi.md#escalaterefundrequestapiv1refundrequestsrefundidescalatepost) | **POST** api/v1/refund-requests/{refund_id}/escalate | Escalate Refund Request |
 | *OrdersApi* | [**getCartApiV1CartGet**](docs/OrdersApi.md#getcartapiv1cartget) | **GET** api/v1/cart | Get Cart |
@@ -170,6 +177,7 @@ All URIs are relative to *http://localhost:8000*
 | *SellersApi* | [**updateShopLimitApiV1AdminSellersSellerIdShopLimitPatch**](docs/SellersApi.md#updateshoplimitapiv1adminsellersselleridshoplimitpatch) | **PATCH** api/v1/admin/sellers/{seller_id}/shop-limit | Update Shop Limit |
 | *ShopsApi* | [**approveCategoryAssignmentApiV1AdminShopCategoryAssignmentsAssignmentIdApprovePatch**](docs/ShopsApi.md#approvecategoryassignmentapiv1adminshopcategoryassignmentsassignmentidapprovepatch) | **PATCH** api/v1/admin/shop-category-assignments/{assignment_id}/approve | Approve Category Assignment |
 | *ShopsApi* | [**approveShopApiV1AdminShopsShopIdApprovePatch**](docs/ShopsApi.md#approveshopapiv1adminshopsshopidapprovepatch) | **PATCH** api/v1/admin/shops/{shop_id}/approve | Approve Shop |
+| *ShopsApi* | [**checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet**](docs/ShopsApi.md#checkslugavailabilityapiv1sellershopsslugavailabilityget) | **GET** api/v1/seller/shops/slug-availability | Check Slug Availability |
 | *ShopsApi* | [**closeShopApiV1SellerShopsShopIdClosePost**](docs/ShopsApi.md#closeshopapiv1sellershopsshopidclosepost) | **POST** api/v1/seller/shops/{shop_id}/close | Close Shop |
 | *ShopsApi* | [**createShopApiV1SellerShopsPost**](docs/ShopsApi.md#createshopapiv1sellershopspost) | **POST** api/v1/seller/shops | Create Shop |
 | *ShopsApi* | [**getOwnShopApiV1SellerShopsShopIdGet**](docs/ShopsApi.md#getownshopapiv1sellershopsshopidget) | **GET** api/v1/seller/shops/{shop_id} | Get Own Shop |
@@ -230,6 +238,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.CartRead](docs/CartRead.md)
  - [com.emarketseller.sdk.model.CashCollectionRecordItemRead](docs/CashCollectionRecordItemRead.md)
  - [com.emarketseller.sdk.model.CashCollectionRecordRead](docs/CashCollectionRecordRead.md)
+ - [com.emarketseller.sdk.model.CategoryAncestorRead](docs/CategoryAncestorRead.md)
  - [com.emarketseller.sdk.model.CategoryAssignmentRead](docs/CategoryAssignmentRead.md)
  - [com.emarketseller.sdk.model.CategoryAssignmentStatus](docs/CategoryAssignmentStatus.md)
  - [com.emarketseller.sdk.model.CategoryAttributeIn](docs/CategoryAttributeIn.md)
@@ -255,7 +264,6 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.DeclaredAmount](docs/DeclaredAmount.md)
  - [com.emarketseller.sdk.model.DelistRequest](docs/DelistRequest.md)
  - [com.emarketseller.sdk.model.DiscrepancyItemResolution](docs/DiscrepancyItemResolution.md)
- - [com.emarketseller.sdk.model.DispatchToPointRequest](docs/DispatchToPointRequest.md)
  - [com.emarketseller.sdk.model.DocumentRead](docs/DocumentRead.md)
  - [com.emarketseller.sdk.model.DocumentReviewRequest](docs/DocumentReviewRequest.md)
  - [com.emarketseller.sdk.model.DocumentStatus](docs/DocumentStatus.md)
@@ -288,6 +296,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.OrderLineDetailRead](docs/OrderLineDetailRead.md)
  - [com.emarketseller.sdk.model.OrderLineRead](docs/OrderLineRead.md)
  - [com.emarketseller.sdk.model.OrderLineStatus](docs/OrderLineStatus.md)
+ - [com.emarketseller.sdk.model.OrderPickupPointRead](docs/OrderPickupPointRead.md)
  - [com.emarketseller.sdk.model.OrderRead](docs/OrderRead.md)
  - [com.emarketseller.sdk.model.OrderShopGroupDetailRead](docs/OrderShopGroupDetailRead.md)
  - [com.emarketseller.sdk.model.OrderShopGroupRead](docs/OrderShopGroupRead.md)
@@ -330,10 +339,11 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.ProductVariantCreate](docs/ProductVariantCreate.md)
  - [com.emarketseller.sdk.model.ProductVariantRead](docs/ProductVariantRead.md)
  - [com.emarketseller.sdk.model.ProductVariantUpdate](docs/ProductVariantUpdate.md)
+ - [com.emarketseller.sdk.model.Recipient](docs/Recipient.md)
  - [com.emarketseller.sdk.model.ReconciliationRead](docs/ReconciliationRead.md)
- - [com.emarketseller.sdk.model.RefundAmount](docs/RefundAmount.md)
- - [com.emarketseller.sdk.model.RefundAmount1](docs/RefundAmount1.md)
  - [com.emarketseller.sdk.model.RefundApproveRequest](docs/RefundApproveRequest.md)
+ - [com.emarketseller.sdk.model.RefundConfirmReturnRequest](docs/RefundConfirmReturnRequest.md)
+ - [com.emarketseller.sdk.model.RefundDecision](docs/RefundDecision.md)
  - [com.emarketseller.sdk.model.RefundReasonCode](docs/RefundReasonCode.md)
  - [com.emarketseller.sdk.model.RefundRejectRequest](docs/RefundRejectRequest.md)
  - [com.emarketseller.sdk.model.RefundRequestCreate](docs/RefundRequestCreate.md)
@@ -351,18 +361,19 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.RoleCreate](docs/RoleCreate.md)
  - [com.emarketseller.sdk.model.RoleRead](docs/RoleRead.md)
  - [com.emarketseller.sdk.model.SellerAdminRead](docs/SellerAdminRead.md)
+ - [com.emarketseller.sdk.model.SellerCategoryRead](docs/SellerCategoryRead.md)
  - [com.emarketseller.sdk.model.SellerRead](docs/SellerRead.md)
  - [com.emarketseller.sdk.model.SellerRegisterRequest](docs/SellerRegisterRequest.md)
  - [com.emarketseller.sdk.model.SellerStatus](docs/SellerStatus.md)
  - [com.emarketseller.sdk.model.SetAttributesRequest](docs/SetAttributesRequest.md)
  - [com.emarketseller.sdk.model.ShipmentItemRead](docs/ShipmentItemRead.md)
  - [com.emarketseller.sdk.model.ShipmentRead](docs/ShipmentRead.md)
- - [com.emarketseller.sdk.model.ShippingAddressIn](docs/ShippingAddressIn.md)
  - [com.emarketseller.sdk.model.ShopCreateRequest](docs/ShopCreateRequest.md)
  - [com.emarketseller.sdk.model.ShopRead](docs/ShopRead.md)
  - [com.emarketseller.sdk.model.ShopStaffRead](docs/ShopStaffRead.md)
  - [com.emarketseller.sdk.model.ShopStatus](docs/ShopStatus.md)
  - [com.emarketseller.sdk.model.ShopUpdateRequest](docs/ShopUpdateRequest.md)
+ - [com.emarketseller.sdk.model.SlugAvailabilityRead](docs/SlugAvailabilityRead.md)
  - [com.emarketseller.sdk.model.StaffRole](docs/StaffRole.md)
  - [com.emarketseller.sdk.model.StatusReasonRequest](docs/StatusReasonRequest.md)
  - [com.emarketseller.sdk.model.TokenResponse](docs/TokenResponse.md)
@@ -378,6 +389,8 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.UserUpdate](docs/UserUpdate.md)
  - [com.emarketseller.sdk.model.ValidationError](docs/ValidationError.md)
  - [com.emarketseller.sdk.model.Value](docs/Value.md)
+ - [com.emarketseller.sdk.model.WarehouseGroupRead](docs/WarehouseGroupRead.md)
+ - [com.emarketseller.sdk.model.WarehouseShipmentCreateRequest](docs/WarehouseShipmentCreateRequest.md)
  - [com.emarketseller.sdk.model.WhoBearsCost](docs/WhoBearsCost.md)
 
 

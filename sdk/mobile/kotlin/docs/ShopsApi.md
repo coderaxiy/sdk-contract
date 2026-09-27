@@ -6,6 +6,7 @@ All URIs are relative to *http://localhost:8000*
 | ------------- | ------------- | ------------- |
 | [**approveCategoryAssignmentApiV1AdminShopCategoryAssignmentsAssignmentIdApprovePatch**](ShopsApi.md#approveCategoryAssignmentApiV1AdminShopCategoryAssignmentsAssignmentIdApprovePatch) | **PATCH** api/v1/admin/shop-category-assignments/{assignment_id}/approve | Approve Category Assignment |
 | [**approveShopApiV1AdminShopsShopIdApprovePatch**](ShopsApi.md#approveShopApiV1AdminShopsShopIdApprovePatch) | **PATCH** api/v1/admin/shops/{shop_id}/approve | Approve Shop |
+| [**checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet**](ShopsApi.md#checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet) | **GET** api/v1/seller/shops/slug-availability | Check Slug Availability |
 | [**closeShopApiV1SellerShopsShopIdClosePost**](ShopsApi.md#closeShopApiV1SellerShopsShopIdClosePost) | **POST** api/v1/seller/shops/{shop_id}/close | Close Shop |
 | [**createShopApiV1SellerShopsPost**](ShopsApi.md#createShopApiV1SellerShopsPost) | **POST** api/v1/seller/shops | Create Shop |
 | [**getOwnShopApiV1SellerShopsShopIdGet**](ShopsApi.md#getOwnShopApiV1SellerShopsShopIdGet) | **GET** api/v1/seller/shops/{shop_id} | Get Own Shop |
@@ -93,6 +94,45 @@ launch(Dispatchers.IO) {
 ### Return type
 
 [**ShopRead**](ShopRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+Check Slug Availability
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(ShopsApi::class.java)
+val slug : kotlin.String = slug_example // kotlin.String | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : SlugAvailabilityRead = webService.checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet(slug, accessToken)
+}
+```
+
+### Parameters
+| **slug** | **kotlin.String**|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**SlugAvailabilityRead**](SlugAvailabilityRead.md)
 
 ### Authorization
 

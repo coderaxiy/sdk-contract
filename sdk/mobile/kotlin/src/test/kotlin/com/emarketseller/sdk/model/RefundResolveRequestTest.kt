@@ -27,7 +27,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.model.RefundResolveRequest
-import com.emarketseller.sdk.model.RefundAmount
+import com.emarketseller.sdk.model.RefundDecision
 import com.emarketseller.sdk.model.WhoBearsCost
 
 class RefundResolveRequestTest : ShouldSpec() {
@@ -35,22 +35,22 @@ class RefundResolveRequestTest : ShouldSpec() {
         // uncomment below to create an instance of RefundResolveRequest
         //val modelInstance = RefundResolveRequest()
 
-        // to test the property `whoBearsCost`
-        should("test whoBearsCost") {
+        // to test the property `decision`
+        should("test decision") {
             // uncomment below to test the property
-            //modelInstance.whoBearsCost shouldBe ("TODO")
-        }
-
-        // to test the property `refundAmount`
-        should("test refundAmount") {
-            // uncomment below to test the property
-            //modelInstance.refundAmount shouldBe ("TODO")
+            //modelInstance.decision shouldBe ("TODO")
         }
 
         // to test the property `reason`
         should("test reason") {
             // uncomment below to test the property
             //modelInstance.reason shouldBe ("TODO")
+        }
+
+        // to test the property `whoBearsCost`
+        should("test whoBearsCost") {
+            // uncomment below to test the property
+            //modelInstance.whoBearsCost shouldBe ("TODO")
         }
 
     }

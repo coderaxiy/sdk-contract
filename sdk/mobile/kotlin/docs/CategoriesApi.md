@@ -378,6 +378,8 @@ No authorization required
 
 List Categories Seller
 
+Active leaf categories (the only ones products can use), each with its ancestors so the picker can show a path.
+
 ### Example
 ```kotlin
 // Import classes:
@@ -389,7 +391,7 @@ val apiClient = ApiClient()
 val webService = apiClient.createWebservice(CategoriesApi::class.java)
 
 launch(Dispatchers.IO) {
-    val result : kotlin.collections.List<CategoryRead> = webService.listCategoriesSellerApiV1SellerCategoriesGet()
+    val result : kotlin.collections.List<SellerCategoryRead> = webService.listCategoriesSellerApiV1SellerCategoriesGet()
 }
 ```
 
@@ -398,7 +400,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**kotlin.collections.List&lt;CategoryRead&gt;**](CategoryRead.md)
+[**kotlin.collections.List&lt;SellerCategoryRead&gt;**](SellerCategoryRead.md)
 
 ### Authorization
 

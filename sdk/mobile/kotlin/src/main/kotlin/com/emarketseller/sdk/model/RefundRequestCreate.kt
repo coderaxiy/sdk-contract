@@ -23,7 +23,6 @@
 
 package com.emarketseller.sdk.model
 
-import com.emarketseller.sdk.model.RefundAmount1
 import com.emarketseller.sdk.model.RefundReasonCode
 
 import kotlinx.serialization.Serializable
@@ -36,7 +35,6 @@ import kotlinx.serialization.Contextual
  * @param reasonCode 
  * @param reasonText 
  * @param evidenceUrls 
- * @param refundAmount 
  */
 @Serializable
 
@@ -49,10 +47,7 @@ data class RefundRequestCreate (
     val reasonText: kotlin.String? = null,
 
     @SerialName(value = "evidence_urls")
-    val evidenceUrls: kotlin.collections.List<kotlin.String>? = null,
-
-    @SerialName(value = "refund_amount")
-    val refundAmount: RefundAmount1? = null
+    val evidenceUrls: kotlin.collections.List<kotlin.String>? = null
 
 ) {
 

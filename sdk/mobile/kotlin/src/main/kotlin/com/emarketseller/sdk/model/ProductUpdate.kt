@@ -32,7 +32,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Contextual
 
 /**
- * PATCH semantics — only provided fields are changed. Editing a sensitive field (per admin-configured list, §4.4) on an approved product triggers re-review automatically; status itself is never set directly here.
+ * PATCH semantics — only provided fields are changed; an explicit null clears `brand_id` and `description` (null is ignored for the rest). Editing a sensitive field (per admin-configured list, §4.4) on an approved product triggers re-review automatically; status itself is never set directly here.
  *
  * @param categoryId 
  * @param brandId 

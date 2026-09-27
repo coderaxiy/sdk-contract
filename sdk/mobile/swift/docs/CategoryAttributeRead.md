@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **isRequired** | **Bool** |  | 
 **isFilterable** | **Bool** |  | 
 **isInherited** | **Bool** |  | 
+**isVariantDefining** | **Bool** |  | 
 **sortOrder** | **Int** |  | 
 **translations** | [AttributeTranslationRead] |  | [optional] 
 **inheritedFromCategoryId** | **Int** |  | [optional] 

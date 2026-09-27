@@ -16,6 +16,7 @@
 | **evidenceUrls** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  |
 | **resolvedBy** | **kotlin.Int** |  |  |
 | **resolvedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
+| **escalatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 
 

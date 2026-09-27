@@ -24,7 +24,7 @@
 package com.emarketseller.sdk.model
 
 import com.emarketseller.sdk.model.PaymentMethod
-import com.emarketseller.sdk.model.ShippingAddressIn
+import com.emarketseller.sdk.model.Recipient
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -33,15 +33,19 @@ import kotlinx.serialization.Contextual
 /**
  * 
  *
- * @param shippingAddress 
+ * @param recipient 
+ * @param pickupPointId 
  * @param paymentMethod 
  */
 @Serializable
 
 data class CheckoutRequest (
 
-    @SerialName(value = "shipping_address")
-    val shippingAddress: ShippingAddressIn,
+    @SerialName(value = "recipient")
+    val recipient: Recipient,
+
+    @SerialName(value = "pickup_point_id")
+    val pickupPointId: kotlin.Int,
 
     @Contextual @SerialName(value = "payment_method")
     val paymentMethod: PaymentMethod

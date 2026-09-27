@@ -3,11 +3,11 @@ id: shop-slug-availability
 title: Reject a taken explicit shop slug (400) and add a slug-availability check
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: shops
 created: 2026-09-26
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -55,3 +55,22 @@ seller. The product requirement is no duplicate or surprise slugs.
   `app/modules/shops/model.py` → `slug` `unique=True`
 - `openapi/api.yaml` → `ShopCreateRequest.slug`, `ShopRead.slug`
 - Related: `shops-api-doc`
+
+## Resolution
+
+Doc 01 §4.2 decisions:
+
+1. Explicit `slug` taken → **`409`** `"Shop address 'my-shop' is already taken"`.
+   Derived slugs still get `-1`, `-2`… silently.
+2. `GET /api/v1/seller/shops/slug-availability?slug=` →
+   `SlugAvailabilityRead { slug, available }`, `slug` = the normalized value.
+3. **Slugs are ASCII-only.** Cyrillic is transliterated (Uzbek official
+   mapping, Russian letters included), accents stripped, everything else
+   dropped. The exact algorithm and table are in `docs/shops-api.md` §2
+   "Shop address" — please update the client-side mirror (your 11 edge cases
+   will change for Unicode input). A name with no letters or digits derives
+   `shop`; an explicit slug (or availability query) that normalizes to nothing
+   is `400 "A shop address must contain at least one letter or digit"`.
+
+Also: the shop-limit error is now `409` (Doc 01 §4.1), not `400`.
+Backend: `app/modules/shops/{service,router,schemas}.py`, `app/shared/exceptions.py` (`ConflictError`).

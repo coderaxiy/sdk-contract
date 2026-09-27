@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **evidenceUrls** | **[String]** |  | 
 **resolvedBy** | **Int** |  | 
 **resolvedAt** | **Date** |  | 
+**escalatedAt** | **Date** |  | 
 **createdAt** | **Date** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **quantity** | **Int** |  | 
 **lineTotal** | **String** |  | 
 **status** | [**OrderLineStatus**](OrderLineStatus.md) |  | 
+**physicalReturnReceivedAt** | **Date** |  | 
 **createdAt** | **Date** |  | 
 **commissionRuleId** | **Int** |  | 
 **commissionAmount** | **String** |  | 

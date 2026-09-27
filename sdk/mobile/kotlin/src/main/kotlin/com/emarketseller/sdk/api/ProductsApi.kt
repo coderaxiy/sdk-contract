@@ -283,13 +283,14 @@ interface ProductsApi {
      * @param status  (optional)
      * @param shopId  (optional)
      * @param categoryId  (optional)
+     * @param search Case-insensitive partial match on title or SKU (incl. variant SKUs) (optional)
      * @param skip  (optional, default to 0)
      * @param limit  (optional, default to 50)
      * @param accessToken  (optional)
      * @return [kotlin.collections.List<ProductRead>]
      */
     @GET("api/v1/admin/products")
-    suspend fun listProductsAdminApiV1AdminProductsGet(@Query("status") status: ProductStatus? = null, @Query("shop_id") shopId: kotlin.Int? = null, @Query("category_id") categoryId: kotlin.Int? = null, @Query("skip") skip: kotlin.Int? = 0, @Query("limit") limit: kotlin.Int? = 50, ): Response<kotlin.collections.List<ProductRead>>
+    suspend fun listProductsAdminApiV1AdminProductsGet(@Query("status") status: ProductStatus? = null, @Query("shop_id") shopId: kotlin.Int? = null, @Query("category_id") categoryId: kotlin.Int? = null, @Query("search") search: kotlin.String? = null, @Query("skip") skip: kotlin.Int? = 0, @Query("limit") limit: kotlin.Int? = 50, ): Response<kotlin.collections.List<ProductRead>>
 
     /**
      * GET api/v1/seller/products

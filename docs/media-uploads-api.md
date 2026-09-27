@@ -24,6 +24,10 @@ Every file goes through the same two steps:
 URL built from the key (`logo_url`, `banner_url`, `images[].url`, `file_url`) —
 use it for display, but don't save it or send it back.
 
+**Removing a shop logo or banner:** `PATCH /seller/shops/{shop_id}` with
+`"logo_key": null` / `"banner_key": null`. Omitting the field leaves the image
+alone, so send only the fields the user changed (see `docs/shops-api.md`).
+
 Uploading on file selection (step 1) and attaching on form save (step 2) gives
 you instant previews and a fast save. A file that's uploaded but never attached
 is harmless.

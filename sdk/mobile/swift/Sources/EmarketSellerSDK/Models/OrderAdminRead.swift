@@ -15,7 +15,8 @@ public struct OrderAdminRead: Sendable, Codable, Hashable {
     public var orderNumber: String
     public var status: OrderStatus
     public var totalAmount: String
-    public var shippingAddress: [String: JSONValue]
+    public var recipient: Recipient
+    public var pickupPoint: OrderPickupPointRead?
     public var paymentMethod: PaymentMethod
     public var paymentReference: String?
     public var placedAt: Date?
@@ -23,13 +24,14 @@ public struct OrderAdminRead: Sendable, Codable, Hashable {
     public var updatedAt: Date
     public var groups: [OrderShopGroupDetailRead]?
 
-    public init(id: Int, buyerId: Int, orderNumber: String, status: OrderStatus, totalAmount: String, shippingAddress: [String: JSONValue], paymentMethod: PaymentMethod, paymentReference: String?, placedAt: Date?, createdAt: Date, updatedAt: Date, groups: [OrderShopGroupDetailRead]? = nil) {
+    public init(id: Int, buyerId: Int, orderNumber: String, status: OrderStatus, totalAmount: String, recipient: Recipient, pickupPoint: OrderPickupPointRead?, paymentMethod: PaymentMethod, paymentReference: String?, placedAt: Date?, createdAt: Date, updatedAt: Date, groups: [OrderShopGroupDetailRead]? = nil) {
         self.id = id
         self.buyerId = buyerId
         self.orderNumber = orderNumber
         self.status = status
         self.totalAmount = totalAmount
-        self.shippingAddress = shippingAddress
+        self.recipient = recipient
+        self.pickupPoint = pickupPoint
         self.paymentMethod = paymentMethod
         self.paymentReference = paymentReference
         self.placedAt = placedAt
@@ -44,7 +46,8 @@ public struct OrderAdminRead: Sendable, Codable, Hashable {
         case orderNumber = "order_number"
         case status
         case totalAmount = "total_amount"
-        case shippingAddress = "shipping_address"
+        case recipient
+        case pickupPoint = "pickup_point"
         case paymentMethod = "payment_method"
         case paymentReference = "payment_reference"
         case placedAt = "placed_at"
@@ -62,7 +65,8 @@ public struct OrderAdminRead: Sendable, Codable, Hashable {
         try container.encode(orderNumber, forKey: .orderNumber)
         try container.encode(status, forKey: .status)
         try container.encode(totalAmount, forKey: .totalAmount)
-        try container.encode(shippingAddress, forKey: .shippingAddress)
+        try container.encode(recipient, forKey: .recipient)
+        try container.encode(pickupPoint, forKey: .pickupPoint)
         try container.encode(paymentMethod, forKey: .paymentMethod)
         try container.encode(paymentReference, forKey: .paymentReference)
         try container.encode(placedAt, forKey: .placedAt)

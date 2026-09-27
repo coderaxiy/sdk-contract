@@ -3,11 +3,11 @@ id: seller-refund-approval-guards
 title: Seller refund approve/reject — cap the amount, restrict who_bears_cost, block escalated requests
 author: frontend
 to: backend
-status: open
+status: closed
 priority: high
 area: orders
 created: 2026-09-26
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -55,3 +55,30 @@ But the API is the real boundary, and it concerns money.
   `app/modules/orders/schemas.py` → `RefundApproveRequest`
 - `openapi/api.yaml` → `RefundApproveRequest`, `WhoBearsCost`
 - `docs/orders-and-payments-api.md` §3.2, §3.3, §4 `RefundRequestRead`
+
+## Resolution
+
+Product decision (Doc 04 §4.4a): **refunds are all-or-nothing per product**, so
+the amount is no longer an input anywhere.
+
+1. **Amount:** `RefundRequest.refund_amount` is set to `OrderLine.line_total`
+   when the request is created and never changes. `refund_amount` was removed
+   from `RefundRequestCreate`, `RefundApproveRequest` and `RefundResolveRequest`.
+   Approval refunds the full amount and reverses the line's full commission, so
+   the "proportion above 1" case can't happen. A zero approval doesn't exist:
+   reject is the only other outcome.
+2. **`who_bears_cost` for sellers:** optional, defaults to `"seller"`; any other
+   value is `400`. `platform`/`buyer` stay admin-only via `/resolve`. Their
+   ledger effects are now documented in `docs/orders-and-payments-api.md`
+   "Refunds are all-or-nothing". What `buyer` means for the buyer's money is
+   still open (see the shipping-fee question in §4.4a).
+3. **Escalated requests:** seller approve/reject accept only `pending`;
+   `escalated_to_admin` → `400 "This refund request has been escalated to an admin"`.
+
+Spec + SDKs regenerated; doc §1, §3.1–3.3, §4, §6 updated.
+Backend: `app/modules/orders/{schemas,service,model}.py` → `RefundService`.
+
+**Follow-up (same day):** Doc 04 §3.1a/§4.4b/§4.5 went further: money moves at
+`confirm-return` for reasons that need the item back, `who_bears_cost: buyer`
+was removed, and admin resolve takes `decision: approve | reject` on escalated
+requests only. See notices `refunds-all-or-nothing` / `-mobile`.

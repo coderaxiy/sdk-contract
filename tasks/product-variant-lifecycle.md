@@ -3,11 +3,11 @@ id: product-variant-lifecycle
 title: Deleted variants block re-adding; variant image_ids break when product images are saved
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: products
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -52,3 +52,23 @@ silently.
   `get_by_sku`, `replace_images`; `app/modules/products/service.py` →
   `ProductVariantService.create_variant` / `update_variant` / `delete_variant`
 - `openapi/api.yaml` → `ProductVariantUpdate`, `ProductVariantRead.image_ids`
+
+## Resolution
+
+1. **Deleted variants come back by reactivation**, not by excluding them from the
+   checks: variant `sku` has a DB unique constraint, so a deleted variant must
+   keep its SKU. `ProductVariantUpdate.is_active` (`true` reactivates, `false`
+   deletes). Creating a variant with a deleted variant's combination or SKU is
+   `400` naming it: `"Deleted variant 12 (PT-L) has this attribute combination —
+   reactivate it with PATCH /seller/variants/12 {"is_active": true}"`.
+   Reactivation re-checks the keys against the product's current category.
+2. **Image ids survive saves:** images are matched by `key`; resent keys keep
+   their row and `id` (order/primary updated), removed ones are deleted and
+   stripped from every variant's `image_ids`.
+3. **`image_ids` validated:** must be this product's image ids (`400` listing
+   the foreign ones); duplicates removed.
+4. **Submit counts active variants only** (`"…at least one active variant…"`).
+
+Docs: `docs/products-and-moderation-api.md` §1 Images, §3 variant rows.
+Backend: `app/modules/products/{service,repository,schemas}.py`. The unused
+`deactivate_variant` (no route; same as DELETE) was removed.

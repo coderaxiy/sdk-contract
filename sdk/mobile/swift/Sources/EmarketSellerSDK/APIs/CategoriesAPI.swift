@@ -382,19 +382,20 @@ open class CategoriesAPI {
      List Categories Seller
      
      - parameter apiConfiguration: The configuration for the http request.
-     - returns: [CategoryRead]
+     - returns: [SellerCategoryRead]
      */
-    open class func listCategoriesSellerApiV1SellerCategoriesGet(apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [CategoryRead] {
+    open class func listCategoriesSellerApiV1SellerCategoriesGet(apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [SellerCategoryRead] {
         return try await listCategoriesSellerApiV1SellerCategoriesGetWithRequestBuilder(apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
      List Categories Seller
      - GET /api/v1/seller/categories
+     - Active leaf categories (the only ones products can use), each with its ancestors so the picker can show a path.
      - parameter apiConfiguration: The configuration for the http request.
-     - returns: RequestBuilder<[CategoryRead]> 
+     - returns: RequestBuilder<[SellerCategoryRead]> 
      */
-    open class func listCategoriesSellerApiV1SellerCategoriesGetWithRequestBuilder(apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[CategoryRead]> {
+    open class func listCategoriesSellerApiV1SellerCategoriesGetWithRequestBuilder(apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[SellerCategoryRead]> {
         let localVariablePath = "/api/v1/seller/categories"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters: [String: any Sendable]? = nil
@@ -407,7 +408,7 @@ open class CategoriesAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[CategoryRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[SellerCategoryRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }

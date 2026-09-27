@@ -22,9 +22,10 @@ public struct RefundRequestRead: Sendable, Codable, Hashable {
     public var evidenceUrls: [String]?
     public var resolvedBy: Int?
     public var resolvedAt: Date?
+    public var escalatedAt: Date?
     public var createdAt: Date
 
-    public init(id: Int, orderLineId: Int, requestedBy: RefundRequestedBy, requesterUserId: Int, reasonCode: RefundReasonCode, reasonText: String?, status: RefundStatus, refundAmount: String, whoBearsCost: WhoBearsCost?, evidenceUrls: [String]?, resolvedBy: Int?, resolvedAt: Date?, createdAt: Date) {
+    public init(id: Int, orderLineId: Int, requestedBy: RefundRequestedBy, requesterUserId: Int, reasonCode: RefundReasonCode, reasonText: String?, status: RefundStatus, refundAmount: String, whoBearsCost: WhoBearsCost?, evidenceUrls: [String]?, resolvedBy: Int?, resolvedAt: Date?, escalatedAt: Date?, createdAt: Date) {
         self.id = id
         self.orderLineId = orderLineId
         self.requestedBy = requestedBy
@@ -37,6 +38,7 @@ public struct RefundRequestRead: Sendable, Codable, Hashable {
         self.evidenceUrls = evidenceUrls
         self.resolvedBy = resolvedBy
         self.resolvedAt = resolvedAt
+        self.escalatedAt = escalatedAt
         self.createdAt = createdAt
     }
 
@@ -53,6 +55,7 @@ public struct RefundRequestRead: Sendable, Codable, Hashable {
         case evidenceUrls = "evidence_urls"
         case resolvedBy = "resolved_by"
         case resolvedAt = "resolved_at"
+        case escalatedAt = "escalated_at"
         case createdAt = "created_at"
     }
 
@@ -72,6 +75,7 @@ public struct RefundRequestRead: Sendable, Codable, Hashable {
         try container.encode(evidenceUrls, forKey: .evidenceUrls)
         try container.encode(resolvedBy, forKey: .resolvedBy)
         try container.encode(resolvedAt, forKey: .resolvedAt)
+        try container.encode(escalatedAt, forKey: .escalatedAt)
         try container.encode(createdAt, forKey: .createdAt)
     }
 }

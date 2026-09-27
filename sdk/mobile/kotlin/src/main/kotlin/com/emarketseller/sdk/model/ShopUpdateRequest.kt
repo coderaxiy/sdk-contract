@@ -29,7 +29,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Contextual
 
 /**
- * 
+ * PATCH: omitted fields are unchanged. `null` clears logo_key, banner_key or description; `null` for name is ignored.
  *
  * @param name 
  * @param logoKey 

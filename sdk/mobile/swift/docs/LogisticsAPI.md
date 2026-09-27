@@ -7,22 +7,28 @@ Method | HTTP request | Description
 [**checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost**](LogisticsAPI.md#checkinshipmentapiv1pickupstaffshipmentsshipmentidcheckinpost) | **POST** /api/v1/pickup-staff/shipments/{shipment_id}/check-in | Check In Shipment
 [**collectHoldingItemsApiV1PickupStaffHoldingsHoldingIdCollectPost**](LogisticsAPI.md#collectholdingitemsapiv1pickupstaffholdingsholdingidcollectpost) | **POST** /api/v1/pickup-staff/holdings/{holding_id}/collect | Collect Holding Items
 [**createPickupPointApiV1AdminPickupPointsPost**](LogisticsAPI.md#createpickuppointapiv1adminpickuppointspost) | **POST** /api/v1/admin/pickup-points | Create Pickup Point
+[**createWarehouseShipmentApiV1WarehouseShipmentsPost**](LogisticsAPI.md#createwarehouseshipmentapiv1warehouseshipmentspost) | **POST** /api/v1/warehouse/shipments | Create Warehouse Shipment
 [**declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost**](LogisticsAPI.md#declarereconciliationapiv1pickupstaffreconciliationreconciliationiddeclarepost) | **POST** /api/v1/pickup-staff/reconciliation/{reconciliation_id}/declare | Declare Reconciliation
-[**dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost**](LogisticsAPI.md#dispatchgrouptopointapiv1sellerordergroupsgroupiddispatchtopointpost) | **POST** /api/v1/seller/order-groups/{group_id}/dispatch-to-point | Dispatch Group To Point
 [**getCurrentPickupStaffIdentityApiV1PickupStaffMeGet**](LogisticsAPI.md#getcurrentpickupstaffidentityapiv1pickupstaffmeget) | **GET** /api/v1/pickup-staff/me | Get Current Pickup Staff Identity
 [**getCurrentReconciliationForStaffApiV1PickupStaffReconciliationCurrentGet**](LogisticsAPI.md#getcurrentreconciliationforstaffapiv1pickupstaffreconciliationcurrentget) | **GET** /api/v1/pickup-staff/reconciliation/current | Get Current Reconciliation For Staff
 [**getGroupPickupStatusApiV1OrdersOrderIdGroupsGroupIdPickupStatusGet**](LogisticsAPI.md#getgrouppickupstatusapiv1ordersorderidgroupsgroupidpickupstatusget) | **GET** /api/v1/orders/{order_id}/groups/{group_id}/pickup-status | Get Group Pickup Status
+[**getLastUsedPickupPointApiV1PickupPointsLastUsedGet**](LogisticsAPI.md#getlastusedpickuppointapiv1pickuppointslastusedget) | **GET** /api/v1/pickup-points/last-used | Get Last Used Pickup Point
 [**invitePickupStaffApiV1PickupStaffStaffInvitePost**](LogisticsAPI.md#invitepickupstaffapiv1pickupstaffstaffinvitepost) | **POST** /api/v1/pickup-staff/staff/invite | Invite Pickup Staff
 [**listCoStaffApiV1PickupStaffStaffGet**](LogisticsAPI.md#listcostaffapiv1pickupstaffstaffget) | **GET** /api/v1/pickup-staff/staff | List Co Staff
 [**listHoldingsForStaffApiV1PickupStaffHoldingsGet**](LogisticsAPI.md#listholdingsforstaffapiv1pickupstaffholdingsget) | **GET** /api/v1/pickup-staff/holdings | List Holdings For Staff
 [**listNearbyPickupPointsApiV1PickupPointsNearbyGet**](LogisticsAPI.md#listnearbypickuppointsapiv1pickuppointsnearbyget) | **GET** /api/v1/pickup-points/nearby | List Nearby Pickup Points
 [**listPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffGet**](LogisticsAPI.md#listpickuppointstaffadminapiv1adminpickuppointspointidstaffget) | **GET** /api/v1/admin/pickup-points/{point_id}/staff | List Pickup Point Staff Admin
 [**listPickupPointsAdminApiV1AdminPickupPointsGet**](LogisticsAPI.md#listpickuppointsadminapiv1adminpickuppointsget) | **GET** /api/v1/admin/pickup-points | List Pickup Points Admin
+[**listPickupPointsApiV1PickupPointsGet**](LogisticsAPI.md#listpickuppointsapiv1pickuppointsget) | **GET** /api/v1/pickup-points | List Pickup Points
 [**listReconciliationsAdminApiV1AdminReconciliationsGet**](LogisticsAPI.md#listreconciliationsadminapiv1adminreconciliationsget) | **GET** /api/v1/admin/reconciliations | List Reconciliations Admin
 [**listRegionsAdminApiV1AdminRegionsGet**](LogisticsAPI.md#listregionsadminapiv1adminregionsget) | **GET** /api/v1/admin/regions | List Regions Admin
-[**listSellerShipmentsApiV1SellerShipmentsGet**](LogisticsAPI.md#listsellershipmentsapiv1sellershipmentsget) | **GET** /api/v1/seller/shipments | List Seller Shipments
+[**listRegionsApiV1RegionsGet**](LogisticsAPI.md#listregionsapiv1regionsget) | **GET** /api/v1/regions | List Regions
 [**listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet**](LogisticsAPI.md#listshipmentdiscrepanciesadminapiv1adminshipmentsget) | **GET** /api/v1/admin/shipments | List Shipment Discrepancies Admin
 [**listShipmentsForStaffApiV1PickupStaffShipmentsGet**](LogisticsAPI.md#listshipmentsforstaffapiv1pickupstaffshipmentsget) | **GET** /api/v1/pickup-staff/shipments | List Shipments For Staff
+[**listWarehouseInboundApiV1WarehouseInboundGet**](LogisticsAPI.md#listwarehouseinboundapiv1warehouseinboundget) | **GET** /api/v1/warehouse/inbound | List Warehouse Inbound
+[**listWarehouseOutboundApiV1WarehouseOutboundGet**](LogisticsAPI.md#listwarehouseoutboundapiv1warehouseoutboundget) | **GET** /api/v1/warehouse/outbound | List Warehouse Outbound
+[**listWarehouseShipmentsApiV1WarehouseShipmentsGet**](LogisticsAPI.md#listwarehouseshipmentsapiv1warehouseshipmentsget) | **GET** /api/v1/warehouse/shipments | List Warehouse Shipments
+[**receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost**](LogisticsAPI.md#receiveordergroupapiv1warehouseordergroupsgroupidreceivepost) | **POST** /api/v1/warehouse/order-groups/{group_id}/receive | Receive Order Group
 [**rejectHoldingItemsApiV1PickupStaffHoldingsHoldingIdRejectPost**](LogisticsAPI.md#rejectholdingitemsapiv1pickupstaffholdingsholdingidrejectpost) | **POST** /api/v1/pickup-staff/holdings/{holding_id}/reject | Reject Holding Items
 [**resolveReconciliationAdminApiV1AdminReconciliationsReconciliationIdResolvePatch**](LogisticsAPI.md#resolvereconciliationadminapiv1adminreconciliationsreconciliationidresolvepatch) | **PATCH** /api/v1/admin/reconciliations/{reconciliation_id}/resolve | Resolve Reconciliation Admin
 [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](LogisticsAPI.md#resolveshipmentdiscrepancyapiv1adminshipmentsshipmentidresolvediscrepancypatch) | **PATCH** /api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy
@@ -186,6 +192,56 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **createWarehouseShipmentApiV1WarehouseShipmentsPost**
+```swift
+    open class func createWarehouseShipmentApiV1WarehouseShipmentsPost(warehouseShipmentCreateRequest: WarehouseShipmentCreateRequest, accessToken: String? = nil, completion: @escaping (_ data: ShipmentRead?, _ error: Error?) -> Void)
+```
+
+Create Warehouse Shipment
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let warehouseShipmentCreateRequest = WarehouseShipmentCreateRequest(pickupPointId: 123, orderShopGroupIds: [123]) // WarehouseShipmentCreateRequest | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Create Warehouse Shipment
+LogisticsAPI.createWarehouseShipmentApiV1WarehouseShipmentsPost(warehouseShipmentCreateRequest: warehouseShipmentCreateRequest, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **warehouseShipmentCreateRequest** | [**WarehouseShipmentCreateRequest**](WarehouseShipmentCreateRequest.md) |  | 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**ShipmentRead**](ShipmentRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost**
 ```swift
     open class func declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost(reconciliationId: Int, declareReconciliationRequest: DeclareReconciliationRequest, accessToken: String? = nil, completion: @escaping (_ data: ReconciliationRead?, _ error: Error?) -> Void)
@@ -226,58 +282,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReconciliationRead**](ReconciliationRead.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost**
-```swift
-    open class func dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost(groupId: Int, dispatchToPointRequest: DispatchToPointRequest, accessToken: String? = nil, completion: @escaping (_ data: ShipmentRead?, _ error: Error?) -> Void)
-```
-
-Dispatch Group To Point
-
-### Example
-```swift
-// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
-import EmarketSellerSDK
-
-let groupId = 987 // Int | 
-let dispatchToPointRequest = DispatchToPointRequest(pickupPointId: 123) // DispatchToPointRequest | 
-let accessToken = "accessToken_example" // String |  (optional)
-
-// Dispatch Group To Point
-LogisticsAPI.dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost(groupId: groupId, dispatchToPointRequest: dispatchToPointRequest, accessToken: accessToken) { (response, error) in
-    guard error == nil else {
-        print(error)
-        return
-    }
-
-    if (response) {
-        dump(response)
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **groupId** | **Int** |  | 
- **dispatchToPointRequest** | [**DispatchToPointRequest**](DispatchToPointRequest.md) |  | 
- **accessToken** | **String** |  | [optional] 
-
-### Return type
-
-[**ShipmentRead**](ShipmentRead.md)
 
 ### Authorization
 
@@ -426,6 +430,54 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PickupStatusRead**](PickupStatusRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getLastUsedPickupPointApiV1PickupPointsLastUsedGet**
+```swift
+    open class func getLastUsedPickupPointApiV1PickupPointsLastUsedGet(accessToken: String? = nil, completion: @escaping (_ data: PickupPointRead?, _ error: Error?) -> Void)
+```
+
+Get Last Used Pickup Point
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Get Last Used Pickup Point
+LogisticsAPI.getLastUsedPickupPointApiV1PickupPointsLastUsedGet(accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**PickupPointRead**](PickupPointRead.md)
 
 ### Authorization
 
@@ -738,6 +790,56 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **listPickupPointsApiV1PickupPointsGet**
+```swift
+    open class func listPickupPointsApiV1PickupPointsGet(regionId: Int? = nil, completion: @escaping (_ data: [PickupPointRead]?, _ error: Error?) -> Void)
+```
+
+List Pickup Points
+
+Active points only — for buyers who pick by region instead of location.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let regionId = 987 // Int |  (optional)
+
+// List Pickup Points
+LogisticsAPI.listPickupPointsApiV1PickupPointsGet(regionId: regionId) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **regionId** | **Int** |  | [optional] 
+
+### Return type
+
+[**[PickupPointRead]**](PickupPointRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **listReconciliationsAdminApiV1AdminReconciliationsGet**
 ```swift
     open class func listReconciliationsAdminApiV1AdminReconciliationsGet(status: PickupPointCashReconciliationStatus? = nil, accessToken: String? = nil, completion: @escaping (_ data: [ReconciliationRead]?, _ error: Error?) -> Void)
@@ -836,22 +938,21 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **listSellerShipmentsApiV1SellerShipmentsGet**
+# **listRegionsApiV1RegionsGet**
 ```swift
-    open class func listSellerShipmentsApiV1SellerShipmentsGet(accessToken: String? = nil, completion: @escaping (_ data: [ShipmentRead]?, _ error: Error?) -> Void)
+    open class func listRegionsApiV1RegionsGet(completion: @escaping (_ data: [RegionRead]?, _ error: Error?) -> Void)
 ```
 
-List Seller Shipments
+List Regions
 
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import EmarketSellerSDK
 
-let accessToken = "accessToken_example" // String |  (optional)
 
-// List Seller Shipments
-LogisticsAPI.listSellerShipmentsApiV1SellerShipmentsGet(accessToken: accessToken) { (response, error) in
+// List Regions
+LogisticsAPI.listRegionsApiV1RegionsGet() { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -864,14 +965,11 @@ LogisticsAPI.listSellerShipmentsApiV1SellerShipmentsGet(accessToken: accessToken
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accessToken** | **String** |  | [optional] 
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**[ShipmentRead]**](ShipmentRead.md)
+[**[RegionRead]**](RegionRead.md)
 
 ### Authorization
 
@@ -972,6 +1070,210 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[ShipmentRead]**](ShipmentRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **listWarehouseInboundApiV1WarehouseInboundGet**
+```swift
+    open class func listWarehouseInboundApiV1WarehouseInboundGet(shopId: Int? = nil, accessToken: String? = nil, completion: @escaping (_ data: [WarehouseGroupRead]?, _ error: Error?) -> Void)
+```
+
+List Warehouse Inbound
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let shopId = 987 // Int |  (optional)
+let accessToken = "accessToken_example" // String |  (optional)
+
+// List Warehouse Inbound
+LogisticsAPI.listWarehouseInboundApiV1WarehouseInboundGet(shopId: shopId, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **shopId** | **Int** |  | [optional] 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**[WarehouseGroupRead]**](WarehouseGroupRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **listWarehouseOutboundApiV1WarehouseOutboundGet**
+```swift
+    open class func listWarehouseOutboundApiV1WarehouseOutboundGet(pickupPointId: Int? = nil, accessToken: String? = nil, completion: @escaping (_ data: [WarehouseGroupRead]?, _ error: Error?) -> Void)
+```
+
+List Warehouse Outbound
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let pickupPointId = 987 // Int |  (optional)
+let accessToken = "accessToken_example" // String |  (optional)
+
+// List Warehouse Outbound
+LogisticsAPI.listWarehouseOutboundApiV1WarehouseOutboundGet(pickupPointId: pickupPointId, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pickupPointId** | **Int** |  | [optional] 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**[WarehouseGroupRead]**](WarehouseGroupRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **listWarehouseShipmentsApiV1WarehouseShipmentsGet**
+```swift
+    open class func listWarehouseShipmentsApiV1WarehouseShipmentsGet(status: PickupPointShipmentStatus? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, completion: @escaping (_ data: [ShipmentRead]?, _ error: Error?) -> Void)
+```
+
+List Warehouse Shipments
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let status = PickupPointShipmentStatus() // PickupPointShipmentStatus |  (optional)
+let skip = 987 // Int |  (optional) (default to 0)
+let limit = 987 // Int |  (optional) (default to 50)
+let accessToken = "accessToken_example" // String |  (optional)
+
+// List Warehouse Shipments
+LogisticsAPI.listWarehouseShipmentsApiV1WarehouseShipmentsGet(status: status, skip: skip, limit: limit, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | [**PickupPointShipmentStatus**](.md) |  | [optional] 
+ **skip** | **Int** |  | [optional] [default to 0]
+ **limit** | **Int** |  | [optional] [default to 50]
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**[ShipmentRead]**](ShipmentRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost**
+```swift
+    open class func receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId: Int, accessToken: String? = nil, completion: @escaping (_ data: OrderShopGroupRead?, _ error: Error?) -> Void)
+```
+
+Receive Order Group
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let groupId = 987 // Int | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Receive Order Group
+LogisticsAPI.receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId: groupId, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **Int** |  | 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**OrderShopGroupRead**](OrderShopGroupRead.md)
 
 ### Authorization
 

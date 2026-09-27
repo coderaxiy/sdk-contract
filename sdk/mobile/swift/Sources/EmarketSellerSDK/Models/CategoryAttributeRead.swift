@@ -18,11 +18,12 @@ public struct CategoryAttributeRead: Sendable, Codable, Hashable {
     public var isRequired: Bool
     public var isFilterable: Bool
     public var isInherited: Bool
+    public var isVariantDefining: Bool
     public var sortOrder: Int
     public var translations: [AttributeTranslationRead]?
     public var inheritedFromCategoryId: Int?
 
-    public init(id: Int, categoryId: Int, key: String, dataType: AttributeDataType, options: [String]?, unit: String?, isRequired: Bool, isFilterable: Bool, isInherited: Bool, sortOrder: Int, translations: [AttributeTranslationRead]? = nil, inheritedFromCategoryId: Int? = nil) {
+    public init(id: Int, categoryId: Int, key: String, dataType: AttributeDataType, options: [String]?, unit: String?, isRequired: Bool, isFilterable: Bool, isInherited: Bool, isVariantDefining: Bool, sortOrder: Int, translations: [AttributeTranslationRead]? = nil, inheritedFromCategoryId: Int? = nil) {
         self.id = id
         self.categoryId = categoryId
         self.key = key
@@ -32,6 +33,7 @@ public struct CategoryAttributeRead: Sendable, Codable, Hashable {
         self.isRequired = isRequired
         self.isFilterable = isFilterable
         self.isInherited = isInherited
+        self.isVariantDefining = isVariantDefining
         self.sortOrder = sortOrder
         self.translations = translations
         self.inheritedFromCategoryId = inheritedFromCategoryId
@@ -47,6 +49,7 @@ public struct CategoryAttributeRead: Sendable, Codable, Hashable {
         case isRequired = "is_required"
         case isFilterable = "is_filterable"
         case isInherited = "is_inherited"
+        case isVariantDefining = "is_variant_defining"
         case sortOrder = "sort_order"
         case translations
         case inheritedFromCategoryId = "inherited_from_category_id"
@@ -65,6 +68,7 @@ public struct CategoryAttributeRead: Sendable, Codable, Hashable {
         try container.encode(isRequired, forKey: .isRequired)
         try container.encode(isFilterable, forKey: .isFilterable)
         try container.encode(isInherited, forKey: .isInherited)
+        try container.encode(isVariantDefining, forKey: .isVariantDefining)
         try container.encode(sortOrder, forKey: .sortOrder)
         try container.encodeIfPresent(translations, forKey: .translations)
         try container.encodeIfPresent(inheritedFromCategoryId, forKey: .inheritedFromCategoryId)

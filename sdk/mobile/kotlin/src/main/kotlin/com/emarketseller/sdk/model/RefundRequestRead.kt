@@ -47,6 +47,7 @@ import kotlinx.serialization.Contextual
  * @param evidenceUrls 
  * @param resolvedBy 
  * @param resolvedAt 
+ * @param escalatedAt 
  * @param createdAt 
  */
 @Serializable
@@ -88,6 +89,9 @@ data class RefundRequestRead (
 
     @Contextual @SerialName(value = "resolved_at")
     val resolvedAt: java.time.OffsetDateTime?,
+
+    @Contextual @SerialName(value = "escalated_at")
+    val escalatedAt: java.time.OffsetDateTime?,
 
     @Contextual @SerialName(value = "created_at")
     val createdAt: java.time.OffsetDateTime

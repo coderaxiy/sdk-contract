@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**approveRefundRequestApiV1SellerRefundRequestsRefundIdApprovePatch**](OrdersAPI.md#approverefundrequestapiv1sellerrefundrequestsrefundidapprovepatch) | **PATCH** /api/v1/seller/refund-requests/{refund_id}/approve | Approve Refund Request
 [**cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost**](OrdersAPI.md#cancelordergroupapiv1ordersorderidgroupsgroupidcancelpost) | **POST** /api/v1/orders/{order_id}/groups/{group_id}/cancel | Cancel Order Group
 [**checkoutApiV1CheckoutPost**](OrdersAPI.md#checkoutapiv1checkoutpost) | **POST** /api/v1/checkout | Checkout
+[**confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost**](OrdersAPI.md#confirmrefundreturnapiv1sellerrefundrequestsrefundidconfirmreturnpost) | **POST** /api/v1/seller/refund-requests/{refund_id}/confirm-return | Confirm Refund Return
 [**createManualAdjustmentApiV1AdminLedgerShopIdManualAdjustmentPost**](OrdersAPI.md#createmanualadjustmentapiv1adminledgershopidmanualadjustmentpost) | **POST** /api/v1/admin/ledger/{shop_id}/manual-adjustment | Create Manual Adjustment
 [**escalateRefundRequestApiV1RefundRequestsRefundIdEscalatePost**](OrdersAPI.md#escalaterefundrequestapiv1refundrequestsrefundidescalatepost) | **POST** /api/v1/refund-requests/{refund_id}/escalate | Escalate Refund Request
 [**getCartApiV1CartGet**](OrdersAPI.md#getcartapiv1cartget) | **GET** /api/v1/cart | Get Cart
@@ -98,7 +99,7 @@ Approve Refund Request
 import EmarketSellerSDK
 
 let refundId = 987 // Int | 
-let refundApproveRequest = RefundApproveRequest(whoBearsCost: WhoBearsCost(), refundAmount: Refund_Amount()) // RefundApproveRequest | 
+let refundApproveRequest = RefundApproveRequest(whoBearsCost: WhoBearsCost()) // RefundApproveRequest | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Approve Refund Request
@@ -203,7 +204,7 @@ Checkout
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import EmarketSellerSDK
 
-let checkoutRequest = CheckoutRequest(shippingAddress: ShippingAddressIn(fullName: "fullName_example", phone: "phone_example", addressLine: "addressLine_example", city: "city_example", region: "region_example", postalCode: "postalCode_example", notes: "notes_example"), paymentMethod: PaymentMethod()) // CheckoutRequest | 
+let checkoutRequest = CheckoutRequest(recipient: Recipient(fullName: "fullName_example", phone: "phone_example", notes: "notes_example"), pickupPointId: 123, paymentMethod: PaymentMethod()) // CheckoutRequest | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Checkout
@@ -229,6 +230,58 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CheckoutResponse**](CheckoutResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost**
+```swift
+    open class func confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost(refundId: Int, refundConfirmReturnRequest: RefundConfirmReturnRequest, accessToken: String? = nil, completion: @escaping (_ data: RefundRequestRead?, _ error: Error?) -> Void)
+```
+
+Confirm Refund Return
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let refundId = 987 // Int | 
+let refundConfirmReturnRequest = RefundConfirmReturnRequest(conditionNote: "conditionNote_example") // RefundConfirmReturnRequest | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Confirm Refund Return
+OrdersAPI.confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost(refundId: refundId, refundConfirmReturnRequest: refundConfirmReturnRequest, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **refundId** | **Int** |  | 
+ **refundConfirmReturnRequest** | [**RefundConfirmReturnRequest**](RefundConfirmReturnRequest.md) |  | 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**RefundRequestRead**](RefundRequestRead.md)
 
 ### Authorization
 
@@ -749,7 +802,7 @@ No authorization required
 
 # **listOrdersAdminApiV1AdminOrdersGet**
 ```swift
-    open class func listOrdersAdminApiV1AdminOrdersGet(status: String? = nil, shopId: Int? = nil, buyerId: Int? = nil, dateFrom: Date? = nil, dateTo: Date? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, completion: @escaping (_ data: [OrderAdminRead]?, _ error: Error?) -> Void)
+    open class func listOrdersAdminApiV1AdminOrdersGet(status: String? = nil, shopId: Int? = nil, buyerId: Int? = nil, dateFrom: Date? = nil, dateTo: Date? = nil, search: String? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, completion: @escaping (_ data: [OrderAdminRead]?, _ error: Error?) -> Void)
 ```
 
 List Orders Admin
@@ -764,12 +817,13 @@ let shopId = 987 // Int |  (optional)
 let buyerId = 987 // Int |  (optional)
 let dateFrom = Date() // Date |  (optional)
 let dateTo = Date() // Date |  (optional)
+let search = "search_example" // String | Case-insensitive partial match on order_number (optional)
 let skip = 987 // Int |  (optional) (default to 0)
 let limit = 987 // Int |  (optional) (default to 50)
 let accessToken = "accessToken_example" // String |  (optional)
 
 // List Orders Admin
-OrdersAPI.listOrdersAdminApiV1AdminOrdersGet(status: status, shopId: shopId, buyerId: buyerId, dateFrom: dateFrom, dateTo: dateTo, skip: skip, limit: limit, accessToken: accessToken) { (response, error) in
+OrdersAPI.listOrdersAdminApiV1AdminOrdersGet(status: status, shopId: shopId, buyerId: buyerId, dateFrom: dateFrom, dateTo: dateTo, search: search, skip: skip, limit: limit, accessToken: accessToken) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -790,6 +844,7 @@ Name | Type | Description  | Notes
  **buyerId** | **Int** |  | [optional] 
  **dateFrom** | **Date** |  | [optional] 
  **dateTo** | **Date** |  | [optional] 
+ **search** | **String** | Case-insensitive partial match on order_number | [optional] 
  **skip** | **Int** |  | [optional] [default to 0]
  **limit** | **Int** |  | [optional] [default to 50]
  **accessToken** | **String** |  | [optional] 
@@ -1242,7 +1297,7 @@ Request Refund
 import EmarketSellerSDK
 
 let orderLineId = 987 // Int | 
-let refundRequestCreate = RefundRequestCreate(reasonCode: RefundReasonCode(), reasonText: "reasonText_example", evidenceUrls: ["evidenceUrls_example"], refundAmount: Refund_Amount_1()) // RefundRequestCreate | 
+let refundRequestCreate = RefundRequestCreate(reasonCode: RefundReasonCode(), reasonText: "reasonText_example", evidenceUrls: ["evidenceUrls_example"]) // RefundRequestCreate | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Request Refund
@@ -1294,7 +1349,7 @@ Resolve Refund Request Admin
 import EmarketSellerSDK
 
 let refundId = 987 // Int | 
-let refundResolveRequest = RefundResolveRequest(whoBearsCost: WhoBearsCost(), refundAmount: Refund_Amount(), reason: "reason_example") // RefundResolveRequest | 
+let refundResolveRequest = RefundResolveRequest(decision: RefundDecision(), whoBearsCost: WhoBearsCost(), reason: "reason_example") // RefundResolveRequest | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Resolve Refund Request Admin

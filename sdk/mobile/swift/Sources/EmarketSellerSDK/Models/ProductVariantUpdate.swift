@@ -15,13 +15,15 @@ public struct ProductVariantUpdate: Sendable, Codable, Hashable {
     public var stockQuantity: Int?
     public var attributes: [String: AttributesValue]?
     public var imageIds: [Int]?
+    public var isActive: Bool?
 
-    public init(sku: String? = nil, price: Price1? = nil, stockQuantity: Int? = nil, attributes: [String: AttributesValue]? = nil, imageIds: [Int]? = nil) {
+    public init(sku: String? = nil, price: Price1? = nil, stockQuantity: Int? = nil, attributes: [String: AttributesValue]? = nil, imageIds: [Int]? = nil, isActive: Bool? = nil) {
         self.sku = sku
         self.price = price
         self.stockQuantity = stockQuantity
         self.attributes = attributes
         self.imageIds = imageIds
+        self.isActive = isActive
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -30,6 +32,7 @@ public struct ProductVariantUpdate: Sendable, Codable, Hashable {
         case stockQuantity = "stock_quantity"
         case attributes
         case imageIds = "image_ids"
+        case isActive = "is_active"
     }
 
     // Encodable protocol methods
@@ -41,6 +44,7 @@ public struct ProductVariantUpdate: Sendable, Codable, Hashable {
         try container.encodeIfPresent(stockQuantity, forKey: .stockQuantity)
         try container.encodeIfPresent(attributes, forKey: .attributes)
         try container.encodeIfPresent(imageIds, forKey: .imageIds)
+        try container.encodeIfPresent(isActive, forKey: .isActive)
     }
 }
 

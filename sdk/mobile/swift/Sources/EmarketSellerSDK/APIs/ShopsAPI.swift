@@ -92,6 +92,47 @@ open class ShopsAPI {
     }
 
     /**
+     Check Slug Availability
+     
+     - parameter slug: (query)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: SlugAvailabilityRead
+     */
+    open class func checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet(slug: String, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> SlugAvailabilityRead {
+        return try await checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGetWithRequestBuilder(slug: slug, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Check Slug Availability
+     - GET /api/v1/seller/shops/slug-availability
+     - parameter slug: (query)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<SlugAvailabilityRead> 
+     */
+    open class func checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGetWithRequestBuilder(slug: String, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<SlugAvailabilityRead> {
+        let localVariablePath = "/api/v1/seller/shops/slug-availability"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "slug": (wrappedValue: slug.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<SlugAvailabilityRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Close Shop
      
      - parameter shopId: (path)  

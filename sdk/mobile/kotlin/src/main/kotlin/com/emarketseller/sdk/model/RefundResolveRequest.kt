@@ -23,7 +23,7 @@
 
 package com.emarketseller.sdk.model
 
-import com.emarketseller.sdk.model.RefundAmount
+import com.emarketseller.sdk.model.RefundDecision
 import com.emarketseller.sdk.model.WhoBearsCost
 
 import kotlinx.serialization.Serializable
@@ -33,22 +33,22 @@ import kotlinx.serialization.Contextual
 /**
  * 
  *
- * @param whoBearsCost 
- * @param refundAmount 
+ * @param decision 
  * @param reason 
+ * @param whoBearsCost 
  */
 @Serializable
 
 data class RefundResolveRequest (
 
-    @Contextual @SerialName(value = "who_bears_cost")
-    val whoBearsCost: WhoBearsCost,
-
-    @SerialName(value = "refund_amount")
-    val refundAmount: RefundAmount,
+    @Contextual @SerialName(value = "decision")
+    val decision: RefundDecision,
 
     @SerialName(value = "reason")
-    val reason: kotlin.String
+    val reason: kotlin.String,
+
+    @Contextual @SerialName(value = "who_bears_cost")
+    val whoBearsCost: WhoBearsCost? = null
 
 ) {
 

@@ -6,7 +6,7 @@
 
     * `active` (value: `"active"`)
 
-    * `returned` (value: `"returned"`)
+    * `return_pending` (value: `"return_pending"`)
 
     * `refunded` (value: `"refunded"`)
 

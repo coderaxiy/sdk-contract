@@ -3,11 +3,11 @@ id: seller-order-group-status-guard
 title: Seller status PATCH accepts system-only order-group transitions
 author: frontend
 to: backend
-status: open
+status: closed
 priority: high
 area: orders
 created: 2026-09-26
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -58,3 +58,22 @@ it can't tell courier groups from pickup-point groups.
   `app/modules/orders/service.py` → `_GROUP_TRANSITIONS`, `transition_group_status`
 - `app/modules/logistics/service.py` → dispatch-to-point (requires `preparing`, sets `shipped`)
 - `docs/orders-and-payments-api.md` §1 "OrderShopGroup.status"
+
+## Resolution
+
+`PATCH /seller/order-groups/{group_id}/status` now goes through
+`OrderService.transition_group_status_as_seller` with the allow-list from this
+task (`_SELLER_GROUP_TRANSITIONS`), otherwise `400 "Sellers can't move an order
+group from X to Y"`. `shipped → delivered` is refused for groups with any line
+in a pickup-point shipment. `_GROUP_TRANSITIONS` is unchanged for the internal
+callers (dispatch, check-in, collection). The table is in
+`docs/orders-and-payments-api.md` §1.
+
+The route field on the group (task `order-group-fulfillment-route`) is still
+open, so the seller UI can't yet tell a courier group from a pickup-point group
+before trying. Backend: `app/modules/orders/{service,repository,router}.py`.
+
+**Follow-up (same day):** pickup points became the only fulfillment route via a
+central store. The seller allow-list is now `pending→confirmed|cancelled`,
+`confirmed→preparing|cancelled`, `preparing→cancelled`; `shipped`/`delivered`
+are set by warehouse and pickup-point staff. See `central-store-fulfillment`.

@@ -17,10 +17,11 @@ public struct CategoryAttributeIn: Sendable, Codable, Hashable {
     public var isRequired: Bool? = false
     public var isFilterable: Bool? = false
     public var isInherited: Bool? = false
+    public var isVariantDefining: Bool? = false
     public var sortOrder: Int? = 0
     public var translations: [AttributeTranslationIn]
 
-    public init(key: String, dataType: AttributeDataType, options: [String]? = nil, unit: String? = nil, isRequired: Bool? = false, isFilterable: Bool? = false, isInherited: Bool? = false, sortOrder: Int? = 0, translations: [AttributeTranslationIn]) {
+    public init(key: String, dataType: AttributeDataType, options: [String]? = nil, unit: String? = nil, isRequired: Bool? = false, isFilterable: Bool? = false, isInherited: Bool? = false, isVariantDefining: Bool? = false, sortOrder: Int? = 0, translations: [AttributeTranslationIn]) {
         self.key = key
         self.dataType = dataType
         self.options = options
@@ -28,6 +29,7 @@ public struct CategoryAttributeIn: Sendable, Codable, Hashable {
         self.isRequired = isRequired
         self.isFilterable = isFilterable
         self.isInherited = isInherited
+        self.isVariantDefining = isVariantDefining
         self.sortOrder = sortOrder
         self.translations = translations
     }
@@ -40,6 +42,7 @@ public struct CategoryAttributeIn: Sendable, Codable, Hashable {
         case isRequired = "is_required"
         case isFilterable = "is_filterable"
         case isInherited = "is_inherited"
+        case isVariantDefining = "is_variant_defining"
         case sortOrder = "sort_order"
         case translations
     }
@@ -55,6 +58,7 @@ public struct CategoryAttributeIn: Sendable, Codable, Hashable {
         try container.encodeIfPresent(isRequired, forKey: .isRequired)
         try container.encodeIfPresent(isFilterable, forKey: .isFilterable)
         try container.encodeIfPresent(isInherited, forKey: .isInherited)
+        try container.encodeIfPresent(isVariantDefining, forKey: .isVariantDefining)
         try container.encodeIfPresent(sortOrder, forKey: .sortOrder)
         try container.encode(translations, forKey: .translations)
     }

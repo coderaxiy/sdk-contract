@@ -3,11 +3,11 @@ id: shop-approval-status-guards
 title: Shop and category-assignment approve/reject ignore current status; rejected assignment can't be re-requested
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: shops
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -63,3 +63,18 @@ this — there's no doc for shops yet.
 - openapi/api.yaml → `/api/v1/admin/shops/{shop_id}/approve`,
   `/api/v1/admin/shop-category-assignments/{assignment_id}/approve`,
   `/api/v1/seller/shops/{shop_id}/category-assignments`
+
+## Resolution
+
+1. Shop approve/reject: only from `pending_review`, otherwise
+   `400 "Only shops in pending_review status can be approved or rejected"`.
+2. Category-assignment approve/reject: from `pending_approval`, or `approved`
+   with `needs_reverification`, otherwise `400`.
+3. Re-requesting a `rejected` category reuses that assignment: back to
+   `pending_approval` with the new `document_ids`, `rejection_reason` cleared,
+   same `id`. `pending_approval`/`approved` still `400`.
+
+State machines for shops and assignments are in the new `docs/shops-api.md`
+§1 and §3. No schema change.
+Backend: `app/modules/shops/service.py` → `approve_shop`, `reject_shop`,
+`_require_reviewable_assignment`, `request_assignment`.

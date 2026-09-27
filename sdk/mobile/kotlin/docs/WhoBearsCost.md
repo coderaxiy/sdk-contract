@@ -8,7 +8,5 @@
 
     * `platform` (value: `"platform"`)
 
-    * `buyer` (value: `"buyer"`)
-
 
 

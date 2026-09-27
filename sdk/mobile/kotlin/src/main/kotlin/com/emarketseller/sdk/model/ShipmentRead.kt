@@ -35,7 +35,6 @@ import kotlinx.serialization.Contextual
  *
  * @param id 
  * @param pickupPointId 
- * @param shopId 
  * @param status 
  * @param dispatchedAt 
  * @param expectedArrivalAt 
@@ -53,9 +52,6 @@ data class ShipmentRead (
 
     @SerialName(value = "pickup_point_id")
     val pickupPointId: kotlin.Int,
-
-    @SerialName(value = "shop_id")
-    val shopId: kotlin.Int,
 
     @Contextual @SerialName(value = "status")
     val status: PickupPointShipmentStatus,

@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **subtotal** | **String** |  | 
 **shippingFee** | **String** |  | 
 **cancellationReason** | **String** |  | 
+**warehouseReceivedAt** | **Date** |  | 
+**deliveredAt** | **Date** |  | 
 **lines** | [OrderLineRead] |  | [optional] 
 **createdAt** | **Date** |  | 
 **updatedAt** | **Date** |  | 

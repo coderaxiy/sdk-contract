@@ -844,7 +844,7 @@ No authorization required
 
 # **listProductsAdminApiV1AdminProductsGet**
 ```swift
-    open class func listProductsAdminApiV1AdminProductsGet(status: ProductStatus? = nil, shopId: Int? = nil, categoryId: Int? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, completion: @escaping (_ data: [ProductRead]?, _ error: Error?) -> Void)
+    open class func listProductsAdminApiV1AdminProductsGet(status: ProductStatus? = nil, shopId: Int? = nil, categoryId: Int? = nil, search: String? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, completion: @escaping (_ data: [ProductRead]?, _ error: Error?) -> Void)
 ```
 
 List Products Admin
@@ -857,12 +857,13 @@ import EmarketSellerSDK
 let status = ProductStatus() // ProductStatus |  (optional)
 let shopId = 987 // Int |  (optional)
 let categoryId = 987 // Int |  (optional)
+let search = "search_example" // String | Case-insensitive partial match on title or SKU (incl. variant SKUs) (optional)
 let skip = 987 // Int |  (optional) (default to 0)
 let limit = 987 // Int |  (optional) (default to 50)
 let accessToken = "accessToken_example" // String |  (optional)
 
 // List Products Admin
-ProductsAPI.listProductsAdminApiV1AdminProductsGet(status: status, shopId: shopId, categoryId: categoryId, skip: skip, limit: limit, accessToken: accessToken) { (response, error) in
+ProductsAPI.listProductsAdminApiV1AdminProductsGet(status: status, shopId: shopId, categoryId: categoryId, search: search, skip: skip, limit: limit, accessToken: accessToken) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -881,6 +882,7 @@ Name | Type | Description  | Notes
  **status** | [**ProductStatus**](.md) |  | [optional] 
  **shopId** | **Int** |  | [optional] 
  **categoryId** | **Int** |  | [optional] 
+ **search** | **String** | Case-insensitive partial match on title or SKU (incl. variant SKUs) | [optional] 
  **skip** | **Int** |  | [optional] [default to 0]
  **limit** | **Int** |  | [optional] [default to 50]
  **accessToken** | **String** |  | [optional] 
@@ -1319,7 +1321,7 @@ Update Variant
 import EmarketSellerSDK
 
 let variantId = 987 // Int | 
-let productVariantUpdate = ProductVariantUpdate(sku: "sku_example", price: Price_1(), stockQuantity: 123, attributes: "TODO", imageIds: [123]) // ProductVariantUpdate | 
+let productVariantUpdate = ProductVariantUpdate(sku: "sku_example", price: Price_1(), stockQuantity: 123, attributes: "TODO", imageIds: [123], isActive: false) // ProductVariantUpdate | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Update Variant

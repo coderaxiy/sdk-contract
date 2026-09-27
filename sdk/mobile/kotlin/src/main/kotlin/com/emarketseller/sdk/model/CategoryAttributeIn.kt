@@ -41,6 +41,7 @@ import kotlinx.serialization.Contextual
  * @param isRequired 
  * @param isFilterable 
  * @param isInherited 
+ * @param isVariantDefining 
  * @param sortOrder 
  */
 @Serializable
@@ -70,6 +71,9 @@ data class CategoryAttributeIn (
 
     @SerialName(value = "is_inherited")
     val isInherited: kotlin.Boolean? = false,
+
+    @SerialName(value = "is_variant_defining")
+    val isVariantDefining: kotlin.Boolean? = false,
 
     @SerialName(value = "sort_order")
     val sortOrder: kotlin.Int? = 0

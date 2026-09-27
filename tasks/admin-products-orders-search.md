@@ -3,11 +3,11 @@ id: admin-products-orders-search
 title: search query param on admin products/orders lists
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: admin
 created: 2026-09-15
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -42,3 +42,12 @@ Both should compose normally with the existing filter params and with
 - No fuzzy/multi-field ranking — a plain `ILIKE`-style partial match (or
   whatever `/admin/sellers` already does) is enough.
 - No change to any other endpoint — this is scoped to just these two.
+
+## Resolution
+
+- `GET /admin/products?search=` — case-insensitive partial match on `title`,
+  the simple product's `sku`, or any variant's `sku`.
+- `GET /admin/orders?search=` — case-insensitive partial match on `order_number`.
+
+Both compose with the other filters and `skip`/`limit`, same `ILIKE` style as
+`/admin/sellers`. Docs: products §2, orders §3.3.

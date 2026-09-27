@@ -13,6 +13,7 @@
 | **quantity** | **kotlin.Int** |  |  |
 | **lineTotal** | **kotlin.String** |  |  |
 | **status** | [**OrderLineStatus**](OrderLineStatus.md) |  |  |
+| **physicalReturnReceivedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 | **commissionRuleId** | **kotlin.Int** |  |  |
 | **commissionAmount** | **kotlin.String** |  |  |

@@ -88,6 +88,12 @@ class OrderLineReadTest : ShouldSpec() {
             //modelInstance.status shouldBe ("TODO")
         }
 
+        // to test the property `physicalReturnReceivedAt`
+        should("test physicalReturnReceivedAt") {
+            // uncomment below to test the property
+            //modelInstance.physicalReturnReceivedAt shouldBe ("TODO")
+        }
+
         // to test the property `createdAt`
         should("test createdAt") {
             // uncomment below to test the property

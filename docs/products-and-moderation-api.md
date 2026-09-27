@@ -41,7 +41,7 @@ draft ──submit──▶ pending_review ──approve──▶ approved
   │                     ▼                        ▼
   └──────────────── rejected              delisted ──submit──▶ pending_review
                                                 │
-                                    approved/delisted ──archive──▶ archived (terminal)
+          draft/rejected/approved/delisted ──archive──▶ archived (terminal)
 ```
 
 - `draft` — seller is still editing; not submitted yet.
@@ -52,9 +52,12 @@ draft ──submit──▶ pending_review ──approve──▶ approved
 - `delisted` — seller/admin took it down; not buyer-visible, but the record and
   its variants/attributes are retained. Relisting goes through `pending_review`
   again (no instant-reactivate).
-- `archived` — terminal. Hidden everywhere, including the seller's default
-  dashboard view (the frontend should filter these out of the default list and
-  only show them via an explicit "Archived" filter).
+- `archived` — terminal. This is how a seller removes a product, including a
+  draft started by mistake or a rejected one they gave up on (there's no hard
+  delete; the record keeps its moderation history). Anything but
+  `pending_review` can be archived. Hidden everywhere, including the seller's
+  default dashboard view (filter these out of the default list and only show
+  them via an explicit "Archived" filter).
 
 **Editing a product that's `approved`** may silently flip it back to
 `pending_review` if a "sensitive field" (see §4 below) was changed — always
@@ -68,7 +71,12 @@ edit was applied without a status change.
 - `has_variants: true` → those three fields must be `null`/omitted on the
   product; price/stock/SKU are entered per-variant instead, via the separate
   variant endpoints. A product can't be submitted for review until it has at
-  least one variant.
+  least one **active** variant (deleted ones don't count).
+
+**SKUs are unique platform-wide**, across simple products and variants, and
+including deleted variants (they keep their SKU so they can be reactivated).
+A taken SKU is `400`; one held by a deleted variant says which variant to
+reactivate.
 
 This is enforced server-side (422 on mismatch) — build the create/edit form as
 two distinct modes, not one form with optional fields.
@@ -79,9 +87,12 @@ two distinct modes, not one form with optional fields.
   [media-uploads-api.md](media-uploads-api.md)), then send the returned keys:
   `images: [{ key, sort_order, is_primary }]`. The server rejects keys that
   aren't yours or weren't uploaded as `product_image`.
-- The product's image list is replaced wholesale on every `POST` (create) /
-  `PATCH` (update) that includes an `images` array — **to keep an existing
-  image, send its `key` again** (it's in every `images[]` item of the response).
+- The `images` array on `POST` (create) / `PATCH` (update) is the complete
+  list — **to keep an existing image, send its `key` again** (it's in every
+  `images[]` item of the response). An image whose key is sent again **keeps its
+  `id`** (only `sort_order` / `is_primary` change), so reordering doesn't break
+  variant `image_ids`. Images left out are deleted, and their ids are removed
+  from every variant's `image_ids`.
 - The same key can't appear twice in one `images` array (`400`).
 - Exactly one image in the array must have `is_primary: true` (only enforced
   when the array is non-empty).
@@ -98,11 +109,38 @@ two distinct modes, not one form with optional fields.
   in the product create/update body — same "replace wholesale" semantics as
   images. Required attributes aren't enforced at draft-save time, only at submit
   (`POST /seller/products/{id}/submit` returns 400 listing missing keys by name).
-- Each `CategoryAttribute` in that response now also carries an
-  `is_variant_defining` boolean (new field) — attributes flagged `true` are the
-  ones allowed as **variant** attribute keys (e.g. `size`, `color`); everything
-  else is a flat product-level spec (e.g. `material`) and belongs in
-  `attribute_values`, not in a variant's `attributes` object.
+
+### Changing a product's category
+
+`PATCH /seller/products/{id}` with a new `category_id`:
+
+- If you send `attribute_values` in the same request, they're validated against
+  the **new** category's schema.
+- If you don't, values whose attribute doesn't exist in the new category are
+  dropped; values for attributes the two categories share (e.g. inherited from
+  a common parent) are kept. Missing required ones surface at submit, as usual.
+- Variant products: the new category must allow variants, and every active
+  variant's attribute keys must be variant-defining there, else `400` naming
+  the variants — change or delete them first. Deleted variants that don't fit
+  can't be reactivated afterwards (`400`).
+- Submitting still needs an approved category assignment for the new category.
+
+### Clearing fields
+
+On `PATCH /seller/products/{id}`, an omitted field is unchanged. An explicit
+`null` clears `brand_id` ("No brand") and `description`; for other fields
+`null` is ignored. Send only the fields the user changed.
+- Each `CategoryAttributeRead` (seller and admin attribute endpoints) carries
+  `is_variant_defining: boolean`. Attributes flagged `true` are the only keys
+  allowed in a **variant's** `attributes` object (e.g. `size`, `color`), so the
+  variant builder should offer only those. Any other key is rejected with
+  `400 "Variant attribute keys must be variant-defining for this category …"`.
+  Everything else is a flat product-level spec (e.g. `material`) and belongs in
+  `attribute_values`.
+- Admins set the flag per attribute in `PUT /admin/categories/{id}/attributes`
+  (`CategoryAttributeIn.is_variant_defining`, default `false`). A variant holds
+  one value per key, so a `multi_select` attribute can't be variant-defining
+  (`422`).
 
 ### Sensitive-field re-review
 
@@ -125,6 +163,9 @@ the admin queue UI (e.g. a warning badge) so the admin can make the final call.
 The image flag (`"Primary image matches product #N from a different shop with a
 different brand"`) compares perceptual hashes of primary images, so it catches
 resized and re-compressed copies of the same photo, but not heavily cropped ones.
+It skips products from the same shop, and products that share the **same
+non-null** brand (a brand's resellers may use its official photos). Two
+unbranded products from different shops with the same photo are flagged.
 
 ---
 
@@ -134,7 +175,7 @@ RBAC: `products:moderate` permission required on all of these.
 
 | Method | Path | Body | Notes |
 |---|---|---|---|
-| GET | `/admin/products` | — | Query: `status`, `shop_id`, `category_id` |
+| GET | `/admin/products` | — | Query: `status`, `shop_id`, `category_id`, `search` (case-insensitive partial match on title, SKU, or any variant's SKU), `skip`, `limit` |
 | GET | `/admin/products/{product_id}` | — | Full detail incl. variants/images/attribute values |
 | GET | `/admin/moderation-queue` | — | Query: `category_id`, `shop_id`, `only_flagged` (bool). Returns `ModerationQueueItemRead[]` — `ProductRead` + `flags`. Flagged items sort first; ties preserve oldest-first order. |
 | PATCH | `/admin/products/{product_id}/approve` | — | 400 if not `pending_review`, or if the shop's category assignment is no longer approved |
@@ -156,14 +197,15 @@ is enforced server-side.
 |---|---|---|---|
 | POST | `/seller/shops/{shop_id}/products` | `ProductCreate` | Creates as `draft`. 400 if the shop lacks an approved category assignment isn't checked here — only at submit (draft creation is always allowed so the seller can save work in progress) |
 | PATCH | `/seller/products/{product_id}` | `ProductUpdate` (all fields optional) | May flip `approved → pending_review` — check the returned `status` |
-| POST | `/seller/products/{product_id}/submit` | — | `draft`/`rejected`/`delisted` → `pending_review`. 400 with missing-attribute list, or if category assignment isn't approved, or (variant products) zero variants exist |
+| POST | `/seller/products/{product_id}/submit` | — | `draft`/`rejected`/`delisted` → `pending_review`. 400 with missing-attribute list, or if category assignment isn't approved, or (variant products) no active variant exists |
 | POST | `/seller/products/{product_id}/delist` | `{reason?: string}` | Only from `approved` |
-| POST | `/seller/products/{product_id}/archive` | — | Only from `approved` or `delisted`; terminal |
+| POST | `/seller/products/{product_id}/archive` | — | From anything but `pending_review` and `archived`; terminal. Use it to remove drafts |
 | GET | `/seller/products` | — | Query: `shop_id?`, `status?`. Omit `shop_id` to list across all of the seller's shops |
 | GET | `/seller/products/{product_id}` | — | Full detail incl. `rejection_reason` when applicable |
-| POST | `/seller/products/{product_id}/variants` | `ProductVariantCreate` | Only on `has_variants=true` products. 400 on duplicate SKU (SKUs are unique **platform-wide**) or duplicate attribute combination within the product |
-| PATCH | `/seller/variants/{variant_id}` | `ProductVariantUpdate` (all optional) | Changing `price` may also flip the parent product back to `pending_review` if `base_price` is a configured sensitive field |
-| DELETE | `/seller/variants/{variant_id}` | — | Soft-delete only (`is_active=false`); no body, `204` on success |
+| POST | `/seller/products/{product_id}/variants` | `ProductVariantCreate` | Only on `has_variants=true` products. 400 on a taken SKU, a duplicate attribute combination, or `image_ids` that aren't this product's images. If a **deleted** variant has the same combination or SKU, the 400 names it: reactivate it instead |
+| PATCH | `/seller/variants/{variant_id}` | `ProductVariantUpdate` (all optional) | `is_active: true` reactivates a deleted variant (its keys must still be variant-defining); `false` deletes it. Changing `price` or reactivating may flip the parent product back to `pending_review` if `base_price` is a configured sensitive field |
+| DELETE | `/seller/variants/{variant_id}` | — | Soft-delete (`is_active=false`); `204`. The variant keeps its SKU and combination; `PATCH {is_active: true}` brings it back |
+| GET | `/seller/categories` | — | Active **leaf** categories (the only ones products can use). Each has `ancestors: [{ id, slug, translations }]`, root → parent, so the picker can show "Phones › Smartphones" in the user's locale; `[]` for a root leaf |
 | GET | `/seller/brands` | — | Approved brands only — populate the brand `<select>` from this |
 | POST | `/seller/brands/request` | `BrandRequestCreate` | `{shop_id, name, logo_url?}` — creates a `pending` brand for admin review; 400 if a brand with that name already exists/pending |
 
@@ -221,7 +263,7 @@ catalog/search doc territory). Show an out-of-stock state in the UI based on
   stock_quantity: number
   is_active: boolean
   attributes: Record<string, string | number | boolean>   // e.g. { size: "L", color: "red" }
-  image_ids: number[] | null
+  image_ids: number[] | null     // ids from the product's images[]; duplicates removed
   created_at: string
   updated_at: string
 }

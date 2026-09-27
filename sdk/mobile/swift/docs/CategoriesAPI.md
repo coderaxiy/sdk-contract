@@ -476,10 +476,12 @@ No authorization required
 
 # **listCategoriesSellerApiV1SellerCategoriesGet**
 ```swift
-    open class func listCategoriesSellerApiV1SellerCategoriesGet(completion: @escaping (_ data: [CategoryRead]?, _ error: Error?) -> Void)
+    open class func listCategoriesSellerApiV1SellerCategoriesGet(completion: @escaping (_ data: [SellerCategoryRead]?, _ error: Error?) -> Void)
 ```
 
 List Categories Seller
+
+Active leaf categories (the only ones products can use), each with its ancestors so the picker can show a path.
 
 ### Example
 ```swift
@@ -505,7 +507,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[CategoryRead]**](CategoryRead.md)
+[**[SellerCategoryRead]**](SellerCategoryRead.md)
 
 ### Authorization
 
@@ -739,7 +741,7 @@ Set Attributes
 import EmarketSellerSDK
 
 let categoryId = 987 // Int | 
-let setAttributesRequest = SetAttributesRequest(attributes: [CategoryAttributeIn(key: "key_example", dataType: AttributeDataType(), options: ["options_example"], unit: "unit_example", isRequired: false, isFilterable: false, isInherited: false, sortOrder: 123, translations: [AttributeTranslationIn(locale: "locale_example", label: "label_example")])]) // SetAttributesRequest | 
+let setAttributesRequest = SetAttributesRequest(attributes: [CategoryAttributeIn(key: "key_example", dataType: AttributeDataType(), options: ["options_example"], unit: "unit_example", isRequired: false, isFilterable: false, isInherited: false, isVariantDefining: false, sortOrder: 123, translations: [AttributeTranslationIn(locale: "locale_example", label: "label_example")])]) // SetAttributesRequest | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Set Attributes

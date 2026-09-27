@@ -23,9 +23,11 @@
 
 package com.emarketseller.sdk.model
 
+import com.emarketseller.sdk.model.OrderPickupPointRead
 import com.emarketseller.sdk.model.OrderShopGroupRead
 import com.emarketseller.sdk.model.OrderStatus
 import com.emarketseller.sdk.model.PaymentMethod
+import com.emarketseller.sdk.model.Recipient
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -39,7 +41,8 @@ import kotlinx.serialization.Contextual
  * @param orderNumber 
  * @param status 
  * @param totalAmount 
- * @param shippingAddress 
+ * @param recipient 
+ * @param pickupPoint 
  * @param paymentMethod 
  * @param paymentReference 
  * @param placedAt 
@@ -66,8 +69,11 @@ data class OrderRead (
     @SerialName(value = "total_amount")
     val totalAmount: kotlin.String,
 
-    @Contextual @SerialName(value = "shipping_address")
-    val shippingAddress: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+    @SerialName(value = "recipient")
+    val recipient: Recipient,
+
+    @SerialName(value = "pickup_point")
+    val pickupPoint: OrderPickupPointRead?,
 
     @Contextual @SerialName(value = "payment_method")
     val paymentMethod: PaymentMethod,

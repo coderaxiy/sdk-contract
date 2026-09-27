@@ -9,7 +9,8 @@
 | **orderNumber** | **kotlin.String** |  |  |
 | **status** | [**OrderStatus**](OrderStatus.md) |  |  |
 | **totalAmount** | **kotlin.String** |  |  |
-| **shippingAddress** | [**kotlin.collections.Map&lt;kotlin.String, kotlin.Any&gt;**](kotlin.Any.md) |  |  |
+| **recipient** | [**Recipient**](Recipient.md) |  |  |
+| **pickupPoint** | [**OrderPickupPointRead**](OrderPickupPointRead.md) |  |  |
 | **paymentMethod** | [**PaymentMethod**](PaymentMethod.md) |  |  |
 | **paymentReference** | **kotlin.String** |  |  |
 | **placedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |

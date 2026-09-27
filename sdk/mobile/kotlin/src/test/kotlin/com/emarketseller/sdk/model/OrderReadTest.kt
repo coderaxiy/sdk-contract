@@ -27,9 +27,11 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.model.OrderRead
+import com.emarketseller.sdk.model.OrderPickupPointRead
 import com.emarketseller.sdk.model.OrderShopGroupRead
 import com.emarketseller.sdk.model.OrderStatus
 import com.emarketseller.sdk.model.PaymentMethod
+import com.emarketseller.sdk.model.Recipient
 
 class OrderReadTest : ShouldSpec() {
     init {
@@ -66,10 +68,16 @@ class OrderReadTest : ShouldSpec() {
             //modelInstance.totalAmount shouldBe ("TODO")
         }
 
-        // to test the property `shippingAddress`
-        should("test shippingAddress") {
+        // to test the property `recipient`
+        should("test recipient") {
             // uncomment below to test the property
-            //modelInstance.shippingAddress shouldBe ("TODO")
+            //modelInstance.recipient shouldBe ("TODO")
+        }
+
+        // to test the property `pickupPoint`
+        should("test pickupPoint") {
+            // uncomment below to test the property
+            //modelInstance.pickupPoint shouldBe ("TODO")
         }
 
         // to test the property `paymentMethod`

@@ -28,17 +28,23 @@ import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.model.CheckoutRequest
 import com.emarketseller.sdk.model.PaymentMethod
-import com.emarketseller.sdk.model.ShippingAddressIn
+import com.emarketseller.sdk.model.Recipient
 
 class CheckoutRequestTest : ShouldSpec() {
     init {
         // uncomment below to create an instance of CheckoutRequest
         //val modelInstance = CheckoutRequest()
 
-        // to test the property `shippingAddress`
-        should("test shippingAddress") {
+        // to test the property `recipient`
+        should("test recipient") {
             // uncomment below to test the property
-            //modelInstance.shippingAddress shouldBe ("TODO")
+            //modelInstance.recipient shouldBe ("TODO")
+        }
+
+        // to test the property `pickupPointId`
+        should("test pickupPointId") {
+            // uncomment below to test the property
+            //modelInstance.pickupPointId shouldBe ("TODO")
         }
 
         // to test the property `paymentMethod`

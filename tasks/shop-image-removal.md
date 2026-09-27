@@ -3,11 +3,11 @@ id: shop-image-removal
 title: No way to remove a shop's logo or banner once set
 author: frontend
 to: backend
-status: open
+status: closed
 priority: low
 area: shops
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -45,3 +45,12 @@ saving, because nothing is attached until save.
 - Backend: `app/modules/shops/service.py` → `update_shop`, `_require_images`
 - `openapi/api.yaml` → `ShopUpdateRequest`
 - Related: `media-uploads`, `shops-api-doc`
+
+## Resolution
+
+Explicit `null` clears: `PATCH /seller/shops/{id}` with `"logo_key": null`,
+`"banner_key": null` or `"description": null` removes it; omitted fields are
+unchanged (via `model_fields_set`). `"name": null` is still ignored.
+**Clients must send only changed fields** — sending `null` for an untouched
+image now removes it. Documented in `docs/shops-api.md` §2 "Update" and
+`docs/media-uploads-api.md`.

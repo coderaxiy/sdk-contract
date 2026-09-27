@@ -41,6 +41,7 @@ import kotlinx.serialization.Contextual
  * @param quantity 
  * @param lineTotal 
  * @param status 
+ * @param physicalReturnReceivedAt 
  * @param createdAt 
  */
 @Serializable
@@ -73,6 +74,9 @@ data class OrderLineRead (
 
     @Contextual @SerialName(value = "status")
     val status: OrderLineStatus,
+
+    @Contextual @SerialName(value = "physical_return_received_at")
+    val physicalReturnReceivedAt: java.time.OffsetDateTime?,
 
     @Contextual @SerialName(value = "created_at")
     val createdAt: java.time.OffsetDateTime

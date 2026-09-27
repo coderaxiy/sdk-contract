@@ -7,6 +7,7 @@
 
 import Foundation
 
+/** PATCH: omitted fields are unchanged. &#x60;null&#x60; clears logo_key, banner_key or description; &#x60;null&#x60; for name is ignored. */
 public struct ShopUpdateRequest: Sendable, Codable, Hashable {
 
     public var name: String?

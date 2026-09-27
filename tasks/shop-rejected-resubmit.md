@@ -3,11 +3,11 @@ id: shop-rejected-resubmit
 title: A rejected shop has no way back to review
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: shops
 created: 2026-09-26
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -46,3 +46,13 @@ fix a description.
 
 - Backend: `app/modules/shops/service.py` → `submit_for_approval`, `update_shop`, `create_shop` (name check)
 - `openapi/api.yaml` → `/api/v1/seller/shops/{shop_id}/submit`, `ShopStatus`
+
+## Resolution
+
+Option 1 (Doc 01 §4.2): rejected shops are resubmittable. `POST
+/seller/shops/{id}/submit` on a `rejected` shop moves it to `pending_review`
+and clears `status_reason` (audit action `shop.resubmitted`). No resubmit
+limit. `PATCH` already worked on rejected shops, so the flow is edit → submit.
+Documented in `docs/shops-api.md` §2 "Submit".
+Also fixed: renaming a shop to a different capitalization of its own name
+returned "already taken".

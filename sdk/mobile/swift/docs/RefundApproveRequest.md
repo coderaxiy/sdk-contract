@@ -3,8 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**whoBearsCost** | [**WhoBearsCost**](WhoBearsCost.md) |  | 
-**refundAmount** | [**RefundAmount**](RefundAmount.md) |  | 
+**whoBearsCost** | [**WhoBearsCost**](WhoBearsCost.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

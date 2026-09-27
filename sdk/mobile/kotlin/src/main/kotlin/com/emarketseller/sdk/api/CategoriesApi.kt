@@ -18,6 +18,7 @@ import com.emarketseller.sdk.model.CommissionRuleRead
 import com.emarketseller.sdk.model.CommissionScopeType
 import com.emarketseller.sdk.model.DeactivationImpact
 import com.emarketseller.sdk.model.HTTPValidationError
+import com.emarketseller.sdk.model.SellerCategoryRead
 import com.emarketseller.sdk.model.SetAttributesRequest
 
 interface CategoriesApi {
@@ -160,14 +161,14 @@ interface CategoriesApi {
     /**
      * GET api/v1/seller/categories
      * List Categories Seller
-     * 
+     * Active leaf categories (the only ones products can use), each with its ancestors so the picker can show a path.
      * Responses:
      *  - 200: Successful Response
      *
-     * @return [kotlin.collections.List<CategoryRead>]
+     * @return [kotlin.collections.List<SellerCategoryRead>]
      */
     @GET("api/v1/seller/categories")
-    suspend fun listCategoriesSellerApiV1SellerCategoriesGet(): Response<kotlin.collections.List<CategoryRead>>
+    suspend fun listCategoriesSellerApiV1SellerCategoriesGet(): Response<kotlin.collections.List<SellerCategoryRead>>
 
     /**
      * GET api/v1/admin/commission-rules

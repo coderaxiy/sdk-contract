@@ -3,11 +3,11 @@ id: seller-approve-reject-status-guard
 title: Approve/reject seller accept any current status, including banned
 author: backend
 to: backend
-status: open
+status: closed
 priority: high
 area: sellers
 created: 2026-09-26
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -42,3 +42,17 @@ Update that section when closing this task.
 
 - Backend: `app/modules/sellers/service.py` → `approve_seller`, `reject_seller`
 - `docs/sellers-and-approval-api.md` §3 "Review screen"
+
+## Resolution
+
+- `approve`: allowed from `pending_review` and `rejected`, otherwise
+  `400 "Only sellers in pending_review or rejected status can be approved"`.
+  `rejected` is allowed because a user can't register a second seller profile,
+  so reversing the rejection is the only way back after fixing documents.
+  Banned and suspended sellers can no longer be approved (suspended goes through
+  reinstate).
+- `reject`: only from `pending_review`, otherwise
+  `400 "Only sellers in pending_review status can be rejected"`.
+- `docs/sellers-and-approval-api.md` §1 state diagram and §3 "Review screen"
+  updated (the "backend doesn't enforce this yet" note is gone).
+- Backend: `app/modules/sellers/service.py` → `approve_seller`, `reject_seller`.

@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 **orderNumber** | **String** |  | 
 **status** | [**OrderStatus**](OrderStatus.md) |  | 
 **totalAmount** | **String** |  | 
-**shippingAddress** | **[String: JSONValue]** |  | 
+**recipient** | [**Recipient**](Recipient.md) |  | 
+**pickupPoint** | [**OrderPickupPointRead**](OrderPickupPointRead.md) |  | 
 **paymentMethod** | [**PaymentMethod**](PaymentMethod.md) |  | 
 **paymentReference** | **String** |  | 
 **placedAt** | **Date** |  | 

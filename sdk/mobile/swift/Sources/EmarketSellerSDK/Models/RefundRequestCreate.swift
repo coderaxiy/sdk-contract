@@ -12,20 +12,17 @@ public struct RefundRequestCreate: Sendable, Codable, Hashable {
     public var reasonCode: RefundReasonCode
     public var reasonText: String?
     public var evidenceUrls: [String]?
-    public var refundAmount: RefundAmount1?
 
-    public init(reasonCode: RefundReasonCode, reasonText: String? = nil, evidenceUrls: [String]? = nil, refundAmount: RefundAmount1? = nil) {
+    public init(reasonCode: RefundReasonCode, reasonText: String? = nil, evidenceUrls: [String]? = nil) {
         self.reasonCode = reasonCode
         self.reasonText = reasonText
         self.evidenceUrls = evidenceUrls
-        self.refundAmount = refundAmount
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case reasonCode = "reason_code"
         case reasonText = "reason_text"
         case evidenceUrls = "evidence_urls"
-        case refundAmount = "refund_amount"
     }
 
     // Encodable protocol methods
@@ -35,7 +32,6 @@ public struct RefundRequestCreate: Sendable, Codable, Hashable {
         try container.encode(reasonCode, forKey: .reasonCode)
         try container.encodeIfPresent(reasonText, forKey: .reasonText)
         try container.encodeIfPresent(evidenceUrls, forKey: .evidenceUrls)
-        try container.encodeIfPresent(refundAmount, forKey: .refundAmount)
     }
 }
 

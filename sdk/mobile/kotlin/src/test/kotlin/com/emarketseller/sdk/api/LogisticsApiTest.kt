@@ -32,10 +32,10 @@ import com.emarketseller.sdk.model.CashCollectionRecordRead
 import com.emarketseller.sdk.model.CheckInRequest
 import com.emarketseller.sdk.model.ConfirmCollectionRequest
 import com.emarketseller.sdk.model.DeclareReconciliationRequest
-import com.emarketseller.sdk.model.DispatchToPointRequest
 import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.HoldingRead
 import com.emarketseller.sdk.model.NearbyPickupPointRead
+import com.emarketseller.sdk.model.OrderShopGroupRead
 import com.emarketseller.sdk.model.PickupPointCashReconciliationStatus
 import com.emarketseller.sdk.model.PickupPointCreateRequest
 import com.emarketseller.sdk.model.PickupPointRead
@@ -52,6 +52,8 @@ import com.emarketseller.sdk.model.ResolveDiscrepancyRequest
 import com.emarketseller.sdk.model.ResolveReconciliationRequest
 import com.emarketseller.sdk.model.ShipmentRead
 import com.emarketseller.sdk.model.UpdateStaffRoleRequest
+import com.emarketseller.sdk.model.WarehouseGroupRead
+import com.emarketseller.sdk.model.WarehouseShipmentCreateRequest
 
 class LogisticsApiTest : ShouldSpec() {
     init {
@@ -87,6 +89,15 @@ class LogisticsApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test createWarehouseShipmentApiV1WarehouseShipmentsPost
+        should("test createWarehouseShipmentApiV1WarehouseShipmentsPost") {
+            // uncomment below to test createWarehouseShipmentApiV1WarehouseShipmentsPost
+            //val warehouseShipmentCreateRequest : WarehouseShipmentCreateRequest =  // WarehouseShipmentCreateRequest | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : ShipmentRead = apiInstance.createWarehouseShipmentApiV1WarehouseShipmentsPost(warehouseShipmentCreateRequest, accessToken)
+            //result shouldBe ("TODO")
+        }
+
         // to test declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost
         should("test declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost") {
             // uncomment below to test declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost
@@ -94,16 +105,6 @@ class LogisticsApiTest : ShouldSpec() {
             //val declareReconciliationRequest : DeclareReconciliationRequest =  // DeclareReconciliationRequest | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : ReconciliationRead = apiInstance.declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost(reconciliationId, declareReconciliationRequest, accessToken)
-            //result shouldBe ("TODO")
-        }
-
-        // to test dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost
-        should("test dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost") {
-            // uncomment below to test dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost
-            //val groupId : kotlin.Int = 56 // kotlin.Int | 
-            //val dispatchToPointRequest : DispatchToPointRequest =  // DispatchToPointRequest | 
-            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : ShipmentRead = apiInstance.dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost(groupId, dispatchToPointRequest, accessToken)
             //result shouldBe ("TODO")
         }
 
@@ -130,6 +131,14 @@ class LogisticsApiTest : ShouldSpec() {
             //val groupId : kotlin.Int = 56 // kotlin.Int | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : PickupStatusRead = apiInstance.getGroupPickupStatusApiV1OrdersOrderIdGroupsGroupIdPickupStatusGet(orderId, groupId, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test getLastUsedPickupPointApiV1PickupPointsLastUsedGet
+        should("test getLastUsedPickupPointApiV1PickupPointsLastUsedGet") {
+            // uncomment below to test getLastUsedPickupPointApiV1PickupPointsLastUsedGet
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : PickupPointRead = apiInstance.getLastUsedPickupPointApiV1PickupPointsLastUsedGet(accessToken)
             //result shouldBe ("TODO")
         }
 
@@ -187,6 +196,14 @@ class LogisticsApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test listPickupPointsApiV1PickupPointsGet
+        should("test listPickupPointsApiV1PickupPointsGet") {
+            // uncomment below to test listPickupPointsApiV1PickupPointsGet
+            //val regionId : kotlin.Int = 56 // kotlin.Int | 
+            //val result : kotlin.collections.List<PickupPointRead> = apiInstance.listPickupPointsApiV1PickupPointsGet(regionId)
+            //result shouldBe ("TODO")
+        }
+
         // to test listReconciliationsAdminApiV1AdminReconciliationsGet
         should("test listReconciliationsAdminApiV1AdminReconciliationsGet") {
             // uncomment below to test listReconciliationsAdminApiV1AdminReconciliationsGet
@@ -204,11 +221,10 @@ class LogisticsApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
-        // to test listSellerShipmentsApiV1SellerShipmentsGet
-        should("test listSellerShipmentsApiV1SellerShipmentsGet") {
-            // uncomment below to test listSellerShipmentsApiV1SellerShipmentsGet
-            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : kotlin.collections.List<ShipmentRead> = apiInstance.listSellerShipmentsApiV1SellerShipmentsGet(accessToken)
+        // to test listRegionsApiV1RegionsGet
+        should("test listRegionsApiV1RegionsGet") {
+            // uncomment below to test listRegionsApiV1RegionsGet
+            //val result : kotlin.collections.List<RegionRead> = apiInstance.listRegionsApiV1RegionsGet()
             //result shouldBe ("TODO")
         }
 
@@ -227,6 +243,44 @@ class LogisticsApiTest : ShouldSpec() {
             //val status : PickupPointShipmentStatus =  // PickupPointShipmentStatus | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : kotlin.collections.List<ShipmentRead> = apiInstance.listShipmentsForStaffApiV1PickupStaffShipmentsGet(status, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test listWarehouseInboundApiV1WarehouseInboundGet
+        should("test listWarehouseInboundApiV1WarehouseInboundGet") {
+            // uncomment below to test listWarehouseInboundApiV1WarehouseInboundGet
+            //val shopId : kotlin.Int = 56 // kotlin.Int | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : kotlin.collections.List<WarehouseGroupRead> = apiInstance.listWarehouseInboundApiV1WarehouseInboundGet(shopId, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test listWarehouseOutboundApiV1WarehouseOutboundGet
+        should("test listWarehouseOutboundApiV1WarehouseOutboundGet") {
+            // uncomment below to test listWarehouseOutboundApiV1WarehouseOutboundGet
+            //val pickupPointId : kotlin.Int = 56 // kotlin.Int | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : kotlin.collections.List<WarehouseGroupRead> = apiInstance.listWarehouseOutboundApiV1WarehouseOutboundGet(pickupPointId, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test listWarehouseShipmentsApiV1WarehouseShipmentsGet
+        should("test listWarehouseShipmentsApiV1WarehouseShipmentsGet") {
+            // uncomment below to test listWarehouseShipmentsApiV1WarehouseShipmentsGet
+            //val status : PickupPointShipmentStatus =  // PickupPointShipmentStatus | 
+            //val skip : kotlin.Int = 56 // kotlin.Int | 
+            //val limit : kotlin.Int = 56 // kotlin.Int | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : kotlin.collections.List<ShipmentRead> = apiInstance.listWarehouseShipmentsApiV1WarehouseShipmentsGet(status, skip, limit, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost
+        should("test receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost") {
+            // uncomment below to test receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost
+            //val groupId : kotlin.Int = 56 // kotlin.Int | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : OrderShopGroupRead = apiInstance.receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId, accessToken)
             //result shouldBe ("TODO")
         }
 

@@ -7,8 +7,8 @@
 
 import Foundation
 
+/** Who absorbs the refunded product&#39;s ledger impact (Doc 04 §4.4). The buyer never does: refunds are always 100% of the price (§4.4a). */
 public enum WhoBearsCost: String, Sendable, Codable, CaseIterable {
     case seller = "seller"
     case platform = "platform"
-    case buyer = "buyer"
 }

@@ -50,22 +50,28 @@ Class | Method | HTTP request | Description
 *LogisticsAPI* | [**checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost**](docs/LogisticsAPI.md#checkinshipmentapiv1pickupstaffshipmentsshipmentidcheckinpost) | **POST** /api/v1/pickup-staff/shipments/{shipment_id}/check-in | Check In Shipment
 *LogisticsAPI* | [**collectHoldingItemsApiV1PickupStaffHoldingsHoldingIdCollectPost**](docs/LogisticsAPI.md#collectholdingitemsapiv1pickupstaffholdingsholdingidcollectpost) | **POST** /api/v1/pickup-staff/holdings/{holding_id}/collect | Collect Holding Items
 *LogisticsAPI* | [**createPickupPointApiV1AdminPickupPointsPost**](docs/LogisticsAPI.md#createpickuppointapiv1adminpickuppointspost) | **POST** /api/v1/admin/pickup-points | Create Pickup Point
+*LogisticsAPI* | [**createWarehouseShipmentApiV1WarehouseShipmentsPost**](docs/LogisticsAPI.md#createwarehouseshipmentapiv1warehouseshipmentspost) | **POST** /api/v1/warehouse/shipments | Create Warehouse Shipment
 *LogisticsAPI* | [**declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost**](docs/LogisticsAPI.md#declarereconciliationapiv1pickupstaffreconciliationreconciliationiddeclarepost) | **POST** /api/v1/pickup-staff/reconciliation/{reconciliation_id}/declare | Declare Reconciliation
-*LogisticsAPI* | [**dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost**](docs/LogisticsAPI.md#dispatchgrouptopointapiv1sellerordergroupsgroupiddispatchtopointpost) | **POST** /api/v1/seller/order-groups/{group_id}/dispatch-to-point | Dispatch Group To Point
 *LogisticsAPI* | [**getCurrentPickupStaffIdentityApiV1PickupStaffMeGet**](docs/LogisticsAPI.md#getcurrentpickupstaffidentityapiv1pickupstaffmeget) | **GET** /api/v1/pickup-staff/me | Get Current Pickup Staff Identity
 *LogisticsAPI* | [**getCurrentReconciliationForStaffApiV1PickupStaffReconciliationCurrentGet**](docs/LogisticsAPI.md#getcurrentreconciliationforstaffapiv1pickupstaffreconciliationcurrentget) | **GET** /api/v1/pickup-staff/reconciliation/current | Get Current Reconciliation For Staff
 *LogisticsAPI* | [**getGroupPickupStatusApiV1OrdersOrderIdGroupsGroupIdPickupStatusGet**](docs/LogisticsAPI.md#getgrouppickupstatusapiv1ordersorderidgroupsgroupidpickupstatusget) | **GET** /api/v1/orders/{order_id}/groups/{group_id}/pickup-status | Get Group Pickup Status
+*LogisticsAPI* | [**getLastUsedPickupPointApiV1PickupPointsLastUsedGet**](docs/LogisticsAPI.md#getlastusedpickuppointapiv1pickuppointslastusedget) | **GET** /api/v1/pickup-points/last-used | Get Last Used Pickup Point
 *LogisticsAPI* | [**invitePickupStaffApiV1PickupStaffStaffInvitePost**](docs/LogisticsAPI.md#invitepickupstaffapiv1pickupstaffstaffinvitepost) | **POST** /api/v1/pickup-staff/staff/invite | Invite Pickup Staff
 *LogisticsAPI* | [**listCoStaffApiV1PickupStaffStaffGet**](docs/LogisticsAPI.md#listcostaffapiv1pickupstaffstaffget) | **GET** /api/v1/pickup-staff/staff | List Co Staff
 *LogisticsAPI* | [**listHoldingsForStaffApiV1PickupStaffHoldingsGet**](docs/LogisticsAPI.md#listholdingsforstaffapiv1pickupstaffholdingsget) | **GET** /api/v1/pickup-staff/holdings | List Holdings For Staff
 *LogisticsAPI* | [**listNearbyPickupPointsApiV1PickupPointsNearbyGet**](docs/LogisticsAPI.md#listnearbypickuppointsapiv1pickuppointsnearbyget) | **GET** /api/v1/pickup-points/nearby | List Nearby Pickup Points
 *LogisticsAPI* | [**listPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffGet**](docs/LogisticsAPI.md#listpickuppointstaffadminapiv1adminpickuppointspointidstaffget) | **GET** /api/v1/admin/pickup-points/{point_id}/staff | List Pickup Point Staff Admin
 *LogisticsAPI* | [**listPickupPointsAdminApiV1AdminPickupPointsGet**](docs/LogisticsAPI.md#listpickuppointsadminapiv1adminpickuppointsget) | **GET** /api/v1/admin/pickup-points | List Pickup Points Admin
+*LogisticsAPI* | [**listPickupPointsApiV1PickupPointsGet**](docs/LogisticsAPI.md#listpickuppointsapiv1pickuppointsget) | **GET** /api/v1/pickup-points | List Pickup Points
 *LogisticsAPI* | [**listReconciliationsAdminApiV1AdminReconciliationsGet**](docs/LogisticsAPI.md#listreconciliationsadminapiv1adminreconciliationsget) | **GET** /api/v1/admin/reconciliations | List Reconciliations Admin
 *LogisticsAPI* | [**listRegionsAdminApiV1AdminRegionsGet**](docs/LogisticsAPI.md#listregionsadminapiv1adminregionsget) | **GET** /api/v1/admin/regions | List Regions Admin
-*LogisticsAPI* | [**listSellerShipmentsApiV1SellerShipmentsGet**](docs/LogisticsAPI.md#listsellershipmentsapiv1sellershipmentsget) | **GET** /api/v1/seller/shipments | List Seller Shipments
+*LogisticsAPI* | [**listRegionsApiV1RegionsGet**](docs/LogisticsAPI.md#listregionsapiv1regionsget) | **GET** /api/v1/regions | List Regions
 *LogisticsAPI* | [**listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet**](docs/LogisticsAPI.md#listshipmentdiscrepanciesadminapiv1adminshipmentsget) | **GET** /api/v1/admin/shipments | List Shipment Discrepancies Admin
 *LogisticsAPI* | [**listShipmentsForStaffApiV1PickupStaffShipmentsGet**](docs/LogisticsAPI.md#listshipmentsforstaffapiv1pickupstaffshipmentsget) | **GET** /api/v1/pickup-staff/shipments | List Shipments For Staff
+*LogisticsAPI* | [**listWarehouseInboundApiV1WarehouseInboundGet**](docs/LogisticsAPI.md#listwarehouseinboundapiv1warehouseinboundget) | **GET** /api/v1/warehouse/inbound | List Warehouse Inbound
+*LogisticsAPI* | [**listWarehouseOutboundApiV1WarehouseOutboundGet**](docs/LogisticsAPI.md#listwarehouseoutboundapiv1warehouseoutboundget) | **GET** /api/v1/warehouse/outbound | List Warehouse Outbound
+*LogisticsAPI* | [**listWarehouseShipmentsApiV1WarehouseShipmentsGet**](docs/LogisticsAPI.md#listwarehouseshipmentsapiv1warehouseshipmentsget) | **GET** /api/v1/warehouse/shipments | List Warehouse Shipments
+*LogisticsAPI* | [**receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost**](docs/LogisticsAPI.md#receiveordergroupapiv1warehouseordergroupsgroupidreceivepost) | **POST** /api/v1/warehouse/order-groups/{group_id}/receive | Receive Order Group
 *LogisticsAPI* | [**rejectHoldingItemsApiV1PickupStaffHoldingsHoldingIdRejectPost**](docs/LogisticsAPI.md#rejectholdingitemsapiv1pickupstaffholdingsholdingidrejectpost) | **POST** /api/v1/pickup-staff/holdings/{holding_id}/reject | Reject Holding Items
 *LogisticsAPI* | [**resolveReconciliationAdminApiV1AdminReconciliationsReconciliationIdResolvePatch**](docs/LogisticsAPI.md#resolvereconciliationadminapiv1adminreconciliationsreconciliationidresolvepatch) | **PATCH** /api/v1/admin/reconciliations/{reconciliation_id}/resolve | Resolve Reconciliation Admin
 *LogisticsAPI* | [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](docs/LogisticsAPI.md#resolveshipmentdiscrepancyapiv1adminshipmentsshipmentidresolvediscrepancypatch) | **PATCH** /api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy
@@ -77,6 +83,7 @@ Class | Method | HTTP request | Description
 *OrdersAPI* | [**approveRefundRequestApiV1SellerRefundRequestsRefundIdApprovePatch**](docs/OrdersAPI.md#approverefundrequestapiv1sellerrefundrequestsrefundidapprovepatch) | **PATCH** /api/v1/seller/refund-requests/{refund_id}/approve | Approve Refund Request
 *OrdersAPI* | [**cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost**](docs/OrdersAPI.md#cancelordergroupapiv1ordersorderidgroupsgroupidcancelpost) | **POST** /api/v1/orders/{order_id}/groups/{group_id}/cancel | Cancel Order Group
 *OrdersAPI* | [**checkoutApiV1CheckoutPost**](docs/OrdersAPI.md#checkoutapiv1checkoutpost) | **POST** /api/v1/checkout | Checkout
+*OrdersAPI* | [**confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost**](docs/OrdersAPI.md#confirmrefundreturnapiv1sellerrefundrequestsrefundidconfirmreturnpost) | **POST** /api/v1/seller/refund-requests/{refund_id}/confirm-return | Confirm Refund Return
 *OrdersAPI* | [**createManualAdjustmentApiV1AdminLedgerShopIdManualAdjustmentPost**](docs/OrdersAPI.md#createmanualadjustmentapiv1adminledgershopidmanualadjustmentpost) | **POST** /api/v1/admin/ledger/{shop_id}/manual-adjustment | Create Manual Adjustment
 *OrdersAPI* | [**escalateRefundRequestApiV1RefundRequestsRefundIdEscalatePost**](docs/OrdersAPI.md#escalaterefundrequestapiv1refundrequestsrefundidescalatepost) | **POST** /api/v1/refund-requests/{refund_id}/escalate | Escalate Refund Request
 *OrdersAPI* | [**getCartApiV1CartGet**](docs/OrdersAPI.md#getcartapiv1cartget) | **GET** /api/v1/cart | Get Cart
@@ -151,6 +158,7 @@ Class | Method | HTTP request | Description
 *SellersAPI* | [**updateShopLimitApiV1AdminSellersSellerIdShopLimitPatch**](docs/SellersAPI.md#updateshoplimitapiv1adminsellersselleridshoplimitpatch) | **PATCH** /api/v1/admin/sellers/{seller_id}/shop-limit | Update Shop Limit
 *ShopsAPI* | [**approveCategoryAssignmentApiV1AdminShopCategoryAssignmentsAssignmentIdApprovePatch**](docs/ShopsAPI.md#approvecategoryassignmentapiv1adminshopcategoryassignmentsassignmentidapprovepatch) | **PATCH** /api/v1/admin/shop-category-assignments/{assignment_id}/approve | Approve Category Assignment
 *ShopsAPI* | [**approveShopApiV1AdminShopsShopIdApprovePatch**](docs/ShopsAPI.md#approveshopapiv1adminshopsshopidapprovepatch) | **PATCH** /api/v1/admin/shops/{shop_id}/approve | Approve Shop
+*ShopsAPI* | [**checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet**](docs/ShopsAPI.md#checkslugavailabilityapiv1sellershopsslugavailabilityget) | **GET** /api/v1/seller/shops/slug-availability | Check Slug Availability
 *ShopsAPI* | [**closeShopApiV1SellerShopsShopIdClosePost**](docs/ShopsAPI.md#closeshopapiv1sellershopsshopidclosepost) | **POST** /api/v1/seller/shops/{shop_id}/close | Close Shop
 *ShopsAPI* | [**createShopApiV1SellerShopsPost**](docs/ShopsAPI.md#createshopapiv1sellershopspost) | **POST** /api/v1/seller/shops | Create Shop
 *ShopsAPI* | [**getOwnShopApiV1SellerShopsShopIdGet**](docs/ShopsAPI.md#getownshopapiv1sellershopsshopidget) | **GET** /api/v1/seller/shops/{shop_id} | Get Own Shop
@@ -211,6 +219,7 @@ Class | Method | HTTP request | Description
  - [CartRead](docs/CartRead.md)
  - [CashCollectionRecordItemRead](docs/CashCollectionRecordItemRead.md)
  - [CashCollectionRecordRead](docs/CashCollectionRecordRead.md)
+ - [CategoryAncestorRead](docs/CategoryAncestorRead.md)
  - [CategoryAssignmentRead](docs/CategoryAssignmentRead.md)
  - [CategoryAssignmentStatus](docs/CategoryAssignmentStatus.md)
  - [CategoryAttributeIn](docs/CategoryAttributeIn.md)
@@ -236,7 +245,6 @@ Class | Method | HTTP request | Description
  - [DeclaredAmount](docs/DeclaredAmount.md)
  - [DelistRequest](docs/DelistRequest.md)
  - [DiscrepancyItemResolution](docs/DiscrepancyItemResolution.md)
- - [DispatchToPointRequest](docs/DispatchToPointRequest.md)
  - [DocumentRead](docs/DocumentRead.md)
  - [DocumentReviewRequest](docs/DocumentReviewRequest.md)
  - [DocumentStatus](docs/DocumentStatus.md)
@@ -269,6 +277,7 @@ Class | Method | HTTP request | Description
  - [OrderLineDetailRead](docs/OrderLineDetailRead.md)
  - [OrderLineRead](docs/OrderLineRead.md)
  - [OrderLineStatus](docs/OrderLineStatus.md)
+ - [OrderPickupPointRead](docs/OrderPickupPointRead.md)
  - [OrderRead](docs/OrderRead.md)
  - [OrderShopGroupDetailRead](docs/OrderShopGroupDetailRead.md)
  - [OrderShopGroupRead](docs/OrderShopGroupRead.md)
@@ -311,10 +320,11 @@ Class | Method | HTTP request | Description
  - [ProductVariantCreate](docs/ProductVariantCreate.md)
  - [ProductVariantRead](docs/ProductVariantRead.md)
  - [ProductVariantUpdate](docs/ProductVariantUpdate.md)
+ - [Recipient](docs/Recipient.md)
  - [ReconciliationRead](docs/ReconciliationRead.md)
- - [RefundAmount](docs/RefundAmount.md)
- - [RefundAmount1](docs/RefundAmount1.md)
  - [RefundApproveRequest](docs/RefundApproveRequest.md)
+ - [RefundConfirmReturnRequest](docs/RefundConfirmReturnRequest.md)
+ - [RefundDecision](docs/RefundDecision.md)
  - [RefundReasonCode](docs/RefundReasonCode.md)
  - [RefundRejectRequest](docs/RefundRejectRequest.md)
  - [RefundRequestCreate](docs/RefundRequestCreate.md)
@@ -332,18 +342,19 @@ Class | Method | HTTP request | Description
  - [RoleCreate](docs/RoleCreate.md)
  - [RoleRead](docs/RoleRead.md)
  - [SellerAdminRead](docs/SellerAdminRead.md)
+ - [SellerCategoryRead](docs/SellerCategoryRead.md)
  - [SellerRead](docs/SellerRead.md)
  - [SellerRegisterRequest](docs/SellerRegisterRequest.md)
  - [SellerStatus](docs/SellerStatus.md)
  - [SetAttributesRequest](docs/SetAttributesRequest.md)
  - [ShipmentItemRead](docs/ShipmentItemRead.md)
  - [ShipmentRead](docs/ShipmentRead.md)
- - [ShippingAddressIn](docs/ShippingAddressIn.md)
  - [ShopCreateRequest](docs/ShopCreateRequest.md)
  - [ShopRead](docs/ShopRead.md)
  - [ShopStaffRead](docs/ShopStaffRead.md)
  - [ShopStatus](docs/ShopStatus.md)
  - [ShopUpdateRequest](docs/ShopUpdateRequest.md)
+ - [SlugAvailabilityRead](docs/SlugAvailabilityRead.md)
  - [StaffRole](docs/StaffRole.md)
  - [StatusReasonRequest](docs/StatusReasonRequest.md)
  - [TokenResponse](docs/TokenResponse.md)
@@ -358,6 +369,8 @@ Class | Method | HTTP request | Description
  - [UserRead](docs/UserRead.md)
  - [UserUpdate](docs/UserUpdate.md)
  - [Value](docs/Value.md)
+ - [WarehouseGroupRead](docs/WarehouseGroupRead.md)
+ - [WarehouseShipmentCreateRequest](docs/WarehouseShipmentCreateRequest.md)
  - [WhoBearsCost](docs/WhoBearsCost.md)
 
 

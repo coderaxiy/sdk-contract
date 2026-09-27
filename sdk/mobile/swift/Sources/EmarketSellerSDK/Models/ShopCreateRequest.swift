@@ -9,6 +9,7 @@ import Foundation
 
 public struct ShopCreateRequest: Sendable, Codable, Hashable {
 
+    public static let slugRule = StringRule(minLength: nil, maxLength: 255, pattern: nil)
     public var name: String
     public var slug: String?
     public var logoKey: String?

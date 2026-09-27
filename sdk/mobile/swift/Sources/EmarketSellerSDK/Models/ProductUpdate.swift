@@ -7,7 +7,7 @@
 
 import Foundation
 
-/** PATCH semantics — only provided fields are changed. Editing a sensitive field (per admin-configured list, §4.4) on an approved product triggers re-review automatically; status itself is never set directly here. */
+/** PATCH semantics — only provided fields are changed; an explicit null clears &#x60;brand_id&#x60; and &#x60;description&#x60; (null is ignored for the rest). Editing a sensitive field (per admin-configured list, §4.4) on an approved product triggers re-review automatically; status itself is never set directly here. */
 public struct ProductUpdate: Sendable, Codable, Hashable {
 
     public static let titleRule = StringRule(minLength: nil, maxLength: 500, pattern: nil)

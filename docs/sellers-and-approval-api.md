@@ -31,10 +31,10 @@ the user as-is.
 ```
                  approve
 pending_review ───────────▶ active ◀──────┐
-      │                       │           │ reinstate
-      │ reject             suspend        │
-      ▼                       ▼           │
-  rejected                suspended ──────┘
+      │            ▲          │           │ reinstate
+      │ reject     │ approve suspend      │
+      ▼            │          ▼           │
+  rejected ────────┘      suspended ──────┘
 
   any status ──ban──▶ banned   (terminal)
 ```
@@ -126,7 +126,10 @@ POST /seller/documents
 `400 "Unknown upload key: …"` if the key isn't this seller's; `400 "Upload … is
 a product_image, not a seller_document"` if it was uploaded with another purpose.
 
-`shop_id` is optional and only used for shop-level legal documents.
+`shop_id` is optional and only used for shop-level legal documents: the shop
+must exist (`404 "Shop not found"`), belong to this seller
+(`403 "You do not own this shop"`), and have `legal_entity_override: true`
+(`400` otherwise). Leave it out for the seller's own documents.
 
 ### Add a bank account
 
@@ -141,7 +144,10 @@ POST /seller/bank-accounts
 }
 ```
 
-- `owner_type: "shop"` needs `shop_id`.
+- `owner_type: "shop"` needs `shop_id`, and `owner_type: "seller"` must not
+  send one (`422`). The shop follows the same rules as shop-level documents:
+  it must exist (`404`), be this seller's (`403`), and have
+  `legal_entity_override: true` (`400`).
 - `account_number` is hashed on the server and **never returned**. The response
   has no account number at all — show the bank name and holder instead.
 - New accounts come back with `verified: false`.
@@ -199,9 +205,15 @@ them prominently on the review screen:
    — show it as-is. (During the testing phase this never happens.)
 4. Or reject with a reason, which the seller will see.
 
-**Only show Approve and Reject when the seller is `pending_review`.** The
-backend doesn't enforce this yet (see task `seller-approve-reject-status-guard`),
-so the UI must not offer these actions on active, suspended, or banned sellers.
+| Action | Allowed from | Otherwise |
+|---|---|---|
+| Approve | `pending_review`, `rejected` | `400 "Only sellers in pending_review or rejected status can be approved"` |
+| Reject | `pending_review` | `400 "Only sellers in pending_review status can be rejected"` |
+
+Approving a `rejected` seller reverses the rejection, e.g. after the seller
+uploaded corrected documents (a user can't register a second seller profile).
+Show Approve on `pending_review` and `rejected` sellers, and Reject only on
+`pending_review`. Suspended sellers go back through Reinstate, never Approve.
 
 ### Other transitions
 

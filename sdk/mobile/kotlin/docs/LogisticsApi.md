@@ -7,22 +7,28 @@ All URIs are relative to *http://localhost:8000*
 | [**checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost**](LogisticsApi.md#checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost) | **POST** api/v1/pickup-staff/shipments/{shipment_id}/check-in | Check In Shipment |
 | [**collectHoldingItemsApiV1PickupStaffHoldingsHoldingIdCollectPost**](LogisticsApi.md#collectHoldingItemsApiV1PickupStaffHoldingsHoldingIdCollectPost) | **POST** api/v1/pickup-staff/holdings/{holding_id}/collect | Collect Holding Items |
 | [**createPickupPointApiV1AdminPickupPointsPost**](LogisticsApi.md#createPickupPointApiV1AdminPickupPointsPost) | **POST** api/v1/admin/pickup-points | Create Pickup Point |
+| [**createWarehouseShipmentApiV1WarehouseShipmentsPost**](LogisticsApi.md#createWarehouseShipmentApiV1WarehouseShipmentsPost) | **POST** api/v1/warehouse/shipments | Create Warehouse Shipment |
 | [**declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost**](LogisticsApi.md#declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost) | **POST** api/v1/pickup-staff/reconciliation/{reconciliation_id}/declare | Declare Reconciliation |
-| [**dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost**](LogisticsApi.md#dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost) | **POST** api/v1/seller/order-groups/{group_id}/dispatch-to-point | Dispatch Group To Point |
 | [**getCurrentPickupStaffIdentityApiV1PickupStaffMeGet**](LogisticsApi.md#getCurrentPickupStaffIdentityApiV1PickupStaffMeGet) | **GET** api/v1/pickup-staff/me | Get Current Pickup Staff Identity |
 | [**getCurrentReconciliationForStaffApiV1PickupStaffReconciliationCurrentGet**](LogisticsApi.md#getCurrentReconciliationForStaffApiV1PickupStaffReconciliationCurrentGet) | **GET** api/v1/pickup-staff/reconciliation/current | Get Current Reconciliation For Staff |
 | [**getGroupPickupStatusApiV1OrdersOrderIdGroupsGroupIdPickupStatusGet**](LogisticsApi.md#getGroupPickupStatusApiV1OrdersOrderIdGroupsGroupIdPickupStatusGet) | **GET** api/v1/orders/{order_id}/groups/{group_id}/pickup-status | Get Group Pickup Status |
+| [**getLastUsedPickupPointApiV1PickupPointsLastUsedGet**](LogisticsApi.md#getLastUsedPickupPointApiV1PickupPointsLastUsedGet) | **GET** api/v1/pickup-points/last-used | Get Last Used Pickup Point |
 | [**invitePickupStaffApiV1PickupStaffStaffInvitePost**](LogisticsApi.md#invitePickupStaffApiV1PickupStaffStaffInvitePost) | **POST** api/v1/pickup-staff/staff/invite | Invite Pickup Staff |
 | [**listCoStaffApiV1PickupStaffStaffGet**](LogisticsApi.md#listCoStaffApiV1PickupStaffStaffGet) | **GET** api/v1/pickup-staff/staff | List Co Staff |
 | [**listHoldingsForStaffApiV1PickupStaffHoldingsGet**](LogisticsApi.md#listHoldingsForStaffApiV1PickupStaffHoldingsGet) | **GET** api/v1/pickup-staff/holdings | List Holdings For Staff |
 | [**listNearbyPickupPointsApiV1PickupPointsNearbyGet**](LogisticsApi.md#listNearbyPickupPointsApiV1PickupPointsNearbyGet) | **GET** api/v1/pickup-points/nearby | List Nearby Pickup Points |
 | [**listPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffGet**](LogisticsApi.md#listPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffGet) | **GET** api/v1/admin/pickup-points/{point_id}/staff | List Pickup Point Staff Admin |
 | [**listPickupPointsAdminApiV1AdminPickupPointsGet**](LogisticsApi.md#listPickupPointsAdminApiV1AdminPickupPointsGet) | **GET** api/v1/admin/pickup-points | List Pickup Points Admin |
+| [**listPickupPointsApiV1PickupPointsGet**](LogisticsApi.md#listPickupPointsApiV1PickupPointsGet) | **GET** api/v1/pickup-points | List Pickup Points |
 | [**listReconciliationsAdminApiV1AdminReconciliationsGet**](LogisticsApi.md#listReconciliationsAdminApiV1AdminReconciliationsGet) | **GET** api/v1/admin/reconciliations | List Reconciliations Admin |
 | [**listRegionsAdminApiV1AdminRegionsGet**](LogisticsApi.md#listRegionsAdminApiV1AdminRegionsGet) | **GET** api/v1/admin/regions | List Regions Admin |
-| [**listSellerShipmentsApiV1SellerShipmentsGet**](LogisticsApi.md#listSellerShipmentsApiV1SellerShipmentsGet) | **GET** api/v1/seller/shipments | List Seller Shipments |
+| [**listRegionsApiV1RegionsGet**](LogisticsApi.md#listRegionsApiV1RegionsGet) | **GET** api/v1/regions | List Regions |
 | [**listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet**](LogisticsApi.md#listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet) | **GET** api/v1/admin/shipments | List Shipment Discrepancies Admin |
 | [**listShipmentsForStaffApiV1PickupStaffShipmentsGet**](LogisticsApi.md#listShipmentsForStaffApiV1PickupStaffShipmentsGet) | **GET** api/v1/pickup-staff/shipments | List Shipments For Staff |
+| [**listWarehouseInboundApiV1WarehouseInboundGet**](LogisticsApi.md#listWarehouseInboundApiV1WarehouseInboundGet) | **GET** api/v1/warehouse/inbound | List Warehouse Inbound |
+| [**listWarehouseOutboundApiV1WarehouseOutboundGet**](LogisticsApi.md#listWarehouseOutboundApiV1WarehouseOutboundGet) | **GET** api/v1/warehouse/outbound | List Warehouse Outbound |
+| [**listWarehouseShipmentsApiV1WarehouseShipmentsGet**](LogisticsApi.md#listWarehouseShipmentsApiV1WarehouseShipmentsGet) | **GET** api/v1/warehouse/shipments | List Warehouse Shipments |
+| [**receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost**](LogisticsApi.md#receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost) | **POST** api/v1/warehouse/order-groups/{group_id}/receive | Receive Order Group |
 | [**rejectHoldingItemsApiV1PickupStaffHoldingsHoldingIdRejectPost**](LogisticsApi.md#rejectHoldingItemsApiV1PickupStaffHoldingsHoldingIdRejectPost) | **POST** api/v1/pickup-staff/holdings/{holding_id}/reject | Reject Holding Items |
 | [**resolveReconciliationAdminApiV1AdminReconciliationsReconciliationIdResolvePatch**](LogisticsApi.md#resolveReconciliationAdminApiV1AdminReconciliationsReconciliationIdResolvePatch) | **PATCH** api/v1/admin/reconciliations/{reconciliation_id}/resolve | Resolve Reconciliation Admin |
 | [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](LogisticsApi.md#resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch) | **PATCH** api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy |
@@ -154,6 +160,45 @@ No authorization required
  - **Accept**: application/json
 
 
+Create Warehouse Shipment
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val warehouseShipmentCreateRequest : WarehouseShipmentCreateRequest =  // WarehouseShipmentCreateRequest | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : ShipmentRead = webService.createWarehouseShipmentApiV1WarehouseShipmentsPost(warehouseShipmentCreateRequest, accessToken)
+}
+```
+
+### Parameters
+| **warehouseShipmentCreateRequest** | [**WarehouseShipmentCreateRequest**](WarehouseShipmentCreateRequest.md)|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**ShipmentRead**](ShipmentRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
 Declare Reconciliation
 
 ### Example
@@ -184,47 +229,6 @@ launch(Dispatchers.IO) {
 ### Return type
 
 [**ReconciliationRead**](ReconciliationRead.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-Dispatch Group To Point
-
-### Example
-```kotlin
-// Import classes:
-//import com.emarketseller.sdk.*
-//import com.emarketseller.sdk.infrastructure.*
-//import com.emarketseller.sdk.model.*
-
-val apiClient = ApiClient()
-val webService = apiClient.createWebservice(LogisticsApi::class.java)
-val groupId : kotlin.Int = 56 // kotlin.Int | 
-val dispatchToPointRequest : DispatchToPointRequest =  // DispatchToPointRequest | 
-val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-
-launch(Dispatchers.IO) {
-    val result : ShipmentRead = webService.dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost(groupId, dispatchToPointRequest, accessToken)
-}
-```
-
-### Parameters
-| **groupId** | **kotlin.Int**|  | |
-| **dispatchToPointRequest** | [**DispatchToPointRequest**](DispatchToPointRequest.md)|  | |
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **accessToken** | **kotlin.String**|  | [optional] |
-
-### Return type
-
-[**ShipmentRead**](ShipmentRead.md)
 
 ### Authorization
 
@@ -340,6 +344,43 @@ launch(Dispatchers.IO) {
 ### Return type
 
 [**PickupStatusRead**](PickupStatusRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+Get Last Used Pickup Point
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : PickupPointRead = webService.getLastUsedPickupPointApiV1PickupPointsLastUsedGet(accessToken)
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**PickupPointRead**](PickupPointRead.md)
 
 ### Authorization
 
@@ -585,6 +626,45 @@ No authorization required
  - **Accept**: application/json
 
 
+List Pickup Points
+
+Active points only — for buyers who pick by region instead of location.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val regionId : kotlin.Int = 56 // kotlin.Int | 
+
+launch(Dispatchers.IO) {
+    val result : kotlin.collections.List<PickupPointRead> = webService.listPickupPointsApiV1PickupPointsGet(regionId)
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **regionId** | **kotlin.Int**|  | [optional] |
+
+### Return type
+
+[**kotlin.collections.List&lt;PickupPointRead&gt;**](PickupPointRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
 List Reconciliations Admin
 
 ### Example
@@ -661,7 +741,7 @@ No authorization required
  - **Accept**: application/json
 
 
-List Seller Shipments
+List Regions
 
 ### Example
 ```kotlin
@@ -672,21 +752,18 @@ List Seller Shipments
 
 val apiClient = ApiClient()
 val webService = apiClient.createWebservice(LogisticsApi::class.java)
-val accessToken : kotlin.String = accessToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : kotlin.collections.List<ShipmentRead> = webService.listSellerShipmentsApiV1SellerShipmentsGet(accessToken)
+    val result : kotlin.collections.List<RegionRead> = webService.listRegionsApiV1RegionsGet()
 }
 ```
 
 ### Parameters
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **accessToken** | **kotlin.String**|  | [optional] |
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**kotlin.collections.List&lt;ShipmentRead&gt;**](ShipmentRead.md)
+[**kotlin.collections.List&lt;RegionRead&gt;**](RegionRead.md)
 
 ### Authorization
 
@@ -765,6 +842,166 @@ launch(Dispatchers.IO) {
 ### Return type
 
 [**kotlin.collections.List&lt;ShipmentRead&gt;**](ShipmentRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+List Warehouse Inbound
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val shopId : kotlin.Int = 56 // kotlin.Int | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : kotlin.collections.List<WarehouseGroupRead> = webService.listWarehouseInboundApiV1WarehouseInboundGet(shopId, accessToken)
+}
+```
+
+### Parameters
+| **shopId** | **kotlin.Int**|  | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**kotlin.collections.List&lt;WarehouseGroupRead&gt;**](WarehouseGroupRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+List Warehouse Outbound
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val pickupPointId : kotlin.Int = 56 // kotlin.Int | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : kotlin.collections.List<WarehouseGroupRead> = webService.listWarehouseOutboundApiV1WarehouseOutboundGet(pickupPointId, accessToken)
+}
+```
+
+### Parameters
+| **pickupPointId** | **kotlin.Int**|  | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**kotlin.collections.List&lt;WarehouseGroupRead&gt;**](WarehouseGroupRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+List Warehouse Shipments
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val status : PickupPointShipmentStatus =  // PickupPointShipmentStatus | 
+val skip : kotlin.Int = 56 // kotlin.Int | 
+val limit : kotlin.Int = 56 // kotlin.Int | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : kotlin.collections.List<ShipmentRead> = webService.listWarehouseShipmentsApiV1WarehouseShipmentsGet(status, skip, limit, accessToken)
+}
+```
+
+### Parameters
+| **status** | [**PickupPointShipmentStatus**](.md)|  | [optional] [enum: dispatched, in_transit, arrived, discrepancy] |
+| **skip** | **kotlin.Int**|  | [optional] [default to 0] |
+| **limit** | **kotlin.Int**|  | [optional] [default to 50] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**kotlin.collections.List&lt;ShipmentRead&gt;**](ShipmentRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+Receive Order Group
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val groupId : kotlin.Int = 56 // kotlin.Int | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : OrderShopGroupRead = webService.receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId, accessToken)
+}
+```
+
+### Parameters
+| **groupId** | **kotlin.Int**|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**OrderShopGroupRead**](OrderShopGroupRead.md)
 
 ### Authorization
 

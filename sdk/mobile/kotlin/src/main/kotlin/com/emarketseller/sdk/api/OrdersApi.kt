@@ -26,6 +26,7 @@ import com.emarketseller.sdk.model.OrderShopGroupStatus
 import com.emarketseller.sdk.model.PayoutRead
 import com.emarketseller.sdk.model.PayoutRunRequest
 import com.emarketseller.sdk.model.RefundApproveRequest
+import com.emarketseller.sdk.model.RefundConfirmReturnRequest
 import com.emarketseller.sdk.model.RefundRejectRequest
 import com.emarketseller.sdk.model.RefundRequestCreate
 import com.emarketseller.sdk.model.RefundRequestRead
@@ -95,6 +96,22 @@ interface OrdersApi {
      */
     @POST("api/v1/checkout")
     suspend fun checkoutApiV1CheckoutPost(@Body checkoutRequest: CheckoutRequest, ): Response<CheckoutResponse>
+
+    /**
+     * POST api/v1/seller/refund-requests/{refund_id}/confirm-return
+     * Confirm Refund Return
+     * 
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param refundId 
+     * @param refundConfirmReturnRequest 
+     * @param accessToken  (optional)
+     * @return [RefundRequestRead]
+     */
+    @POST("api/v1/seller/refund-requests/{refund_id}/confirm-return")
+    suspend fun confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost(@Path("refund_id") refundId: kotlin.Int, @Body refundConfirmReturnRequest: RefundConfirmReturnRequest, ): Response<RefundRequestRead>
 
     /**
      * POST api/v1/admin/ledger/{shop_id}/manual-adjustment
@@ -262,13 +279,14 @@ interface OrdersApi {
      * @param buyerId  (optional)
      * @param dateFrom  (optional)
      * @param dateTo  (optional)
+     * @param search Case-insensitive partial match on order_number (optional)
      * @param skip  (optional, default to 0)
      * @param limit  (optional, default to 50)
      * @param accessToken  (optional)
      * @return [kotlin.collections.List<OrderAdminRead>]
      */
     @GET("api/v1/admin/orders")
-    suspend fun listOrdersAdminApiV1AdminOrdersGet(@Query("status") status: kotlin.String? = null, @Query("shop_id") shopId: kotlin.Int? = null, @Query("buyer_id") buyerId: kotlin.Int? = null, @Query("date_from") dateFrom: java.time.OffsetDateTime? = null, @Query("date_to") dateTo: java.time.OffsetDateTime? = null, @Query("skip") skip: kotlin.Int? = 0, @Query("limit") limit: kotlin.Int? = 50, ): Response<kotlin.collections.List<OrderAdminRead>>
+    suspend fun listOrdersAdminApiV1AdminOrdersGet(@Query("status") status: kotlin.String? = null, @Query("shop_id") shopId: kotlin.Int? = null, @Query("buyer_id") buyerId: kotlin.Int? = null, @Query("date_from") dateFrom: java.time.OffsetDateTime? = null, @Query("date_to") dateTo: java.time.OffsetDateTime? = null, @Query("search") search: kotlin.String? = null, @Query("skip") skip: kotlin.Int? = 0, @Query("limit") limit: kotlin.Int? = 50, ): Response<kotlin.collections.List<OrderAdminRead>>
 
     /**
      * GET api/v1/admin/payouts

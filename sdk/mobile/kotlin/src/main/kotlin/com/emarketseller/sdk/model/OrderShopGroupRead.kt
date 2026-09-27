@@ -40,6 +40,8 @@ import kotlinx.serialization.Contextual
  * @param subtotal 
  * @param shippingFee 
  * @param cancellationReason 
+ * @param warehouseReceivedAt 
+ * @param deliveredAt 
  * @param createdAt 
  * @param updatedAt 
  * @param lines 
@@ -68,6 +70,12 @@ data class OrderShopGroupRead (
 
     @SerialName(value = "cancellation_reason")
     val cancellationReason: kotlin.String?,
+
+    @Contextual @SerialName(value = "warehouse_received_at")
+    val warehouseReceivedAt: java.time.OffsetDateTime?,
+
+    @Contextual @SerialName(value = "delivered_at")
+    val deliveredAt: java.time.OffsetDateTime?,
 
     @Contextual @SerialName(value = "created_at")
     val createdAt: java.time.OffsetDateTime,

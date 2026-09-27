@@ -5,7 +5,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Int** |  | 
 **pickupPointId** | **Int** |  | 
-**shopId** | **Int** |  | 
 **status** | [**PickupPointShipmentStatus**](PickupPointShipmentStatus.md) |  | 
 **dispatchedAt** | **Date** |  | 
 **expectedArrivalAt** | **Date** |  | 

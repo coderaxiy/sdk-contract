@@ -19,11 +19,13 @@ public struct OrderShopGroupRead: Sendable, Codable, Hashable {
     public var subtotal: String
     public var shippingFee: String
     public var cancellationReason: String?
+    public var warehouseReceivedAt: Date?
+    public var deliveredAt: Date?
     public var lines: [OrderLineRead]?
     public var createdAt: Date
     public var updatedAt: Date
 
-    public init(id: Int, orderId: Int, shopId: Int, status: OrderShopGroupStatus, subtotal: String, shippingFee: String, cancellationReason: String?, lines: [OrderLineRead]? = nil, createdAt: Date, updatedAt: Date) {
+    public init(id: Int, orderId: Int, shopId: Int, status: OrderShopGroupStatus, subtotal: String, shippingFee: String, cancellationReason: String?, warehouseReceivedAt: Date?, deliveredAt: Date?, lines: [OrderLineRead]? = nil, createdAt: Date, updatedAt: Date) {
         self.id = id
         self.orderId = orderId
         self.shopId = shopId
@@ -31,6 +33,8 @@ public struct OrderShopGroupRead: Sendable, Codable, Hashable {
         self.subtotal = subtotal
         self.shippingFee = shippingFee
         self.cancellationReason = cancellationReason
+        self.warehouseReceivedAt = warehouseReceivedAt
+        self.deliveredAt = deliveredAt
         self.lines = lines
         self.createdAt = createdAt
         self.updatedAt = updatedAt
@@ -44,6 +48,8 @@ public struct OrderShopGroupRead: Sendable, Codable, Hashable {
         case subtotal
         case shippingFee = "shipping_fee"
         case cancellationReason = "cancellation_reason"
+        case warehouseReceivedAt = "warehouse_received_at"
+        case deliveredAt = "delivered_at"
         case lines
         case createdAt = "created_at"
         case updatedAt = "updated_at"
@@ -60,6 +66,8 @@ public struct OrderShopGroupRead: Sendable, Codable, Hashable {
         try container.encode(subtotal, forKey: .subtotal)
         try container.encode(shippingFee, forKey: .shippingFee)
         try container.encode(cancellationReason, forKey: .cancellationReason)
+        try container.encode(warehouseReceivedAt, forKey: .warehouseReceivedAt)
+        try container.encode(deliveredAt, forKey: .deliveredAt)
         try container.encodeIfPresent(lines, forKey: .lines)
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)

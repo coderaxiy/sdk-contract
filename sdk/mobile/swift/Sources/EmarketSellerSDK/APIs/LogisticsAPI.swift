@@ -134,6 +134,44 @@ open class LogisticsAPI {
     }
 
     /**
+     Create Warehouse Shipment
+     
+     - parameter warehouseShipmentCreateRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: ShipmentRead
+     */
+    open class func createWarehouseShipmentApiV1WarehouseShipmentsPost(warehouseShipmentCreateRequest: WarehouseShipmentCreateRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> ShipmentRead {
+        return try await createWarehouseShipmentApiV1WarehouseShipmentsPostWithRequestBuilder(warehouseShipmentCreateRequest: warehouseShipmentCreateRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Create Warehouse Shipment
+     - POST /api/v1/warehouse/shipments
+     - parameter warehouseShipmentCreateRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<ShipmentRead> 
+     */
+    open class func createWarehouseShipmentApiV1WarehouseShipmentsPostWithRequestBuilder(warehouseShipmentCreateRequest: WarehouseShipmentCreateRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<ShipmentRead> {
+        let localVariablePath = "/api/v1/warehouse/shipments"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: warehouseShipmentCreateRequest, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<ShipmentRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Declare Reconciliation
      
      - parameter reconciliationId: (path)  
@@ -172,49 +210,6 @@ open class LogisticsAPI {
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<ReconciliationRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
-
-        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
-    }
-
-    /**
-     Dispatch Group To Point
-     
-     - parameter groupId: (path)  
-     - parameter dispatchToPointRequest: (body)  
-     - parameter accessToken: ()  (optional)
-     - parameter apiConfiguration: The configuration for the http request.
-     - returns: ShipmentRead
-     */
-    open class func dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost(groupId: Int, dispatchToPointRequest: DispatchToPointRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> ShipmentRead {
-        return try await dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPostWithRequestBuilder(groupId: groupId, dispatchToPointRequest: dispatchToPointRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
-    }
-
-    /**
-     Dispatch Group To Point
-     - POST /api/v1/seller/order-groups/{group_id}/dispatch-to-point
-     - parameter groupId: (path)  
-     - parameter dispatchToPointRequest: (body)  
-     - parameter accessToken: ()  (optional)
-     - parameter apiConfiguration: The configuration for the http request.
-     - returns: RequestBuilder<ShipmentRead> 
-     */
-    open class func dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPostWithRequestBuilder(groupId: Int, dispatchToPointRequest: DispatchToPointRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<ShipmentRead> {
-        var localVariablePath = "/api/v1/seller/order-groups/{group_id}/dispatch-to-point"
-        let groupIdPreEscape = "\(APIHelper.mapValueToPathItem(groupId))"
-        let groupIdPostEscape = groupIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        localVariablePath = localVariablePath.replacingOccurrences(of: "{group_id}", with: groupIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = apiConfiguration.basePath + localVariablePath
-        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: dispatchToPointRequest, codableHelper: apiConfiguration.codableHelper)
-
-        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
-
-        let localVariableNillableHeaders: [String: (any Sendable)?] = [
-            "Content-Type": "application/json",
-        ]
-
-        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
-
-        let localVariableRequestBuilder: RequestBuilder<ShipmentRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }
@@ -333,6 +328,42 @@ open class LogisticsAPI {
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<PickupStatusRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Get Last Used Pickup Point
+     
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: PickupPointRead
+     */
+    open class func getLastUsedPickupPointApiV1PickupPointsLastUsedGet(accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> PickupPointRead {
+        return try await getLastUsedPickupPointApiV1PickupPointsLastUsedGetWithRequestBuilder(accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Get Last Used Pickup Point
+     - GET /api/v1/pickup-points/last-used
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<PickupPointRead> 
+     */
+    open class func getLastUsedPickupPointApiV1PickupPointsLastUsedGetWithRequestBuilder(accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<PickupPointRead> {
+        let localVariablePath = "/api/v1/pickup-points/last-used"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<PickupPointRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }
@@ -578,6 +609,46 @@ open class LogisticsAPI {
     }
 
     /**
+     List Pickup Points
+     
+     - parameter regionId: (query)  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [PickupPointRead]
+     */
+    open class func listPickupPointsApiV1PickupPointsGet(regionId: Int? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [PickupPointRead] {
+        return try await listPickupPointsApiV1PickupPointsGetWithRequestBuilder(regionId: regionId, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     List Pickup Points
+     - GET /api/v1/pickup-points
+     - Active points only — for buyers who pick by region instead of location.
+     - parameter regionId: (query)  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[PickupPointRead]> 
+     */
+    open class func listPickupPointsApiV1PickupPointsGetWithRequestBuilder(regionId: Int? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[PickupPointRead]> {
+        let localVariablePath = "/api/v1/pickup-points"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "region_id": (wrappedValue: regionId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[PickupPointRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      List Reconciliations Admin
      
      - parameter status: (query)  (optional)
@@ -655,25 +726,23 @@ open class LogisticsAPI {
     }
 
     /**
-     List Seller Shipments
+     List Regions
      
-     - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
-     - returns: [ShipmentRead]
+     - returns: [RegionRead]
      */
-    open class func listSellerShipmentsApiV1SellerShipmentsGet(accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [ShipmentRead] {
-        return try await listSellerShipmentsApiV1SellerShipmentsGetWithRequestBuilder(accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    open class func listRegionsApiV1RegionsGet(apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [RegionRead] {
+        return try await listRegionsApiV1RegionsGetWithRequestBuilder(apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
-     List Seller Shipments
-     - GET /api/v1/seller/shipments
-     - parameter accessToken: ()  (optional)
+     List Regions
+     - GET /api/v1/regions
      - parameter apiConfiguration: The configuration for the http request.
-     - returns: RequestBuilder<[ShipmentRead]> 
+     - returns: RequestBuilder<[RegionRead]> 
      */
-    open class func listSellerShipmentsApiV1SellerShipmentsGetWithRequestBuilder(accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[ShipmentRead]> {
-        let localVariablePath = "/api/v1/seller/shipments"
+    open class func listRegionsApiV1RegionsGetWithRequestBuilder(apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[RegionRead]> {
+        let localVariablePath = "/api/v1/regions"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters: [String: any Sendable]? = nil
 
@@ -685,7 +754,7 @@ open class LogisticsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[ShipmentRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[RegionRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }
@@ -770,6 +839,176 @@ open class LogisticsAPI {
         let localVariableRequestBuilder: RequestBuilder<[ShipmentRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     List Warehouse Inbound
+     
+     - parameter shopId: (query)  (optional)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [WarehouseGroupRead]
+     */
+    open class func listWarehouseInboundApiV1WarehouseInboundGet(shopId: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [WarehouseGroupRead] {
+        return try await listWarehouseInboundApiV1WarehouseInboundGetWithRequestBuilder(shopId: shopId, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     List Warehouse Inbound
+     - GET /api/v1/warehouse/inbound
+     - parameter shopId: (query)  (optional)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[WarehouseGroupRead]> 
+     */
+    open class func listWarehouseInboundApiV1WarehouseInboundGetWithRequestBuilder(shopId: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[WarehouseGroupRead]> {
+        let localVariablePath = "/api/v1/warehouse/inbound"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "shop_id": (wrappedValue: shopId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[WarehouseGroupRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     List Warehouse Outbound
+     
+     - parameter pickupPointId: (query)  (optional)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [WarehouseGroupRead]
+     */
+    open class func listWarehouseOutboundApiV1WarehouseOutboundGet(pickupPointId: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [WarehouseGroupRead] {
+        return try await listWarehouseOutboundApiV1WarehouseOutboundGetWithRequestBuilder(pickupPointId: pickupPointId, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     List Warehouse Outbound
+     - GET /api/v1/warehouse/outbound
+     - parameter pickupPointId: (query)  (optional)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[WarehouseGroupRead]> 
+     */
+    open class func listWarehouseOutboundApiV1WarehouseOutboundGetWithRequestBuilder(pickupPointId: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[WarehouseGroupRead]> {
+        let localVariablePath = "/api/v1/warehouse/outbound"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "pickup_point_id": (wrappedValue: pickupPointId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[WarehouseGroupRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     List Warehouse Shipments
+     
+     - parameter status: (query)  (optional)
+     - parameter skip: (query)  (optional, default to 0)
+     - parameter limit: (query)  (optional, default to 50)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [ShipmentRead]
+     */
+    open class func listWarehouseShipmentsApiV1WarehouseShipmentsGet(status: PickupPointShipmentStatus? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [ShipmentRead] {
+        return try await listWarehouseShipmentsApiV1WarehouseShipmentsGetWithRequestBuilder(status: status, skip: skip, limit: limit, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     List Warehouse Shipments
+     - GET /api/v1/warehouse/shipments
+     - parameter status: (query)  (optional)
+     - parameter skip: (query)  (optional, default to 0)
+     - parameter limit: (query)  (optional, default to 50)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[ShipmentRead]> 
+     */
+    open class func listWarehouseShipmentsApiV1WarehouseShipmentsGetWithRequestBuilder(status: PickupPointShipmentStatus? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[ShipmentRead]> {
+        let localVariablePath = "/api/v1/warehouse/shipments"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "status": (wrappedValue: status?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "skip": (wrappedValue: skip?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "limit": (wrappedValue: limit?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[ShipmentRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Receive Order Group
+     
+     - parameter groupId: (path)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: OrderShopGroupRead
+     */
+    open class func receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId: Int, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> OrderShopGroupRead {
+        return try await receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePostWithRequestBuilder(groupId: groupId, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Receive Order Group
+     - POST /api/v1/warehouse/order-groups/{group_id}/receive
+     - parameter groupId: (path)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<OrderShopGroupRead> 
+     */
+    open class func receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePostWithRequestBuilder(groupId: Int, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<OrderShopGroupRead> {
+        var localVariablePath = "/api/v1/warehouse/order-groups/{group_id}/receive"
+        let groupIdPreEscape = "\(APIHelper.mapValueToPathItem(groupId))"
+        let groupIdPostEscape = groupIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{group_id}", with: groupIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<OrderShopGroupRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }
 
     /**

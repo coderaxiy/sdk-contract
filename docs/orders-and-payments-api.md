@@ -72,37 +72,79 @@ you last saw is still accurate.
 
 ### `OrderShopGroup.status` — the real fulfillment state machine
 
+Every order is collected by the buyer at the pickup point they chose at
+checkout. Sellers bring goods to the platform's **central store**; warehouse
+staff send them on to the pickup point.
+
 ```
-pending ──▶ confirmed ──▶ preparing ──▶ shipped ──▶ delivered ──▶ return_requested ──▶ returned ──▶ refunded
-   │            │              │                                        │
-   └────────────┴──────────────┴──▶ cancelled (before shipping)         └──▶ delivered (return rejected, reverts)
+pending ─▶ confirmed ─▶ preparing ─▶ at_warehouse ─▶ shipped ─▶ arrived_at_point ─▶ delivered
+ seller     seller       seller      warehouse        warehouse   pickup point        buyer collects
+   │           │            │         received it     sent it to  checked it in       (or partially_collected,
+   └───────────┴────────────┴──▶ cancelled             the point                      rejected_by_buyer,
+                                                                                      return_to_seller)
+
+delivered ──(refund rollup, computed from the lines)──▶ return_requested | partially_refunded | refunded
 ```
+
+- `at_warehouse`: the seller brought the goods and the central store received
+  them (`warehouse_received_at` on the group).
+- `shipped`: on the way from the central store to the buyer's pickup point.
+- `arrived_at_point` onwards: see `docs/logistics-and-pickup-points-api.md`.
+
+After `delivered`, the group status is **computed from its lines** every time a
+refund changes one of them. Nobody sets it directly:
+
+| Lines | Group status |
+|---|---|
+| any line `return_pending` | `return_requested` |
+| otherwise, all lines `refunded` | `refunded` |
+| otherwise, some lines `refunded` | `partially_refunded` |
+| no refund activity | unchanged (`delivered`) |
+
+A pending or rejected refund request doesn't change anything: the group stays
+`delivered` until a refund is approved.
 
 - **Free buyer cancellation** (`POST /orders/{id}/groups/{group_id}/cancel`)
   only works while a group is `pending` or `confirmed` — once a seller marks
   it `preparing`, the buyer-facing cancel button should disable/disappear
   (the API returns `400` if you call it anyway, but don't rely on that —
   check `group.status` client-side to avoid a dead-end click).
-- Sellers drive the rest of the fulfillment flow via
-  `PATCH /seller/order-groups/{id}/status` — only forward transitions in the
-  diagram above are valid; anything else is a `400`.
+- Sellers use `PATCH /seller/order-groups/{id}/status` only up to
+  `preparing`. It accepts **only** these transitions; anything else is `400`:
+
+  | From | Seller may set |
+  |---|---|
+  | `pending` | `confirmed`, `cancelled` |
+  | `confirmed` | `preparing`, `cancelled` |
+  | `preparing` | `cancelled` |
+
+  After `preparing` the seller brings the goods to the central store. Every
+  later status is set by warehouse staff, pickup-point staff, the buyer's
+  collection, or the refund rollup above. Sellers don't choose or see the
+  pickup point.
 
 ### `OrderLine.status`
 
-Independent of the group's status — tracks per-line refund outcomes:
-`active → returned` (physical item came back) or `active → refunded`
-(direct refund, e.g. item never arrived — no physical return involved).
+Set only by the refund flow:
+
+```
+active ──(refund approved, reason needs the item back)──▶ return_pending ──(seller confirms the item is back)──▶ refunded
+active ──(refund approved, reason needs no return: never_arrived)──────────────────────────────────────────────▶ refunded
+```
+
+`physical_return_received_at` records when the seller confirmed the item back.
+A pending or rejected refund request leaves the line `active`.
 
 ### Cash on Delivery is a first-class payment method with different timing
 
 This is the one thing that's easy to get wrong in the UI: **for COD orders,
 the seller's commission and payout ledger entries are not created until the
-`OrderShopGroup` reaches `delivered`** — not at checkout, unlike every other
-payment method. Buyer-facing UI doesn't need to care about this (the order
-still shows `paid` immediately after COD checkout, same as online payment),
-but if you're building **seller-facing earnings/ledger views**, be aware a
-COD sale won't show up in the seller's ledger balance until the buyer
-actually receives the item — this is expected, not a bug.
+buyer collects and pays for each item at the pickup point** — per item, not at
+checkout, unlike every other payment method. Buyer-facing UI doesn't need to
+care about this (the order still shows `paid` immediately after COD checkout,
+same as online payment), but if you're building **seller-facing
+earnings/ledger views**, be aware a COD sale won't show up in the seller's
+ledger balance until the buyer collects it — this is expected, not a bug.
 
 ### Money fields are strings, not numbers
 
@@ -110,6 +152,62 @@ Every `Decimal` field (`price_snapshot`, `total_amount`, `subtotal`,
 `unit_price`, `line_total`, `amount`, `refund_amount`, etc.) is serialized
 as a **JSON string** (e.g. `"45000.00"`), same as the products API. Parse
 before formatting; don't do arithmetic on the raw string.
+
+### Refunds are all-or-nothing, per product
+
+A refund request covers one order line, and its `refund_amount` is always that
+line's full `line_total`, fixed when the buyer creates the request. Nobody
+sends an amount: not the buyer, the seller, or an admin. Approving refunds the
+full price; rejecting refunds nothing. There's no partial approval.
+
+**Money moves only once the item is back.** Whether a return is needed depends
+on `reason_code`:
+
+| `reason_code` | Item must come back? | Shipping refunded? |
+|---|---|---|
+| `defective` | yes | yes |
+| `not_as_described` | yes | yes |
+| `wrong_item` | yes | yes |
+| `never_arrived` | no | yes |
+| `changed_mind` | yes | no |
+| `other` | yes | no |
+
+- Approving a `never_arrived` request settles immediately: line → `refunded`,
+  ledger entries written.
+- Approving any other reason moves the line to `return_pending` and writes
+  nothing yet. When the item arrives, the seller calls
+  `POST /seller/refund-requests/{id}/confirm-return` (`{ condition_note? }`):
+  line → `refunded`, ledger entries written. `400` unless the request is
+  `approved` and its line is `return_pending`.
+- The "shipping refunded" column isn't applied yet: `shipping_fee` is always
+  `0` until logistics sets real fees. The planned rule (not final) is to refund
+  the group's shipping once, when its last line is refunded.
+
+**Who resolves what:**
+
+- **Seller** (`PATCH /seller/refund-requests/{id}/approve | reject`): only
+  `pending` requests (`400` otherwise, including `"This refund request has
+  been escalated to an admin"`). A seller approval is always at the seller's
+  cost: `who_bears_cost` may be omitted, and anything other than `"seller"` is
+  `400`.
+- **Buyer** (`POST /refund-requests/{id}/escalate`): once, on a request the
+  seller rejected. `escalated_at` is set; a second escalation is `400`.
+- **Admin** (`PATCH /admin/refund-requests/{id}/resolve`): only
+  `escalated_to_admin` requests, and final.
+  `{ decision: "approve", who_bears_cost, reason }` approves (same return and
+  settlement rules as above); `{ decision: "reject", reason }` closes it as
+  `rejected`, line stays `active`.
+
+**Ledger, by `who_bears_cost`:**
+
+- `seller`: `refund_debit` of the full amount and `refund_commission_reversal`
+  of the line's full commission.
+- `platform`: a zero-amount `platform_absorbed_refund` record; the seller's
+  payout is unaffected.
+
+There's no `buyer` option: every approved refund returns the full price, so the
+buyer never bears the product's cost. The only thing a buyer can lose is the
+shipping fee, per the table above.
 
 ### Return window
 
@@ -120,19 +218,26 @@ frontend directly; the API just returns `400` with a clear message once the
 window has passed). There's no endpoint to check the remaining window
 in advance — if you want to show a countdown, you'd need the category's
 `return_window_days` from `GET /seller/categories/{id}` /
-`GET /admin/categories/{id}` (Doc 02/03 API) combined with the group's
-delivery date, which isn't currently exposed on `OrderShopGroupRead` either
-— flag to backend if the buyer order-detail page needs this.
+`GET /admin/categories/{id}` (Doc 02/03 API) combined with the
+group's `delivered_at`.
 
 ---
 
 ## 2. Checkout flow — buyer-facing
 
 1. Build the cart via `GET /cart` / `POST /cart/items` / `PATCH /cart/items/{id}` / `DELETE /cart/items/{id}`.
-2. Collect shipping address (see `ShippingAddressIn` shape below) and let
-   the buyer pick a payment method.
-3. Call `POST /checkout` with `{ shipping_address, payment_method }`.
-4. **Handle the price-mismatch case** — this is a `400` with a structured body:
+2. **Pickup point.** Call `GET /pickup-points/last-used`. If it returns a
+   point, pre-select it ("You picked this point last time") so the buyer can
+   just confirm. It's `null` for a first order or when that point has closed.
+   To choose another: `GET /pickup-points/nearby?lat&lng` (by location) or
+   `GET /regions` + `GET /pickup-points?region_id=` (by region). One point
+   covers the whole order, all shops included.
+3. Collect the **recipient** (name and phone the pickup point checks against)
+   and the payment method.
+4. Call `POST /checkout` with
+   `{ recipient: { full_name, phone, notes? }, pickup_point_id, payment_method }`.
+   A point that isn't active: `400 "This pickup point isn't available — choose another one"`.
+5. **Handle the price-mismatch case** — this is a `400` with a structured body:
    ```json
    {
      "detail": {
@@ -147,7 +252,7 @@ delivery date, which isn't currently exposed on `OrderShopGroupRead` either
    confirm before retrying checkout (the server never silently charges a
    different price than what was in the cart). A plain stock-insufficient
    error is a normal string-detail `400` — handle it like any other error.
-5. On success (`CheckoutResponse`):
+6. On success (`CheckoutResponse`):
    - `payment_method = cash_on_delivery` → `payment_redirect_url` is `null`.
      The order is already `paid`/confirmed — redirect straight to the order
      confirmation page using `order_id`/`order_number`.
@@ -155,27 +260,22 @@ delivery date, which isn't currently exposed on `OrderShopGroupRead` either
      (currently a placeholder URL — **real gateway integration isn't built
      yet**, this is explicitly out of scope for this doc; don't wire real
      Payme/Click/Uzcard flows against it yet).
-6. Reserved stock expires after **15 minutes** if payment isn't completed —
+7. Reserved stock expires after **15 minutes** if payment isn't completed —
    show a countdown/timeout state on the payment-redirect page if you can;
    after expiry the order flips to `payment_failed` automatically.
 
-### `ShippingAddressIn` shape
+### `Recipient` shape
 
 ```ts
 {
-  full_name: string
-  phone: string
-  address_line: string
-  city: string
-  region?: string
-  postal_code?: string
-  notes?: string
+  full_name: string   // 1–255 chars
+  phone: string       // 5–30 chars
+  notes?: string | null
 }
 ```
 
-This is a structured addition on top of the spec (which left the address
-shape unspecified) — there's no address-book/saved-addresses feature, the
-buyer re-enters this every checkout.
+There's no delivery address: every order is collected at a pickup point. There's
+no saved-recipient feature yet; prefill from the user's profile if you have it.
 
 ---
 
@@ -193,9 +293,9 @@ buyer re-enters this every checkout.
 | GET | `/orders` | Buyer's own orders, all shops |
 | GET | `/orders/{id}` | Full detail incl. all shop groups |
 | POST | `/orders/{id}/groups/{group_id}/cancel` | `{ reason }` — only while group is `pending`/`confirmed` |
-| POST | `/order-lines/{id}/refund-request` | `{ reason_code, reason_text?, evidence_urls?, refund_amount? }` — line must belong to a `delivered` group, within the return window |
+| POST | `/order-lines/{id}/refund-request` | `{ reason_code, reason_text?, evidence_urls? }` — line must belong to a `delivered` group, within the return window. `refund_amount` is set to the line's `line_total` (see "Refunds are all-or-nothing") |
 | GET | `/refund-requests/{id}` | Visible to the requester or the seller who owns the shop |
-| POST | `/refund-requests/{id}/escalate` | Not in the original spec's endpoint table but required by the dispute flow — call this when a buyer disputes a seller's rejection (only valid on a `rejected` request) |
+| POST | `/refund-requests/{id}/escalate` | Call when a buyer disputes a seller's rejection. Only on a `rejected` request that hasn't been escalated before (`escalated_at` is null) |
 
 ### 3.2 Seller-facing
 
@@ -205,8 +305,9 @@ buyer re-enters this every checkout.
 | GET | `/seller/order-groups/{id}` | |
 | PATCH | `/seller/order-groups/{id}/status` | `{ status, reason? }` — `reason` is used for `cancelled`, ignored otherwise |
 | GET | `/seller/shops/{shop_id}/refund-requests` | Query: `status` |
-| PATCH | `/seller/refund-requests/{id}/approve` | `{ who_bears_cost, refund_amount }` |
-| PATCH | `/seller/refund-requests/{id}/reject` | `{ reason }` |
+| PATCH | `/seller/refund-requests/{id}/approve` | `{ who_bears_cost? }` — only `"seller"` (the default). Only `pending` requests. `never_arrived` refunds at once; other reasons wait for `confirm-return` |
+| PATCH | `/seller/refund-requests/{id}/reject` | `{ reason }` — only `pending` requests |
+| POST | `/seller/refund-requests/{id}/confirm-return` | `{ condition_note? }` — the returned item arrived; only when the request is `approved` and its line is `return_pending`. Refunds the money |
 | GET | `/seller/shops/{shop_id}/ledger` | Query (**required**): `period_start`, `period_end` (ISO datetimes) — returns entries + computed balance for that window |
 | GET | `/seller/shops/{shop_id}/payouts` | Full history, all statuses |
 
@@ -216,10 +317,10 @@ RBAC as noted — `orders:manage` for the first group, `finance:manage` for the 
 
 | Method | Path | Purpose |
 |---|---|---|
-| GET | `/admin/orders` | Query: `status`, `shop_id`, `buyer_id`, `date_from`, `date_to` |
+| GET | `/admin/orders` | Query: `status`, `shop_id`, `buyer_id`, `date_from`, `date_to`, `search` (case-insensitive partial match on `order_number`), `skip`, `limit` |
 | GET | `/admin/orders/{id}` | Includes commission/payout fields (admin-only view) |
 | GET | `/admin/refund-requests` | Query: `status` — use `status=escalated_to_admin` for the dispute queue |
-| PATCH | `/admin/refund-requests/{id}/resolve` | `{ who_bears_cost, refund_amount, reason }` — same effect as a seller approval, just admin-triggered and final |
+| PATCH | `/admin/refund-requests/{id}/resolve` | `{ decision: "approve" \| "reject", who_bears_cost?, reason }` — only `escalated_to_admin` requests; final. `who_bears_cost` (`seller` \| `platform`) is required for `approve` (`422` otherwise) |
 | GET | `/admin/ledger/{shop_id}` | Query (**required**): `period_start`, `period_end` |
 | POST | `/admin/ledger/{shop_id}/manual-adjustment` | `{ amount, note }` — `note` required, heavily audited |
 | GET | `/admin/payouts` | Query: `status`, `shop_id` |
@@ -253,7 +354,10 @@ product data for that.
   order_number: string          // "ORD-2026-000123"
   status: "pending_payment" | "paid" | "partially_fulfilled" | "completed" | "cancelled" | "payment_failed"
   total_amount: string
-  shipping_address: { full_name, phone, address_line, city, region?, postal_code?, notes? }
+  recipient: { full_name, phone, notes }
+  pickup_point: {                // null only on orders placed before pickup points were required
+    id, name, address, latitude, longitude, operating_hours, contact_phone
+  } | null
   payment_method: "payme" | "click" | "uzcard" | "cash_on_delivery"
   payment_reference: string | null
   placed_at: string | null
@@ -269,10 +373,14 @@ product data for that.
   id: number
   order_id: number
   shop_id: number
-  status: "pending" | "confirmed" | "preparing" | "shipped" | "delivered" | "cancelled" | "return_requested" | "returned" | "refunded"
+  status: "pending" | "confirmed" | "preparing" | "at_warehouse" | "shipped" | "delivered" | "cancelled"
+        | "return_requested" | "partially_refunded" | "refunded"   // refund rollup, see §1
+        | "arrived_at_point" | "partially_collected" | "rejected_by_buyer" | "return_to_seller"
   subtotal: string
   shipping_fee: string           // currently always "0.00" — shipping-fee calculation is a future logistics doc
   cancellation_reason: string | null
+  warehouse_received_at: string | null   // when the central store received it
+  delivered_at: string | null            // when the buyer finished collecting
   lines: OrderLineRead[]
   created_at: string
   updated_at: string
@@ -293,7 +401,8 @@ never shown to buyers.
   unit_price: string
   quantity: number
   line_total: string
-  status: "active" | "returned" | "refunded"
+  status: "active" | "return_pending" | "refunded"
+  physical_return_received_at: string | null
   created_at: string
 }
 ```
@@ -308,11 +417,12 @@ Seller/admin lines additionally include `commission_rule_id` and
   reason_code: "defective" | "not_as_described" | "wrong_item" | "changed_mind" | "never_arrived" | "other",
   reason_text: string | null,
   status: "pending" | "approved" | "rejected" | "escalated_to_admin",
-  refund_amount: string,
-  who_bears_cost: "seller" | "platform" | "buyer" | null,  // null until resolved
+  refund_amount: string,  // always the line's full line_total, never edited
+  who_bears_cost: "seller" | "platform" | null,  // null until approved
   evidence_urls: string[] | null,
   resolved_by: number | null,
   resolved_at: string | null,
+  escalated_at: string | null,  // set when the buyer escalated; only once
   created_at: string,
 }
 ```
@@ -374,3 +484,7 @@ requested window. Don't sum `entries` yourself and expect it to equal
 - No automatic payout scheduler — `POST /admin/payouts/run` must be triggered manually (or by an external cron hitting it).
 - No endpoint exposes a category's `return_window_days` or a group's remaining return-window time directly — only the pass/fail result when a refund is actually requested.
 - Shipping fee is always `0` — logistics/rate calculation is a separate future doc.
+- Admins can't yet waive the physical return or override the shipping rule on
+  a single request (planned for `other`).
+- Returns delivered to a pickup point instead of the seller have no
+  confirm-return path for pickup-point staff yet; the seller confirms.

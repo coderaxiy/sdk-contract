@@ -21,9 +21,10 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
     public var quantity: Int
     public var lineTotal: String
     public var status: OrderLineStatus
+    public var physicalReturnReceivedAt: Date?
     public var createdAt: Date
 
-    public init(id: Int, productId: Int, variantId: Int?, productTitleSnapshot: String, skuSnapshot: String, unitPrice: String, quantity: Int, lineTotal: String, status: OrderLineStatus, createdAt: Date) {
+    public init(id: Int, productId: Int, variantId: Int?, productTitleSnapshot: String, skuSnapshot: String, unitPrice: String, quantity: Int, lineTotal: String, status: OrderLineStatus, physicalReturnReceivedAt: Date?, createdAt: Date) {
         self.id = id
         self.productId = productId
         self.variantId = variantId
@@ -33,6 +34,7 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
         self.quantity = quantity
         self.lineTotal = lineTotal
         self.status = status
+        self.physicalReturnReceivedAt = physicalReturnReceivedAt
         self.createdAt = createdAt
     }
 
@@ -46,6 +48,7 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
         case quantity
         case lineTotal = "line_total"
         case status
+        case physicalReturnReceivedAt = "physical_return_received_at"
         case createdAt = "created_at"
     }
 
@@ -62,6 +65,7 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
         try container.encode(quantity, forKey: .quantity)
         try container.encode(lineTotal, forKey: .lineTotal)
         try container.encode(status, forKey: .status)
+        try container.encode(physicalReturnReceivedAt, forKey: .physicalReturnReceivedAt)
         try container.encode(createdAt, forKey: .createdAt)
     }
 }

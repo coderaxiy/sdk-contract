@@ -9,6 +9,7 @@
 | **stockQuantity** | **kotlin.Int** |  |  [optional] |
 | **attributes** | [**kotlin.collections.Map&lt;kotlin.String, AttributesValue&gt;**](AttributesValue.md) |  |  [optional] |
 | **imageIds** | **kotlin.collections.List&lt;kotlin.Int&gt;** |  |  [optional] |
+| **isActive** | **kotlin.Boolean** |  |  [optional] |
 
 
 

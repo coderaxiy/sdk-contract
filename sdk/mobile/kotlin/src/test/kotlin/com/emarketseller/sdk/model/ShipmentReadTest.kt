@@ -47,12 +47,6 @@ class ShipmentReadTest : ShouldSpec() {
             //modelInstance.pickupPointId shouldBe ("TODO")
         }
 
-        // to test the property `shopId`
-        should("test shopId") {
-            // uncomment below to test the property
-            //modelInstance.shopId shouldBe ("TODO")
-        }
-
         // to test the property `status`
         should("test status") {
             // uncomment below to test the property

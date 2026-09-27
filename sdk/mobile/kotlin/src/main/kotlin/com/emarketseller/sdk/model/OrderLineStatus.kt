@@ -29,9 +29,9 @@ import kotlinx.serialization.Serializable
 
 
 /**
- * 
+ * Owned by RefundService (Doc 04 §3.1a).
  *
- * Values: active,returned,refunded
+ * Values: active,return_pending,refunded
  */
 @Serializable
 enum class OrderLineStatus(val value: kotlin.String) {
@@ -39,8 +39,8 @@ enum class OrderLineStatus(val value: kotlin.String) {
     @SerialName(value = "active")
     active("active"),
 
-    @SerialName(value = "returned")
-    returned("returned"),
+    @SerialName(value = "return_pending")
+    return_pending("return_pending"),
 
     @SerialName(value = "refunded")
     refunded("refunded");

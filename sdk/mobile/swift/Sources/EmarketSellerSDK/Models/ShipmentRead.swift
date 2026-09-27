@@ -11,7 +11,6 @@ public struct ShipmentRead: Sendable, Codable, Hashable {
 
     public var id: Int
     public var pickupPointId: Int
-    public var shopId: Int
     public var status: PickupPointShipmentStatus
     public var dispatchedAt: Date?
     public var expectedArrivalAt: Date?
@@ -20,10 +19,9 @@ public struct ShipmentRead: Sendable, Codable, Hashable {
     public var createdAt: Date
     public var items: [ShipmentItemRead]?
 
-    public init(id: Int, pickupPointId: Int, shopId: Int, status: PickupPointShipmentStatus, dispatchedAt: Date?, expectedArrivalAt: Date?, arrivedAt: Date?, receivedByStaffId: Int?, createdAt: Date, items: [ShipmentItemRead]? = nil) {
+    public init(id: Int, pickupPointId: Int, status: PickupPointShipmentStatus, dispatchedAt: Date?, expectedArrivalAt: Date?, arrivedAt: Date?, receivedByStaffId: Int?, createdAt: Date, items: [ShipmentItemRead]? = nil) {
         self.id = id
         self.pickupPointId = pickupPointId
-        self.shopId = shopId
         self.status = status
         self.dispatchedAt = dispatchedAt
         self.expectedArrivalAt = expectedArrivalAt
@@ -36,7 +34,6 @@ public struct ShipmentRead: Sendable, Codable, Hashable {
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
         case pickupPointId = "pickup_point_id"
-        case shopId = "shop_id"
         case status
         case dispatchedAt = "dispatched_at"
         case expectedArrivalAt = "expected_arrival_at"
@@ -52,7 +49,6 @@ public struct ShipmentRead: Sendable, Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(pickupPointId, forKey: .pickupPointId)
-        try container.encode(shopId, forKey: .shopId)
         try container.encode(status, forKey: .status)
         try container.encode(dispatchedAt, forKey: .dispatchedAt)
         try container.encode(expectedArrivalAt, forKey: .expectedArrivalAt)

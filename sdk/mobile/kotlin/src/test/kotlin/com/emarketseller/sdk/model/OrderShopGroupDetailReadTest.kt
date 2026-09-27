@@ -77,6 +77,18 @@ class OrderShopGroupDetailReadTest : ShouldSpec() {
             //modelInstance.cancellationReason shouldBe ("TODO")
         }
 
+        // to test the property `warehouseReceivedAt`
+        should("test warehouseReceivedAt") {
+            // uncomment below to test the property
+            //modelInstance.warehouseReceivedAt shouldBe ("TODO")
+        }
+
+        // to test the property `deliveredAt`
+        should("test deliveredAt") {
+            // uncomment below to test the property
+            //modelInstance.deliveredAt shouldBe ("TODO")
+        }
+
         // to test the property `createdAt`
         should("test createdAt") {
             // uncomment below to test the property

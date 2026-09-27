@@ -206,10 +206,11 @@ class ProductsApiTest : ShouldSpec() {
             //val status : ProductStatus =  // ProductStatus | 
             //val shopId : kotlin.Int = 56 // kotlin.Int | 
             //val categoryId : kotlin.Int = 56 // kotlin.Int | 
+            //val search : kotlin.String = search_example // kotlin.String | Case-insensitive partial match on title or SKU (incl. variant SKUs)
             //val skip : kotlin.Int = 56 // kotlin.Int | 
             //val limit : kotlin.Int = 56 // kotlin.Int | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : kotlin.collections.List<ProductRead> = apiInstance.listProductsAdminApiV1AdminProductsGet(status, shopId, categoryId, skip, limit, accessToken)
+            //val result : kotlin.collections.List<ProductRead> = apiInstance.listProductsAdminApiV1AdminProductsGet(status, shopId, categoryId, search, skip, limit, accessToken)
             //result shouldBe ("TODO")
         }
 

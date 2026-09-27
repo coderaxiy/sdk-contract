@@ -3,11 +3,11 @@ id: category-attribute-variant-defining
 title: Expose is_variant_defining on CategoryAttributeRead (docs say it's there; the API doesn't return it)
 author: frontend
 to: backend
-status: open
+status: closed
 priority: high
 area: products
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -42,3 +42,17 @@ product editor is being built meanwhile.
   `app/modules/categories/schemas.py`, `app/modules/products/service.py` →
   `_validate_variant_defining_keys`
 - `docs/products-and-moderation-api.md` §1
+
+## Resolution
+
+- `CategoryAttributeRead.is_variant_defining: boolean` is now returned by both
+  `GET /seller/categories/{category_id}/attributes` and the admin attribute
+  endpoints (inherited attributes included).
+- The flag couldn't be **set** either: `CategoryAttributeIn` didn't have it, so
+  every attribute was `false` and no variant attribute key was ever accepted.
+  `CategoryAttributeIn.is_variant_defining` (default `false`) now exists on
+  `PUT /admin/categories/{id}/attributes`. A `multi_select` attribute can't be
+  variant-defining (`422`). **Existing categories need an admin to re-save their
+  attributes with the flag set** before the variant builder has anything to offer.
+- Spec + SDKs regenerated; `docs/products-and-moderation-api.md` §1 updated.
+- Backend: `app/modules/categories/{schemas,service,router}.py`.

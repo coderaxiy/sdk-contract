@@ -177,6 +177,49 @@ open class OrdersAPI {
     }
 
     /**
+     Confirm Refund Return
+     
+     - parameter refundId: (path)  
+     - parameter refundConfirmReturnRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RefundRequestRead
+     */
+    open class func confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost(refundId: Int, refundConfirmReturnRequest: RefundConfirmReturnRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> RefundRequestRead {
+        return try await confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPostWithRequestBuilder(refundId: refundId, refundConfirmReturnRequest: refundConfirmReturnRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Confirm Refund Return
+     - POST /api/v1/seller/refund-requests/{refund_id}/confirm-return
+     - parameter refundId: (path)  
+     - parameter refundConfirmReturnRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<RefundRequestRead> 
+     */
+    open class func confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPostWithRequestBuilder(refundId: Int, refundConfirmReturnRequest: RefundConfirmReturnRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<RefundRequestRead> {
+        var localVariablePath = "/api/v1/seller/refund-requests/{refund_id}/confirm-return"
+        let refundIdPreEscape = "\(APIHelper.mapValueToPathItem(refundId))"
+        let refundIdPostEscape = refundIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{refund_id}", with: refundIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: refundConfirmReturnRequest, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<RefundRequestRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Create Manual Adjustment
      
      - parameter shopId: (path)  
@@ -602,14 +645,15 @@ open class OrdersAPI {
      - parameter buyerId: (query)  (optional)
      - parameter dateFrom: (query)  (optional)
      - parameter dateTo: (query)  (optional)
+     - parameter search: (query) Case-insensitive partial match on order_number (optional)
      - parameter skip: (query)  (optional, default to 0)
      - parameter limit: (query)  (optional, default to 50)
      - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: [OrderAdminRead]
      */
-    open class func listOrdersAdminApiV1AdminOrdersGet(status: String? = nil, shopId: Int? = nil, buyerId: Int? = nil, dateFrom: Date? = nil, dateTo: Date? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [OrderAdminRead] {
-        return try await listOrdersAdminApiV1AdminOrdersGetWithRequestBuilder(status: status, shopId: shopId, buyerId: buyerId, dateFrom: dateFrom, dateTo: dateTo, skip: skip, limit: limit, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    open class func listOrdersAdminApiV1AdminOrdersGet(status: String? = nil, shopId: Int? = nil, buyerId: Int? = nil, dateFrom: Date? = nil, dateTo: Date? = nil, search: String? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [OrderAdminRead] {
+        return try await listOrdersAdminApiV1AdminOrdersGetWithRequestBuilder(status: status, shopId: shopId, buyerId: buyerId, dateFrom: dateFrom, dateTo: dateTo, search: search, skip: skip, limit: limit, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
@@ -620,13 +664,14 @@ open class OrdersAPI {
      - parameter buyerId: (query)  (optional)
      - parameter dateFrom: (query)  (optional)
      - parameter dateTo: (query)  (optional)
+     - parameter search: (query) Case-insensitive partial match on order_number (optional)
      - parameter skip: (query)  (optional, default to 0)
      - parameter limit: (query)  (optional, default to 50)
      - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: RequestBuilder<[OrderAdminRead]> 
      */
-    open class func listOrdersAdminApiV1AdminOrdersGetWithRequestBuilder(status: String? = nil, shopId: Int? = nil, buyerId: Int? = nil, dateFrom: Date? = nil, dateTo: Date? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[OrderAdminRead]> {
+    open class func listOrdersAdminApiV1AdminOrdersGetWithRequestBuilder(status: String? = nil, shopId: Int? = nil, buyerId: Int? = nil, dateFrom: Date? = nil, dateTo: Date? = nil, search: String? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[OrderAdminRead]> {
         let localVariablePath = "/api/v1/admin/orders"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters: [String: any Sendable]? = nil
@@ -638,6 +683,7 @@ open class OrdersAPI {
             "buyer_id": (wrappedValue: buyerId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
             "date_from": (wrappedValue: dateFrom?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
             "date_to": (wrappedValue: dateTo?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "search": (wrappedValue: search?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
             "skip": (wrappedValue: skip?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
             "limit": (wrappedValue: limit?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
         ])

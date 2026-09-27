@@ -3,11 +3,11 @@ id: duplicate-image-check-unbranded
 title: Duplicate-image moderation flag never fires for unbranded products
 author: backend
 to: backend
-status: open
+status: closed
 priority: normal
 area: products
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -38,3 +38,11 @@ if product.brand_id is not None and candidate.brand_id == product.brand_id:
 
 - Backend: `app/modules/products/service.py` → `run_duplicate_check`
 - `docs/products-and-moderation-api.md` → Moderation flags
+
+## Resolution
+
+Took the proposed rule: skip same-shop candidates, and skip same-brand
+candidates only when the brand is non-null. Unbranded listings from different
+shops that share a primary photo are now flagged. No contract change;
+`docs/products-and-moderation-api.md` → Moderation flags describes the rule.
+Backend: `app/modules/products/service.py` → `run_duplicate_check`.

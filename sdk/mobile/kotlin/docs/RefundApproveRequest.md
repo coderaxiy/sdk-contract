@@ -4,8 +4,7 @@
 ## Properties
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
-| **whoBearsCost** | [**WhoBearsCost**](WhoBearsCost.md) |  |  |
-| **refundAmount** | [**RefundAmount**](RefundAmount.md) |  |  |
+| **whoBearsCost** | [**WhoBearsCost**](WhoBearsCost.md) |  |  [optional] |
 
 
 

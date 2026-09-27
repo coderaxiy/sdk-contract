@@ -682,12 +682,13 @@ val webService = apiClient.createWebservice(ProductsApi::class.java)
 val status : ProductStatus =  // ProductStatus | 
 val shopId : kotlin.Int = 56 // kotlin.Int | 
 val categoryId : kotlin.Int = 56 // kotlin.Int | 
+val search : kotlin.String = search_example // kotlin.String | Case-insensitive partial match on title or SKU (incl. variant SKUs)
 val skip : kotlin.Int = 56 // kotlin.Int | 
 val limit : kotlin.Int = 56 // kotlin.Int | 
 val accessToken : kotlin.String = accessToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : kotlin.collections.List<ProductRead> = webService.listProductsAdminApiV1AdminProductsGet(status, shopId, categoryId, skip, limit, accessToken)
+    val result : kotlin.collections.List<ProductRead> = webService.listProductsAdminApiV1AdminProductsGet(status, shopId, categoryId, search, skip, limit, accessToken)
 }
 ```
 
@@ -695,6 +696,7 @@ launch(Dispatchers.IO) {
 | **status** | [**ProductStatus**](.md)|  | [optional] [enum: draft, pending_review, approved, rejected, delisted, archived] |
 | **shopId** | **kotlin.Int**|  | [optional] |
 | **categoryId** | **kotlin.Int**|  | [optional] |
+| **search** | **kotlin.String**| Case-insensitive partial match on title or SKU (incl. variant SKUs) | [optional] |
 | **skip** | **kotlin.Int**|  | [optional] [default to 0] |
 | **limit** | **kotlin.Int**|  | [optional] [default to 50] |
 | Name | Type | Description  | Notes |

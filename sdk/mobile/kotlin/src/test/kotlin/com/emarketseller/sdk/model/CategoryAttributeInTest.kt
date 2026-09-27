@@ -83,6 +83,12 @@ class CategoryAttributeInTest : ShouldSpec() {
             //modelInstance.isInherited shouldBe ("TODO")
         }
 
+        // to test the property `isVariantDefining`
+        should("test isVariantDefining") {
+            // uncomment below to test the property
+            //modelInstance.isVariantDefining shouldBe ("TODO")
+        }
+
         // to test the property `sortOrder`
         should("test sortOrder") {
             // uncomment below to test the property

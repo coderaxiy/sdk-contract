@@ -27,7 +27,6 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.model.RefundRequestCreate
-import com.emarketseller.sdk.model.RefundAmount1
 import com.emarketseller.sdk.model.RefundReasonCode
 
 class RefundRequestCreateTest : ShouldSpec() {
@@ -51,12 +50,6 @@ class RefundRequestCreateTest : ShouldSpec() {
         should("test evidenceUrls") {
             // uncomment below to test the property
             //modelInstance.evidenceUrls shouldBe ("TODO")
-        }
-
-        // to test the property `refundAmount`
-        should("test refundAmount") {
-            // uncomment below to test the property
-            //modelInstance.refundAmount shouldBe ("TODO")
         }
 
     }

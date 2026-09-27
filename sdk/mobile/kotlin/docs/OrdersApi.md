@@ -8,6 +8,7 @@ All URIs are relative to *http://localhost:8000*
 | [**approveRefundRequestApiV1SellerRefundRequestsRefundIdApprovePatch**](OrdersApi.md#approveRefundRequestApiV1SellerRefundRequestsRefundIdApprovePatch) | **PATCH** api/v1/seller/refund-requests/{refund_id}/approve | Approve Refund Request |
 | [**cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost**](OrdersApi.md#cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost) | **POST** api/v1/orders/{order_id}/groups/{group_id}/cancel | Cancel Order Group |
 | [**checkoutApiV1CheckoutPost**](OrdersApi.md#checkoutApiV1CheckoutPost) | **POST** api/v1/checkout | Checkout |
+| [**confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost**](OrdersApi.md#confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost) | **POST** api/v1/seller/refund-requests/{refund_id}/confirm-return | Confirm Refund Return |
 | [**createManualAdjustmentApiV1AdminLedgerShopIdManualAdjustmentPost**](OrdersApi.md#createManualAdjustmentApiV1AdminLedgerShopIdManualAdjustmentPost) | **POST** api/v1/admin/ledger/{shop_id}/manual-adjustment | Create Manual Adjustment |
 | [**escalateRefundRequestApiV1RefundRequestsRefundIdEscalatePost**](OrdersApi.md#escalateRefundRequestApiV1RefundRequestsRefundIdEscalatePost) | **POST** api/v1/refund-requests/{refund_id}/escalate | Escalate Refund Request |
 | [**getCartApiV1CartGet**](OrdersApi.md#getCartApiV1CartGet) | **GET** api/v1/cart | Get Cart |
@@ -187,6 +188,47 @@ launch(Dispatchers.IO) {
 ### Return type
 
 [**CheckoutResponse**](CheckoutResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+Confirm Refund Return
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(OrdersApi::class.java)
+val refundId : kotlin.Int = 56 // kotlin.Int | 
+val refundConfirmReturnRequest : RefundConfirmReturnRequest =  // RefundConfirmReturnRequest | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : RefundRequestRead = webService.confirmRefundReturnApiV1SellerRefundRequestsRefundIdConfirmReturnPost(refundId, refundConfirmReturnRequest, accessToken)
+}
+```
+
+### Parameters
+| **refundId** | **kotlin.Int**|  | |
+| **refundConfirmReturnRequest** | [**RefundConfirmReturnRequest**](RefundConfirmReturnRequest.md)|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**RefundRequestRead**](RefundRequestRead.md)
 
 ### Authorization
 
@@ -610,12 +652,13 @@ val shopId : kotlin.Int = 56 // kotlin.Int |
 val buyerId : kotlin.Int = 56 // kotlin.Int | 
 val dateFrom : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | 
 val dateTo : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | 
+val search : kotlin.String = search_example // kotlin.String | Case-insensitive partial match on order_number
 val skip : kotlin.Int = 56 // kotlin.Int | 
 val limit : kotlin.Int = 56 // kotlin.Int | 
 val accessToken : kotlin.String = accessToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : kotlin.collections.List<OrderAdminRead> = webService.listOrdersAdminApiV1AdminOrdersGet(status, shopId, buyerId, dateFrom, dateTo, skip, limit, accessToken)
+    val result : kotlin.collections.List<OrderAdminRead> = webService.listOrdersAdminApiV1AdminOrdersGet(status, shopId, buyerId, dateFrom, dateTo, search, skip, limit, accessToken)
 }
 ```
 
@@ -625,6 +668,7 @@ launch(Dispatchers.IO) {
 | **buyerId** | **kotlin.Int**|  | [optional] |
 | **dateFrom** | **java.time.OffsetDateTime**|  | [optional] |
 | **dateTo** | **java.time.OffsetDateTime**|  | [optional] |
+| **search** | **kotlin.String**| Case-insensitive partial match on order_number | [optional] |
 | **skip** | **kotlin.Int**|  | [optional] [default to 0] |
 | **limit** | **kotlin.Int**|  | [optional] [default to 50] |
 | Name | Type | Description  | Notes |
@@ -755,7 +799,7 @@ launch(Dispatchers.IO) {
 
 ### Parameters
 | **shopId** | **kotlin.Int**|  | |
-| **status** | [**OrderShopGroupStatus**](.md)|  | [optional] [enum: pending, confirmed, preparing, shipped, delivered, cancelled, return_requested, returned, refunded, arrived_at_point, partially_collected, rejected_by_buyer, return_to_seller] |
+| **status** | [**OrderShopGroupStatus**](.md)|  | [optional] [enum: pending, confirmed, preparing, at_warehouse, shipped, delivered, cancelled, return_requested, partially_refunded, refunded, arrived_at_point, partially_collected, rejected_by_buyer, return_to_seller] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **accessToken** | **kotlin.String**|  | [optional] |

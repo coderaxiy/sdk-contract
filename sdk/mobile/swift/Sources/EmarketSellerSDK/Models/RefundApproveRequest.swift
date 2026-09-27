@@ -9,25 +9,21 @@ import Foundation
 
 public struct RefundApproveRequest: Sendable, Codable, Hashable {
 
-    public var whoBearsCost: WhoBearsCost
-    public var refundAmount: RefundAmount
+    public var whoBearsCost: WhoBearsCost?
 
-    public init(whoBearsCost: WhoBearsCost, refundAmount: RefundAmount) {
+    public init(whoBearsCost: WhoBearsCost? = nil) {
         self.whoBearsCost = whoBearsCost
-        self.refundAmount = refundAmount
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case whoBearsCost = "who_bears_cost"
-        case refundAmount = "refund_amount"
     }
 
     // Encodable protocol methods
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(whoBearsCost, forKey: .whoBearsCost)
-        try container.encode(refundAmount, forKey: .refundAmount)
+        try container.encodeIfPresent(whoBearsCost, forKey: .whoBearsCost)
     }
 }
 

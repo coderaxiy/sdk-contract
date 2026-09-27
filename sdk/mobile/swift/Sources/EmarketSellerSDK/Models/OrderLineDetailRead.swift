@@ -22,11 +22,12 @@ public struct OrderLineDetailRead: Sendable, Codable, Hashable {
     public var quantity: Int
     public var lineTotal: String
     public var status: OrderLineStatus
+    public var physicalReturnReceivedAt: Date?
     public var createdAt: Date
     public var commissionRuleId: Int?
     public var commissionAmount: String?
 
-    public init(id: Int, productId: Int, variantId: Int?, productTitleSnapshot: String, skuSnapshot: String, unitPrice: String, quantity: Int, lineTotal: String, status: OrderLineStatus, createdAt: Date, commissionRuleId: Int?, commissionAmount: String?) {
+    public init(id: Int, productId: Int, variantId: Int?, productTitleSnapshot: String, skuSnapshot: String, unitPrice: String, quantity: Int, lineTotal: String, status: OrderLineStatus, physicalReturnReceivedAt: Date?, createdAt: Date, commissionRuleId: Int?, commissionAmount: String?) {
         self.id = id
         self.productId = productId
         self.variantId = variantId
@@ -36,6 +37,7 @@ public struct OrderLineDetailRead: Sendable, Codable, Hashable {
         self.quantity = quantity
         self.lineTotal = lineTotal
         self.status = status
+        self.physicalReturnReceivedAt = physicalReturnReceivedAt
         self.createdAt = createdAt
         self.commissionRuleId = commissionRuleId
         self.commissionAmount = commissionAmount
@@ -51,6 +53,7 @@ public struct OrderLineDetailRead: Sendable, Codable, Hashable {
         case quantity
         case lineTotal = "line_total"
         case status
+        case physicalReturnReceivedAt = "physical_return_received_at"
         case createdAt = "created_at"
         case commissionRuleId = "commission_rule_id"
         case commissionAmount = "commission_amount"
@@ -69,6 +72,7 @@ public struct OrderLineDetailRead: Sendable, Codable, Hashable {
         try container.encode(quantity, forKey: .quantity)
         try container.encode(lineTotal, forKey: .lineTotal)
         try container.encode(status, forKey: .status)
+        try container.encode(physicalReturnReceivedAt, forKey: .physicalReturnReceivedAt)
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(commissionRuleId, forKey: .commissionRuleId)
         try container.encode(commissionAmount, forKey: .commissionAmount)

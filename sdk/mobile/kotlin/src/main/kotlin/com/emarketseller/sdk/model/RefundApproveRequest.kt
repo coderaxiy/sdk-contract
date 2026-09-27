@@ -23,7 +23,6 @@
 
 package com.emarketseller.sdk.model
 
-import com.emarketseller.sdk.model.RefundAmount
 import com.emarketseller.sdk.model.WhoBearsCost
 
 import kotlinx.serialization.Serializable
@@ -34,17 +33,13 @@ import kotlinx.serialization.Contextual
  * 
  *
  * @param whoBearsCost 
- * @param refundAmount 
  */
 @Serializable
 
 data class RefundApproveRequest (
 
     @Contextual @SerialName(value = "who_bears_cost")
-    val whoBearsCost: WhoBearsCost,
-
-    @SerialName(value = "refund_amount")
-    val refundAmount: RefundAmount
+    val whoBearsCost: WhoBearsCost? = null
 
 ) {
 

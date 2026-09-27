@@ -12,10 +12,10 @@ import com.emarketseller.sdk.model.CashCollectionRecordRead
 import com.emarketseller.sdk.model.CheckInRequest
 import com.emarketseller.sdk.model.ConfirmCollectionRequest
 import com.emarketseller.sdk.model.DeclareReconciliationRequest
-import com.emarketseller.sdk.model.DispatchToPointRequest
 import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.HoldingRead
 import com.emarketseller.sdk.model.NearbyPickupPointRead
+import com.emarketseller.sdk.model.OrderShopGroupRead
 import com.emarketseller.sdk.model.PickupPointCashReconciliationStatus
 import com.emarketseller.sdk.model.PickupPointCreateRequest
 import com.emarketseller.sdk.model.PickupPointRead
@@ -32,6 +32,8 @@ import com.emarketseller.sdk.model.ResolveDiscrepancyRequest
 import com.emarketseller.sdk.model.ResolveReconciliationRequest
 import com.emarketseller.sdk.model.ShipmentRead
 import com.emarketseller.sdk.model.UpdateStaffRoleRequest
+import com.emarketseller.sdk.model.WarehouseGroupRead
+import com.emarketseller.sdk.model.WarehouseShipmentCreateRequest
 
 interface LogisticsApi {
     /**
@@ -82,6 +84,21 @@ interface LogisticsApi {
     suspend fun createPickupPointApiV1AdminPickupPointsPost(@Body pickupPointCreateRequest: PickupPointCreateRequest, ): Response<PickupPointRead>
 
     /**
+     * POST api/v1/warehouse/shipments
+     * Create Warehouse Shipment
+     * 
+     * Responses:
+     *  - 201: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param warehouseShipmentCreateRequest 
+     * @param accessToken  (optional)
+     * @return [ShipmentRead]
+     */
+    @POST("api/v1/warehouse/shipments")
+    suspend fun createWarehouseShipmentApiV1WarehouseShipmentsPost(@Body warehouseShipmentCreateRequest: WarehouseShipmentCreateRequest, ): Response<ShipmentRead>
+
+    /**
      * POST api/v1/pickup-staff/reconciliation/{reconciliation_id}/declare
      * Declare Reconciliation
      * 
@@ -96,22 +113,6 @@ interface LogisticsApi {
      */
     @POST("api/v1/pickup-staff/reconciliation/{reconciliation_id}/declare")
     suspend fun declareReconciliationApiV1PickupStaffReconciliationReconciliationIdDeclarePost(@Path("reconciliation_id") reconciliationId: kotlin.Int, @Body declareReconciliationRequest: DeclareReconciliationRequest, ): Response<ReconciliationRead>
-
-    /**
-     * POST api/v1/seller/order-groups/{group_id}/dispatch-to-point
-     * Dispatch Group To Point
-     * 
-     * Responses:
-     *  - 200: Successful Response
-     *  - 422: Validation Error
-     *
-     * @param groupId 
-     * @param dispatchToPointRequest 
-     * @param accessToken  (optional)
-     * @return [ShipmentRead]
-     */
-    @POST("api/v1/seller/order-groups/{group_id}/dispatch-to-point")
-    suspend fun dispatchGroupToPointApiV1SellerOrderGroupsGroupIdDispatchToPointPost(@Path("group_id") groupId: kotlin.Int, @Body dispatchToPointRequest: DispatchToPointRequest, ): Response<ShipmentRead>
 
     /**
      * GET api/v1/pickup-staff/me
@@ -156,6 +157,20 @@ interface LogisticsApi {
      */
     @GET("api/v1/orders/{order_id}/groups/{group_id}/pickup-status")
     suspend fun getGroupPickupStatusApiV1OrdersOrderIdGroupsGroupIdPickupStatusGet(@Path("order_id") orderId: kotlin.Int, @Path("group_id") groupId: kotlin.Int, ): Response<PickupStatusRead>
+
+    /**
+     * GET api/v1/pickup-points/last-used
+     * Get Last Used Pickup Point
+     * 
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param accessToken  (optional)
+     * @return [PickupPointRead]
+     */
+    @GET("api/v1/pickup-points/last-used")
+    suspend fun getLastUsedPickupPointApiV1PickupPointsLastUsedGet(): Response<PickupPointRead>
 
     /**
      * POST api/v1/pickup-staff/staff/invite
@@ -248,6 +263,20 @@ interface LogisticsApi {
     suspend fun listPickupPointsAdminApiV1AdminPickupPointsGet(@Query("status") status: PickupPointStatus? = null, @Query("region_id") regionId: kotlin.Int? = null, ): Response<kotlin.collections.List<PickupPointRead>>
 
     /**
+     * GET api/v1/pickup-points
+     * List Pickup Points
+     * Active points only — for buyers who pick by region instead of location.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param regionId  (optional)
+     * @return [kotlin.collections.List<PickupPointRead>]
+     */
+    @GET("api/v1/pickup-points")
+    suspend fun listPickupPointsApiV1PickupPointsGet(@Query("region_id") regionId: kotlin.Int? = null): Response<kotlin.collections.List<PickupPointRead>>
+
+    /**
      * GET api/v1/admin/reconciliations
      * List Reconciliations Admin
      * 
@@ -277,18 +306,16 @@ interface LogisticsApi {
     suspend fun listRegionsAdminApiV1AdminRegionsGet(): Response<kotlin.collections.List<RegionRead>>
 
     /**
-     * GET api/v1/seller/shipments
-     * List Seller Shipments
+     * GET api/v1/regions
+     * List Regions
      * 
      * Responses:
      *  - 200: Successful Response
-     *  - 422: Validation Error
      *
-     * @param accessToken  (optional)
-     * @return [kotlin.collections.List<ShipmentRead>]
+     * @return [kotlin.collections.List<RegionRead>]
      */
-    @GET("api/v1/seller/shipments")
-    suspend fun listSellerShipmentsApiV1SellerShipmentsGet(): Response<kotlin.collections.List<ShipmentRead>>
+    @GET("api/v1/regions")
+    suspend fun listRegionsApiV1RegionsGet(): Response<kotlin.collections.List<RegionRead>>
 
     /**
      * GET api/v1/admin/shipments
@@ -319,6 +346,68 @@ interface LogisticsApi {
      */
     @GET("api/v1/pickup-staff/shipments")
     suspend fun listShipmentsForStaffApiV1PickupStaffShipmentsGet(@Query("status") status: PickupPointShipmentStatus? = null, ): Response<kotlin.collections.List<ShipmentRead>>
+
+    /**
+     * GET api/v1/warehouse/inbound
+     * List Warehouse Inbound
+     * 
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param shopId  (optional)
+     * @param accessToken  (optional)
+     * @return [kotlin.collections.List<WarehouseGroupRead>]
+     */
+    @GET("api/v1/warehouse/inbound")
+    suspend fun listWarehouseInboundApiV1WarehouseInboundGet(@Query("shop_id") shopId: kotlin.Int? = null, ): Response<kotlin.collections.List<WarehouseGroupRead>>
+
+    /**
+     * GET api/v1/warehouse/outbound
+     * List Warehouse Outbound
+     * 
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param pickupPointId  (optional)
+     * @param accessToken  (optional)
+     * @return [kotlin.collections.List<WarehouseGroupRead>]
+     */
+    @GET("api/v1/warehouse/outbound")
+    suspend fun listWarehouseOutboundApiV1WarehouseOutboundGet(@Query("pickup_point_id") pickupPointId: kotlin.Int? = null, ): Response<kotlin.collections.List<WarehouseGroupRead>>
+
+    /**
+     * GET api/v1/warehouse/shipments
+     * List Warehouse Shipments
+     * 
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param status  (optional)
+     * @param skip  (optional, default to 0)
+     * @param limit  (optional, default to 50)
+     * @param accessToken  (optional)
+     * @return [kotlin.collections.List<ShipmentRead>]
+     */
+    @GET("api/v1/warehouse/shipments")
+    suspend fun listWarehouseShipmentsApiV1WarehouseShipmentsGet(@Query("status") status: PickupPointShipmentStatus? = null, @Query("skip") skip: kotlin.Int? = 0, @Query("limit") limit: kotlin.Int? = 50, ): Response<kotlin.collections.List<ShipmentRead>>
+
+    /**
+     * POST api/v1/warehouse/order-groups/{group_id}/receive
+     * Receive Order Group
+     * 
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param groupId 
+     * @param accessToken  (optional)
+     * @return [OrderShopGroupRead]
+     */
+    @POST("api/v1/warehouse/order-groups/{group_id}/receive")
+    suspend fun receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(@Path("group_id") groupId: kotlin.Int, ): Response<OrderShopGroupRead>
 
     /**
      * POST api/v1/pickup-staff/holdings/{holding_id}/reject

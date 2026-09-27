@@ -12,6 +12,7 @@
 | **isRequired** | **kotlin.Boolean** |  |  [optional] |
 | **isFilterable** | **kotlin.Boolean** |  |  [optional] |
 | **isInherited** | **kotlin.Boolean** |  |  [optional] |
+| **isVariantDefining** | **kotlin.Boolean** |  |  [optional] |
 | **sortOrder** | **kotlin.Int** |  |  [optional] |
 
 

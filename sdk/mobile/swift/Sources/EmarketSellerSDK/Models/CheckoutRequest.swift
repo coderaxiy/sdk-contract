@@ -9,16 +9,19 @@ import Foundation
 
 public struct CheckoutRequest: Sendable, Codable, Hashable {
 
-    public var shippingAddress: ShippingAddressIn
+    public var recipient: Recipient
+    public var pickupPointId: Int
     public var paymentMethod: PaymentMethod
 
-    public init(shippingAddress: ShippingAddressIn, paymentMethod: PaymentMethod) {
-        self.shippingAddress = shippingAddress
+    public init(recipient: Recipient, pickupPointId: Int, paymentMethod: PaymentMethod) {
+        self.recipient = recipient
+        self.pickupPointId = pickupPointId
         self.paymentMethod = paymentMethod
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case shippingAddress = "shipping_address"
+        case recipient
+        case pickupPointId = "pickup_point_id"
         case paymentMethod = "payment_method"
     }
 
@@ -26,7 +29,8 @@ public struct CheckoutRequest: Sendable, Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(shippingAddress, forKey: .shippingAddress)
+        try container.encode(recipient, forKey: .recipient)
+        try container.encode(pickupPointId, forKey: .pickupPointId)
         try container.encode(paymentMethod, forKey: .paymentMethod)
     }
 }

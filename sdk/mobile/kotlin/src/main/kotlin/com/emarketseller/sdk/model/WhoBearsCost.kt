@@ -29,9 +29,9 @@ import kotlinx.serialization.Serializable
 
 
 /**
- * 
+ * Who absorbs the refunded product's ledger impact (Doc 04 §4.4). The buyer never does: refunds are always 100% of the price (§4.4a).
  *
- * Values: seller,platform,buyer
+ * Values: seller,platform
  */
 @Serializable
 enum class WhoBearsCost(val value: kotlin.String) {
@@ -40,10 +40,7 @@ enum class WhoBearsCost(val value: kotlin.String) {
     seller("seller"),
 
     @SerialName(value = "platform")
-    platform("platform"),
-
-    @SerialName(value = "buyer")
-    buyer("buyer");
+    platform("platform");
 
     /**
      * Override [toString()] to avoid using the enum variable name as the value, and instead use

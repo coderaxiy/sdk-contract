@@ -505,6 +505,16 @@ paths:
           - type: integer
           - type: 'null'
           title: Category Id
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Case-insensitive partial match on title or SKU (incl. variant SKUs)
+          title: Search
+        description: Case-insensitive partial match on title or SKU (incl. variant SKUs)
       - name: skip
         in: query
         required: false
@@ -1970,6 +1980,9 @@ paths:
       tags:
       - categories
       summary: List Categories Seller
+      description: 'Active leaf categories (the only ones products can use), each with its
+
+        ancestors so the picker can show a path.'
       operationId: list_categories_seller_api_v1_seller_categories_get
       responses:
         '200':
@@ -1978,7 +1991,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/CategoryRead'
+                  $ref: '#/components/schemas/SellerCategoryRead'
                 type: array
                 title: Response List Categories Seller Api V1 Seller Categories Get
   /api/v1/seller/categories/{category_id}/attributes:
@@ -2722,6 +2735,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seller/refund-requests/{refund_id}/confirm-return:
+    post:
+      tags:
+      - orders
+      summary: Confirm Refund Return
+      operationId: confirm_refund_return_api_v1_seller_refund_requests__refund_id__confirm_return_post
+      parameters:
+      - name: refund_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Refund Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundConfirmReturnRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundRequestRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/seller/shops/{shop_id}/ledger:
     get:
       tags:
@@ -2856,6 +2909,16 @@ paths:
             format: date-time
           - type: 'null'
           title: Date To
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Case-insensitive partial match on order_number
+          title: Search
+        description: Case-insensitive partial match on order_number
       - name: skip
         in: query
         required: false
@@ -3835,6 +3898,42 @@ paths:
                 items:
                   $ref: '#/components/schemas/ShopRead'
                 title: Response List Own Shops Api V1 Seller Shops Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/seller/shops/slug-availability:
+    get:
+      tags:
+      - shops
+      summary: Check Slug Availability
+      operationId: check_slug_availability_api_v1_seller_shops_slug_availability_get
+      parameters:
+      - name: slug
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 255
+          title: Slug
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlugAvailabilityRead'
         '422':
           description: Validation Error
           content:
@@ -5593,12 +5692,51 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /api/v1/seller/order-groups/{group_id}/dispatch-to-point:
+  /api/v1/warehouse/inbound:
+    get:
+      tags:
+      - logistics
+      summary: List Warehouse Inbound
+      operationId: list_warehouse_inbound_api_v1_warehouse_inbound_get
+      parameters:
+      - name: shop_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Shop Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WarehouseGroupRead'
+                title: Response List Warehouse Inbound Api V1 Warehouse Inbound Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/warehouse/order-groups/{group_id}/receive:
     post:
       tags:
       - logistics
-      summary: Dispatch Group To Point
-      operationId: dispatch_group_to_point_api_v1_seller_order_groups__group_id__dispatch_to_point_post
+      summary: Receive Order Group
+      operationId: receive_order_group_api_v1_warehouse_order_groups__group_id__receive_post
       parameters:
       - name: group_id
         in: path
@@ -5614,14 +5752,81 @@ paths:
           - type: string
           - type: 'null'
           title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderShopGroupRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/warehouse/outbound:
+    get:
+      tags:
+      - logistics
+      summary: List Warehouse Outbound
+      operationId: list_warehouse_outbound_api_v1_warehouse_outbound_get
+      parameters:
+      - name: pickup_point_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Pickup Point Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WarehouseGroupRead'
+                title: Response List Warehouse Outbound Api V1 Warehouse Outbound Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/warehouse/shipments:
+    post:
+      tags:
+      - logistics
+      summary: Create Warehouse Shipment
+      operationId: create_warehouse_shipment_api_v1_warehouse_shipments_post
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DispatchToPointRequest'
+              $ref: '#/components/schemas/WarehouseShipmentCreateRequest'
       responses:
-        '200':
+        '201':
           description: Successful Response
           content:
             application/json:
@@ -5633,13 +5838,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /api/v1/seller/shipments:
     get:
       tags:
       - logistics
-      summary: List Seller Shipments
-      operationId: list_seller_shipments_api_v1_seller_shipments_get
+      summary: List Warehouse Shipments
+      operationId: list_warehouse_shipments_api_v1_warehouse_shipments_get
       parameters:
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/PickupPointShipmentStatus'
+          - type: 'null'
+          title: Status
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          default: 50
+          title: Limit
       - name: access_token
         in: cookie
         required: false
@@ -5657,13 +5886,92 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ShipmentRead'
-                title: Response List Seller Shipments Api V1 Seller Shipments Get
+                title: Response List Warehouse Shipments Api V1 Warehouse Shipments Get
         '422':
           description: Validation Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/pickup-points:
+    get:
+      tags:
+      - logistics
+      summary: List Pickup Points
+      description: Active points only — for buyers who pick by region instead of location.
+      operationId: list_pickup_points_api_v1_pickup_points_get
+      parameters:
+      - name: region_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Region Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PickupPointRead'
+                title: Response List Pickup Points Api V1 Pickup Points Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/pickup-points/last-used:
+    get:
+      tags:
+      - logistics
+      summary: Get Last Used Pickup Point
+      operationId: get_last_used_pickup_point_api_v1_pickup_points_last_used_get
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/PickupPointRead'
+                - type: 'null'
+                title: Response Get Last Used Pickup Point Api V1 Pickup Points Last Used Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/regions:
+    get:
+      tags:
+      - logistics
+      summary: List Regions
+      operationId: list_regions_api_v1_regions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RegionRead'
+                type: array
+                title: Response List Regions Api V1 Regions Get
   /api/v1/pickup-points/nearby:
     get:
       tags:
@@ -6249,6 +6557,25 @@ components:
       - collected_by_staff_id
       - collected_at
       title: CashCollectionRecordRead
+    CategoryAncestorRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        slug:
+          type: string
+          title: Slug
+        translations:
+          items:
+            $ref: '#/components/schemas/TranslationRead'
+          type: array
+          title: Translations
+          default: []
+      type: object
+      required:
+      - id
+      - slug
+      title: CategoryAncestorRead
     CategoryAssignmentRead:
       properties:
         id:
@@ -6330,6 +6657,10 @@ components:
           type: boolean
           title: Is Inherited
           default: false
+        is_variant_defining:
+          type: boolean
+          title: Is Variant Defining
+          default: false
         sort_order:
           type: integer
           title: Sort Order
@@ -6380,6 +6711,9 @@ components:
         is_inherited:
           type: boolean
           title: Is Inherited
+        is_variant_defining:
+          type: boolean
+          title: Is Variant Defining
         sort_order:
           type: integer
           title: Sort Order
@@ -6405,6 +6739,7 @@ components:
       - is_required
       - is_filterable
       - is_inherited
+      - is_variant_defining
       - sort_order
       title: CategoryAttributeRead
     CategoryCreate:
@@ -6645,13 +6980,17 @@ components:
       title: CheckInRequest
     CheckoutRequest:
       properties:
-        shipping_address:
-          $ref: '#/components/schemas/ShippingAddressIn'
+        recipient:
+          $ref: '#/components/schemas/Recipient'
+        pickup_point_id:
+          type: integer
+          title: Pickup Point Id
         payment_method:
           $ref: '#/components/schemas/PaymentMethod'
       type: object
       required:
-      - shipping_address
+      - recipient
+      - pickup_point_id
       - payment_method
       title: CheckoutRequest
     CheckoutResponse:
@@ -6994,15 +7333,6 @@ components:
       - resolved_quantity
       - status
       title: DiscrepancyItemResolution
-    DispatchToPointRequest:
-      properties:
-        pickup_point_id:
-          type: integer
-          title: Pickup Point Id
-      type: object
-      required:
-      - pickup_point_id
-      title: DispatchToPointRequest
     DocumentRead:
       properties:
         id:
@@ -7588,10 +7918,12 @@ components:
           type: string
           pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
           title: Total Amount
-        shipping_address:
-          additionalProperties: true
-          type: object
-          title: Shipping Address
+        recipient:
+          $ref: '#/components/schemas/Recipient'
+        pickup_point:
+          anyOf:
+          - $ref: '#/components/schemas/OrderPickupPointRead'
+          - type: 'null'
         payment_method:
           $ref: '#/components/schemas/PaymentMethod'
         payment_reference:
@@ -7626,7 +7958,8 @@ components:
       - order_number
       - status
       - total_amount
-      - shipping_address
+      - recipient
+      - pickup_point
       - payment_method
       - payment_reference
       - placed_at
@@ -7665,6 +7998,12 @@ components:
           title: Line Total
         status:
           $ref: '#/components/schemas/OrderLineStatus'
+        physical_return_received_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Physical Return Received At
         created_at:
           type: string
           format: date-time
@@ -7691,6 +8030,7 @@ components:
       - quantity
       - line_total
       - status
+      - physical_return_received_at
       - created_at
       - commission_rule_id
       - commission_amount
@@ -7728,6 +8068,12 @@ components:
           title: Line Total
         status:
           $ref: '#/components/schemas/OrderLineStatus'
+        physical_return_received_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Physical Return Received At
         created_at:
           type: string
           format: date-time
@@ -7743,6 +8089,7 @@ components:
       - quantity
       - line_total
       - status
+      - physical_return_received_at
       - created_at
       title: OrderLineRead
       description: Buyer-safe — no commission fields.
@@ -7750,9 +8097,47 @@ components:
       type: string
       enum:
       - active
-      - returned
+      - return_pending
       - refunded
       title: OrderLineStatus
+      description: Owned by RefundService (Doc 04 §3.1a).
+    OrderPickupPointRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+        address:
+          additionalProperties: true
+          type: object
+          title: Address
+        latitude:
+          type: string
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Latitude
+        longitude:
+          type: string
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Longitude
+        operating_hours:
+          additionalProperties: true
+          type: object
+          title: Operating Hours
+        contact_phone:
+          type: string
+          title: Contact Phone
+      type: object
+      required:
+      - id
+      - name
+      - address
+      - latitude
+      - longitude
+      - operating_hours
+      - contact_phone
+      title: OrderPickupPointRead
     OrderRead:
       properties:
         id:
@@ -7770,10 +8155,12 @@ components:
           type: string
           pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
           title: Total Amount
-        shipping_address:
-          additionalProperties: true
-          type: object
-          title: Shipping Address
+        recipient:
+          $ref: '#/components/schemas/Recipient'
+        pickup_point:
+          anyOf:
+          - $ref: '#/components/schemas/OrderPickupPointRead'
+          - type: 'null'
         payment_method:
           $ref: '#/components/schemas/PaymentMethod'
         payment_reference:
@@ -7808,7 +8195,8 @@ components:
       - order_number
       - status
       - total_amount
-      - shipping_address
+      - recipient
+      - pickup_point
       - payment_method
       - payment_reference
       - placed_at
@@ -7841,6 +8229,18 @@ components:
           - type: string
           - type: 'null'
           title: Cancellation Reason
+        warehouse_received_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Warehouse Received At
+        delivered_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Delivered At
         lines:
           items:
             $ref: '#/components/schemas/OrderLineDetailRead'
@@ -7872,6 +8272,8 @@ components:
       - subtotal
       - shipping_fee
       - cancellation_reason
+      - warehouse_received_at
+      - delivered_at
       - created_at
       - updated_at
       - commission_total
@@ -7904,6 +8306,18 @@ components:
           - type: string
           - type: 'null'
           title: Cancellation Reason
+        warehouse_received_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Warehouse Received At
+        delivered_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Delivered At
         lines:
           items:
             $ref: '#/components/schemas/OrderLineRead'
@@ -7927,6 +8341,8 @@ components:
       - subtotal
       - shipping_fee
       - cancellation_reason
+      - warehouse_received_at
+      - delivered_at
       - created_at
       - updated_at
       title: OrderShopGroupRead
@@ -7937,11 +8353,12 @@ components:
       - pending
       - confirmed
       - preparing
+      - at_warehouse
       - shipped
       - delivered
       - cancelled
       - return_requested
-      - returned
+      - partially_refunded
       - refunded
       - arrived_at_point
       - partially_collected
@@ -8755,11 +9172,13 @@ components:
           title: Attribute Values
       type: object
       title: ProductUpdate
-      description: 'PATCH semantics — only provided fields are changed. Editing a sensitive
+      description: 'PATCH semantics — only provided fields are changed; an explicit null
 
-        field (per admin-configured list, §4.4) on an approved product triggers
+        clears `brand_id` and `description` (null is ignored for the rest). Editing a
 
-        re-review automatically; status itself is never set directly here.'
+        sensitive field (per admin-configured list, §4.4) on an approved product
+
+        triggers re-review automatically; status itself is never set directly here.'
     ProductVariantCreate:
       properties:
         sku:
@@ -8893,8 +9312,36 @@ components:
             type: array
           - type: 'null'
           title: Image Ids
+        is_active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Active
       type: object
       title: ProductVariantUpdate
+    Recipient:
+      properties:
+        full_name:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Full Name
+        phone:
+          type: string
+          maxLength: 30
+          minLength: 5
+          title: Phone
+        notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Notes
+      type: object
+      required:
+      - full_name
+      - phone
+      title: Recipient
+      description: Who collects the order at the pickup point — staff check it against the buyer.
     ReconciliationRead:
       properties:
         id:
@@ -8967,18 +9414,24 @@ components:
       properties:
         who_bears_cost:
           $ref: '#/components/schemas/WhoBearsCost'
-        refund_amount:
-          anyOf:
-          - type: number
-            minimum: 0.0
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Refund Amount
+          default: seller
       type: object
-      required:
-      - who_bears_cost
-      - refund_amount
       title: RefundApproveRequest
+    RefundConfirmReturnRequest:
+      properties:
+        condition_note:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Condition Note
+      type: object
+      title: RefundConfirmReturnRequest
+    RefundDecision:
+      type: string
+      enum:
+      - approve
+      - reject
+      title: RefundDecision
     RefundReasonCode:
       type: string
       enum:
@@ -9015,14 +9468,6 @@ components:
             type: array
           - type: 'null'
           title: Evidence Urls
-        refund_amount:
-          anyOf:
-          - type: number
-            minimum: 0.0
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          - type: 'null'
-          title: Refund Amount
       type: object
       required:
       - reason_code
@@ -9075,6 +9520,12 @@ components:
             format: date-time
           - type: 'null'
           title: Resolved At
+        escalated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Escalated At
         created_at:
           type: string
           format: date-time
@@ -9093,6 +9544,7 @@ components:
       - evidence_urls
       - resolved_by
       - resolved_at
+      - escalated_at
       - created_at
       title: RefundRequestRead
     RefundRequestedBy:
@@ -9104,23 +9556,19 @@ components:
       title: RefundRequestedBy
     RefundResolveRequest:
       properties:
+        decision:
+          $ref: '#/components/schemas/RefundDecision'
         who_bears_cost:
-          $ref: '#/components/schemas/WhoBearsCost'
-        refund_amount:
           anyOf:
-          - type: number
-            minimum: 0.0
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Refund Amount
+          - $ref: '#/components/schemas/WhoBearsCost'
+          - type: 'null'
         reason:
           type: string
           minLength: 1
           title: Reason
       type: object
       required:
-      - who_bears_cost
-      - refund_amount
+      - decision
       - reason
       title: RefundResolveRequest
     RefundStatus:
@@ -9353,6 +9801,93 @@ components:
       - updated_at
       title: SellerAdminRead
       description: Extended read for admin endpoints — includes risk_flags.
+    SellerCategoryRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        parent_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Parent Id
+        slug:
+          type: string
+          title: Slug
+        icon_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon Url
+        sort_order:
+          type: integer
+          title: Sort Order
+        is_leaf:
+          type: boolean
+          title: Is Leaf
+        is_active:
+          type: boolean
+          title: Is Active
+        requires_documents:
+          type: boolean
+          title: Requires Documents
+        required_document_types:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Required Document Types
+        allows_variants:
+          type: boolean
+          title: Allows Variants
+        return_window_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Return Window Days
+        default_commission_rule_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Default Commission Rule Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        translations:
+          items:
+            $ref: '#/components/schemas/TranslationRead'
+          type: array
+          title: Translations
+          default: []
+        ancestors:
+          items:
+            $ref: '#/components/schemas/CategoryAncestorRead'
+          type: array
+          title: Ancestors
+          default: []
+      type: object
+      required:
+      - id
+      - parent_id
+      - slug
+      - icon_url
+      - sort_order
+      - is_leaf
+      - is_active
+      - requires_documents
+      - required_document_types
+      - allows_variants
+      - return_window_days
+      - default_commission_rule_id
+      - created_at
+      - updated_at
+      title: SellerCategoryRead
     SellerRead:
       properties:
         id:
@@ -9521,9 +10056,6 @@ components:
         pickup_point_id:
           type: integer
           title: Pickup Point Id
-        shop_id:
-          type: integer
-          title: Shop Id
         status:
           $ref: '#/components/schemas/PickupPointShipmentStatus'
         dispatched_at:
@@ -9563,7 +10095,6 @@ components:
       required:
       - id
       - pickup_point_id
-      - shop_id
       - status
       - dispatched_at
       - expected_arrival_at
@@ -9571,47 +10102,6 @@ components:
       - received_by_staff_id
       - created_at
       title: ShipmentRead
-    ShippingAddressIn:
-      properties:
-        full_name:
-          type: string
-          title: Full Name
-        phone:
-          type: string
-          title: Phone
-        address_line:
-          type: string
-          title: Address Line
-        city:
-          type: string
-          title: City
-        region:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Region
-        postal_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Postal Code
-        notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Notes
-      type: object
-      required:
-      - full_name
-      - phone
-      - address_line
-      - city
-      title: ShippingAddressIn
-      description: 'Minimal structured shape for the JSON snapshot stored on Order —
-
-        Doc 04 explicitly leaves a full address-book system out of scope, but a
-
-        raw untyped dict gives the frontend no contract to build a form against.'
     ShopCreateRequest:
       properties:
         name:
@@ -9620,6 +10110,7 @@ components:
         slug:
           anyOf:
           - type: string
+            maxLength: 255
           - type: 'null'
           title: Slug
         logo_key:
@@ -9790,6 +10281,22 @@ components:
           title: Description
       type: object
       title: ShopUpdateRequest
+      description: 'PATCH: omitted fields are unchanged. `null` clears logo_key, banner_key or
+
+        description; `null` for name is ignored.'
+    SlugAvailabilityRead:
+      properties:
+        slug:
+          type: string
+          title: Slug
+        available:
+          type: boolean
+          title: Available
+      type: object
+      required:
+      - slug
+      - available
+      title: SlugAvailabilityRead
     StaffRole:
       type: string
       enum:
@@ -10028,13 +10535,77 @@ components:
       - msg
       - type
       title: ValidationError
+    WarehouseGroupRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        order_id:
+          type: integer
+          title: Order Id
+        order_number:
+          type: string
+          title: Order Number
+        shop_id:
+          type: integer
+          title: Shop Id
+        status:
+          $ref: '#/components/schemas/OrderShopGroupStatus'
+        pickup_point_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Pickup Point Id
+        warehouse_received_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Warehouse Received At
+        lines:
+          items:
+            $ref: '#/components/schemas/OrderLineRead'
+          type: array
+          title: Lines
+      type: object
+      required:
+      - id
+      - order_id
+      - order_number
+      - shop_id
+      - status
+      - pickup_point_id
+      - warehouse_received_at
+      - lines
+      title: WarehouseGroupRead
+      description: 'An order group as warehouse staff see it: what to expect from the seller
+
+        (inbound) or where to send it (outbound).'
+    WarehouseShipmentCreateRequest:
+      properties:
+        pickup_point_id:
+          type: integer
+          title: Pickup Point Id
+        order_shop_group_ids:
+          items:
+            type: integer
+          type: array
+          minItems: 1
+          title: Order Shop Group Ids
+      type: object
+      required:
+      - pickup_point_id
+      - order_shop_group_ids
+      title: WarehouseShipmentCreateRequest
     WhoBearsCost:
       type: string
       enum:
       - seller
       - platform
-      - buyer
       title: WhoBearsCost
+      description: 'Who absorbs the refunded product''s ledger impact (Doc 04 §4.4). The buyer
+
+        never does: refunds are always 100% of the price (§4.4a).'
     app__modules__logistics__schemas__InviteStaffRequest:
       properties:
         user_id:

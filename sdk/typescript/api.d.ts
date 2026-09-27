@@ -752,7 +752,11 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** List Categories Seller */
+        /**
+         * List Categories Seller
+         * @description Active leaf categories (the only ones products can use), each with its
+         *     ancestors so the picker can show a path.
+         */
         get: operations["list_categories_seller_api_v1_seller_categories_get"];
         put?: never;
         post?: never;
@@ -1084,6 +1088,23 @@ export interface paths {
         head?: never;
         /** Reject Refund Request */
         patch: operations["reject_refund_request_api_v1_seller_refund_requests__refund_id__reject_patch"];
+        trace?: never;
+    };
+    "/api/v1/seller/refund-requests/{refund_id}/confirm-return": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Confirm Refund Return */
+        post: operations["confirm_refund_return_api_v1_seller_refund_requests__refund_id__confirm_return_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/api/v1/seller/shops/{shop_id}/ledger": {
@@ -1523,6 +1544,23 @@ export interface paths {
         put?: never;
         /** Create Shop */
         post: operations["create_shop_api_v1_seller_shops_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/seller/shops/slug-availability": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Check Slug Availability */
+        get: operations["check_slug_availability_api_v1_seller_shops_slug_availability_get"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -2231,7 +2269,24 @@ export interface paths {
         patch: operations["suspend_pickup_staff_api_v1_pickup_staff_staff__staff_id__suspend_patch"];
         trace?: never;
     };
-    "/api/v1/seller/order-groups/{group_id}/dispatch-to-point": {
+    "/api/v1/warehouse/inbound": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Warehouse Inbound */
+        get: operations["list_warehouse_inbound_api_v1_warehouse_inbound_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/warehouse/order-groups/{group_id}/receive": {
         parameters: {
             query?: never;
             header?: never;
@@ -2240,23 +2295,95 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Dispatch Group To Point */
-        post: operations["dispatch_group_to_point_api_v1_seller_order_groups__group_id__dispatch_to_point_post"];
+        /** Receive Order Group */
+        post: operations["receive_order_group_api_v1_warehouse_order_groups__group_id__receive_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/seller/shipments": {
+    "/api/v1/warehouse/outbound": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** List Seller Shipments */
-        get: operations["list_seller_shipments_api_v1_seller_shipments_get"];
+        /** List Warehouse Outbound */
+        get: operations["list_warehouse_outbound_api_v1_warehouse_outbound_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/warehouse/shipments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Warehouse Shipments */
+        get: operations["list_warehouse_shipments_api_v1_warehouse_shipments_get"];
+        put?: never;
+        /** Create Warehouse Shipment */
+        post: operations["create_warehouse_shipment_api_v1_warehouse_shipments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/pickup-points": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Pickup Points
+         * @description Active points only — for buyers who pick by region instead of location.
+         */
+        get: operations["list_pickup_points_api_v1_pickup_points_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/pickup-points/last-used": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Last Used Pickup Point */
+        get: operations["get_last_used_pickup_point_api_v1_pickup_points_last_used_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/regions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Regions */
+        get: operations["list_regions_api_v1_regions_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2587,6 +2714,18 @@ export interface components {
              */
             items: components["schemas"]["CashCollectionRecordItemRead"][];
         };
+        /** CategoryAncestorRead */
+        CategoryAncestorRead: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /**
+             * Translations
+             * @default []
+             */
+            translations: components["schemas"]["TranslationRead"][];
+        };
         /** CategoryAssignmentRead */
         CategoryAssignmentRead: {
             /** Id */
@@ -2638,6 +2777,11 @@ export interface components {
              */
             is_inherited: boolean;
             /**
+             * Is Variant Defining
+             * @default false
+             */
+            is_variant_defining: boolean;
+            /**
              * Sort Order
              * @default 0
              */
@@ -2664,6 +2808,8 @@ export interface components {
             is_filterable: boolean;
             /** Is Inherited */
             is_inherited: boolean;
+            /** Is Variant Defining */
+            is_variant_defining: boolean;
             /** Sort Order */
             sort_order: number;
             /**
@@ -2795,7 +2941,9 @@ export interface components {
         };
         /** CheckoutRequest */
         CheckoutRequest: {
-            shipping_address: components["schemas"]["ShippingAddressIn"];
+            recipient: components["schemas"]["Recipient"];
+            /** Pickup Point Id */
+            pickup_point_id: number;
             payment_method: components["schemas"]["PaymentMethod"];
         };
         /** CheckoutResponse */
@@ -2948,11 +3096,6 @@ export interface components {
             /** Resolved Quantity */
             resolved_quantity: number;
             status: components["schemas"]["PickupPointShipmentItemStatus"];
-        };
-        /** DispatchToPointRequest */
-        DispatchToPointRequest: {
-            /** Pickup Point Id */
-            pickup_point_id: number;
         };
         /** DocumentRead */
         DocumentRead: {
@@ -3275,10 +3418,8 @@ export interface components {
             status: components["schemas"]["OrderStatus"];
             /** Total Amount */
             total_amount: string;
-            /** Shipping Address */
-            shipping_address: {
-                [key: string]: unknown;
-            };
+            recipient: components["schemas"]["Recipient"];
+            pickup_point: components["schemas"]["OrderPickupPointRead"] | null;
             payment_method: components["schemas"]["PaymentMethod"];
             /** Payment Reference */
             payment_reference: string | null;
@@ -3322,6 +3463,8 @@ export interface components {
             /** Line Total */
             line_total: string;
             status: components["schemas"]["OrderLineStatus"];
+            /** Physical Return Received At */
+            physical_return_received_at: string | null;
             /**
              * Created At
              * Format: date-time
@@ -3354,6 +3497,8 @@ export interface components {
             /** Line Total */
             line_total: string;
             status: components["schemas"]["OrderLineStatus"];
+            /** Physical Return Received At */
+            physical_return_received_at: string | null;
             /**
              * Created At
              * Format: date-time
@@ -3362,9 +3507,31 @@ export interface components {
         };
         /**
          * OrderLineStatus
+         * @description Owned by RefundService (Doc 04 §3.1a).
          * @enum {string}
          */
-        OrderLineStatus: "active" | "returned" | "refunded";
+        OrderLineStatus: "active" | "return_pending" | "refunded";
+        /** OrderPickupPointRead */
+        OrderPickupPointRead: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /** Address */
+            address: {
+                [key: string]: unknown;
+            };
+            /** Latitude */
+            latitude: string;
+            /** Longitude */
+            longitude: string;
+            /** Operating Hours */
+            operating_hours: {
+                [key: string]: unknown;
+            };
+            /** Contact Phone */
+            contact_phone: string;
+        };
         /** OrderRead */
         OrderRead: {
             /** Id */
@@ -3376,10 +3543,8 @@ export interface components {
             status: components["schemas"]["OrderStatus"];
             /** Total Amount */
             total_amount: string;
-            /** Shipping Address */
-            shipping_address: {
-                [key: string]: unknown;
-            };
+            recipient: components["schemas"]["Recipient"];
+            pickup_point: components["schemas"]["OrderPickupPointRead"] | null;
             payment_method: components["schemas"]["PaymentMethod"];
             /** Payment Reference */
             payment_reference: string | null;
@@ -3419,6 +3584,10 @@ export interface components {
             shipping_fee: string;
             /** Cancellation Reason */
             cancellation_reason: string | null;
+            /** Warehouse Received At */
+            warehouse_received_at: string | null;
+            /** Delivered At */
+            delivered_at: string | null;
             /**
              * Lines
              * @default []
@@ -3457,6 +3626,10 @@ export interface components {
             shipping_fee: string;
             /** Cancellation Reason */
             cancellation_reason: string | null;
+            /** Warehouse Received At */
+            warehouse_received_at: string | null;
+            /** Delivered At */
+            delivered_at: string | null;
             /**
              * Lines
              * @default []
@@ -3477,7 +3650,7 @@ export interface components {
          * OrderShopGroupStatus
          * @enum {string}
          */
-        OrderShopGroupStatus: "pending" | "confirmed" | "preparing" | "shipped" | "delivered" | "cancelled" | "return_requested" | "returned" | "refunded" | "arrived_at_point" | "partially_collected" | "rejected_by_buyer" | "return_to_seller";
+        OrderShopGroupStatus: "pending" | "confirmed" | "preparing" | "at_warehouse" | "shipped" | "delivered" | "cancelled" | "return_requested" | "partially_refunded" | "refunded" | "arrived_at_point" | "partially_collected" | "rejected_by_buyer" | "return_to_seller";
         /**
          * OrderStatus
          * @enum {string}
@@ -3895,9 +4068,10 @@ export interface components {
         ProductStatus: "draft" | "pending_review" | "approved" | "rejected" | "delisted" | "archived";
         /**
          * ProductUpdate
-         * @description PATCH semantics — only provided fields are changed. Editing a sensitive
-         *     field (per admin-configured list, §4.4) on an approved product triggers
-         *     re-review automatically; status itself is never set directly here.
+         * @description PATCH semantics — only provided fields are changed; an explicit null
+         *     clears `brand_id` and `description` (null is ignored for the rest). Editing a
+         *     sensitive field (per admin-configured list, §4.4) on an approved product
+         *     triggers re-review automatically; status itself is never set directly here.
          */
         ProductUpdate: {
             /** Category Id */
@@ -3981,6 +4155,20 @@ export interface components {
             } | null;
             /** Image Ids */
             image_ids?: number[] | null;
+            /** Is Active */
+            is_active?: boolean | null;
+        };
+        /**
+         * Recipient
+         * @description Who collects the order at the pickup point — staff check it against the buyer.
+         */
+        Recipient: {
+            /** Full Name */
+            full_name: string;
+            /** Phone */
+            phone: string;
+            /** Notes */
+            notes?: string | null;
         };
         /** ReconciliationRead */
         ReconciliationRead: {
@@ -4019,10 +4207,19 @@ export interface components {
         };
         /** RefundApproveRequest */
         RefundApproveRequest: {
+            /** @default seller */
             who_bears_cost: components["schemas"]["WhoBearsCost"];
-            /** Refund Amount */
-            refund_amount: number | string;
         };
+        /** RefundConfirmReturnRequest */
+        RefundConfirmReturnRequest: {
+            /** Condition Note */
+            condition_note?: string | null;
+        };
+        /**
+         * RefundDecision
+         * @enum {string}
+         */
+        RefundDecision: "approve" | "reject";
         /**
          * RefundReasonCode
          * @enum {string}
@@ -4040,8 +4237,6 @@ export interface components {
             reason_text?: string | null;
             /** Evidence Urls */
             evidence_urls?: string[] | null;
-            /** Refund Amount */
-            refund_amount?: number | string | null;
         };
         /** RefundRequestRead */
         RefundRequestRead: {
@@ -4065,6 +4260,8 @@ export interface components {
             resolved_by: number | null;
             /** Resolved At */
             resolved_at: string | null;
+            /** Escalated At */
+            escalated_at: string | null;
             /**
              * Created At
              * Format: date-time
@@ -4078,9 +4275,8 @@ export interface components {
         RefundRequestedBy: "buyer" | "seller" | "admin";
         /** RefundResolveRequest */
         RefundResolveRequest: {
-            who_bears_cost: components["schemas"]["WhoBearsCost"];
-            /** Refund Amount */
-            refund_amount: number | string;
+            decision: components["schemas"]["RefundDecision"];
+            who_bears_cost?: components["schemas"]["WhoBearsCost"] | null;
             /** Reason */
             reason: string;
         };
@@ -4210,6 +4406,53 @@ export interface components {
              */
             risk_flags: string[];
         };
+        /** SellerCategoryRead */
+        SellerCategoryRead: {
+            /** Id */
+            id: number;
+            /** Parent Id */
+            parent_id: number | null;
+            /** Slug */
+            slug: string;
+            /** Icon Url */
+            icon_url: string | null;
+            /** Sort Order */
+            sort_order: number;
+            /** Is Leaf */
+            is_leaf: boolean;
+            /** Is Active */
+            is_active: boolean;
+            /** Requires Documents */
+            requires_documents: boolean;
+            /** Required Document Types */
+            required_document_types: string[] | null;
+            /** Allows Variants */
+            allows_variants: boolean;
+            /** Return Window Days */
+            return_window_days: number | null;
+            /** Default Commission Rule Id */
+            default_commission_rule_id: number | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /**
+             * Translations
+             * @default []
+             */
+            translations: components["schemas"]["TranslationRead"][];
+            /**
+             * Ancestors
+             * @default []
+             */
+            ancestors: components["schemas"]["CategoryAncestorRead"][];
+        };
         /** SellerRead */
         SellerRead: {
             /** Id */
@@ -4296,8 +4539,6 @@ export interface components {
             id: number;
             /** Pickup Point Id */
             pickup_point_id: number;
-            /** Shop Id */
-            shop_id: number;
             status: components["schemas"]["PickupPointShipmentStatus"];
             /** Dispatched At */
             dispatched_at: string | null;
@@ -4317,28 +4558,6 @@ export interface components {
              * @default []
              */
             items: components["schemas"]["ShipmentItemRead"][];
-        };
-        /**
-         * ShippingAddressIn
-         * @description Minimal structured shape for the JSON snapshot stored on Order —
-         *     Doc 04 explicitly leaves a full address-book system out of scope, but a
-         *     raw untyped dict gives the frontend no contract to build a form against.
-         */
-        ShippingAddressIn: {
-            /** Full Name */
-            full_name: string;
-            /** Phone */
-            phone: string;
-            /** Address Line */
-            address_line: string;
-            /** City */
-            city: string;
-            /** Region */
-            region?: string | null;
-            /** Postal Code */
-            postal_code?: string | null;
-            /** Notes */
-            notes?: string | null;
         };
         /** ShopCreateRequest */
         ShopCreateRequest: {
@@ -4418,7 +4637,11 @@ export interface components {
          * @enum {string}
          */
         ShopStatus: "pending_review" | "active" | "suspended" | "closed" | "rejected";
-        /** ShopUpdateRequest */
+        /**
+         * ShopUpdateRequest
+         * @description PATCH: omitted fields are unchanged. `null` clears logo_key, banner_key or
+         *     description; `null` for name is ignored.
+         */
         ShopUpdateRequest: {
             /** Name */
             name?: string | null;
@@ -4428,6 +4651,13 @@ export interface components {
             banner_key?: string | null;
             /** Description */
             description?: string | null;
+        };
+        /** SlugAvailabilityRead */
+        SlugAvailabilityRead: {
+            /** Slug */
+            slug: string;
+            /** Available */
+            available: boolean;
         };
         /**
          * StaffRole
@@ -4570,10 +4800,41 @@ export interface components {
             ctx?: Record<string, never>;
         };
         /**
+         * WarehouseGroupRead
+         * @description An order group as warehouse staff see it: what to expect from the seller
+         *     (inbound) or where to send it (outbound).
+         */
+        WarehouseGroupRead: {
+            /** Id */
+            id: number;
+            /** Order Id */
+            order_id: number;
+            /** Order Number */
+            order_number: string;
+            /** Shop Id */
+            shop_id: number;
+            status: components["schemas"]["OrderShopGroupStatus"];
+            /** Pickup Point Id */
+            pickup_point_id: number | null;
+            /** Warehouse Received At */
+            warehouse_received_at: string | null;
+            /** Lines */
+            lines: components["schemas"]["OrderLineRead"][];
+        };
+        /** WarehouseShipmentCreateRequest */
+        WarehouseShipmentCreateRequest: {
+            /** Pickup Point Id */
+            pickup_point_id: number;
+            /** Order Shop Group Ids */
+            order_shop_group_ids: number[];
+        };
+        /**
          * WhoBearsCost
+         * @description Who absorbs the refunded product's ledger impact (Doc 04 §4.4). The buyer
+         *     never does: refunds are always 100% of the price (§4.4a).
          * @enum {string}
          */
-        WhoBearsCost: "seller" | "platform" | "buyer";
+        WhoBearsCost: "seller" | "platform";
         /** InviteStaffRequest */
         app__modules__logistics__schemas__InviteStaffRequest: {
             /** User Id */
@@ -5064,6 +5325,8 @@ export interface operations {
                 status?: components["schemas"]["ProductStatus"] | null;
                 shop_id?: number | null;
                 category_id?: number | null;
+                /** @description Case-insensitive partial match on title or SKU (incl. variant SKUs) */
+                search?: string | null;
                 skip?: number;
                 limit?: number;
             };
@@ -6404,7 +6667,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CategoryRead"][];
+                    "application/json": components["schemas"]["SellerCategoryRead"][];
                 };
             };
         };
@@ -7097,6 +7360,43 @@ export interface operations {
             };
         };
     };
+    confirm_refund_return_api_v1_seller_refund_requests__refund_id__confirm_return_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                refund_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RefundConfirmReturnRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RefundRequestRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_shop_ledger_api_v1_seller_shops__shop_id__ledger_get: {
         parameters: {
             query: {
@@ -7174,6 +7474,8 @@ export interface operations {
                 buyer_id?: number | null;
                 date_from?: string | null;
                 date_to?: string | null;
+                /** @description Case-insensitive partial match on order_number */
+                search?: string | null;
                 skip?: number;
                 limit?: number;
             };
@@ -8030,6 +8332,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ShopRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    check_slug_availability_api_v1_seller_shops_slug_availability_get: {
+        parameters: {
+            query: {
+                slug: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SlugAvailabilityRead"];
                 };
             };
             /** @description Validation Error */
@@ -9626,22 +9961,18 @@ export interface operations {
             };
         };
     };
-    dispatch_group_to_point_api_v1_seller_order_groups__group_id__dispatch_to_point_post: {
+    list_warehouse_inbound_api_v1_warehouse_inbound_get: {
         parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                group_id: number;
+            query?: {
+                shop_id?: number | null;
             };
+            header?: never;
+            path?: never;
             cookie?: {
                 access_token?: string | null;
             };
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["DispatchToPointRequest"];
-            };
-        };
+        requestBody?: never;
         responses: {
             /** @description Successful Response */
             200: {
@@ -9649,7 +9980,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ShipmentRead"];
+                    "application/json": components["schemas"]["WarehouseGroupRead"][];
                 };
             };
             /** @description Validation Error */
@@ -9663,9 +9994,79 @@ export interface operations {
             };
         };
     };
-    list_seller_shipments_api_v1_seller_shipments_get: {
+    receive_order_group_api_v1_warehouse_order_groups__group_id__receive_post: {
         parameters: {
             query?: never;
+            header?: never;
+            path: {
+                group_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderShopGroupRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_warehouse_outbound_api_v1_warehouse_outbound_get: {
+        parameters: {
+            query?: {
+                pickup_point_id?: number | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WarehouseGroupRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_warehouse_shipments_api_v1_warehouse_shipments_get: {
+        parameters: {
+            query?: {
+                status?: components["schemas"]["PickupPointShipmentStatus"] | null;
+                skip?: number;
+                limit?: number;
+            };
             header?: never;
             path?: never;
             cookie?: {
@@ -9690,6 +10091,123 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_warehouse_shipment_api_v1_warehouse_shipments_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WarehouseShipmentCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ShipmentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_pickup_points_api_v1_pickup_points_get: {
+        parameters: {
+            query?: {
+                region_id?: number | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PickupPointRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_last_used_pickup_point_api_v1_pickup_points_last_used_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PickupPointRead"] | null;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_regions_api_v1_regions_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RegionRead"][];
                 };
             };
         };

@@ -6,7 +6,6 @@
 | ------------ | ------------- | ------------- | ------------- |
 | **id** | **kotlin.Int** |  |  |
 | **pickupPointId** | **kotlin.Int** |  |  |
-| **shopId** | **kotlin.Int** |  |  |
 | **status** | [**PickupPointShipmentStatus**](PickupPointShipmentStatus.md) |  |  |
 | **dispatchedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 | **expectedArrivalAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |

@@ -37,6 +37,7 @@ import com.emarketseller.sdk.model.ShopCreateRequest
 import com.emarketseller.sdk.model.ShopRead
 import com.emarketseller.sdk.model.ShopStaffRead
 import com.emarketseller.sdk.model.ShopUpdateRequest
+import com.emarketseller.sdk.model.SlugAvailabilityRead
 import com.emarketseller.sdk.model.StatusReasonRequest
 
 class ShopsApiTest : ShouldSpec() {
@@ -59,6 +60,15 @@ class ShopsApiTest : ShouldSpec() {
             //val shopId : kotlin.Int = 56 // kotlin.Int | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : ShopRead = apiInstance.approveShopApiV1AdminShopsShopIdApprovePatch(shopId, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet
+        should("test checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet") {
+            // uncomment below to test checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet
+            //val slug : kotlin.String = slug_example // kotlin.String | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : SlugAvailabilityRead = apiInstance.checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet(slug, accessToken)
             //result shouldBe ("TODO")
         }
 

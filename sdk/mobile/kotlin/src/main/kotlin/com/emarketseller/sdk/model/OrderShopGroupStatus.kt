@@ -31,7 +31,7 @@ import kotlinx.serialization.Serializable
 /**
  * 
  *
- * Values: pending,confirmed,preparing,shipped,delivered,cancelled,return_requested,returned,refunded,arrived_at_point,partially_collected,rejected_by_buyer,return_to_seller
+ * Values: pending,confirmed,preparing,at_warehouse,shipped,delivered,cancelled,return_requested,partially_refunded,refunded,arrived_at_point,partially_collected,rejected_by_buyer,return_to_seller
  */
 @Serializable
 enum class OrderShopGroupStatus(val value: kotlin.String) {
@@ -45,6 +45,9 @@ enum class OrderShopGroupStatus(val value: kotlin.String) {
     @SerialName(value = "preparing")
     preparing("preparing"),
 
+    @SerialName(value = "at_warehouse")
+    at_warehouse("at_warehouse"),
+
     @SerialName(value = "shipped")
     shipped("shipped"),
 
@@ -57,8 +60,8 @@ enum class OrderShopGroupStatus(val value: kotlin.String) {
     @SerialName(value = "return_requested")
     return_requested("return_requested"),
 
-    @SerialName(value = "returned")
-    returned("returned"),
+    @SerialName(value = "partially_refunded")
+    partially_refunded("partially_refunded"),
 
     @SerialName(value = "refunded")
     refunded("refunded"),

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **isRequired** | **Bool** |  | [optional] [default to false]
 **isFilterable** | **Bool** |  | [optional] [default to false]
 **isInherited** | **Bool** |  | [optional] [default to false]
+**isVariantDefining** | **Bool** |  | [optional] [default to false]
 **sortOrder** | **Int** |  | [optional] [default to 0]
 **translations** | [AttributeTranslationIn] |  | 
 

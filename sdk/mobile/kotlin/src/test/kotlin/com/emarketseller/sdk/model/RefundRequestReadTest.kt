@@ -109,6 +109,12 @@ class RefundRequestReadTest : ShouldSpec() {
             //modelInstance.resolvedAt shouldBe ("TODO")
         }
 
+        // to test the property `escalatedAt`
+        should("test escalatedAt") {
+            // uncomment below to test the property
+            //modelInstance.escalatedAt shouldBe ("TODO")
+        }
+
         // to test the property `createdAt`
         should("test createdAt") {
             // uncomment below to test the property

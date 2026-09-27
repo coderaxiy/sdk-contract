@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**approveCategoryAssignmentApiV1AdminShopCategoryAssignmentsAssignmentIdApprovePatch**](ShopsAPI.md#approvecategoryassignmentapiv1adminshopcategoryassignmentsassignmentidapprovepatch) | **PATCH** /api/v1/admin/shop-category-assignments/{assignment_id}/approve | Approve Category Assignment
 [**approveShopApiV1AdminShopsShopIdApprovePatch**](ShopsAPI.md#approveshopapiv1adminshopsshopidapprovepatch) | **PATCH** /api/v1/admin/shops/{shop_id}/approve | Approve Shop
+[**checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet**](ShopsAPI.md#checkslugavailabilityapiv1sellershopsslugavailabilityget) | **GET** /api/v1/seller/shops/slug-availability | Check Slug Availability
 [**closeShopApiV1SellerShopsShopIdClosePost**](ShopsAPI.md#closeshopapiv1sellershopsshopidclosepost) | **POST** /api/v1/seller/shops/{shop_id}/close | Close Shop
 [**createShopApiV1SellerShopsPost**](ShopsAPI.md#createshopapiv1sellershopspost) | **POST** /api/v1/seller/shops | Create Shop
 [**getOwnShopApiV1SellerShopsShopIdGet**](ShopsAPI.md#getownshopapiv1sellershopsshopidget) | **GET** /api/v1/seller/shops/{shop_id} | Get Own Shop
@@ -113,6 +114,56 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ShopRead**](ShopRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet**
+```swift
+    open class func checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet(slug: String, accessToken: String? = nil, completion: @escaping (_ data: SlugAvailabilityRead?, _ error: Error?) -> Void)
+```
+
+Check Slug Availability
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let slug = "slug_example" // String | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Check Slug Availability
+ShopsAPI.checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet(slug: slug, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **slug** | **String** |  | 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**SlugAvailabilityRead**](SlugAvailabilityRead.md)
 
 ### Authorization
 

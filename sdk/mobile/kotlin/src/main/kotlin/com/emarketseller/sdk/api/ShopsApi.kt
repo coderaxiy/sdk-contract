@@ -17,6 +17,7 @@ import com.emarketseller.sdk.model.ShopCreateRequest
 import com.emarketseller.sdk.model.ShopRead
 import com.emarketseller.sdk.model.ShopStaffRead
 import com.emarketseller.sdk.model.ShopUpdateRequest
+import com.emarketseller.sdk.model.SlugAvailabilityRead
 import com.emarketseller.sdk.model.StatusReasonRequest
 
 interface ShopsApi {
@@ -49,6 +50,21 @@ interface ShopsApi {
      */
     @PATCH("api/v1/admin/shops/{shop_id}/approve")
     suspend fun approveShopApiV1AdminShopsShopIdApprovePatch(@Path("shop_id") shopId: kotlin.Int, ): Response<ShopRead>
+
+    /**
+     * GET api/v1/seller/shops/slug-availability
+     * Check Slug Availability
+     * 
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param slug 
+     * @param accessToken  (optional)
+     * @return [SlugAvailabilityRead]
+     */
+    @GET("api/v1/seller/shops/slug-availability")
+    suspend fun checkSlugAvailabilityApiV1SellerShopsSlugAvailabilityGet(@Query("slug") slug: kotlin.String, ): Response<SlugAvailabilityRead>
 
     /**
      * POST api/v1/seller/shops/{shop_id}/close

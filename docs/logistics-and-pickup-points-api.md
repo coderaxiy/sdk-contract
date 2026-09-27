@@ -2,10 +2,10 @@
 
 Backend implementation of `05-logistics-and-pickup-points.md`. All paths below
 are relative to the API base (`/api/v1`), e.g. `GET /api/v1/admin/pickup-points`.
-This module introduces **four separate client surfaces** — admin panel, a new
-pickup-point staff app, the seller website, and the buyer app — read the
-"which surface" column carefully, since most of this module isn't buyer-facing
-at all.
+This module serves **three client surfaces**: the admin panel (including the
+central-store screens for warehouse staff), the pickup-point staff app, and the
+buyer app. Sellers have no logistics endpoints: they bring goods to the central
+store, and the platform takes it from there.
 
 ## Auth
 
@@ -27,12 +27,14 @@ cookie — `credentials: 'include'` on every request).
 - `manager` vs `operator`: only `manager` can see reconciliation, list co-staff,
   and invite/suspend/re-role staff. `operator` can do everything
   operational (check-in, collect, reject) but gets `403` on those.
-- **Seller** endpoints (`/seller/order-groups/{id}/dispatch-to-point`,
-  `/seller/shipments`) require a `Seller` record and shop ownership, same as
-  the orders API.
-- **Buyer** endpoints (`/pickup-points/nearby`, the pickup-status endpoint) —
-  `nearby` is genuinely public (no login required at all); the pickup-status
-  endpoint requires a logged-in buyer who owns the order.
+- **Warehouse staff** (central store) endpoints `/warehouse/...` require the
+  `warehouse:operate` permission. The `warehouse_staff` role has it (admins do
+  too); assign the role through the roles API. There's only one central store,
+  so unlike pickup-point staff there's nothing else to discover.
+- **Buyer** endpoints: `/pickup-points/nearby` is public (no login).
+  `/pickup-points`, `/pickup-points/last-used`, `/regions` and the
+  pickup-status endpoint need a logged-in user; pickup-status also needs order
+  ownership.
 
 ## Error shape
 
@@ -47,7 +49,7 @@ message string safe to show directly or map to a generic toast.
 
 ### Why this exists
 
-The platform's primary fulfillment model is **pickup point, not courier-to-door**:
+The platform's only fulfillment model is **pickup point** (there's no courier-to-door):
 buyer travels to a point, inspects the item, and pays cash there. This is the
 main reason `cash_on_delivery` exists at all — nearly every COD order will
 flow through this module, not get delivered straight to a door.
@@ -55,25 +57,20 @@ flow through this module, not get delivered straight to a door.
 ### The physical flow, and who does what
 
 ```
-Seller (website)          Pickup-point staff (new app)         Buyer (app)
-─────────────────         ──────────────────────────           ───────────
-dispatch-to-point   ───▶  check-in (per item, may flag  ───▶   sees "ready for
-(group must be           discrepancies) → creates              pickup" + deadline
-"preparing")              a Holding automatically               │
-                                                                 ▼
-                          collect (buyer present,        ◀───  visits point
-                          pays some/all outstanding
-                          items) or reject (buyer
-                          inspects & declines an item)
+Buyer (app)            Seller           Central store (warehouse staff)     Pickup-point staff (app)          Buyer
+───────────            ──────           ───────────────────────────────     ────────────────────────          ─────
+checkout: picks  ──▶   prepares, ──▶   receive the group                ──▶ check-in (per item, may   ──▶   sees "ready for
+a pickup point         brings goods     (preparing → at_warehouse),         flag discrepancies) →            pickup" + deadline,
+for the order          to the store     then ship groups to their           creates a Holding                visits the point
+                                        point (at_warehouse → shipped)      collect / reject  ◀────────────  pays, takes items
 ```
 
 ### State machine — `OrderShopGroup.status` (pickup-point branch)
 
-This **extends** the state machine from the orders API doc. Everything up to
-`shipped` is unchanged (seller-driven, via the existing
-`PATCH /seller/order-groups/{id}/status` — actually for pickup orders, use
-`POST /seller/order-groups/{id}/dispatch-to-point` instead, which moves
-`preparing → shipped` **and** creates the shipment in one call).
+This continues the state machine from the orders API doc. Sellers drive it up
+to `preparing`; warehouse staff set `at_warehouse` (received at the central
+store) and `shipped` (sent to the buyer's pickup point, by creating a
+shipment).
 
 ```
 shipped ──(staff check-in, no discrepancy)──▶ arrived_at_point
@@ -107,7 +104,7 @@ Three different "container" levels exist and it's easy to conflate them:
 
 | Level | What it represents | Status enum |
 |---|---|---|
-| `PickupPointShipment` | One seller→point physical drop-off. Can bundle items from **multiple different orders** (same shop). | `dispatched → in_transit → arrived` / `discrepancy` |
+| `PickupPointShipment` | One central store → point trip. Bundles items from **several orders and shops**, all bound for the same point. | `dispatched → in_transit → arrived` / `discrepancy` |
 | `PickupPointHolding` | Everything from **one `OrderShopGroup`** currently sitting at a point. One holding = one order's items from one shop. | `holding → partially_collected → collected` / `expired_uncollected` |
 | `PickupPointHoldingItem` | **Per-`OrderLine`**, the actual collect/reject unit. | `holding → collected` / `rejected_by_buyer` / `expired_uncollected` |
 
@@ -183,20 +180,25 @@ or doing arithmetic.
    **this fails with `400`** if the point has zero active managers. Surface
    that error clearly rather than a generic failure toast.
 
-### 2.2 Seller: dispatching an order to a point
+### 2.2 Central store: receiving from sellers and shipping to points
 
-1. Seller sees a group in `preparing` status (existing seller order-groups
-   screen from the orders API).
-2. Let them pick a pickup point (reuse `GET /pickup-points/nearby` or a plain
-   `GET /admin/pickup-points`-style list if you build a seller-facing point
-   picker — note the admin list endpoint requires `logistics:manage`, so for
-   a seller-facing picker you'd want `/pickup-points/nearby` or ask backend
-   for a seller-safe point list).
-3. `POST /seller/order-groups/{group_id}/dispatch-to-point` with
-   `{"pickup_point_id": ...}`. This one call both creates the shipment **and**
-   moves the group to `shipped` — there's no separate "confirm shipped" step.
-4. `GET /seller/shipments` for the seller's own dispatch history across all
-   their shops.
+1. **Inbound.** `GET /warehouse/inbound?shop_id=` lists groups sellers are
+   preparing (`WarehouseGroupRead`, oldest first, with their lines). Use it at
+   the drop-off counter: find the seller's groups, count the items.
+2. **Receive.** `POST /warehouse/order-groups/{group_id}/receive` (no body) →
+   `at_warehouse`, `warehouse_received_at` set. It means *every* item in the
+   group arrived complete and undamaged. Don't receive a group with missing or
+   damaged items; the seller takes it back and returns with the full set.
+   `400` unless the group is `preparing`.
+3. **Outbound.** `GET /warehouse/outbound?pickup_point_id=` lists groups in the
+   store, each with its `pickup_point_id`. Group them by point in the UI.
+4. **Ship.** `POST /warehouse/shipments`
+   `{ "pickup_point_id": 4, "order_shop_group_ids": [12, 15, 19] }` → `201`
+   `ShipmentRead`. Every group must be `at_warehouse` and for that point
+   (`400` naming the first group that isn't); the point must be active. All
+   groups move to `shipped` together, or none do. Duplicate ids are ignored.
+5. **History.** `GET /warehouse/shipments?status=&skip=&limit=` — shipments
+   sent, newest first. From here the pickup point's check-in (§2.3) takes over.
 
 ### 2.3 Pickup staff: check-in
 
@@ -261,8 +263,11 @@ or doing arithmetic.
 
 ### 2.6 Buyer: tracking a pickup order
 
-1. During checkout (orders API), let the buyer pick a point via
-   `GET /pickup-points/nearby?lat=...&lng=...&radius_km=25` (public, no auth).
+1. During checkout (orders API §2), pre-select `GET /pickup-points/last-used`
+   (the point on the buyer's previous order; `null` if none or it closed), and
+   let the buyer change it via `GET /pickup-points/nearby?lat=...&lng=...&radius_km=25`
+   or `GET /regions` + `GET /pickup-points?region_id=`. The order's
+   `pickup_point` is on `OrderRead`.
 2. On the order detail page, once a group shows `arrived_at_point` or later,
    call `GET /orders/{order_id}/groups/{group_id}/pickup-status` to show
    "ready for pickup," the deadline, and per-item collected/rejected state.
@@ -305,18 +310,27 @@ or doing arithmetic.
 | PATCH | `/pickup-staff/staff/{id}/role` | Manager only — not in the original spec, added for parity with invite |
 | PATCH | `/pickup-staff/staff/{id}/suspend` | Manager only — same |
 
-### 3.3 Seller-facing
+### 3.3 Central store (`warehouse:operate`)
 
 | Method | Path | Notes |
 |---|---|---|
-| POST | `/seller/order-groups/{group_id}/dispatch-to-point` | `{ pickup_point_id }` — group must be `preparing` |
-| GET | `/seller/shipments` | Across all of the seller's shops |
+| GET | `/warehouse/inbound` | Query: `shop_id`. Groups in `preparing` |
+| POST | `/warehouse/order-groups/{group_id}/receive` | No body. `preparing → at_warehouse`; returns `OrderShopGroupRead` |
+| GET | `/warehouse/outbound` | Query: `pickup_point_id`. Groups in `at_warehouse` |
+| POST | `/warehouse/shipments` | `{ pickup_point_id, order_shop_group_ids }` → `201 ShipmentRead`. See §2.2 |
+| GET | `/warehouse/shipments` | Query: `status`, `skip`, `limit` (max 200) |
+
+Sellers have no logistics endpoints: the old seller dispatch-to-point and
+`/seller/shipments` are removed.
 
 ### 3.4 Buyer-facing
 
 | Method | Path | Notes |
 |---|---|---|
 | GET | `/pickup-points/nearby` | **Public, no auth.** Query (required): `lat` (number, -90..90), `lng` (number, -180..180); optional `radius_km` (default 25). Out-of-range coordinates → `422` |
+| GET | `/pickup-points` | Query: `region_id`. Active points only, by name |
+| GET | `/pickup-points/last-used` | `PickupPointRead \| null` — the point on the buyer's most recent order, if still active |
+| GET | `/regions` | For the region filter |
 | GET | `/orders/{order_id}/groups/{group_id}/pickup-status` | Requires login + order ownership; `404` before the group reaches `arrived_at_point` |
 
 `resolve-discrepancy` body shape:
@@ -325,7 +339,7 @@ or doing arithmetic.
   "items": [
     { "item_id": 13, "resolved_quantity": 1, "status": "damaged" }
   ],
-  "resolution_note": "Seller confirmed 1 unit damaged in transit, refund follow-up outside this system"
+  "resolution_note": "Central store confirmed 1 unit damaged in transit, refund follow-up outside this system"
 }
 ```
 `status` per item must be `received`, `missing`, or `damaged`. Resolving an
@@ -367,7 +381,7 @@ collectible and there's currently no refund/return path wired to this outcome
 ### `ShipmentRead`
 ```ts
 {
-  id, pickup_point_id, shop_id,
+  id, pickup_point_id,
   status: "dispatched" | "in_transit" | "arrived" | "discrepancy",
   dispatched_at: string | null, expected_arrival_at: string | null, arrived_at: string | null,
   received_by_staff_id: number | null, created_at: string,
@@ -375,6 +389,20 @@ collectible and there's currently no refund/return path wired to this outcome
     id, shipment_id, order_line_id, expected_quantity: number, received_quantity: number | null,
     condition_note: string | null, status: "expected" | "received" | "missing" | "damaged",
   }[]
+}
+```
+
+### `WarehouseGroupRead`
+```ts
+{
+  id: number                 // order_shop_group_id
+  order_id: number
+  order_number: string
+  shop_id: number
+  status: "preparing" | "at_warehouse"
+  pickup_point_id: number | null   // the buyer's point; null only on legacy orders
+  warehouse_received_at: string | null
+  lines: OrderLineRead[]           // product title/sku snapshot, quantity
 }
 ```
 
@@ -438,10 +466,10 @@ umbrella — check `items[]` for the real per-line outcome (§1).
 3. **Pickup-staff app**: holdings list + collect/reject (§2.4) — the highest-
    traffic screen once live, worth the most UI care (amount-mismatch
    prevention especially, see §2.4 point 2).
-4. **Seller website**: dispatch-to-point action on an existing `preparing`
-   group + shipment history (§2.2).
-5. **Buyer app**: nearby-point picker in checkout, then order-detail pickup
-   status tracking (§2.6).
+4. **Central store (admin panel)**: inbound/receive and outbound/ship screens
+   (§2.2) — needed before any order can reach a point.
+5. **Buyer app**: point picker in checkout with the last-used default, then
+   order-detail pickup status tracking (§2.6).
 6. **Pickup-staff app**: reconciliation screen, manager-only (§2.5).
 7. **Admin**: discrepancy queue + resolve-discrepancy, and reconciliation
    variance review — lower traffic, do last.
@@ -456,6 +484,9 @@ umbrella — check `items[]` for the real per-line outcome (§1).
   admin onboarding flow.
 - **No supervisor-override endpoint** for a collection amount mismatch — it's
   a hard `400`, full stop (§2.4).
+- **Orders placed before pickup points were required** have
+  `pickup_point_id: null` and can't be shipped from the central store; they
+  don't appear in `/warehouse/outbound` filtered by point.
 - **No refund/return path** for a shipment item permanently resolved as
   missing/damaged during discrepancy resolution — that `OrderLine` just never
   becomes collectible. Don't build UI that implies a refund happens

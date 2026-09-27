@@ -38,6 +38,7 @@ import com.emarketseller.sdk.model.CommissionRuleRead
 import com.emarketseller.sdk.model.CommissionScopeType
 import com.emarketseller.sdk.model.DeactivationImpact
 import com.emarketseller.sdk.model.HTTPValidationError
+import com.emarketseller.sdk.model.SellerCategoryRead
 import com.emarketseller.sdk.model.SetAttributesRequest
 
 class CategoriesApiTest : ShouldSpec() {
@@ -129,7 +130,7 @@ class CategoriesApiTest : ShouldSpec() {
         // to test listCategoriesSellerApiV1SellerCategoriesGet
         should("test listCategoriesSellerApiV1SellerCategoriesGet") {
             // uncomment below to test listCategoriesSellerApiV1SellerCategoriesGet
-            //val result : kotlin.collections.List<CategoryRead> = apiInstance.listCategoriesSellerApiV1SellerCategoriesGet()
+            //val result : kotlin.collections.List<SellerCategoryRead> = apiInstance.listCategoriesSellerApiV1SellerCategoriesGet()
             //result shouldBe ("TODO")
         }
 
