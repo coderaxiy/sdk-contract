@@ -31,16 +31,17 @@ interface AuthApi {
     /**
      * POST api/v1/auth/login
      * Login
-     * 
+     * A guest cart (cart_token cookie) is merged into the buyer&#39;s cart and the cookie cleared.
      * Responses:
      *  - 200: Successful Response
      *  - 422: Validation Error
      *
      * @param loginRequest 
+     * @param cartToken  (optional)
      * @return [TokenResponse]
      */
     @POST("api/v1/auth/login")
-    suspend fun loginApiV1AuthLoginPost(@Body loginRequest: LoginRequest): Response<TokenResponse>
+    suspend fun loginApiV1AuthLoginPost(@Body loginRequest: LoginRequest, ): Response<TokenResponse>
 
     /**
      * POST api/v1/auth/logout
@@ -57,15 +58,16 @@ interface AuthApi {
     /**
      * POST api/v1/auth/register
      * Register
-     * 
+     * A guest cart (cart_token cookie) is merged into the new account&#39;s cart and the cookie cleared.
      * Responses:
      *  - 200: Successful Response
      *  - 422: Validation Error
      *
      * @param registerRequest 
+     * @param cartToken  (optional)
      * @return [UserRead]
      */
     @POST("api/v1/auth/register")
-    suspend fun registerApiV1AuthRegisterPost(@Body registerRequest: RegisterRequest): Response<UserRead>
+    suspend fun registerApiV1AuthRegisterPost(@Body registerRequest: RegisterRequest, ): Response<UserRead>
 
 }

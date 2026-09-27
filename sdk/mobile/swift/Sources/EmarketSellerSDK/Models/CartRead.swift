@@ -9,27 +9,31 @@ import Foundation
 
 public struct CartRead: Sendable, Codable, Hashable {
 
+    public static let subtotalRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
     public var id: Int
-    public var buyerId: Int
-    public var status: String
+    public var status: CartStatus
     public var items: [CartItemRead]?
+    public var itemCount: Int
+    public var subtotal: String
     public var createdAt: Date
     public var updatedAt: Date
 
-    public init(id: Int, buyerId: Int, status: String, items: [CartItemRead]? = nil, createdAt: Date, updatedAt: Date) {
+    public init(id: Int, status: CartStatus, items: [CartItemRead]? = nil, itemCount: Int, subtotal: String, createdAt: Date, updatedAt: Date) {
         self.id = id
-        self.buyerId = buyerId
         self.status = status
         self.items = items
+        self.itemCount = itemCount
+        self.subtotal = subtotal
         self.createdAt = createdAt
         self.updatedAt = updatedAt
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
-        case buyerId = "buyer_id"
         case status
         case items
+        case itemCount = "item_count"
+        case subtotal
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }
@@ -39,9 +43,10 @@ public struct CartRead: Sendable, Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(buyerId, forKey: .buyerId)
         try container.encode(status, forKey: .status)
         try container.encodeIfPresent(items, forKey: .items)
+        try container.encode(itemCount, forKey: .itemCount)
+        try container.encode(subtotal, forKey: .subtotal)
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
     }

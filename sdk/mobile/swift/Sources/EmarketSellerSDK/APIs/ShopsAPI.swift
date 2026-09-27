@@ -294,6 +294,46 @@ open class ShopsAPI {
     }
 
     /**
+     Get Shop Public
+     
+     - parameter slug: (path)  
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: ShopPublicRead
+     */
+    open class func getShopPublicApiV1ShopsBySlugSlugGet(slug: String, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> ShopPublicRead {
+        return try await getShopPublicApiV1ShopsBySlugSlugGetWithRequestBuilder(slug: slug, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Get Shop Public
+     - GET /api/v1/shops/by-slug/{slug}
+     - An active shop's public profile; 404 for any other status. Shop slugs never change.
+     - parameter slug: (path)  
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<ShopPublicRead> 
+     */
+    open class func getShopPublicApiV1ShopsBySlugSlugGetWithRequestBuilder(slug: String, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<ShopPublicRead> {
+        var localVariablePath = "/api/v1/shops/by-slug/{slug}"
+        let slugPreEscape = "\(APIHelper.mapValueToPathItem(slug))"
+        let slugPostEscape = slugPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{slug}", with: slugPostEscape, options: .literal, range: nil)
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<ShopPublicRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Invite Staff
      
      - parameter shopId: (path)  

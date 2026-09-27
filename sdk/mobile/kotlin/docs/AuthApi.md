@@ -50,6 +50,8 @@ No authorization required
 
 Login
 
+A guest cart (cart_token cookie) is merged into the buyer&#39;s cart and the cookie cleared.
+
 ### Example
 ```kotlin
 // Import classes:
@@ -60,16 +62,18 @@ Login
 val apiClient = ApiClient()
 val webService = apiClient.createWebservice(AuthApi::class.java)
 val loginRequest : LoginRequest =  // LoginRequest | 
+val cartToken : kotlin.String = cartToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : TokenResponse = webService.loginApiV1AuthLoginPost(loginRequest)
+    val result : TokenResponse = webService.loginApiV1AuthLoginPost(loginRequest, cartToken)
 }
 ```
 
 ### Parameters
+| **loginRequest** | [**LoginRequest**](LoginRequest.md)|  | |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **loginRequest** | [**LoginRequest**](LoginRequest.md)|  | |
+| **cartToken** | **kotlin.String**|  | [optional] |
 
 ### Return type
 
@@ -121,6 +125,8 @@ No authorization required
 
 Register
 
+A guest cart (cart_token cookie) is merged into the new account&#39;s cart and the cookie cleared.
+
 ### Example
 ```kotlin
 // Import classes:
@@ -131,16 +137,18 @@ Register
 val apiClient = ApiClient()
 val webService = apiClient.createWebservice(AuthApi::class.java)
 val registerRequest : RegisterRequest =  // RegisterRequest | 
+val cartToken : kotlin.String = cartToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : UserRead = webService.registerApiV1AuthRegisterPost(registerRequest)
+    val result : UserRead = webService.registerApiV1AuthRegisterPost(registerRequest, cartToken)
 }
 ```
 
 ### Parameters
+| **registerRequest** | [**RegisterRequest**](RegisterRequest.md)|  | |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **registerRequest** | [**RegisterRequest**](RegisterRequest.md)|  | |
+| **cartToken** | **kotlin.String**|  | [optional] |
 
 ### Return type
 

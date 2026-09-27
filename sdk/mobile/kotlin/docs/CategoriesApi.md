@@ -10,6 +10,8 @@ All URIs are relative to *http://localhost:8000*
 | [**createCommissionRuleApiV1AdminCommissionRulesPost**](CategoriesApi.md#createCommissionRuleApiV1AdminCommissionRulesPost) | **POST** api/v1/admin/commission-rules | Create Commission Rule |
 | [**deactivateCommissionRuleApiV1AdminCommissionRulesRuleIdDeactivatePatch**](CategoriesApi.md#deactivateCommissionRuleApiV1AdminCommissionRulesRuleIdDeactivatePatch) | **PATCH** api/v1/admin/commission-rules/{rule_id}/deactivate | Deactivate Commission Rule |
 | [**deleteCategoryApiV1AdminCategoriesCategoryIdDelete**](CategoriesApi.md#deleteCategoryApiV1AdminCategoriesCategoryIdDelete) | **DELETE** api/v1/admin/categories/{category_id} | Delete Category |
+| [**getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet**](CategoriesApi.md#getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet) | **GET** api/v1/categories/{category_id}/attributes | Get Category Attributes Public |
+| [**getCategoryTreeApiV1CategoriesGet**](CategoriesApi.md#getCategoryTreeApiV1CategoriesGet) | **GET** api/v1/categories | Get Category Tree |
 | [**getEffectiveAttributesAdminApiV1AdminCategoriesCategoryIdAttributesGet**](CategoriesApi.md#getEffectiveAttributesAdminApiV1AdminCategoriesCategoryIdAttributesGet) | **GET** api/v1/admin/categories/{category_id}/attributes | Get Effective Attributes Admin |
 | [**getEffectiveAttributesSellerApiV1SellerCategoriesCategoryIdAttributesGet**](CategoriesApi.md#getEffectiveAttributesSellerApiV1SellerCategoriesCategoryIdAttributesGet) | **GET** api/v1/seller/categories/{category_id}/attributes | Get Effective Attributes Seller |
 | [**listCategoriesAdminApiV1AdminCategoriesGet**](CategoriesApi.md#listCategoriesAdminApiV1AdminCategoriesGet) | **GET** api/v1/admin/categories | List Categories Admin |
@@ -248,6 +250,81 @@ launch(Dispatchers.IO) {
 ### Return type
 
 null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+Get Category Attributes Public
+
+Effective attributes (inherited ones included) of an active category; 404 otherwise.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(CategoriesApi::class.java)
+val categoryId : kotlin.Int = 56 // kotlin.Int | 
+
+launch(Dispatchers.IO) {
+    val result : kotlin.collections.List<CategoryAttributePublicRead> = webService.getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet(categoryId)
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **categoryId** | **kotlin.Int**|  | |
+
+### Return type
+
+[**kotlin.collections.List&lt;CategoryAttributePublicRead&gt;**](CategoryAttributePublicRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+Get Category Tree
+
+The active category tree (roots, children nested), ordered by sort_order then id. A deactivated category hides its whole subtree. Slugs are globally unique.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(CategoriesApi::class.java)
+
+launch(Dispatchers.IO) {
+    val result : kotlin.collections.List<CategoryNodeRead> = webService.getCategoryTreeApiV1CategoriesGet()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**kotlin.collections.List&lt;CategoryNodeRead&gt;**](CategoryNodeRead.md)
 
 ### Authorization
 

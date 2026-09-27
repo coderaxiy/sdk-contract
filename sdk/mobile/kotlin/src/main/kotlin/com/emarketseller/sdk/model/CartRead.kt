@@ -24,6 +24,7 @@
 package com.emarketseller.sdk.model
 
 import com.emarketseller.sdk.model.CartItemRead
+import com.emarketseller.sdk.model.CartStatus
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -33,8 +34,9 @@ import kotlinx.serialization.Contextual
  * 
  *
  * @param id 
- * @param buyerId 
  * @param status 
+ * @param itemCount 
+ * @param subtotal 
  * @param createdAt 
  * @param updatedAt 
  * @param items 
@@ -46,11 +48,14 @@ data class CartRead (
     @SerialName(value = "id")
     val id: kotlin.Int,
 
-    @SerialName(value = "buyer_id")
-    val buyerId: kotlin.Int,
+    @Contextual @SerialName(value = "status")
+    val status: CartStatus,
 
-    @SerialName(value = "status")
-    val status: kotlin.String,
+    @SerialName(value = "item_count")
+    val itemCount: kotlin.Int,
+
+    @SerialName(value = "subtotal")
+    val subtotal: kotlin.String,
 
     @Contextual @SerialName(value = "created_at")
     val createdAt: java.time.OffsetDateTime,

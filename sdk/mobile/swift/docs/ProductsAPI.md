@@ -12,14 +12,18 @@ Method | HTTP request | Description
 [**deleteVariantApiV1SellerVariantsVariantIdDelete**](ProductsAPI.md#deletevariantapiv1sellervariantsvariantiddelete) | **DELETE** /api/v1/seller/variants/{variant_id} | Delete Variant
 [**delistProductAdminApiV1AdminProductsProductIdDelistPatch**](ProductsAPI.md#delistproductadminapiv1adminproductsproductiddelistpatch) | **PATCH** /api/v1/admin/products/{product_id}/delist | Delist Product Admin
 [**delistProductSellerApiV1SellerProductsProductIdDelistPost**](ProductsAPI.md#delistproductsellerapiv1sellerproductsproductiddelistpost) | **POST** /api/v1/seller/products/{product_id}/delist | Delist Product Seller
+[**getCatalogFacetsApiV1ProductsFacetsGet**](ProductsAPI.md#getcatalogfacetsapiv1productsfacetsget) | **GET** /api/v1/products/facets | Get Catalog Facets
 [**getModerationConfigApiV1AdminModerationConfigGet**](ProductsAPI.md#getmoderationconfigapiv1adminmoderationconfigget) | **GET** /api/v1/admin/moderation-config | Get Moderation Config
 [**getModerationLogApiV1AdminProductsProductIdModerationLogGet**](ProductsAPI.md#getmoderationlogapiv1adminproductsproductidmoderationlogget) | **GET** /api/v1/admin/products/{product_id}/moderation-log | Get Moderation Log
 [**getModerationQueueApiV1AdminModerationQueueGet**](ProductsAPI.md#getmoderationqueueapiv1adminmoderationqueueget) | **GET** /api/v1/admin/moderation-queue | Get Moderation Queue
 [**getProductAdminApiV1AdminProductsProductIdGet**](ProductsAPI.md#getproductadminapiv1adminproductsproductidget) | **GET** /api/v1/admin/products/{product_id} | Get Product Admin
+[**getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet**](ProductsAPI.md#getproductbyslugsapiv1shopsbyslugshopslugproductsproductslugget) | **GET** /api/v1/shops/by-slug/{shop_slug}/products/{product_slug} | Get Product By Slugs
 [**getProductPublicApiV1ProductsProductIdGet**](ProductsAPI.md#getproductpublicapiv1productsproductidget) | **GET** /api/v1/products/{product_id} | Get Product Public
 [**getProductSellerApiV1SellerProductsProductIdGet**](ProductsAPI.md#getproductsellerapiv1sellerproductsproductidget) | **GET** /api/v1/seller/products/{product_id} | Get Product Seller
 [**listBrandsAdminApiV1AdminBrandsGet**](ProductsAPI.md#listbrandsadminapiv1adminbrandsget) | **GET** /api/v1/admin/brands | List Brands Admin
+[**listBrandsPublicApiV1BrandsGet**](ProductsAPI.md#listbrandspublicapiv1brandsget) | **GET** /api/v1/brands | List Brands Public
 [**listBrandsSellerApiV1SellerBrandsGet**](ProductsAPI.md#listbrandssellerapiv1sellerbrandsget) | **GET** /api/v1/seller/brands | List Brands Seller
+[**listCatalogApiV1ProductsGet**](ProductsAPI.md#listcatalogapiv1productsget) | **GET** /api/v1/products | List Catalog
 [**listProductsAdminApiV1AdminProductsGet**](ProductsAPI.md#listproductsadminapiv1adminproductsget) | **GET** /api/v1/admin/products | List Products Admin
 [**listProductsSellerApiV1SellerProductsGet**](ProductsAPI.md#listproductssellerapiv1sellerproductsget) | **GET** /api/v1/seller/products | List Products Seller
 [**listShopProductsPublicApiV1ShopsShopIdProductsGet**](ProductsAPI.md#listshopproductspublicapiv1shopsshopidproductsget) | **GET** /api/v1/shops/{shop_id}/products | List Shop Products Public
@@ -440,6 +444,70 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getCatalogFacetsApiV1ProductsFacetsGet**
+```swift
+    open class func getCatalogFacetsApiV1ProductsFacetsGet(q: String? = nil, categoryId: Int? = nil, brandId: [Int]? = nil, shopId: Int? = nil, priceMin: PriceMin? = nil, priceMax: PriceMax? = nil, inStock: Bool? = nil, attr: [String]? = nil, completion: @escaping (_ data: CatalogFacetsRead?, _ error: Error?) -> Void)
+```
+
+Get Catalog Facets
+
+Brands (with counts) and the price range for the filter sidebar, given the same filters as GET /products.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let q = "q_example" // String | Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match (optional)
+let categoryId = 987 // Int | The category and all its descendants (optional)
+let brandId = [123] // [Int] | Repeatable; OR across values (optional)
+let shopId = 987 // Int |  (optional)
+let priceMin = Price_Min() // PriceMin | Compared against the card's price_min (optional)
+let priceMax = Price_Max() // PriceMax | Compared against the card's price_min (optional)
+let inStock = true // Bool | true hides out-of-stock products (optional)
+let attr = ["inner_example"] // [String] | Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys (optional)
+
+// Get Catalog Facets
+ProductsAPI.getCatalogFacetsApiV1ProductsFacetsGet(q: q, categoryId: categoryId, brandId: brandId, shopId: shopId, priceMin: priceMin, priceMax: priceMax, inStock: inStock, attr: attr) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **q** | **String** | Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match | [optional] 
+ **categoryId** | **Int** | The category and all its descendants | [optional] 
+ **brandId** | [**[Int]**](Int.md) | Repeatable; OR across values | [optional] 
+ **shopId** | **Int** |  | [optional] 
+ **priceMin** | [**PriceMin**](.md) | Compared against the card&#39;s price_min | [optional] 
+ **priceMax** | [**PriceMax**](.md) | Compared against the card&#39;s price_min | [optional] 
+ **inStock** | **Bool** | true hides out-of-stock products | [optional] 
+ **attr** | [**[String]**](String.md) | Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys | [optional] 
+
+### Return type
+
+[**CatalogFacetsRead**](CatalogFacetsRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getModerationConfigApiV1AdminModerationConfigGet**
 ```swift
     open class func getModerationConfigApiV1AdminModerationConfigGet(accessToken: String? = nil, completion: @escaping (_ data: ModerationConfigRead?, _ error: Error?) -> Void)
@@ -646,9 +714,61 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet**
+```swift
+    open class func getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet(shopSlug: String, productSlug: String, completion: @escaping (_ data: ProductPublicRead?, _ error: Error?) -> Void)
+```
+
+Get Product By Slugs
+
+A product's previous slugs still resolve; compare the response's `slug` and `shop.slug` with the URL and redirect when they differ.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let shopSlug = "shopSlug_example" // String | 
+let productSlug = "productSlug_example" // String | 
+
+// Get Product By Slugs
+ProductsAPI.getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet(shopSlug: shopSlug, productSlug: productSlug) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **shopSlug** | **String** |  | 
+ **productSlug** | **String** |  | 
+
+### Return type
+
+[**ProductPublicRead**](ProductPublicRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getProductPublicApiV1ProductsProductIdGet**
 ```swift
-    open class func getProductPublicApiV1ProductsProductIdGet(productId: Int, completion: @escaping (_ data: ProductRead?, _ error: Error?) -> Void)
+    open class func getProductPublicApiV1ProductsProductIdGet(productId: Int, completion: @escaping (_ data: ProductPublicRead?, _ error: Error?) -> Void)
 ```
 
 Get Product Public
@@ -681,7 +801,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProductRead**](ProductRead.md)
+[**ProductPublicRead**](ProductPublicRead.md)
 
 ### Authorization
 
@@ -798,6 +918,58 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **listBrandsPublicApiV1BrandsGet**
+```swift
+    open class func listBrandsPublicApiV1BrandsGet(categoryId: Int? = nil, q: String? = nil, completion: @escaping (_ data: [BrandPublicRead]?, _ error: Error?) -> Void)
+```
+
+List Brands Public
+
+Approved brands, ordered by name.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let categoryId = 987 // Int | Only brands with a visible product in this category or its descendants (optional)
+let q = "q_example" // String | Case-insensitive match on the brand name (optional)
+
+// List Brands Public
+ProductsAPI.listBrandsPublicApiV1BrandsGet(categoryId: categoryId, q: q) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **categoryId** | **Int** | Only brands with a visible product in this category or its descendants | [optional] 
+ **q** | **String** | Case-insensitive match on the brand name | [optional] 
+
+### Return type
+
+[**[BrandPublicRead]**](BrandPublicRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **listBrandsSellerApiV1SellerBrandsGet**
 ```swift
     open class func listBrandsSellerApiV1SellerBrandsGet(completion: @escaping (_ data: [BrandRead]?, _ error: Error?) -> Void)
@@ -830,6 +1002,76 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**[BrandRead]**](BrandRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **listCatalogApiV1ProductsGet**
+```swift
+    open class func listCatalogApiV1ProductsGet(sort: CatalogSort? = nil, skip: Int? = nil, limit: Int? = nil, q: String? = nil, categoryId: Int? = nil, brandId: [Int]? = nil, shopId: Int? = nil, priceMin: PriceMin? = nil, priceMax: PriceMax? = nil, inStock: Bool? = nil, attr: [String]? = nil, completion: @escaping (_ data: [ProductCardRead]?, _ error: Error?) -> Void)
+```
+
+List Catalog
+
+Public catalog and search. The total match count is in the `X-Total-Count` header.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let sort = CatalogSort() // CatalogSort | Default: relevance when q is set, newest otherwise (optional)
+let skip = 987 // Int |  (optional) (default to 0)
+let limit = 987 // Int |  (optional) (default to 50)
+let q = "q_example" // String | Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match (optional)
+let categoryId = 987 // Int | The category and all its descendants (optional)
+let brandId = [123] // [Int] | Repeatable; OR across values (optional)
+let shopId = 987 // Int |  (optional)
+let priceMin = Price_Min() // PriceMin | Compared against the card's price_min (optional)
+let priceMax = Price_Max() // PriceMax | Compared against the card's price_min (optional)
+let inStock = true // Bool | true hides out-of-stock products (optional)
+let attr = ["inner_example"] // [String] | Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys (optional)
+
+// List Catalog
+ProductsAPI.listCatalogApiV1ProductsGet(sort: sort, skip: skip, limit: limit, q: q, categoryId: categoryId, brandId: brandId, shopId: shopId, priceMin: priceMin, priceMax: priceMax, inStock: inStock, attr: attr) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | [**CatalogSort**](.md) | Default: relevance when q is set, newest otherwise | [optional] 
+ **skip** | **Int** |  | [optional] [default to 0]
+ **limit** | **Int** |  | [optional] [default to 50]
+ **q** | **String** | Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match | [optional] 
+ **categoryId** | **Int** | The category and all its descendants | [optional] 
+ **brandId** | [**[Int]**](Int.md) | Repeatable; OR across values | [optional] 
+ **shopId** | **Int** |  | [optional] 
+ **priceMin** | [**PriceMin**](.md) | Compared against the card&#39;s price_min | [optional] 
+ **priceMax** | [**PriceMax**](.md) | Compared against the card&#39;s price_min | [optional] 
+ **inStock** | **Bool** | true hides out-of-stock products | [optional] 
+ **attr** | [**[String]**](String.md) | Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys | [optional] 
+
+### Return type
+
+[**[ProductCardRead]**](ProductCardRead.md)
 
 ### Authorization
 
@@ -956,7 +1198,7 @@ No authorization required
 
 # **listShopProductsPublicApiV1ShopsShopIdProductsGet**
 ```swift
-    open class func listShopProductsPublicApiV1ShopsShopIdProductsGet(shopId: Int, completion: @escaping (_ data: [ProductRead]?, _ error: Error?) -> Void)
+    open class func listShopProductsPublicApiV1ShopsShopIdProductsGet(shopId: Int, completion: @escaping (_ data: [ProductPublicRead]?, _ error: Error?) -> Void)
 ```
 
 List Shop Products Public
@@ -989,7 +1231,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[ProductRead]**](ProductRead.md)
+[**[ProductPublicRead]**](ProductPublicRead.md)
 
 ### Authorization
 

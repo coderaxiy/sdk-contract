@@ -3,11 +3,11 @@ id: storefront-guest-cart
 title: Guest cart that merges into the buyer's cart on login/register
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: orders
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -67,3 +67,18 @@ and sign up only when they check out.
 - docs/orders-and-payments-api.md §2, §3.1 (cart endpoints)
 - docs/api-standards.md → "Auth" (cookie)
 - Depends on: `storefront-cart-product-info`
+
+## Resolution
+
+Implemented as specified. Details: `docs/orders-and-payments-api.md` §3.1 "Guest cart".
+
+- `cart_token` is an httpOnly cookie, 30-day sliding expiry, same `Secure`/`SameSite` as
+  `access_token`, re-set on every guest cart response. Only its SHA-256 is stored. An unknown
+  token is never adopted: the server issues a new one with a new empty cart.
+- With `access_token`, the user's cart is used and `cart_token` ignored. An invalid or expired
+  `access_token` is still `401` (never a silent switch to a guest cart).
+- Merge on `POST /auth/login` and `POST /auth/register`: quantities add up; every moved line that's
+  available is capped at current stock; unavailable lines move as-is. Then the guest cart is
+  deleted and the cookie cleared. Response bodies are unchanged.
+- `POST /checkout` as a guest → `401`.
+- Purge job (hourly): guest carts idle 30 days, and empty guest carts idle 1 day.

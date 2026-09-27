@@ -12,14 +12,18 @@ All URIs are relative to *http://localhost:8000*
 | [**deleteVariantApiV1SellerVariantsVariantIdDelete**](ProductsApi.md#deleteVariantApiV1SellerVariantsVariantIdDelete) | **DELETE** api/v1/seller/variants/{variant_id} | Delete Variant |
 | [**delistProductAdminApiV1AdminProductsProductIdDelistPatch**](ProductsApi.md#delistProductAdminApiV1AdminProductsProductIdDelistPatch) | **PATCH** api/v1/admin/products/{product_id}/delist | Delist Product Admin |
 | [**delistProductSellerApiV1SellerProductsProductIdDelistPost**](ProductsApi.md#delistProductSellerApiV1SellerProductsProductIdDelistPost) | **POST** api/v1/seller/products/{product_id}/delist | Delist Product Seller |
+| [**getCatalogFacetsApiV1ProductsFacetsGet**](ProductsApi.md#getCatalogFacetsApiV1ProductsFacetsGet) | **GET** api/v1/products/facets | Get Catalog Facets |
 | [**getModerationConfigApiV1AdminModerationConfigGet**](ProductsApi.md#getModerationConfigApiV1AdminModerationConfigGet) | **GET** api/v1/admin/moderation-config | Get Moderation Config |
 | [**getModerationLogApiV1AdminProductsProductIdModerationLogGet**](ProductsApi.md#getModerationLogApiV1AdminProductsProductIdModerationLogGet) | **GET** api/v1/admin/products/{product_id}/moderation-log | Get Moderation Log |
 | [**getModerationQueueApiV1AdminModerationQueueGet**](ProductsApi.md#getModerationQueueApiV1AdminModerationQueueGet) | **GET** api/v1/admin/moderation-queue | Get Moderation Queue |
 | [**getProductAdminApiV1AdminProductsProductIdGet**](ProductsApi.md#getProductAdminApiV1AdminProductsProductIdGet) | **GET** api/v1/admin/products/{product_id} | Get Product Admin |
+| [**getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet**](ProductsApi.md#getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet) | **GET** api/v1/shops/by-slug/{shop_slug}/products/{product_slug} | Get Product By Slugs |
 | [**getProductPublicApiV1ProductsProductIdGet**](ProductsApi.md#getProductPublicApiV1ProductsProductIdGet) | **GET** api/v1/products/{product_id} | Get Product Public |
 | [**getProductSellerApiV1SellerProductsProductIdGet**](ProductsApi.md#getProductSellerApiV1SellerProductsProductIdGet) | **GET** api/v1/seller/products/{product_id} | Get Product Seller |
 | [**listBrandsAdminApiV1AdminBrandsGet**](ProductsApi.md#listBrandsAdminApiV1AdminBrandsGet) | **GET** api/v1/admin/brands | List Brands Admin |
+| [**listBrandsPublicApiV1BrandsGet**](ProductsApi.md#listBrandsPublicApiV1BrandsGet) | **GET** api/v1/brands | List Brands Public |
 | [**listBrandsSellerApiV1SellerBrandsGet**](ProductsApi.md#listBrandsSellerApiV1SellerBrandsGet) | **GET** api/v1/seller/brands | List Brands Seller |
+| [**listCatalogApiV1ProductsGet**](ProductsApi.md#listCatalogApiV1ProductsGet) | **GET** api/v1/products | List Catalog |
 | [**listProductsAdminApiV1AdminProductsGet**](ProductsApi.md#listProductsAdminApiV1AdminProductsGet) | **GET** api/v1/admin/products | List Products Admin |
 | [**listProductsSellerApiV1SellerProductsGet**](ProductsApi.md#listProductsSellerApiV1SellerProductsGet) | **GET** api/v1/seller/products | List Products Seller |
 | [**listShopProductsPublicApiV1ShopsShopIdProductsGet**](ProductsApi.md#listShopProductsPublicApiV1ShopsShopIdProductsGet) | **GET** api/v1/shops/{shop_id}/products | List Shop Products Public |
@@ -353,6 +357,59 @@ No authorization required
  - **Accept**: application/json
 
 
+Get Catalog Facets
+
+Brands (with counts) and the price range for the filter sidebar, given the same filters as GET /products.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(ProductsApi::class.java)
+val q : kotlin.String = q_example // kotlin.String | Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match
+val categoryId : kotlin.Int = 56 // kotlin.Int | The category and all its descendants
+val brandId : kotlin.collections.List<kotlin.Int?> =  // kotlin.collections.List<kotlin.Int?> | Repeatable; OR across values
+val shopId : kotlin.Int = 56 // kotlin.Int | 
+val priceMin : PriceMin =  // PriceMin | Compared against the card's price_min
+val priceMax : PriceMax =  // PriceMax | Compared against the card's price_min
+val inStock : kotlin.Boolean = true // kotlin.Boolean | true hides out-of-stock products
+val attr : kotlin.collections.List<kotlin.String?> =  // kotlin.collections.List<kotlin.String?> | Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys
+
+launch(Dispatchers.IO) {
+    val result : CatalogFacetsRead = webService.getCatalogFacetsApiV1ProductsFacetsGet(q, categoryId, brandId, shopId, priceMin, priceMax, inStock, attr)
+}
+```
+
+### Parameters
+| **q** | **kotlin.String**| Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match | [optional] |
+| **categoryId** | **kotlin.Int**| The category and all its descendants | [optional] |
+| **brandId** | [**kotlin.collections.List&lt;kotlin.Int?&gt;**](kotlin.Int.md)| Repeatable; OR across values | [optional] |
+| **shopId** | **kotlin.Int**|  | [optional] |
+| **priceMin** | [**PriceMin**](.md)| Compared against the card&#39;s price_min | [optional] |
+| **priceMax** | [**PriceMax**](.md)| Compared against the card&#39;s price_min | [optional] |
+| **inStock** | **kotlin.Boolean**| true hides out-of-stock products | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **attr** | [**kotlin.collections.List&lt;kotlin.String?&gt;**](kotlin.String.md)| Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys | [optional] |
+
+### Return type
+
+[**CatalogFacetsRead**](CatalogFacetsRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
 Get Moderation Config
 
 ### Example
@@ -515,6 +572,47 @@ No authorization required
  - **Accept**: application/json
 
 
+Get Product By Slugs
+
+A product&#39;s previous slugs still resolve; compare the response&#39;s &#x60;slug&#x60; and &#x60;shop.slug&#x60; with the URL and redirect when they differ.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(ProductsApi::class.java)
+val shopSlug : kotlin.String = shopSlug_example // kotlin.String | 
+val productSlug : kotlin.String = productSlug_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : ProductPublicRead = webService.getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet(shopSlug, productSlug)
+}
+```
+
+### Parameters
+| **shopSlug** | **kotlin.String**|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **productSlug** | **kotlin.String**|  | |
+
+### Return type
+
+[**ProductPublicRead**](ProductPublicRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
 Get Product Public
 
 ### Example
@@ -529,7 +627,7 @@ val webService = apiClient.createWebservice(ProductsApi::class.java)
 val productId : kotlin.Int = 56 // kotlin.Int | 
 
 launch(Dispatchers.IO) {
-    val result : ProductRead = webService.getProductPublicApiV1ProductsProductIdGet(productId)
+    val result : ProductPublicRead = webService.getProductPublicApiV1ProductsProductIdGet(productId)
 }
 ```
 
@@ -540,7 +638,7 @@ launch(Dispatchers.IO) {
 
 ### Return type
 
-[**ProductRead**](ProductRead.md)
+[**ProductPublicRead**](ProductPublicRead.md)
 
 ### Authorization
 
@@ -634,6 +732,47 @@ No authorization required
  - **Accept**: application/json
 
 
+List Brands Public
+
+Approved brands, ordered by name.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(ProductsApi::class.java)
+val categoryId : kotlin.Int = 56 // kotlin.Int | Only brands with a visible product in this category or its descendants
+val q : kotlin.String = q_example // kotlin.String | Case-insensitive match on the brand name
+
+launch(Dispatchers.IO) {
+    val result : kotlin.collections.List<BrandPublicRead> = webService.listBrandsPublicApiV1BrandsGet(categoryId, q)
+}
+```
+
+### Parameters
+| **categoryId** | **kotlin.Int**| Only brands with a visible product in this category or its descendants | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **q** | **kotlin.String**| Case-insensitive match on the brand name | [optional] |
+
+### Return type
+
+[**kotlin.collections.List&lt;BrandPublicRead&gt;**](BrandPublicRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
 List Brands Seller
 
 ### Example
@@ -657,6 +796,65 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**kotlin.collections.List&lt;BrandRead&gt;**](BrandRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+List Catalog
+
+Public catalog and search. The total match count is in the &#x60;X-Total-Count&#x60; header.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(ProductsApi::class.java)
+val sort : CatalogSort =  // CatalogSort | Default: relevance when q is set, newest otherwise
+val skip : kotlin.Int = 56 // kotlin.Int | 
+val limit : kotlin.Int = 56 // kotlin.Int | 
+val q : kotlin.String = q_example // kotlin.String | Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match
+val categoryId : kotlin.Int = 56 // kotlin.Int | The category and all its descendants
+val brandId : kotlin.collections.List<kotlin.Int?> =  // kotlin.collections.List<kotlin.Int?> | Repeatable; OR across values
+val shopId : kotlin.Int = 56 // kotlin.Int | 
+val priceMin : PriceMin =  // PriceMin | Compared against the card's price_min
+val priceMax : PriceMax =  // PriceMax | Compared against the card's price_min
+val inStock : kotlin.Boolean = true // kotlin.Boolean | true hides out-of-stock products
+val attr : kotlin.collections.List<kotlin.String?> =  // kotlin.collections.List<kotlin.String?> | Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys
+
+launch(Dispatchers.IO) {
+    val result : kotlin.collections.List<ProductCardRead> = webService.listCatalogApiV1ProductsGet(sort, skip, limit, q, categoryId, brandId, shopId, priceMin, priceMax, inStock, attr)
+}
+```
+
+### Parameters
+| **sort** | [**CatalogSort**](.md)| Default: relevance when q is set, newest otherwise | [optional] [enum: relevance, newest, price_asc, price_desc] |
+| **skip** | **kotlin.Int**|  | [optional] [default to 0] |
+| **limit** | **kotlin.Int**|  | [optional] [default to 50] |
+| **q** | **kotlin.String**| Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match | [optional] |
+| **categoryId** | **kotlin.Int**| The category and all its descendants | [optional] |
+| **brandId** | [**kotlin.collections.List&lt;kotlin.Int?&gt;**](kotlin.Int.md)| Repeatable; OR across values | [optional] [default to arrayListOf()] |
+| **shopId** | **kotlin.Int**|  | [optional] |
+| **priceMin** | [**PriceMin**](.md)| Compared against the card&#39;s price_min | [optional] |
+| **priceMax** | [**PriceMax**](.md)| Compared against the card&#39;s price_min | [optional] |
+| **inStock** | **kotlin.Boolean**| true hides out-of-stock products | [optional] |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **attr** | [**kotlin.collections.List&lt;kotlin.String?&gt;**](kotlin.String.md)| Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys | [optional] [default to arrayListOf()] |
+
+### Return type
+
+[**kotlin.collections.List&lt;ProductCardRead&gt;**](ProductCardRead.md)
 
 ### Authorization
 
@@ -772,7 +970,7 @@ val webService = apiClient.createWebservice(ProductsApi::class.java)
 val shopId : kotlin.Int = 56 // kotlin.Int | 
 
 launch(Dispatchers.IO) {
-    val result : kotlin.collections.List<ProductRead> = webService.listShopProductsPublicApiV1ShopsShopIdProductsGet(shopId)
+    val result : kotlin.collections.List<ProductPublicRead> = webService.listShopProductsPublicApiV1ShopsShopIdProductsGet(shopId)
 }
 ```
 
@@ -783,7 +981,7 @@ launch(Dispatchers.IO) {
 
 ### Return type
 
-[**kotlin.collections.List&lt;ProductRead&gt;**](ProductRead.md)
+[**kotlin.collections.List&lt;ProductPublicRead&gt;**](ProductPublicRead.md)
 
 ### Authorization
 

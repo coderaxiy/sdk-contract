@@ -10,6 +10,8 @@ Method | HTTP request | Description
 [**createCommissionRuleApiV1AdminCommissionRulesPost**](CategoriesAPI.md#createcommissionruleapiv1admincommissionrulespost) | **POST** /api/v1/admin/commission-rules | Create Commission Rule
 [**deactivateCommissionRuleApiV1AdminCommissionRulesRuleIdDeactivatePatch**](CategoriesAPI.md#deactivatecommissionruleapiv1admincommissionrulesruleiddeactivatepatch) | **PATCH** /api/v1/admin/commission-rules/{rule_id}/deactivate | Deactivate Commission Rule
 [**deleteCategoryApiV1AdminCategoriesCategoryIdDelete**](CategoriesAPI.md#deletecategoryapiv1admincategoriescategoryiddelete) | **DELETE** /api/v1/admin/categories/{category_id} | Delete Category
+[**getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet**](CategoriesAPI.md#getcategoryattributespublicapiv1categoriescategoryidattributesget) | **GET** /api/v1/categories/{category_id}/attributes | Get Category Attributes Public
+[**getCategoryTreeApiV1CategoriesGet**](CategoriesAPI.md#getcategorytreeapiv1categoriesget) | **GET** /api/v1/categories | Get Category Tree
 [**getEffectiveAttributesAdminApiV1AdminCategoriesCategoryIdAttributesGet**](CategoriesAPI.md#geteffectiveattributesadminapiv1admincategoriescategoryidattributesget) | **GET** /api/v1/admin/categories/{category_id}/attributes | Get Effective Attributes Admin
 [**getEffectiveAttributesSellerApiV1SellerCategoriesCategoryIdAttributesGet**](CategoriesAPI.md#geteffectiveattributessellerapiv1sellercategoriescategoryidattributesget) | **GET** /api/v1/seller/categories/{category_id}/attributes | Get Effective Attributes Seller
 [**listCategoriesAdminApiV1AdminCategoriesGet**](CategoriesAPI.md#listcategoriesadminapiv1admincategoriesget) | **GET** /api/v1/admin/categories | List Categories Admin
@@ -312,6 +314,102 @@ Name | Type | Description  | Notes
 ### Return type
 
 Void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet**
+```swift
+    open class func getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet(categoryId: Int, completion: @escaping (_ data: [CategoryAttributePublicRead]?, _ error: Error?) -> Void)
+```
+
+Get Category Attributes Public
+
+Effective attributes (inherited ones included) of an active category; 404 otherwise.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let categoryId = 987 // Int | 
+
+// Get Category Attributes Public
+CategoriesAPI.getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet(categoryId: categoryId) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **categoryId** | **Int** |  | 
+
+### Return type
+
+[**[CategoryAttributePublicRead]**](CategoryAttributePublicRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getCategoryTreeApiV1CategoriesGet**
+```swift
+    open class func getCategoryTreeApiV1CategoriesGet(completion: @escaping (_ data: [CategoryNodeRead]?, _ error: Error?) -> Void)
+```
+
+Get Category Tree
+
+The active category tree (roots, children nested), ordered by sort_order then id. A deactivated category hides its whole subtree. Slugs are globally unique.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+
+// Get Category Tree
+CategoriesAPI.getCategoryTreeApiV1CategoriesGet() { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**[CategoryNodeRead]**](CategoryNodeRead.md)
 
 ### Authorization
 

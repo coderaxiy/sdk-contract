@@ -23,6 +23,9 @@
 
 package com.emarketseller.sdk.model
 
+import com.emarketseller.sdk.model.CartProductRead
+import com.emarketseller.sdk.model.CartVariantRead
+import com.emarketseller.sdk.model.ShopSummaryRead
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -32,11 +35,16 @@ import kotlinx.serialization.Contextual
  * 
  *
  * @param id 
- * @param productId 
- * @param variantId 
  * @param quantity 
- * @param priceSnapshot 
  * @param addedAt 
+ * @param product 
+ * @param variant 
+ * @param shop 
+ * @param priceSnapshot 
+ * @param unitPrice 
+ * @param lineTotal 
+ * @param available 
+ * @param inStock 
  */
 @Serializable
 
@@ -45,20 +53,35 @@ data class CartItemRead (
     @SerialName(value = "id")
     val id: kotlin.Int,
 
-    @SerialName(value = "product_id")
-    val productId: kotlin.Int,
-
-    @SerialName(value = "variant_id")
-    val variantId: kotlin.Int?,
-
     @SerialName(value = "quantity")
     val quantity: kotlin.Int,
+
+    @Contextual @SerialName(value = "added_at")
+    val addedAt: java.time.OffsetDateTime,
+
+    @SerialName(value = "product")
+    val product: CartProductRead,
+
+    @SerialName(value = "variant")
+    val variant: CartVariantRead?,
+
+    @SerialName(value = "shop")
+    val shop: ShopSummaryRead,
 
     @SerialName(value = "price_snapshot")
     val priceSnapshot: kotlin.String,
 
-    @Contextual @SerialName(value = "added_at")
-    val addedAt: java.time.OffsetDateTime
+    @SerialName(value = "unit_price")
+    val unitPrice: kotlin.String,
+
+    @SerialName(value = "line_total")
+    val lineTotal: kotlin.String,
+
+    @SerialName(value = "available")
+    val available: kotlin.Boolean,
+
+    @SerialName(value = "in_stock")
+    val inStock: kotlin.Boolean
 
 ) {
 

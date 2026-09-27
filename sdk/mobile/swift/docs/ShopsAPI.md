@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**createShopApiV1SellerShopsPost**](ShopsAPI.md#createshopapiv1sellershopspost) | **POST** /api/v1/seller/shops | Create Shop
 [**getOwnShopApiV1SellerShopsShopIdGet**](ShopsAPI.md#getownshopapiv1sellershopsshopidget) | **GET** /api/v1/seller/shops/{shop_id} | Get Own Shop
 [**getShopAdminApiV1AdminShopsShopIdGet**](ShopsAPI.md#getshopadminapiv1adminshopsshopidget) | **GET** /api/v1/admin/shops/{shop_id} | Get Shop Admin
+[**getShopPublicApiV1ShopsBySlugSlugGet**](ShopsAPI.md#getshoppublicapiv1shopsbyslugslugget) | **GET** /api/v1/shops/by-slug/{slug} | Get Shop Public
 [**inviteStaffApiV1SellerShopsShopIdStaffPost**](ShopsAPI.md#invitestaffapiv1sellershopsshopidstaffpost) | **POST** /api/v1/seller/shops/{shop_id}/staff | Invite Staff
 [**listAllShopsApiV1AdminShopsGet**](ShopsAPI.md#listallshopsapiv1adminshopsget) | **GET** /api/v1/admin/shops | List All Shops
 [**listAuditLogApiV1AdminAuditLogGet**](ShopsAPI.md#listauditlogapiv1adminauditlogget) | **GET** /api/v1/admin/audit-log | List Audit Log
@@ -364,6 +365,56 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ShopRead**](ShopRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getShopPublicApiV1ShopsBySlugSlugGet**
+```swift
+    open class func getShopPublicApiV1ShopsBySlugSlugGet(slug: String, completion: @escaping (_ data: ShopPublicRead?, _ error: Error?) -> Void)
+```
+
+Get Shop Public
+
+An active shop's public profile; 404 for any other status. Shop slugs never change.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let slug = "slug_example" // String | 
+
+// Get Shop Public
+ShopsAPI.getShopPublicApiV1ShopsBySlugSlugGet(slug: slug) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **slug** | **String** |  | 
+
+### Return type
+
+[**ShopPublicRead**](ShopPublicRead.md)
 
 ### Authorization
 

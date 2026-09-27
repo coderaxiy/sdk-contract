@@ -226,16 +226,19 @@ is enforced server-side.
 
 ## 4. Buyer endpoints (public)
 
-| Method | Path | Notes |
-|---|---|---|
-| GET | `/products/{product_id}` | 404 unless `status=approved` **and** the owning shop is `active` |
-| GET | `/shops/{shop_id}/products` | Same visibility rule; returns `[]` (not 404) if the shop isn't active |
+Moved to [storefront-catalog-api.md](storefront-catalog-api.md). Buyer endpoints
+return the buyer-safe `ProductPublicRead` / `ProductCardRead`, **not**
+`ProductRead`: no moderation state, `seller_sku`, exact stock or deleted
+variants.
 
-Note: `stock_quantity = 0` does **not** hide a product from these — it stays
-visible with zero stock (no "sold out" filtering happens here; that's future
-catalog/search doc territory). Show an out-of-stock state in the UI based on
-`stock_quantity === 0` (or, for variant products, all variants having
-`stock_quantity === 0` / `is_active === false`).
+For sellers, what changes when a product goes live:
+
+- A **renamed** product's old slug keeps resolving on the storefront
+  (`GET /shops/by-slug/{shop}/products/{old-slug}`), so shared links survive a
+  rename. A slug another product in the shop used before can still be taken.
+  The server always checks uniqueness against current slugs only.
+- A variant product whose variants are **all deleted** disappears from the
+  storefront (it has no price) until one is reactivated or added.
 
 ---
 
@@ -309,4 +312,4 @@ only displaying, never doing further arithmetic client-side).
 5. Brand picker + "request new brand" flow.
 6. Admin moderation queue + approve/reject/delist + moderation log view.
 7. Admin moderation-config editor (low priority — a simple settings page).
-8. Buyer-facing product detail / shop storefront pages.
+8. Buyer-facing pages: see [storefront-catalog-api.md](storefront-catalog-api.md).

@@ -346,6 +346,67 @@ open class ProductsAPI {
     }
 
     /**
+     Get Catalog Facets
+     
+     - parameter q: (query) Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match (optional)
+     - parameter categoryId: (query) The category and all its descendants (optional)
+     - parameter brandId: (query) Repeatable; OR across values (optional)
+     - parameter shopId: (query)  (optional)
+     - parameter priceMin: (query) Compared against the card&#39;s price_min (optional)
+     - parameter priceMax: (query) Compared against the card&#39;s price_min (optional)
+     - parameter inStock: (query) true hides out-of-stock products (optional)
+     - parameter attr: (query) Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: CatalogFacetsRead
+     */
+    open class func getCatalogFacetsApiV1ProductsFacetsGet(q: String? = nil, categoryId: Int? = nil, brandId: [Int]? = nil, shopId: Int? = nil, priceMin: PriceMin? = nil, priceMax: PriceMax? = nil, inStock: Bool? = nil, attr: [String]? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> CatalogFacetsRead {
+        return try await getCatalogFacetsApiV1ProductsFacetsGetWithRequestBuilder(q: q, categoryId: categoryId, brandId: brandId, shopId: shopId, priceMin: priceMin, priceMax: priceMax, inStock: inStock, attr: attr, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Get Catalog Facets
+     - GET /api/v1/products/facets
+     - Brands (with counts) and the price range for the filter sidebar, given the same filters as GET /products.
+     - parameter q: (query) Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match (optional)
+     - parameter categoryId: (query) The category and all its descendants (optional)
+     - parameter brandId: (query) Repeatable; OR across values (optional)
+     - parameter shopId: (query)  (optional)
+     - parameter priceMin: (query) Compared against the card&#39;s price_min (optional)
+     - parameter priceMax: (query) Compared against the card&#39;s price_min (optional)
+     - parameter inStock: (query) true hides out-of-stock products (optional)
+     - parameter attr: (query) Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<CatalogFacetsRead> 
+     */
+    open class func getCatalogFacetsApiV1ProductsFacetsGetWithRequestBuilder(q: String? = nil, categoryId: Int? = nil, brandId: [Int]? = nil, shopId: Int? = nil, priceMin: PriceMin? = nil, priceMax: PriceMax? = nil, inStock: Bool? = nil, attr: [String]? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<CatalogFacetsRead> {
+        let localVariablePath = "/api/v1/products/facets"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "q": (wrappedValue: q?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "category_id": (wrappedValue: categoryId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "brand_id": (wrappedValue: brandId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "shop_id": (wrappedValue: shopId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "price_min": (wrappedValue: priceMin?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "price_max": (wrappedValue: priceMax?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "in_stock": (wrappedValue: inStock?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "attr": (wrappedValue: attr?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<CatalogFacetsRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Get Moderation Config
      
      - parameter accessToken: ()  (optional)
@@ -517,13 +578,58 @@ open class ProductsAPI {
     }
 
     /**
+     Get Product By Slugs
+     
+     - parameter shopSlug: (path)  
+     - parameter productSlug: (path)  
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: ProductPublicRead
+     */
+    open class func getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet(shopSlug: String, productSlug: String, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> ProductPublicRead {
+        return try await getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGetWithRequestBuilder(shopSlug: shopSlug, productSlug: productSlug, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Get Product By Slugs
+     - GET /api/v1/shops/by-slug/{shop_slug}/products/{product_slug}
+     - A product's previous slugs still resolve; compare the response's `slug` and `shop.slug` with the URL and redirect when they differ.
+     - parameter shopSlug: (path)  
+     - parameter productSlug: (path)  
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<ProductPublicRead> 
+     */
+    open class func getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGetWithRequestBuilder(shopSlug: String, productSlug: String, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<ProductPublicRead> {
+        var localVariablePath = "/api/v1/shops/by-slug/{shop_slug}/products/{product_slug}"
+        let shopSlugPreEscape = "\(APIHelper.mapValueToPathItem(shopSlug))"
+        let shopSlugPostEscape = shopSlugPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{shop_slug}", with: shopSlugPostEscape, options: .literal, range: nil)
+        let productSlugPreEscape = "\(APIHelper.mapValueToPathItem(productSlug))"
+        let productSlugPostEscape = productSlugPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{product_slug}", with: productSlugPostEscape, options: .literal, range: nil)
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<ProductPublicRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Get Product Public
      
      - parameter productId: (path)  
      - parameter apiConfiguration: The configuration for the http request.
-     - returns: ProductRead
+     - returns: ProductPublicRead
      */
-    open class func getProductPublicApiV1ProductsProductIdGet(productId: Int, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> ProductRead {
+    open class func getProductPublicApiV1ProductsProductIdGet(productId: Int, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> ProductPublicRead {
         return try await getProductPublicApiV1ProductsProductIdGetWithRequestBuilder(productId: productId, apiConfiguration: apiConfiguration).execute().body
     }
 
@@ -532,9 +638,9 @@ open class ProductsAPI {
      - GET /api/v1/products/{product_id}
      - parameter productId: (path)  
      - parameter apiConfiguration: The configuration for the http request.
-     - returns: RequestBuilder<ProductRead> 
+     - returns: RequestBuilder<ProductPublicRead> 
      */
-    open class func getProductPublicApiV1ProductsProductIdGetWithRequestBuilder(productId: Int, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<ProductRead> {
+    open class func getProductPublicApiV1ProductsProductIdGetWithRequestBuilder(productId: Int, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<ProductPublicRead> {
         var localVariablePath = "/api/v1/products/{product_id}"
         let productIdPreEscape = "\(APIHelper.mapValueToPathItem(productId))"
         let productIdPostEscape = productIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -550,7 +656,7 @@ open class ProductsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<ProductRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ProductPublicRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }
@@ -644,6 +750,49 @@ open class ProductsAPI {
     }
 
     /**
+     List Brands Public
+     
+     - parameter categoryId: (query) Only brands with a visible product in this category or its descendants (optional)
+     - parameter q: (query) Case-insensitive match on the brand name (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [BrandPublicRead]
+     */
+    open class func listBrandsPublicApiV1BrandsGet(categoryId: Int? = nil, q: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [BrandPublicRead] {
+        return try await listBrandsPublicApiV1BrandsGetWithRequestBuilder(categoryId: categoryId, q: q, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     List Brands Public
+     - GET /api/v1/brands
+     - Approved brands, ordered by name.
+     - parameter categoryId: (query) Only brands with a visible product in this category or its descendants (optional)
+     - parameter q: (query) Case-insensitive match on the brand name (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[BrandPublicRead]> 
+     */
+    open class func listBrandsPublicApiV1BrandsGetWithRequestBuilder(categoryId: Int? = nil, q: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[BrandPublicRead]> {
+        let localVariablePath = "/api/v1/brands"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "category_id": (wrappedValue: categoryId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "q": (wrappedValue: q?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[BrandPublicRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      List Brands Seller
      
      - parameter apiConfiguration: The configuration for the http request.
@@ -673,6 +822,76 @@ open class ProductsAPI {
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<[BrandRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     List Catalog
+     
+     - parameter sort: (query) Default: relevance when q is set, newest otherwise (optional)
+     - parameter skip: (query)  (optional, default to 0)
+     - parameter limit: (query)  (optional, default to 50)
+     - parameter q: (query) Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match (optional)
+     - parameter categoryId: (query) The category and all its descendants (optional)
+     - parameter brandId: (query) Repeatable; OR across values (optional)
+     - parameter shopId: (query)  (optional)
+     - parameter priceMin: (query) Compared against the card&#39;s price_min (optional)
+     - parameter priceMax: (query) Compared against the card&#39;s price_min (optional)
+     - parameter inStock: (query) true hides out-of-stock products (optional)
+     - parameter attr: (query) Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [ProductCardRead]
+     */
+    open class func listCatalogApiV1ProductsGet(sort: CatalogSort? = nil, skip: Int? = nil, limit: Int? = nil, q: String? = nil, categoryId: Int? = nil, brandId: [Int]? = nil, shopId: Int? = nil, priceMin: PriceMin? = nil, priceMax: PriceMax? = nil, inStock: Bool? = nil, attr: [String]? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [ProductCardRead] {
+        return try await listCatalogApiV1ProductsGetWithRequestBuilder(sort: sort, skip: skip, limit: limit, q: q, categoryId: categoryId, brandId: brandId, shopId: shopId, priceMin: priceMin, priceMax: priceMax, inStock: inStock, attr: attr, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     List Catalog
+     - GET /api/v1/products
+     - Public catalog and search. The total match count is in the `X-Total-Count` header.
+     - parameter sort: (query) Default: relevance when q is set, newest otherwise (optional)
+     - parameter skip: (query)  (optional, default to 0)
+     - parameter limit: (query)  (optional, default to 50)
+     - parameter q: (query) Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match (optional)
+     - parameter categoryId: (query) The category and all its descendants (optional)
+     - parameter brandId: (query) Repeatable; OR across values (optional)
+     - parameter shopId: (query)  (optional)
+     - parameter priceMin: (query) Compared against the card&#39;s price_min (optional)
+     - parameter priceMax: (query) Compared against the card&#39;s price_min (optional)
+     - parameter inStock: (query) true hides out-of-stock products (optional)
+     - parameter attr: (query) Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[ProductCardRead]> 
+     */
+    open class func listCatalogApiV1ProductsGetWithRequestBuilder(sort: CatalogSort? = nil, skip: Int? = nil, limit: Int? = nil, q: String? = nil, categoryId: Int? = nil, brandId: [Int]? = nil, shopId: Int? = nil, priceMin: PriceMin? = nil, priceMax: PriceMax? = nil, inStock: Bool? = nil, attr: [String]? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[ProductCardRead]> {
+        let localVariablePath = "/api/v1/products"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "sort": (wrappedValue: sort?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "skip": (wrappedValue: skip?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "limit": (wrappedValue: limit?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "q": (wrappedValue: q?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "category_id": (wrappedValue: categoryId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "brand_id": (wrappedValue: brandId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "shop_id": (wrappedValue: shopId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "price_min": (wrappedValue: priceMin?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "price_max": (wrappedValue: priceMax?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "in_stock": (wrappedValue: inStock?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "attr": (wrappedValue: attr?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[ProductCardRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }
@@ -782,9 +1001,9 @@ open class ProductsAPI {
      
      - parameter shopId: (path)  
      - parameter apiConfiguration: The configuration for the http request.
-     - returns: [ProductRead]
+     - returns: [ProductPublicRead]
      */
-    open class func listShopProductsPublicApiV1ShopsShopIdProductsGet(shopId: Int, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [ProductRead] {
+    open class func listShopProductsPublicApiV1ShopsShopIdProductsGet(shopId: Int, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [ProductPublicRead] {
         return try await listShopProductsPublicApiV1ShopsShopIdProductsGetWithRequestBuilder(shopId: shopId, apiConfiguration: apiConfiguration).execute().body
     }
 
@@ -793,9 +1012,9 @@ open class ProductsAPI {
      - GET /api/v1/shops/{shop_id}/products
      - parameter shopId: (path)  
      - parameter apiConfiguration: The configuration for the http request.
-     - returns: RequestBuilder<[ProductRead]> 
+     - returns: RequestBuilder<[ProductPublicRead]> 
      */
-    open class func listShopProductsPublicApiV1ShopsShopIdProductsGetWithRequestBuilder(shopId: Int, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[ProductRead]> {
+    open class func listShopProductsPublicApiV1ShopsShopIdProductsGetWithRequestBuilder(shopId: Int, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[ProductPublicRead]> {
         var localVariablePath = "/api/v1/shops/{shop_id}/products"
         let shopIdPreEscape = "\(APIHelper.mapValueToPathItem(shopId))"
         let shopIdPostEscape = shopIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -811,7 +1030,7 @@ open class ProductsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<[ProductRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<[ProductPublicRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }

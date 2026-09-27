@@ -50,17 +50,19 @@ val apiClient = ApiClient()
 val webService = apiClient.createWebservice(OrdersApi::class.java)
 val cartItemAddRequest : CartItemAddRequest =  // CartItemAddRequest | 
 val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+val cartToken : kotlin.String = cartToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : CartItemRead = webService.addCartItemApiV1CartItemsPost(cartItemAddRequest, accessToken)
+    val result : CartItemRead = webService.addCartItemApiV1CartItemsPost(cartItemAddRequest, accessToken, cartToken)
 }
 ```
 
 ### Parameters
 | **cartItemAddRequest** | [**CartItemAddRequest**](CartItemAddRequest.md)|  | |
+| **accessToken** | **kotlin.String**|  | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **accessToken** | **kotlin.String**|  | [optional] |
+| **cartToken** | **kotlin.String**|  | [optional] |
 
 ### Return type
 
@@ -332,16 +334,18 @@ Get Cart
 val apiClient = ApiClient()
 val webService = apiClient.createWebservice(OrdersApi::class.java)
 val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+val cartToken : kotlin.String = cartToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : CartRead = webService.getCartApiV1CartGet(accessToken)
+    val result : CartRead = webService.getCartApiV1CartGet(accessToken, cartToken)
 }
 ```
 
 ### Parameters
+| **accessToken** | **kotlin.String**|  | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **accessToken** | **kotlin.String**|  | [optional] |
+| **cartToken** | **kotlin.String**|  | [optional] |
 
 ### Return type
 
@@ -995,17 +999,19 @@ val apiClient = ApiClient()
 val webService = apiClient.createWebservice(OrdersApi::class.java)
 val cartItemId : kotlin.Int = 56 // kotlin.Int | 
 val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+val cartToken : kotlin.String = cartToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    webService.removeCartItemApiV1CartItemsCartItemIdDelete(cartItemId, accessToken)
+    webService.removeCartItemApiV1CartItemsCartItemIdDelete(cartItemId, accessToken, cartToken)
 }
 ```
 
 ### Parameters
 | **cartItemId** | **kotlin.Int**|  | |
+| **accessToken** | **kotlin.String**|  | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **accessToken** | **kotlin.String**|  | [optional] |
+| **cartToken** | **kotlin.String**|  | [optional] |
 
 ### Return type
 
@@ -1195,18 +1201,20 @@ val webService = apiClient.createWebservice(OrdersApi::class.java)
 val cartItemId : kotlin.Int = 56 // kotlin.Int | 
 val cartItemUpdateRequest : CartItemUpdateRequest =  // CartItemUpdateRequest | 
 val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+val cartToken : kotlin.String = cartToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : CartItemRead = webService.updateCartItemApiV1CartItemsCartItemIdPatch(cartItemId, cartItemUpdateRequest, accessToken)
+    val result : CartItemRead = webService.updateCartItemApiV1CartItemsCartItemIdPatch(cartItemId, cartItemUpdateRequest, accessToken, cartToken)
 }
 ```
 
 ### Parameters
 | **cartItemId** | **kotlin.Int**|  | |
 | **cartItemUpdateRequest** | [**CartItemUpdateRequest**](CartItemUpdateRequest.md)|  | |
+| **accessToken** | **kotlin.String**|  | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **accessToken** | **kotlin.String**|  | [optional] |
+| **cartToken** | **kotlin.String**|  | [optional] |
 
 ### Return type
 

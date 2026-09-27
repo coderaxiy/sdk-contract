@@ -28,6 +28,7 @@ import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.model.CartRead
 import com.emarketseller.sdk.model.CartItemRead
+import com.emarketseller.sdk.model.CartStatus
 
 class CartReadTest : ShouldSpec() {
     init {
@@ -40,16 +41,22 @@ class CartReadTest : ShouldSpec() {
             //modelInstance.id shouldBe ("TODO")
         }
 
-        // to test the property `buyerId`
-        should("test buyerId") {
-            // uncomment below to test the property
-            //modelInstance.buyerId shouldBe ("TODO")
-        }
-
         // to test the property `status`
         should("test status") {
             // uncomment below to test the property
             //modelInstance.status shouldBe ("TODO")
+        }
+
+        // to test the property `itemCount`
+        should("test itemCount") {
+            // uncomment below to test the property
+            //modelInstance.itemCount shouldBe ("TODO")
+        }
+
+        // to test the property `subtotal`
+        should("test subtotal") {
+            // uncomment below to test the property
+            //modelInstance.subtotal shouldBe ("TODO")
         }
 
         // to test the property `createdAt`

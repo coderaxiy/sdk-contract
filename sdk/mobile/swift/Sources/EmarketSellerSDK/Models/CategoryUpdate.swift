@@ -11,6 +11,7 @@ import Foundation
 public struct CategoryUpdate: Sendable, Codable, Hashable {
 
     public static let returnWindowDaysRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: true, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let translationsRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
     public var slug: String?
     public var iconUrl: String?
     public var sortOrder: Int?

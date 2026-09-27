@@ -60,10 +60,12 @@ No authorization required
 
 # **loginApiV1AuthLoginPost**
 ```swift
-    open class func loginApiV1AuthLoginPost(loginRequest: LoginRequest, completion: @escaping (_ data: TokenResponse?, _ error: Error?) -> Void)
+    open class func loginApiV1AuthLoginPost(loginRequest: LoginRequest, cartToken: String? = nil, completion: @escaping (_ data: TokenResponse?, _ error: Error?) -> Void)
 ```
 
 Login
+
+A guest cart (cart_token cookie) is merged into the buyer's cart and the cookie cleared.
 
 ### Example
 ```swift
@@ -71,9 +73,10 @@ Login
 import EmarketSellerSDK
 
 let loginRequest = LoginRequest(email: "email_example", password: "password_example") // LoginRequest | 
+let cartToken = "cartToken_example" // String |  (optional)
 
 // Login
-AuthAPI.loginApiV1AuthLoginPost(loginRequest: loginRequest) { (response, error) in
+AuthAPI.loginApiV1AuthLoginPost(loginRequest: loginRequest, cartToken: cartToken) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -90,6 +93,7 @@ AuthAPI.loginApiV1AuthLoginPost(loginRequest: loginRequest) { (response, error) 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **loginRequest** | [**LoginRequest**](LoginRequest.md) |  | 
+ **cartToken** | **String** |  | [optional] 
 
 ### Return type
 
@@ -152,10 +156,12 @@ No authorization required
 
 # **registerApiV1AuthRegisterPost**
 ```swift
-    open class func registerApiV1AuthRegisterPost(registerRequest: RegisterRequest, completion: @escaping (_ data: UserRead?, _ error: Error?) -> Void)
+    open class func registerApiV1AuthRegisterPost(registerRequest: RegisterRequest, cartToken: String? = nil, completion: @escaping (_ data: UserRead?, _ error: Error?) -> Void)
 ```
 
 Register
+
+A guest cart (cart_token cookie) is merged into the new account's cart and the cookie cleared.
 
 ### Example
 ```swift
@@ -163,9 +169,10 @@ Register
 import EmarketSellerSDK
 
 let registerRequest = RegisterRequest(email: "email_example", password: "password_example", fullName: "fullName_example") // RegisterRequest | 
+let cartToken = "cartToken_example" // String |  (optional)
 
 // Register
-AuthAPI.registerApiV1AuthRegisterPost(registerRequest: registerRequest) { (response, error) in
+AuthAPI.registerApiV1AuthRegisterPost(registerRequest: registerRequest, cartToken: cartToken) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -182,6 +189,7 @@ AuthAPI.registerApiV1AuthRegisterPost(registerRequest: registerRequest) { (respo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **registerRequest** | [**RegisterRequest**](RegisterRequest.md) |  | 
+ **cartToken** | **String** |  | [optional] 
 
 ### Return type
 

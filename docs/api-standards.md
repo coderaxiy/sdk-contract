@@ -22,6 +22,15 @@ All paths are under `/api/v1`, e.g. `GET /api/v1/seller/me`. Local dev:
   `logistics:manage`, ...). Each module guide says which one it needs.
 - Seller endpoints (`/seller/...`) additionally need a registered seller, and
   check that the seller owns the shop/product/order being touched.
+- **Public (no login):** the storefront catalog — `GET /products`,
+  `/products/facets`, `/products/{id}`, `/shops/{id}/products`,
+  `/shops/by-slug/...`, `/categories`, `/categories/{id}/attributes`, `/brands`
+  (see [storefront-catalog-api.md](storefront-catalog-api.md)) — plus
+  `GET /pickup-points/nearby`.
+- **The cart works logged out too** (`/cart`, `/cart/items...`): without
+  `access_token` the server uses a guest cart identified by a second httpOnly
+  cookie, `cart_token`, and merges it on login/register. Details in
+  [orders-and-payments-api.md](orders-and-payments-api.md) §3.1.
 
 | Status | Meaning |
 |---|---|
@@ -55,8 +64,10 @@ module guide (e.g. checkout price mismatch in `orders-and-payments-api.md`).
 
 ## Lists and pagination
 
-- Lists return a **plain JSON array** — no envelope, no total count.
+- Lists return a **plain JSON array** — no envelope, no total count in the body.
 - Paginated lists take `skip` (default `0`) and `limit` (default `50`).
+- Where a list reports a total, it's the `X-Total-Count` response header
+  (exposed to CORS). Currently only `GET /products`.
 - Filters are query params and compose with each other and with `skip`/`limit`.
 - Admin lists that support text search take `search`.
 

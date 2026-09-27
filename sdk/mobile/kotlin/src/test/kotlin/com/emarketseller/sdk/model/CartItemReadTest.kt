@@ -27,6 +27,9 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.model.CartItemRead
+import com.emarketseller.sdk.model.CartProductRead
+import com.emarketseller.sdk.model.CartVariantRead
+import com.emarketseller.sdk.model.ShopSummaryRead
 
 class CartItemReadTest : ShouldSpec() {
     init {
@@ -39,22 +42,34 @@ class CartItemReadTest : ShouldSpec() {
             //modelInstance.id shouldBe ("TODO")
         }
 
-        // to test the property `productId`
-        should("test productId") {
-            // uncomment below to test the property
-            //modelInstance.productId shouldBe ("TODO")
-        }
-
-        // to test the property `variantId`
-        should("test variantId") {
-            // uncomment below to test the property
-            //modelInstance.variantId shouldBe ("TODO")
-        }
-
         // to test the property `quantity`
         should("test quantity") {
             // uncomment below to test the property
             //modelInstance.quantity shouldBe ("TODO")
+        }
+
+        // to test the property `addedAt`
+        should("test addedAt") {
+            // uncomment below to test the property
+            //modelInstance.addedAt shouldBe ("TODO")
+        }
+
+        // to test the property `product`
+        should("test product") {
+            // uncomment below to test the property
+            //modelInstance.product shouldBe ("TODO")
+        }
+
+        // to test the property `variant`
+        should("test variant") {
+            // uncomment below to test the property
+            //modelInstance.variant shouldBe ("TODO")
+        }
+
+        // to test the property `shop`
+        should("test shop") {
+            // uncomment below to test the property
+            //modelInstance.shop shouldBe ("TODO")
         }
 
         // to test the property `priceSnapshot`
@@ -63,10 +78,28 @@ class CartItemReadTest : ShouldSpec() {
             //modelInstance.priceSnapshot shouldBe ("TODO")
         }
 
-        // to test the property `addedAt`
-        should("test addedAt") {
+        // to test the property `unitPrice`
+        should("test unitPrice") {
             // uncomment below to test the property
-            //modelInstance.addedAt shouldBe ("TODO")
+            //modelInstance.unitPrice shouldBe ("TODO")
+        }
+
+        // to test the property `lineTotal`
+        should("test lineTotal") {
+            // uncomment below to test the property
+            //modelInstance.lineTotal shouldBe ("TODO")
+        }
+
+        // to test the property `available`
+        should("test available") {
+            // uncomment below to test the property
+            //modelInstance.available shouldBe ("TODO")
+        }
+
+        // to test the property `inStock`
+        should("test inStock") {
+            // uncomment below to test the property
+            //modelInstance.inStock shouldBe ("TODO")
         }
 
     }

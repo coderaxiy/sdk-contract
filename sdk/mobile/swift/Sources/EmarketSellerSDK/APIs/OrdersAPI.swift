@@ -14,11 +14,12 @@ open class OrdersAPI {
      
      - parameter cartItemAddRequest: (body)  
      - parameter accessToken: ()  (optional)
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: CartItemRead
      */
-    open class func addCartItemApiV1CartItemsPost(cartItemAddRequest: CartItemAddRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> CartItemRead {
-        return try await addCartItemApiV1CartItemsPostWithRequestBuilder(cartItemAddRequest: cartItemAddRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    open class func addCartItemApiV1CartItemsPost(cartItemAddRequest: CartItemAddRequest, accessToken: String? = nil, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> CartItemRead {
+        return try await addCartItemApiV1CartItemsPostWithRequestBuilder(cartItemAddRequest: cartItemAddRequest, accessToken: accessToken, cartToken: cartToken, apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
@@ -26,10 +27,11 @@ open class OrdersAPI {
      - POST /api/v1/cart/items
      - parameter cartItemAddRequest: (body)  
      - parameter accessToken: ()  (optional)
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: RequestBuilder<CartItemRead> 
      */
-    open class func addCartItemApiV1CartItemsPostWithRequestBuilder(cartItemAddRequest: CartItemAddRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<CartItemRead> {
+    open class func addCartItemApiV1CartItemsPostWithRequestBuilder(cartItemAddRequest: CartItemAddRequest, accessToken: String? = nil, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<CartItemRead> {
         let localVariablePath = "/api/v1/cart/items"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: cartItemAddRequest, codableHelper: apiConfiguration.codableHelper)
@@ -307,21 +309,23 @@ open class OrdersAPI {
      Get Cart
      
      - parameter accessToken: ()  (optional)
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: CartRead
      */
-    open class func getCartApiV1CartGet(accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> CartRead {
-        return try await getCartApiV1CartGetWithRequestBuilder(accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    open class func getCartApiV1CartGet(accessToken: String? = nil, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> CartRead {
+        return try await getCartApiV1CartGetWithRequestBuilder(accessToken: accessToken, cartToken: cartToken, apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
      Get Cart
      - GET /api/v1/cart
      - parameter accessToken: ()  (optional)
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: RequestBuilder<CartRead> 
      */
-    open class func getCartApiV1CartGetWithRequestBuilder(accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<CartRead> {
+    open class func getCartApiV1CartGetWithRequestBuilder(accessToken: String? = nil, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<CartRead> {
         let localVariablePath = "/api/v1/cart"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters: [String: any Sendable]? = nil
@@ -1026,11 +1030,12 @@ open class OrdersAPI {
      
      - parameter cartItemId: (path)  
      - parameter accessToken: ()  (optional)
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: Void
      */
-    open class func removeCartItemApiV1CartItemsCartItemIdDelete(cartItemId: Int, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) {
-        return try await removeCartItemApiV1CartItemsCartItemIdDeleteWithRequestBuilder(cartItemId: cartItemId, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    open class func removeCartItemApiV1CartItemsCartItemIdDelete(cartItemId: Int, accessToken: String? = nil, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) {
+        return try await removeCartItemApiV1CartItemsCartItemIdDeleteWithRequestBuilder(cartItemId: cartItemId, accessToken: accessToken, cartToken: cartToken, apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
@@ -1038,10 +1043,11 @@ open class OrdersAPI {
      - DELETE /api/v1/cart/items/{cart_item_id}
      - parameter cartItemId: (path)  
      - parameter accessToken: ()  (optional)
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: RequestBuilder<Void> 
      */
-    open class func removeCartItemApiV1CartItemsCartItemIdDeleteWithRequestBuilder(cartItemId: Int, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<Void> {
+    open class func removeCartItemApiV1CartItemsCartItemIdDeleteWithRequestBuilder(cartItemId: Int, accessToken: String? = nil, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<Void> {
         var localVariablePath = "/api/v1/cart/items/{cart_item_id}"
         let cartItemIdPreEscape = "\(APIHelper.mapValueToPathItem(cartItemId))"
         let cartItemIdPostEscape = cartItemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1233,11 +1239,12 @@ open class OrdersAPI {
      - parameter cartItemId: (path)  
      - parameter cartItemUpdateRequest: (body)  
      - parameter accessToken: ()  (optional)
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: CartItemRead
      */
-    open class func updateCartItemApiV1CartItemsCartItemIdPatch(cartItemId: Int, cartItemUpdateRequest: CartItemUpdateRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> CartItemRead {
-        return try await updateCartItemApiV1CartItemsCartItemIdPatchWithRequestBuilder(cartItemId: cartItemId, cartItemUpdateRequest: cartItemUpdateRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    open class func updateCartItemApiV1CartItemsCartItemIdPatch(cartItemId: Int, cartItemUpdateRequest: CartItemUpdateRequest, accessToken: String? = nil, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> CartItemRead {
+        return try await updateCartItemApiV1CartItemsCartItemIdPatchWithRequestBuilder(cartItemId: cartItemId, cartItemUpdateRequest: cartItemUpdateRequest, accessToken: accessToken, cartToken: cartToken, apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
@@ -1246,10 +1253,11 @@ open class OrdersAPI {
      - parameter cartItemId: (path)  
      - parameter cartItemUpdateRequest: (body)  
      - parameter accessToken: ()  (optional)
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: RequestBuilder<CartItemRead> 
      */
-    open class func updateCartItemApiV1CartItemsCartItemIdPatchWithRequestBuilder(cartItemId: Int, cartItemUpdateRequest: CartItemUpdateRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<CartItemRead> {
+    open class func updateCartItemApiV1CartItemsCartItemIdPatchWithRequestBuilder(cartItemId: Int, cartItemUpdateRequest: CartItemUpdateRequest, accessToken: String? = nil, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<CartItemRead> {
         var localVariablePath = "/api/v1/cart/items/{cart_item_id}"
         let cartItemIdPreEscape = "\(APIHelper.mapValueToPathItem(cartItemId))"
         let cartItemIdPostEscape = cartItemIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""

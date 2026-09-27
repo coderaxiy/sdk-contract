@@ -27,17 +27,24 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.api.ProductsApi
+import com.emarketseller.sdk.model.BrandPublicRead
 import com.emarketseller.sdk.model.BrandRead
 import com.emarketseller.sdk.model.BrandRejectRequest
 import com.emarketseller.sdk.model.BrandRequestCreate
 import com.emarketseller.sdk.model.BrandStatus
+import com.emarketseller.sdk.model.CatalogFacetsRead
+import com.emarketseller.sdk.model.CatalogSort
 import com.emarketseller.sdk.model.DelistRequest
 import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.ModerationConfigRead
 import com.emarketseller.sdk.model.ModerationConfigUpdate
 import com.emarketseller.sdk.model.ModerationQueueItemRead
+import com.emarketseller.sdk.model.PriceMax
+import com.emarketseller.sdk.model.PriceMin
+import com.emarketseller.sdk.model.ProductCardRead
 import com.emarketseller.sdk.model.ProductCreate
 import com.emarketseller.sdk.model.ProductModerationLogRead
+import com.emarketseller.sdk.model.ProductPublicRead
 import com.emarketseller.sdk.model.ProductRead
 import com.emarketseller.sdk.model.ProductStatus
 import com.emarketseller.sdk.model.ProductUpdate
@@ -126,6 +133,21 @@ class ProductsApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test getCatalogFacetsApiV1ProductsFacetsGet
+        should("test getCatalogFacetsApiV1ProductsFacetsGet") {
+            // uncomment below to test getCatalogFacetsApiV1ProductsFacetsGet
+            //val q : kotlin.String = q_example // kotlin.String | Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match
+            //val categoryId : kotlin.Int = 56 // kotlin.Int | The category and all its descendants
+            //val brandId : kotlin.collections.List<kotlin.Int?> =  // kotlin.collections.List<kotlin.Int?> | Repeatable; OR across values
+            //val shopId : kotlin.Int = 56 // kotlin.Int | 
+            //val priceMin : PriceMin =  // PriceMin | Compared against the card's price_min
+            //val priceMax : PriceMax =  // PriceMax | Compared against the card's price_min
+            //val inStock : kotlin.Boolean = true // kotlin.Boolean | true hides out-of-stock products
+            //val attr : kotlin.collections.List<kotlin.String?> =  // kotlin.collections.List<kotlin.String?> | Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys
+            //val result : CatalogFacetsRead = apiInstance.getCatalogFacetsApiV1ProductsFacetsGet(q, categoryId, brandId, shopId, priceMin, priceMax, inStock, attr)
+            //result shouldBe ("TODO")
+        }
+
         // to test getModerationConfigApiV1AdminModerationConfigGet
         should("test getModerationConfigApiV1AdminModerationConfigGet") {
             // uncomment below to test getModerationConfigApiV1AdminModerationConfigGet
@@ -165,11 +187,20 @@ class ProductsApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet
+        should("test getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet") {
+            // uncomment below to test getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet
+            //val shopSlug : kotlin.String = shopSlug_example // kotlin.String | 
+            //val productSlug : kotlin.String = productSlug_example // kotlin.String | 
+            //val result : ProductPublicRead = apiInstance.getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet(shopSlug, productSlug)
+            //result shouldBe ("TODO")
+        }
+
         // to test getProductPublicApiV1ProductsProductIdGet
         should("test getProductPublicApiV1ProductsProductIdGet") {
             // uncomment below to test getProductPublicApiV1ProductsProductIdGet
             //val productId : kotlin.Int = 56 // kotlin.Int | 
-            //val result : ProductRead = apiInstance.getProductPublicApiV1ProductsProductIdGet(productId)
+            //val result : ProductPublicRead = apiInstance.getProductPublicApiV1ProductsProductIdGet(productId)
             //result shouldBe ("TODO")
         }
 
@@ -193,10 +224,37 @@ class ProductsApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test listBrandsPublicApiV1BrandsGet
+        should("test listBrandsPublicApiV1BrandsGet") {
+            // uncomment below to test listBrandsPublicApiV1BrandsGet
+            //val categoryId : kotlin.Int = 56 // kotlin.Int | Only brands with a visible product in this category or its descendants
+            //val q : kotlin.String = q_example // kotlin.String | Case-insensitive match on the brand name
+            //val result : kotlin.collections.List<BrandPublicRead> = apiInstance.listBrandsPublicApiV1BrandsGet(categoryId, q)
+            //result shouldBe ("TODO")
+        }
+
         // to test listBrandsSellerApiV1SellerBrandsGet
         should("test listBrandsSellerApiV1SellerBrandsGet") {
             // uncomment below to test listBrandsSellerApiV1SellerBrandsGet
             //val result : kotlin.collections.List<BrandRead> = apiInstance.listBrandsSellerApiV1SellerBrandsGet()
+            //result shouldBe ("TODO")
+        }
+
+        // to test listCatalogApiV1ProductsGet
+        should("test listCatalogApiV1ProductsGet") {
+            // uncomment below to test listCatalogApiV1ProductsGet
+            //val sort : CatalogSort =  // CatalogSort | Default: relevance when q is set, newest otherwise
+            //val skip : kotlin.Int = 56 // kotlin.Int | 
+            //val limit : kotlin.Int = 56 // kotlin.Int | 
+            //val q : kotlin.String = q_example // kotlin.String | Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match
+            //val categoryId : kotlin.Int = 56 // kotlin.Int | The category and all its descendants
+            //val brandId : kotlin.collections.List<kotlin.Int?> =  // kotlin.collections.List<kotlin.Int?> | Repeatable; OR across values
+            //val shopId : kotlin.Int = 56 // kotlin.Int | 
+            //val priceMin : PriceMin =  // PriceMin | Compared against the card's price_min
+            //val priceMax : PriceMax =  // PriceMax | Compared against the card's price_min
+            //val inStock : kotlin.Boolean = true // kotlin.Boolean | true hides out-of-stock products
+            //val attr : kotlin.collections.List<kotlin.String?> =  // kotlin.collections.List<kotlin.String?> | Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys
+            //val result : kotlin.collections.List<ProductCardRead> = apiInstance.listCatalogApiV1ProductsGet(sort, skip, limit, q, categoryId, brandId, shopId, priceMin, priceMax, inStock, attr)
             //result shouldBe ("TODO")
         }
 
@@ -228,7 +286,7 @@ class ProductsApiTest : ShouldSpec() {
         should("test listShopProductsPublicApiV1ShopsShopIdProductsGet") {
             // uncomment below to test listShopProductsPublicApiV1ShopsShopIdProductsGet
             //val shopId : kotlin.Int = 56 // kotlin.Int | 
-            //val result : kotlin.collections.List<ProductRead> = apiInstance.listShopProductsPublicApiV1ShopsShopIdProductsGet(shopId)
+            //val result : kotlin.collections.List<ProductPublicRead> = apiInstance.listShopProductsPublicApiV1ShopsShopIdProductsGet(shopId)
             //result shouldBe ("TODO")
         }
 

@@ -3,11 +3,11 @@ id: storefront-category-tree
 title: Public category tree with localized names, and public category attributes
 author: frontend
 to: backend
-status: open
+status: closed
 priority: high
 area: categories
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -94,3 +94,19 @@ category page is a placeholder.
   `/api/v1/seller/categories`, `/api/v1/seller/categories/{category_id}/attributes`
 - docs/products-and-moderation-api.md §3 (`/seller/categories`)
 - Related: `storefront-catalog-search`
+
+## Resolution
+
+1. `GET /categories` → `CategoryNodeRead[]`, the whole public tree, ordered by `sort_order`, `id`.
+   A deactivated category hides its whole subtree. `Cache-Control: public, max-age=300`.
+   **`product_count` (nice-to-have): done**: visible products, descendants included.
+   No commission/document/return-window fields.
+2. **Category slugs are globally unique** (DB unique constraint), so resolving from the cached
+   tree is safe. Admins can still rename them; old links 404, as you accepted.
+   Every category is created with at least one translation, and `PATCH /admin/categories/{id}`
+   now rejects `translations: []` (`422`), so it stays that way. All current categories have one.
+3. `GET /categories/{category_id}/attributes` → `CategoryAttributePublicRead[]` (effective
+   attributes, inherited included), 404 unless the category is in the public tree. Same cache header.
+   Option values aren't localized and no per-option labels are planned, so ship with raw values.
+
+Docs: `docs/storefront-catalog-api.md` §4.

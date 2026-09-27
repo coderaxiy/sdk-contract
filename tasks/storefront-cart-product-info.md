@@ -3,11 +3,11 @@ id: storefront-cart-product-info
 title: Cart items with product, variant, shop and current-price info
 author: frontend
 to: backend
-status: open
+status: closed
 priority: high
 area: orders
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -99,3 +99,20 @@ reaches checkout.
 - docs/orders-and-payments-api.md §2 (checkout, `price_changed`), §4 (`CartRead`)
 - docs/shops-api.md visibility table ("checkout refuses items already in carts")
 - Related: `storefront-guest-cart`, `storefront-public-product-read`
+
+## Resolution
+
+`CartRead` / `CartItemRead` now have exactly the requested shape. `buyer_id` is dropped, and so
+are the top-level `product_id`/`variant_id` (use `product.id` / `variant?.id`).
+`POST /cart/items` and `PATCH /cart/items/{id}` return the enriched `CartItemRead`.
+
+- `item_count` covers all lines; `subtotal` covers available lines only. Items are ordered by `added_at`.
+- Unavailable lines stay in the cart with `available: false`. `in_stock` = available and
+  stock ≥ quantity.
+- `shop` is `ShopSummaryRead` (`{ id, slug, name, logo_url }`).
+- **New:** `PATCH /cart/items/{id}` also moves `price_snapshot` to the current price. That's how
+  a buyer accepts a changed price (PATCH with the same quantity), since nothing else could
+  clear checkout's `price_changed` before. Adding (POST) already did this.
+- Add/update now check stock (`400 "Not enough stock for the requested quantity"`).
+  Another cart's item is `404 "Cart item not found"` (was `403 "Not your cart item"`).
+  The full error table is in `docs/orders-and-payments-api.md` §3.1 "Add / update errors".

@@ -57,7 +57,7 @@ seller is never `active` again.
 | Status | Products visible and purchasable | Payouts |
 |---|---|---|
 | `active` | yes | paid |
-| any other | no: public product pages `404`, the shop's list is empty, checkout refuses items already in carts (`400 "Product N is no longer available"`) | held |
+| any other | no: the public profile (`GET /shops/by-slug/{slug}`) and product pages `404`, the shop drops out of catalog lists, items already in carts show `available: false`, and checkout refuses them (`400 "Product N is no longer available"`) | held |
 
 Order groups that already exist are unaffected by a status change: a seller
 still fulfils them, and refunds still work.
@@ -145,7 +145,9 @@ Rules:
   value that would be stored; show it. Same `400` for an empty result. Cheap —
   fine to call on debounce. Availability can still change before create, so
   handle the `409` anyway.
-- Slugs can't be changed after creation.
+- Slugs can't be changed after creation. The storefront relies on this: shop
+  URLs are `/shops/{slug}` with no redirect handling, and the public profile is
+  `GET /shops/by-slug/{slug}` (see [storefront-catalog-api.md](storefront-catalog-api.md) §6).
 
 ### Update
 

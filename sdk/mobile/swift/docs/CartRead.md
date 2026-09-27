@@ -4,9 +4,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Int** |  | 
-**buyerId** | **Int** |  | 
-**status** | **String** |  | 
+**status** | [**CartStatus**](CartStatus.md) |  | 
 **items** | [CartItemRead] |  | [optional] 
+**itemCount** | **Int** |  | 
+**subtotal** | **String** |  | 
 **createdAt** | **Date** |  | 
 **updatedAt** | **Date** |  | 
 

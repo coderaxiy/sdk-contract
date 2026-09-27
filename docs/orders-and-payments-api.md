@@ -10,9 +10,13 @@ money-handling sections carefully before wiring checkout/refund UI.
 Same cookie-based auth as the rest of the app (`access_token` httpOnly
 cookie — `credentials: 'include'` on every request).
 
-- **Buyer** endpoints (`/cart`, `/checkout`, `/orders`, `/order-lines`,
-  `/refund-requests`) require only a logged-in user — no seller/buyer role
-  distinction exists; any authenticated user can shop.
+- **Cart** endpoints (`/cart`, `/cart/items...`) work **without logging in**,
+  through a guest cart (§3.1). An `access_token` that's sent but invalid or
+  expired is still `401`.
+- The other **buyer** endpoints (`/checkout`, `/orders`, `/order-lines`,
+  `/refund-requests`) require a logged-in user. No seller/buyer role
+  distinction exists; any authenticated user can shop. `POST /checkout` from a
+  guest is `401` → send the buyer to log in, then back to checkout.
 - **Seller** endpoints require a `Seller` record and shop ownership
   (`403` otherwise).
 - **Admin** endpoints require `orders:manage` (orders/refunds) or
@@ -33,7 +37,7 @@ handle this specifically (see §2 below).
 ### Cart → Checkout → Order, in one picture
 
 ```
-Cart (active, one per buyer)
+Cart (active, one per buyer — or per guest, merged into the buyer's on login)
   └─ CartItem × N
         │  POST /checkout
         ▼
@@ -250,7 +254,9 @@ group's `delivered_at`.
    ```
    Show the buyer the old vs. new price for each affected item and let them
    confirm before retrying checkout (the server never silently charges a
-   different price than what was in the cart). A plain stock-insufficient
+   different price than what was in the cart). Confirming = `PATCH
+   /cart/items/{id}` with the unchanged quantity for each affected line, which
+   moves its `price_snapshot` to the current price (§4 `CartItemRead`). A plain stock-insufficient
    error is a normal string-detail `400` — handle it like any other error.
 6. On success (`CheckoutResponse`):
    - `payment_method = cash_on_delivery` → `payment_redirect_url` is `null`.
@@ -285,9 +291,9 @@ no saved-recipient feature yet; prefill from the user's profile if you have it.
 
 | Method | Path | Notes |
 |---|---|---|
-| GET | `/cart` | Creates an empty cart on first call |
-| POST | `/cart/items` | `{ product_id, variant_id?, quantity }` — adding an existing item increments quantity |
-| PATCH | `/cart/items/{id}` | `{ quantity }` |
+| GET | `/cart` | `CartRead` (§4). Creates an empty cart on first call |
+| POST | `/cart/items` | `{ product_id, variant_id?, quantity }` → `201 CartItemRead`. Adding a line already in the cart adds to its quantity |
+| PATCH | `/cart/items/{id}` | `{ quantity }` (sets it) → `CartItemRead`. Also sets `price_snapshot` to the current price |
 | DELETE | `/cart/items/{id}` | `204` |
 | POST | `/checkout` | See §2 |
 | GET | `/orders` | Buyer's own orders, all shops |
@@ -296,6 +302,40 @@ no saved-recipient feature yet; prefill from the user's profile if you have it.
 | POST | `/order-lines/{id}/refund-request` | `{ reason_code, reason_text?, evidence_urls? }` — line must belong to a `delivered` group, within the return window. `refund_amount` is set to the line's `line_total` (see "Refunds are all-or-nothing") |
 | GET | `/refund-requests/{id}` | Visible to the requester or the seller who owns the shop |
 | POST | `/refund-requests/{id}/escalate` | Call when a buyer disputes a seller's rejection. Only on a `rejected` request that hasn't been escalated before (`escalated_at` is null) |
+
+#### Guest cart
+
+- Without `access_token`, the cart endpoints use a **guest cart** identified by
+  the httpOnly cookie **`cart_token`**. The server creates the cart and sets
+  the cookie on the first call. It's re-set on every guest cart response
+  (sliding 30-day expiry) with the same `Secure`/`SameSite` settings as
+  `access_token`. Just send credentials. An unknown or expired `cart_token`
+  gets a new, empty cart and a new cookie.
+- With `access_token`, the buyer's own cart is used and `cart_token` is ignored.
+- **Merge:** `POST /auth/login` and `POST /auth/register` move the guest cart's
+  lines into the user's cart, then delete the guest cart and clear the cookie.
+  The same product + variant adds up. Every moved line that's available is
+  capped at the current stock, and unavailable lines move as they are. The
+  response bodies are unchanged: refetch `GET /cart` after login.
+- Guest carts idle for 30 days are deleted, and so are empty ones after 1 day.
+- Guest carts are ordinary carts: same `CartRead`, same errors. Checkout needs a login.
+
+#### Add / update errors
+
+Show these as toasts. `404`s mean the product or variant isn't buyable at all,
+so refresh the page.
+
+| Status | `detail` | When |
+|---|---|---|
+| `404` | `Product not found` | `POST`: no such product, or it isn't visible (not approved / shop not active) |
+| `404` | `Variant not found` | `POST`: `variant_id` doesn't exist or belongs to another product |
+| `400` | `This product requires selecting a variant` | `POST`: variant product without `variant_id` |
+| `400` | `This product does not have variants` | `POST`: `variant_id` sent for a non-variant product |
+| `400` | `This variant is no longer available` | `POST`: the variant was deleted |
+| `400` | `Not enough stock for the requested quantity` | `POST` (the line's total after adding) or `PATCH` above current stock |
+| `400` | `This item is no longer available — remove it from the cart` | `PATCH` on a line with `available: false` |
+| `404` | `Cart item not found` | `PATCH`/`DELETE`: not a line of the caller's cart |
+| `422` | validation array | `quantity` < 1 |
 
 ### 3.2 Seller-facing
 
@@ -335,16 +375,46 @@ RBAC as noted — `orders:manage` for the first group, `finance:manage` for the 
 ```ts
 {
   id: number
-  buyer_id: number
-  status: string  // "active" | "checked_out" | "abandoned"
-  items: { id, product_id, variant_id, quantity, price_snapshot: string, added_at }[]
+  status: 'active' | 'checked_out' | 'abandoned'
+  items: CartItemRead[]    // ordered by added_at
+  item_count: number       // sum of quantities over all lines — the header badge
+  subtotal: string         // sum of line_total over AVAILABLE lines only
   created_at: string
   updated_at: string
 }
 ```
-`price_snapshot` is informational only — the real price is re-verified at
-checkout (§2). Don't use it as the "current price" anywhere in the UI; refetch
-product data for that.
+
+### `CartItemRead`
+Returned in `CartRead.items` and by `POST /cart/items` / `PATCH /cart/items/{id}`.
+```ts
+{
+  id: number
+  quantity: number
+  added_at: string
+  product: { id: number; slug: string; title: string; image_url: string | null }
+  variant: { id: number; attributes: Record<string, string | number | boolean> } | null
+  shop: { id: number; slug: string; name: string; logo_url: string | null }  // group the cart by shop
+  price_snapshot: string   // price when added (or last re-added)
+  unit_price: string       // CURRENT price, what checkout charges
+  line_total: string       // unit_price × quantity
+  available: boolean       // product approved, shop active, variant active
+  in_stock: boolean        // available and current stock >= quantity
+}
+```
+
+- `image_url`: the variant's first image if it has `image_ids`, else the
+  product's primary image.
+- Variant `attributes` use raw keys. Labels come from
+  `GET /categories/{category_id}/attributes`.
+- A line that stops being available (product delisted, shop suspended,
+  variant deleted) **stays in the cart** with `available: false`. Show
+  "No longer available — remove" and block the checkout button: checkout
+  rejects it with `400 "Product N is no longer available"`.
+- `unit_price !== price_snapshot` → show "price changed" in the cart. Checkout's
+  `price_changed` 400 (§2) is still the final guard. It compares against
+  `price_snapshot`. **To accept the new price**, `PATCH /cart/items/{id}` with
+  the line's current quantity: every PATCH moves `price_snapshot` to
+  `unit_price`. Then retry checkout.
 
 ### `OrderRead` (buyer-facing — no commission/payout fields)
 ```ts

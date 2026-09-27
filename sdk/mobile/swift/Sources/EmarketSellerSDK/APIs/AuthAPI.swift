@@ -49,21 +49,24 @@ open class AuthAPI {
      Login
      
      - parameter loginRequest: (body)  
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: TokenResponse
      */
-    open class func loginApiV1AuthLoginPost(loginRequest: LoginRequest, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> TokenResponse {
-        return try await loginApiV1AuthLoginPostWithRequestBuilder(loginRequest: loginRequest, apiConfiguration: apiConfiguration).execute().body
+    open class func loginApiV1AuthLoginPost(loginRequest: LoginRequest, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> TokenResponse {
+        return try await loginApiV1AuthLoginPostWithRequestBuilder(loginRequest: loginRequest, cartToken: cartToken, apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
      Login
      - POST /api/v1/auth/login
+     - A guest cart (cart_token cookie) is merged into the buyer's cart and the cookie cleared.
      - parameter loginRequest: (body)  
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: RequestBuilder<TokenResponse> 
      */
-    open class func loginApiV1AuthLoginPostWithRequestBuilder(loginRequest: LoginRequest, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<TokenResponse> {
+    open class func loginApiV1AuthLoginPostWithRequestBuilder(loginRequest: LoginRequest, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<TokenResponse> {
         let localVariablePath = "/api/v1/auth/login"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: loginRequest, codableHelper: apiConfiguration.codableHelper)
@@ -119,21 +122,24 @@ open class AuthAPI {
      Register
      
      - parameter registerRequest: (body)  
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: UserRead
      */
-    open class func registerApiV1AuthRegisterPost(registerRequest: RegisterRequest, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> UserRead {
-        return try await registerApiV1AuthRegisterPostWithRequestBuilder(registerRequest: registerRequest, apiConfiguration: apiConfiguration).execute().body
+    open class func registerApiV1AuthRegisterPost(registerRequest: RegisterRequest, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> UserRead {
+        return try await registerApiV1AuthRegisterPostWithRequestBuilder(registerRequest: registerRequest, cartToken: cartToken, apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
      Register
      - POST /api/v1/auth/register
+     - A guest cart (cart_token cookie) is merged into the new account's cart and the cookie cleared.
      - parameter registerRequest: (body)  
+     - parameter cartToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: RequestBuilder<UserRead> 
      */
-    open class func registerApiV1AuthRegisterPostWithRequestBuilder(registerRequest: RegisterRequest, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<UserRead> {
+    open class func registerApiV1AuthRegisterPostWithRequestBuilder(registerRequest: RegisterRequest, cartToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<UserRead> {
         let localVariablePath = "/api/v1/auth/register"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: registerRequest, codableHelper: apiConfiguration.codableHelper)

@@ -44,10 +44,11 @@ interface OrdersApi {
      *
      * @param cartItemAddRequest 
      * @param accessToken  (optional)
+     * @param cartToken  (optional)
      * @return [CartItemRead]
      */
     @POST("api/v1/cart/items")
-    suspend fun addCartItemApiV1CartItemsPost(@Body cartItemAddRequest: CartItemAddRequest, ): Response<CartItemRead>
+    suspend fun addCartItemApiV1CartItemsPost(@Body cartItemAddRequest: CartItemAddRequest, , ): Response<CartItemRead>
 
     /**
      * PATCH api/v1/seller/refund-requests/{refund_id}/approve
@@ -153,10 +154,11 @@ interface OrdersApi {
      *  - 422: Validation Error
      *
      * @param accessToken  (optional)
+     * @param cartToken  (optional)
      * @return [CartRead]
      */
     @GET("api/v1/cart")
-    suspend fun getCartApiV1CartGet(): Response<CartRead>
+    suspend fun getCartApiV1CartGet(, ): Response<CartRead>
 
     /**
      * GET api/v1/admin/ledger/{shop_id}
@@ -413,10 +415,11 @@ interface OrdersApi {
      *
      * @param cartItemId 
      * @param accessToken  (optional)
+     * @param cartToken  (optional)
      * @return [Unit]
      */
     @DELETE("api/v1/cart/items/{cart_item_id}")
-    suspend fun removeCartItemApiV1CartItemsCartItemIdDelete(@Path("cart_item_id") cartItemId: kotlin.Int, ): Response<Unit>
+    suspend fun removeCartItemApiV1CartItemsCartItemIdDelete(@Path("cart_item_id") cartItemId: kotlin.Int, , ): Response<Unit>
 
     /**
      * POST api/v1/order-lines/{order_line_id}/refund-request
@@ -491,10 +494,11 @@ interface OrdersApi {
      * @param cartItemId 
      * @param cartItemUpdateRequest 
      * @param accessToken  (optional)
+     * @param cartToken  (optional)
      * @return [CartItemRead]
      */
     @PATCH("api/v1/cart/items/{cart_item_id}")
-    suspend fun updateCartItemApiV1CartItemsCartItemIdPatch(@Path("cart_item_id") cartItemId: kotlin.Int, @Body cartItemUpdateRequest: CartItemUpdateRequest, ): Response<CartItemRead>
+    suspend fun updateCartItemApiV1CartItemsCartItemIdPatch(@Path("cart_item_id") cartItemId: kotlin.Int, @Body cartItemUpdateRequest: CartItemUpdateRequest, , ): Response<CartItemRead>
 
     /**
      * PATCH api/v1/seller/order-groups/{group_id}/status

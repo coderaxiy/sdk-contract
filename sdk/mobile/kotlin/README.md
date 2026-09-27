@@ -55,6 +55,8 @@ All URIs are relative to *http://localhost:8000*
 | *CategoriesApi* | [**createCommissionRuleApiV1AdminCommissionRulesPost**](docs/CategoriesApi.md#createcommissionruleapiv1admincommissionrulespost) | **POST** api/v1/admin/commission-rules | Create Commission Rule |
 | *CategoriesApi* | [**deactivateCommissionRuleApiV1AdminCommissionRulesRuleIdDeactivatePatch**](docs/CategoriesApi.md#deactivatecommissionruleapiv1admincommissionrulesruleiddeactivatepatch) | **PATCH** api/v1/admin/commission-rules/{rule_id}/deactivate | Deactivate Commission Rule |
 | *CategoriesApi* | [**deleteCategoryApiV1AdminCategoriesCategoryIdDelete**](docs/CategoriesApi.md#deletecategoryapiv1admincategoriescategoryiddelete) | **DELETE** api/v1/admin/categories/{category_id} | Delete Category |
+| *CategoriesApi* | [**getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet**](docs/CategoriesApi.md#getcategoryattributespublicapiv1categoriescategoryidattributesget) | **GET** api/v1/categories/{category_id}/attributes | Get Category Attributes Public |
+| *CategoriesApi* | [**getCategoryTreeApiV1CategoriesGet**](docs/CategoriesApi.md#getcategorytreeapiv1categoriesget) | **GET** api/v1/categories | Get Category Tree |
 | *CategoriesApi* | [**getEffectiveAttributesAdminApiV1AdminCategoriesCategoryIdAttributesGet**](docs/CategoriesApi.md#geteffectiveattributesadminapiv1admincategoriescategoryidattributesget) | **GET** api/v1/admin/categories/{category_id}/attributes | Get Effective Attributes Admin |
 | *CategoriesApi* | [**getEffectiveAttributesSellerApiV1SellerCategoriesCategoryIdAttributesGet**](docs/CategoriesApi.md#geteffectiveattributessellerapiv1sellercategoriescategoryidattributesget) | **GET** api/v1/seller/categories/{category_id}/attributes | Get Effective Attributes Seller |
 | *CategoriesApi* | [**listCategoriesAdminApiV1AdminCategoriesGet**](docs/CategoriesApi.md#listcategoriesadminapiv1admincategoriesget) | **GET** api/v1/admin/categories | List Categories Admin |
@@ -136,14 +138,18 @@ All URIs are relative to *http://localhost:8000*
 | *ProductsApi* | [**deleteVariantApiV1SellerVariantsVariantIdDelete**](docs/ProductsApi.md#deletevariantapiv1sellervariantsvariantiddelete) | **DELETE** api/v1/seller/variants/{variant_id} | Delete Variant |
 | *ProductsApi* | [**delistProductAdminApiV1AdminProductsProductIdDelistPatch**](docs/ProductsApi.md#delistproductadminapiv1adminproductsproductiddelistpatch) | **PATCH** api/v1/admin/products/{product_id}/delist | Delist Product Admin |
 | *ProductsApi* | [**delistProductSellerApiV1SellerProductsProductIdDelistPost**](docs/ProductsApi.md#delistproductsellerapiv1sellerproductsproductiddelistpost) | **POST** api/v1/seller/products/{product_id}/delist | Delist Product Seller |
+| *ProductsApi* | [**getCatalogFacetsApiV1ProductsFacetsGet**](docs/ProductsApi.md#getcatalogfacetsapiv1productsfacetsget) | **GET** api/v1/products/facets | Get Catalog Facets |
 | *ProductsApi* | [**getModerationConfigApiV1AdminModerationConfigGet**](docs/ProductsApi.md#getmoderationconfigapiv1adminmoderationconfigget) | **GET** api/v1/admin/moderation-config | Get Moderation Config |
 | *ProductsApi* | [**getModerationLogApiV1AdminProductsProductIdModerationLogGet**](docs/ProductsApi.md#getmoderationlogapiv1adminproductsproductidmoderationlogget) | **GET** api/v1/admin/products/{product_id}/moderation-log | Get Moderation Log |
 | *ProductsApi* | [**getModerationQueueApiV1AdminModerationQueueGet**](docs/ProductsApi.md#getmoderationqueueapiv1adminmoderationqueueget) | **GET** api/v1/admin/moderation-queue | Get Moderation Queue |
 | *ProductsApi* | [**getProductAdminApiV1AdminProductsProductIdGet**](docs/ProductsApi.md#getproductadminapiv1adminproductsproductidget) | **GET** api/v1/admin/products/{product_id} | Get Product Admin |
+| *ProductsApi* | [**getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet**](docs/ProductsApi.md#getproductbyslugsapiv1shopsbyslugshopslugproductsproductslugget) | **GET** api/v1/shops/by-slug/{shop_slug}/products/{product_slug} | Get Product By Slugs |
 | *ProductsApi* | [**getProductPublicApiV1ProductsProductIdGet**](docs/ProductsApi.md#getproductpublicapiv1productsproductidget) | **GET** api/v1/products/{product_id} | Get Product Public |
 | *ProductsApi* | [**getProductSellerApiV1SellerProductsProductIdGet**](docs/ProductsApi.md#getproductsellerapiv1sellerproductsproductidget) | **GET** api/v1/seller/products/{product_id} | Get Product Seller |
 | *ProductsApi* | [**listBrandsAdminApiV1AdminBrandsGet**](docs/ProductsApi.md#listbrandsadminapiv1adminbrandsget) | **GET** api/v1/admin/brands | List Brands Admin |
+| *ProductsApi* | [**listBrandsPublicApiV1BrandsGet**](docs/ProductsApi.md#listbrandspublicapiv1brandsget) | **GET** api/v1/brands | List Brands Public |
 | *ProductsApi* | [**listBrandsSellerApiV1SellerBrandsGet**](docs/ProductsApi.md#listbrandssellerapiv1sellerbrandsget) | **GET** api/v1/seller/brands | List Brands Seller |
+| *ProductsApi* | [**listCatalogApiV1ProductsGet**](docs/ProductsApi.md#listcatalogapiv1productsget) | **GET** api/v1/products | List Catalog |
 | *ProductsApi* | [**listProductsAdminApiV1AdminProductsGet**](docs/ProductsApi.md#listproductsadminapiv1adminproductsget) | **GET** api/v1/admin/products | List Products Admin |
 | *ProductsApi* | [**listProductsSellerApiV1SellerProductsGet**](docs/ProductsApi.md#listproductssellerapiv1sellerproductsget) | **GET** api/v1/seller/products | List Products Seller |
 | *ProductsApi* | [**listShopProductsPublicApiV1ShopsShopIdProductsGet**](docs/ProductsApi.md#listshopproductspublicapiv1shopsshopidproductsget) | **GET** api/v1/shops/{shop_id}/products | List Shop Products Public |
@@ -182,6 +188,7 @@ All URIs are relative to *http://localhost:8000*
 | *ShopsApi* | [**createShopApiV1SellerShopsPost**](docs/ShopsApi.md#createshopapiv1sellershopspost) | **POST** api/v1/seller/shops | Create Shop |
 | *ShopsApi* | [**getOwnShopApiV1SellerShopsShopIdGet**](docs/ShopsApi.md#getownshopapiv1sellershopsshopidget) | **GET** api/v1/seller/shops/{shop_id} | Get Own Shop |
 | *ShopsApi* | [**getShopAdminApiV1AdminShopsShopIdGet**](docs/ShopsApi.md#getshopadminapiv1adminshopsshopidget) | **GET** api/v1/admin/shops/{shop_id} | Get Shop Admin |
+| *ShopsApi* | [**getShopPublicApiV1ShopsBySlugSlugGet**](docs/ShopsApi.md#getshoppublicapiv1shopsbyslugslugget) | **GET** api/v1/shops/by-slug/{slug} | Get Shop Public |
 | *ShopsApi* | [**inviteStaffApiV1SellerShopsShopIdStaffPost**](docs/ShopsApi.md#invitestaffapiv1sellershopsshopidstaffpost) | **POST** api/v1/seller/shops/{shop_id}/staff | Invite Staff |
 | *ShopsApi* | [**listAllShopsApiV1AdminShopsGet**](docs/ShopsApi.md#listallshopsapiv1adminshopsget) | **GET** api/v1/admin/shops | List All Shops |
 | *ShopsApi* | [**listAuditLogApiV1AdminAuditLogGet**](docs/ShopsApi.md#listauditlogapiv1adminauditlogget) | **GET** api/v1/admin/audit-log | List Audit Log |
@@ -227,6 +234,8 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.BankAccountRead](docs/BankAccountRead.md)
  - [com.emarketseller.sdk.model.BankOwnerType](docs/BankOwnerType.md)
  - [com.emarketseller.sdk.model.BasePrice](docs/BasePrice.md)
+ - [com.emarketseller.sdk.model.BrandFacetRead](docs/BrandFacetRead.md)
+ - [com.emarketseller.sdk.model.BrandPublicRead](docs/BrandPublicRead.md)
  - [com.emarketseller.sdk.model.BrandRead](docs/BrandRead.md)
  - [com.emarketseller.sdk.model.BrandRejectRequest](docs/BrandRejectRequest.md)
  - [com.emarketseller.sdk.model.BrandRequestCreate](docs/BrandRequestCreate.md)
@@ -235,16 +244,23 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.CartItemAddRequest](docs/CartItemAddRequest.md)
  - [com.emarketseller.sdk.model.CartItemRead](docs/CartItemRead.md)
  - [com.emarketseller.sdk.model.CartItemUpdateRequest](docs/CartItemUpdateRequest.md)
+ - [com.emarketseller.sdk.model.CartProductRead](docs/CartProductRead.md)
  - [com.emarketseller.sdk.model.CartRead](docs/CartRead.md)
+ - [com.emarketseller.sdk.model.CartStatus](docs/CartStatus.md)
+ - [com.emarketseller.sdk.model.CartVariantRead](docs/CartVariantRead.md)
  - [com.emarketseller.sdk.model.CashCollectionRecordItemRead](docs/CashCollectionRecordItemRead.md)
  - [com.emarketseller.sdk.model.CashCollectionRecordRead](docs/CashCollectionRecordRead.md)
+ - [com.emarketseller.sdk.model.CatalogFacetsRead](docs/CatalogFacetsRead.md)
+ - [com.emarketseller.sdk.model.CatalogSort](docs/CatalogSort.md)
  - [com.emarketseller.sdk.model.CategoryAncestorRead](docs/CategoryAncestorRead.md)
  - [com.emarketseller.sdk.model.CategoryAssignmentRead](docs/CategoryAssignmentRead.md)
  - [com.emarketseller.sdk.model.CategoryAssignmentStatus](docs/CategoryAssignmentStatus.md)
  - [com.emarketseller.sdk.model.CategoryAttributeIn](docs/CategoryAttributeIn.md)
+ - [com.emarketseller.sdk.model.CategoryAttributePublicRead](docs/CategoryAttributePublicRead.md)
  - [com.emarketseller.sdk.model.CategoryAttributeRead](docs/CategoryAttributeRead.md)
  - [com.emarketseller.sdk.model.CategoryCreate](docs/CategoryCreate.md)
  - [com.emarketseller.sdk.model.CategoryMoveRequest](docs/CategoryMoveRequest.md)
+ - [com.emarketseller.sdk.model.CategoryNodeRead](docs/CategoryNodeRead.md)
  - [com.emarketseller.sdk.model.CategoryRead](docs/CategoryRead.md)
  - [com.emarketseller.sdk.model.CategoryUpdate](docs/CategoryUpdate.md)
  - [com.emarketseller.sdk.model.CheckInItemInput](docs/CheckInItemInput.md)
@@ -327,12 +343,21 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.PickupStatusRead](docs/PickupStatusRead.md)
  - [com.emarketseller.sdk.model.Price](docs/Price.md)
  - [com.emarketseller.sdk.model.Price1](docs/Price1.md)
+ - [com.emarketseller.sdk.model.PriceMax](docs/PriceMax.md)
+ - [com.emarketseller.sdk.model.PriceMin](docs/PriceMin.md)
+ - [com.emarketseller.sdk.model.PriceRangeRead](docs/PriceRangeRead.md)
  - [com.emarketseller.sdk.model.ProductAttributeValueIn](docs/ProductAttributeValueIn.md)
  - [com.emarketseller.sdk.model.ProductAttributeValueRead](docs/ProductAttributeValueRead.md)
+ - [com.emarketseller.sdk.model.ProductCardRead](docs/ProductCardRead.md)
+ - [com.emarketseller.sdk.model.ProductCategoryRead](docs/ProductCategoryRead.md)
  - [com.emarketseller.sdk.model.ProductCreate](docs/ProductCreate.md)
  - [com.emarketseller.sdk.model.ProductImageIn](docs/ProductImageIn.md)
  - [com.emarketseller.sdk.model.ProductImageRead](docs/ProductImageRead.md)
  - [com.emarketseller.sdk.model.ProductModerationLogRead](docs/ProductModerationLogRead.md)
+ - [com.emarketseller.sdk.model.ProductPublicAttributeRead](docs/ProductPublicAttributeRead.md)
+ - [com.emarketseller.sdk.model.ProductPublicImageRead](docs/ProductPublicImageRead.md)
+ - [com.emarketseller.sdk.model.ProductPublicRead](docs/ProductPublicRead.md)
+ - [com.emarketseller.sdk.model.ProductPublicVariantRead](docs/ProductPublicVariantRead.md)
  - [com.emarketseller.sdk.model.ProductRead](docs/ProductRead.md)
  - [com.emarketseller.sdk.model.ProductStatus](docs/ProductStatus.md)
  - [com.emarketseller.sdk.model.ProductUpdate](docs/ProductUpdate.md)
@@ -369,9 +394,11 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.ShipmentItemRead](docs/ShipmentItemRead.md)
  - [com.emarketseller.sdk.model.ShipmentRead](docs/ShipmentRead.md)
  - [com.emarketseller.sdk.model.ShopCreateRequest](docs/ShopCreateRequest.md)
+ - [com.emarketseller.sdk.model.ShopPublicRead](docs/ShopPublicRead.md)
  - [com.emarketseller.sdk.model.ShopRead](docs/ShopRead.md)
  - [com.emarketseller.sdk.model.ShopStaffRead](docs/ShopStaffRead.md)
  - [com.emarketseller.sdk.model.ShopStatus](docs/ShopStatus.md)
+ - [com.emarketseller.sdk.model.ShopSummaryRead](docs/ShopSummaryRead.md)
  - [com.emarketseller.sdk.model.ShopUpdateRequest](docs/ShopUpdateRequest.md)
  - [com.emarketseller.sdk.model.SlugAvailabilityRead](docs/SlugAvailabilityRead.md)
  - [com.emarketseller.sdk.model.StaffRole](docs/StaffRole.md)

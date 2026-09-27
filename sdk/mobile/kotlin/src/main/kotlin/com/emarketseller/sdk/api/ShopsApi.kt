@@ -14,6 +14,7 @@ import com.emarketseller.sdk.model.CategoryAssignmentRead
 import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.RejectAssignmentRequest
 import com.emarketseller.sdk.model.ShopCreateRequest
+import com.emarketseller.sdk.model.ShopPublicRead
 import com.emarketseller.sdk.model.ShopRead
 import com.emarketseller.sdk.model.ShopStaffRead
 import com.emarketseller.sdk.model.ShopUpdateRequest
@@ -125,6 +126,20 @@ interface ShopsApi {
      */
     @GET("api/v1/admin/shops/{shop_id}")
     suspend fun getShopAdminApiV1AdminShopsShopIdGet(@Path("shop_id") shopId: kotlin.Int, ): Response<ShopRead>
+
+    /**
+     * GET api/v1/shops/by-slug/{slug}
+     * Get Shop Public
+     * An active shop&#39;s public profile; 404 for any other status. Shop slugs never change.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param slug 
+     * @return [ShopPublicRead]
+     */
+    @GET("api/v1/shops/by-slug/{slug}")
+    suspend fun getShopPublicApiV1ShopsBySlugSlugGet(@Path("slug") slug: kotlin.String): Response<ShopPublicRead>
 
     /**
      * POST api/v1/seller/shops/{shop_id}/staff

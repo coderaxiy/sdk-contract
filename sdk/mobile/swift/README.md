@@ -36,6 +36,8 @@ Class | Method | HTTP request | Description
 *CategoriesAPI* | [**createCommissionRuleApiV1AdminCommissionRulesPost**](docs/CategoriesAPI.md#createcommissionruleapiv1admincommissionrulespost) | **POST** /api/v1/admin/commission-rules | Create Commission Rule
 *CategoriesAPI* | [**deactivateCommissionRuleApiV1AdminCommissionRulesRuleIdDeactivatePatch**](docs/CategoriesAPI.md#deactivatecommissionruleapiv1admincommissionrulesruleiddeactivatepatch) | **PATCH** /api/v1/admin/commission-rules/{rule_id}/deactivate | Deactivate Commission Rule
 *CategoriesAPI* | [**deleteCategoryApiV1AdminCategoriesCategoryIdDelete**](docs/CategoriesAPI.md#deletecategoryapiv1admincategoriescategoryiddelete) | **DELETE** /api/v1/admin/categories/{category_id} | Delete Category
+*CategoriesAPI* | [**getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet**](docs/CategoriesAPI.md#getcategoryattributespublicapiv1categoriescategoryidattributesget) | **GET** /api/v1/categories/{category_id}/attributes | Get Category Attributes Public
+*CategoriesAPI* | [**getCategoryTreeApiV1CategoriesGet**](docs/CategoriesAPI.md#getcategorytreeapiv1categoriesget) | **GET** /api/v1/categories | Get Category Tree
 *CategoriesAPI* | [**getEffectiveAttributesAdminApiV1AdminCategoriesCategoryIdAttributesGet**](docs/CategoriesAPI.md#geteffectiveattributesadminapiv1admincategoriescategoryidattributesget) | **GET** /api/v1/admin/categories/{category_id}/attributes | Get Effective Attributes Admin
 *CategoriesAPI* | [**getEffectiveAttributesSellerApiV1SellerCategoriesCategoryIdAttributesGet**](docs/CategoriesAPI.md#geteffectiveattributessellerapiv1sellercategoriescategoryidattributesget) | **GET** /api/v1/seller/categories/{category_id}/attributes | Get Effective Attributes Seller
 *CategoriesAPI* | [**listCategoriesAdminApiV1AdminCategoriesGet**](docs/CategoriesAPI.md#listcategoriesadminapiv1admincategoriesget) | **GET** /api/v1/admin/categories | List Categories Admin
@@ -117,14 +119,18 @@ Class | Method | HTTP request | Description
 *ProductsAPI* | [**deleteVariantApiV1SellerVariantsVariantIdDelete**](docs/ProductsAPI.md#deletevariantapiv1sellervariantsvariantiddelete) | **DELETE** /api/v1/seller/variants/{variant_id} | Delete Variant
 *ProductsAPI* | [**delistProductAdminApiV1AdminProductsProductIdDelistPatch**](docs/ProductsAPI.md#delistproductadminapiv1adminproductsproductiddelistpatch) | **PATCH** /api/v1/admin/products/{product_id}/delist | Delist Product Admin
 *ProductsAPI* | [**delistProductSellerApiV1SellerProductsProductIdDelistPost**](docs/ProductsAPI.md#delistproductsellerapiv1sellerproductsproductiddelistpost) | **POST** /api/v1/seller/products/{product_id}/delist | Delist Product Seller
+*ProductsAPI* | [**getCatalogFacetsApiV1ProductsFacetsGet**](docs/ProductsAPI.md#getcatalogfacetsapiv1productsfacetsget) | **GET** /api/v1/products/facets | Get Catalog Facets
 *ProductsAPI* | [**getModerationConfigApiV1AdminModerationConfigGet**](docs/ProductsAPI.md#getmoderationconfigapiv1adminmoderationconfigget) | **GET** /api/v1/admin/moderation-config | Get Moderation Config
 *ProductsAPI* | [**getModerationLogApiV1AdminProductsProductIdModerationLogGet**](docs/ProductsAPI.md#getmoderationlogapiv1adminproductsproductidmoderationlogget) | **GET** /api/v1/admin/products/{product_id}/moderation-log | Get Moderation Log
 *ProductsAPI* | [**getModerationQueueApiV1AdminModerationQueueGet**](docs/ProductsAPI.md#getmoderationqueueapiv1adminmoderationqueueget) | **GET** /api/v1/admin/moderation-queue | Get Moderation Queue
 *ProductsAPI* | [**getProductAdminApiV1AdminProductsProductIdGet**](docs/ProductsAPI.md#getproductadminapiv1adminproductsproductidget) | **GET** /api/v1/admin/products/{product_id} | Get Product Admin
+*ProductsAPI* | [**getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet**](docs/ProductsAPI.md#getproductbyslugsapiv1shopsbyslugshopslugproductsproductslugget) | **GET** /api/v1/shops/by-slug/{shop_slug}/products/{product_slug} | Get Product By Slugs
 *ProductsAPI* | [**getProductPublicApiV1ProductsProductIdGet**](docs/ProductsAPI.md#getproductpublicapiv1productsproductidget) | **GET** /api/v1/products/{product_id} | Get Product Public
 *ProductsAPI* | [**getProductSellerApiV1SellerProductsProductIdGet**](docs/ProductsAPI.md#getproductsellerapiv1sellerproductsproductidget) | **GET** /api/v1/seller/products/{product_id} | Get Product Seller
 *ProductsAPI* | [**listBrandsAdminApiV1AdminBrandsGet**](docs/ProductsAPI.md#listbrandsadminapiv1adminbrandsget) | **GET** /api/v1/admin/brands | List Brands Admin
+*ProductsAPI* | [**listBrandsPublicApiV1BrandsGet**](docs/ProductsAPI.md#listbrandspublicapiv1brandsget) | **GET** /api/v1/brands | List Brands Public
 *ProductsAPI* | [**listBrandsSellerApiV1SellerBrandsGet**](docs/ProductsAPI.md#listbrandssellerapiv1sellerbrandsget) | **GET** /api/v1/seller/brands | List Brands Seller
+*ProductsAPI* | [**listCatalogApiV1ProductsGet**](docs/ProductsAPI.md#listcatalogapiv1productsget) | **GET** /api/v1/products | List Catalog
 *ProductsAPI* | [**listProductsAdminApiV1AdminProductsGet**](docs/ProductsAPI.md#listproductsadminapiv1adminproductsget) | **GET** /api/v1/admin/products | List Products Admin
 *ProductsAPI* | [**listProductsSellerApiV1SellerProductsGet**](docs/ProductsAPI.md#listproductssellerapiv1sellerproductsget) | **GET** /api/v1/seller/products | List Products Seller
 *ProductsAPI* | [**listShopProductsPublicApiV1ShopsShopIdProductsGet**](docs/ProductsAPI.md#listshopproductspublicapiv1shopsshopidproductsget) | **GET** /api/v1/shops/{shop_id}/products | List Shop Products Public
@@ -163,6 +169,7 @@ Class | Method | HTTP request | Description
 *ShopsAPI* | [**createShopApiV1SellerShopsPost**](docs/ShopsAPI.md#createshopapiv1sellershopspost) | **POST** /api/v1/seller/shops | Create Shop
 *ShopsAPI* | [**getOwnShopApiV1SellerShopsShopIdGet**](docs/ShopsAPI.md#getownshopapiv1sellershopsshopidget) | **GET** /api/v1/seller/shops/{shop_id} | Get Own Shop
 *ShopsAPI* | [**getShopAdminApiV1AdminShopsShopIdGet**](docs/ShopsAPI.md#getshopadminapiv1adminshopsshopidget) | **GET** /api/v1/admin/shops/{shop_id} | Get Shop Admin
+*ShopsAPI* | [**getShopPublicApiV1ShopsBySlugSlugGet**](docs/ShopsAPI.md#getshoppublicapiv1shopsbyslugslugget) | **GET** /api/v1/shops/by-slug/{slug} | Get Shop Public
 *ShopsAPI* | [**inviteStaffApiV1SellerShopsShopIdStaffPost**](docs/ShopsAPI.md#invitestaffapiv1sellershopsshopidstaffpost) | **POST** /api/v1/seller/shops/{shop_id}/staff | Invite Staff
 *ShopsAPI* | [**listAllShopsApiV1AdminShopsGet**](docs/ShopsAPI.md#listallshopsapiv1adminshopsget) | **GET** /api/v1/admin/shops | List All Shops
 *ShopsAPI* | [**listAuditLogApiV1AdminAuditLogGet**](docs/ShopsAPI.md#listauditlogapiv1adminauditlogget) | **GET** /api/v1/admin/audit-log | List Audit Log
@@ -208,6 +215,8 @@ Class | Method | HTTP request | Description
  - [BankAccountRead](docs/BankAccountRead.md)
  - [BankOwnerType](docs/BankOwnerType.md)
  - [BasePrice](docs/BasePrice.md)
+ - [BrandFacetRead](docs/BrandFacetRead.md)
+ - [BrandPublicRead](docs/BrandPublicRead.md)
  - [BrandRead](docs/BrandRead.md)
  - [BrandRejectRequest](docs/BrandRejectRequest.md)
  - [BrandRequestCreate](docs/BrandRequestCreate.md)
@@ -216,16 +225,23 @@ Class | Method | HTTP request | Description
  - [CartItemAddRequest](docs/CartItemAddRequest.md)
  - [CartItemRead](docs/CartItemRead.md)
  - [CartItemUpdateRequest](docs/CartItemUpdateRequest.md)
+ - [CartProductRead](docs/CartProductRead.md)
  - [CartRead](docs/CartRead.md)
+ - [CartStatus](docs/CartStatus.md)
+ - [CartVariantRead](docs/CartVariantRead.md)
  - [CashCollectionRecordItemRead](docs/CashCollectionRecordItemRead.md)
  - [CashCollectionRecordRead](docs/CashCollectionRecordRead.md)
+ - [CatalogFacetsRead](docs/CatalogFacetsRead.md)
+ - [CatalogSort](docs/CatalogSort.md)
  - [CategoryAncestorRead](docs/CategoryAncestorRead.md)
  - [CategoryAssignmentRead](docs/CategoryAssignmentRead.md)
  - [CategoryAssignmentStatus](docs/CategoryAssignmentStatus.md)
  - [CategoryAttributeIn](docs/CategoryAttributeIn.md)
+ - [CategoryAttributePublicRead](docs/CategoryAttributePublicRead.md)
  - [CategoryAttributeRead](docs/CategoryAttributeRead.md)
  - [CategoryCreate](docs/CategoryCreate.md)
  - [CategoryMoveRequest](docs/CategoryMoveRequest.md)
+ - [CategoryNodeRead](docs/CategoryNodeRead.md)
  - [CategoryRead](docs/CategoryRead.md)
  - [CategoryUpdate](docs/CategoryUpdate.md)
  - [CheckInItemInput](docs/CheckInItemInput.md)
@@ -308,12 +324,21 @@ Class | Method | HTTP request | Description
  - [PickupStatusRead](docs/PickupStatusRead.md)
  - [Price](docs/Price.md)
  - [Price1](docs/Price1.md)
+ - [PriceMax](docs/PriceMax.md)
+ - [PriceMin](docs/PriceMin.md)
+ - [PriceRangeRead](docs/PriceRangeRead.md)
  - [ProductAttributeValueIn](docs/ProductAttributeValueIn.md)
  - [ProductAttributeValueRead](docs/ProductAttributeValueRead.md)
+ - [ProductCardRead](docs/ProductCardRead.md)
+ - [ProductCategoryRead](docs/ProductCategoryRead.md)
  - [ProductCreate](docs/ProductCreate.md)
  - [ProductImageIn](docs/ProductImageIn.md)
  - [ProductImageRead](docs/ProductImageRead.md)
  - [ProductModerationLogRead](docs/ProductModerationLogRead.md)
+ - [ProductPublicAttributeRead](docs/ProductPublicAttributeRead.md)
+ - [ProductPublicImageRead](docs/ProductPublicImageRead.md)
+ - [ProductPublicRead](docs/ProductPublicRead.md)
+ - [ProductPublicVariantRead](docs/ProductPublicVariantRead.md)
  - [ProductRead](docs/ProductRead.md)
  - [ProductStatus](docs/ProductStatus.md)
  - [ProductUpdate](docs/ProductUpdate.md)
@@ -350,9 +375,11 @@ Class | Method | HTTP request | Description
  - [ShipmentItemRead](docs/ShipmentItemRead.md)
  - [ShipmentRead](docs/ShipmentRead.md)
  - [ShopCreateRequest](docs/ShopCreateRequest.md)
+ - [ShopPublicRead](docs/ShopPublicRead.md)
  - [ShopRead](docs/ShopRead.md)
  - [ShopStaffRead](docs/ShopStaffRead.md)
  - [ShopStatus](docs/ShopStatus.md)
+ - [ShopSummaryRead](docs/ShopSummaryRead.md)
  - [ShopUpdateRequest](docs/ShopUpdateRequest.md)
  - [SlugAvailabilityRead](docs/SlugAvailabilityRead.md)
  - [StaffRole](docs/StaffRole.md)

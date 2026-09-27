@@ -34,6 +34,7 @@ import com.emarketseller.sdk.model.CategoryAssignmentRead
 import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.RejectAssignmentRequest
 import com.emarketseller.sdk.model.ShopCreateRequest
+import com.emarketseller.sdk.model.ShopPublicRead
 import com.emarketseller.sdk.model.ShopRead
 import com.emarketseller.sdk.model.ShopStaffRead
 import com.emarketseller.sdk.model.ShopUpdateRequest
@@ -105,6 +106,14 @@ class ShopsApiTest : ShouldSpec() {
             //val shopId : kotlin.Int = 56 // kotlin.Int | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : ShopRead = apiInstance.getShopAdminApiV1AdminShopsShopIdGet(shopId, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test getShopPublicApiV1ShopsBySlugSlugGet
+        should("test getShopPublicApiV1ShopsBySlugSlugGet") {
+            // uncomment below to test getShopPublicApiV1ShopsBySlugSlugGet
+            //val slug : kotlin.String = slug_example // kotlin.String | 
+            //val result : ShopPublicRead = apiInstance.getShopPublicApiV1ShopsBySlugSlugGet(slug)
             //result shouldBe ("TODO")
         }
 

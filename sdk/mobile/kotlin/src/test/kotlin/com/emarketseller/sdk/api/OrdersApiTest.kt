@@ -63,7 +63,8 @@ class OrdersApiTest : ShouldSpec() {
             // uncomment below to test addCartItemApiV1CartItemsPost
             //val cartItemAddRequest : CartItemAddRequest =  // CartItemAddRequest | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : CartItemRead = apiInstance.addCartItemApiV1CartItemsPost(cartItemAddRequest, accessToken)
+            //val cartToken : kotlin.String = cartToken_example // kotlin.String | 
+            //val result : CartItemRead = apiInstance.addCartItemApiV1CartItemsPost(cartItemAddRequest, accessToken, cartToken)
             //result shouldBe ("TODO")
         }
 
@@ -130,7 +131,8 @@ class OrdersApiTest : ShouldSpec() {
         should("test getCartApiV1CartGet") {
             // uncomment below to test getCartApiV1CartGet
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : CartRead = apiInstance.getCartApiV1CartGet(accessToken)
+            //val cartToken : kotlin.String = cartToken_example // kotlin.String | 
+            //val result : CartRead = apiInstance.getCartApiV1CartGet(accessToken, cartToken)
             //result shouldBe ("TODO")
         }
 
@@ -293,7 +295,8 @@ class OrdersApiTest : ShouldSpec() {
             // uncomment below to test removeCartItemApiV1CartItemsCartItemIdDelete
             //val cartItemId : kotlin.Int = 56 // kotlin.Int | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //apiInstance.removeCartItemApiV1CartItemsCartItemIdDelete(cartItemId, accessToken)
+            //val cartToken : kotlin.String = cartToken_example // kotlin.String | 
+            //apiInstance.removeCartItemApiV1CartItemsCartItemIdDelete(cartItemId, accessToken, cartToken)
         }
 
         // to test requestRefundApiV1OrderLinesOrderLineIdRefundRequestPost
@@ -340,7 +343,8 @@ class OrdersApiTest : ShouldSpec() {
             //val cartItemId : kotlin.Int = 56 // kotlin.Int | 
             //val cartItemUpdateRequest : CartItemUpdateRequest =  // CartItemUpdateRequest | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : CartItemRead = apiInstance.updateCartItemApiV1CartItemsCartItemIdPatch(cartItemId, cartItemUpdateRequest, accessToken)
+            //val cartToken : kotlin.String = cartToken_example // kotlin.String | 
+            //val result : CartItemRead = apiInstance.updateCartItemApiV1CartItemsCartItemIdPatch(cartItemId, cartItemUpdateRequest, accessToken, cartToken)
             //result shouldBe ("TODO")
         }
 

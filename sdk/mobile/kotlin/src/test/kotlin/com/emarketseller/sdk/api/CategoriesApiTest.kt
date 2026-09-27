@@ -27,9 +27,11 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.api.CategoriesApi
+import com.emarketseller.sdk.model.CategoryAttributePublicRead
 import com.emarketseller.sdk.model.CategoryAttributeRead
 import com.emarketseller.sdk.model.CategoryCreate
 import com.emarketseller.sdk.model.CategoryMoveRequest
+import com.emarketseller.sdk.model.CategoryNodeRead
 import com.emarketseller.sdk.model.CategoryRead
 import com.emarketseller.sdk.model.CategoryUpdate
 import com.emarketseller.sdk.model.CommissionResolutionRead
@@ -98,6 +100,21 @@ class CategoriesApiTest : ShouldSpec() {
             //val categoryId : kotlin.Int = 56 // kotlin.Int | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //apiInstance.deleteCategoryApiV1AdminCategoriesCategoryIdDelete(categoryId, accessToken)
+        }
+
+        // to test getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet
+        should("test getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet") {
+            // uncomment below to test getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet
+            //val categoryId : kotlin.Int = 56 // kotlin.Int | 
+            //val result : kotlin.collections.List<CategoryAttributePublicRead> = apiInstance.getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet(categoryId)
+            //result shouldBe ("TODO")
+        }
+
+        // to test getCategoryTreeApiV1CategoriesGet
+        should("test getCategoryTreeApiV1CategoriesGet") {
+            // uncomment below to test getCategoryTreeApiV1CategoriesGet
+            //val result : kotlin.collections.List<CategoryNodeRead> = apiInstance.getCategoryTreeApiV1CategoriesGet()
+            //result shouldBe ("TODO")
         }
 
         // to test getEffectiveAttributesAdminApiV1AdminCategoriesCategoryIdAttributesGet

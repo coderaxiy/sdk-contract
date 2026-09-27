@@ -3,11 +3,11 @@ id: storefront-public-shop-and-brands
 title: Public shop profile (by slug) and public brand list
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: shops
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -82,3 +82,15 @@ seller/admin-only endpoints.
   `/api/v1/admin/brands`, `/api/v1/shops/{shop_id}/products`
 - docs/shops-api.md ("Shop address", visibility table)
 - Related: `storefront-catalog-search`, `storefront-public-product-read`
+
+## Resolution
+
+1. `GET /shops/by-slug/{slug}` → `ShopPublicRead`, as specified. 404 unless `active`.
+   **Shop slugs stay immutable**; that's now written down in `docs/shops-api.md`.
+   `GET /shops/{shop_id}/products` returns `ProductPublicRead[]`.
+2. `GET /brands` → `BrandPublicRead[]`: approved only, ordered by name, with optional `category_id`
+   (brands with a visible product in the category or its descendants) and `q` (same spelling
+   rules as catalog search). For brands in the current results with counts, use
+   `GET /products/facets`.
+
+Docs: `docs/storefront-catalog-api.md` §5–6.

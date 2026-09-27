@@ -7,9 +7,11 @@ import okhttp3.RequestBody
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+import com.emarketseller.sdk.model.CategoryAttributePublicRead
 import com.emarketseller.sdk.model.CategoryAttributeRead
 import com.emarketseller.sdk.model.CategoryCreate
 import com.emarketseller.sdk.model.CategoryMoveRequest
+import com.emarketseller.sdk.model.CategoryNodeRead
 import com.emarketseller.sdk.model.CategoryRead
 import com.emarketseller.sdk.model.CategoryUpdate
 import com.emarketseller.sdk.model.CommissionResolutionRead
@@ -112,6 +114,32 @@ interface CategoriesApi {
      */
     @DELETE("api/v1/admin/categories/{category_id}")
     suspend fun deleteCategoryApiV1AdminCategoriesCategoryIdDelete(@Path("category_id") categoryId: kotlin.Int, ): Response<Unit>
+
+    /**
+     * GET api/v1/categories/{category_id}/attributes
+     * Get Category Attributes Public
+     * Effective attributes (inherited ones included) of an active category; 404 otherwise.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param categoryId 
+     * @return [kotlin.collections.List<CategoryAttributePublicRead>]
+     */
+    @GET("api/v1/categories/{category_id}/attributes")
+    suspend fun getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet(@Path("category_id") categoryId: kotlin.Int): Response<kotlin.collections.List<CategoryAttributePublicRead>>
+
+    /**
+     * GET api/v1/categories
+     * Get Category Tree
+     * The active category tree (roots, children nested), ordered by sort_order then id. A deactivated category hides its whole subtree. Slugs are globally unique.
+     * Responses:
+     *  - 200: Successful Response
+     *
+     * @return [kotlin.collections.List<CategoryNodeRead>]
+     */
+    @GET("api/v1/categories")
+    suspend fun getCategoryTreeApiV1CategoriesGet(): Response<kotlin.collections.List<CategoryNodeRead>>
 
     /**
      * GET api/v1/admin/categories/{category_id}/attributes

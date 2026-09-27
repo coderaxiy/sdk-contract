@@ -11,6 +11,7 @@ All URIs are relative to *http://localhost:8000*
 | [**createShopApiV1SellerShopsPost**](ShopsApi.md#createShopApiV1SellerShopsPost) | **POST** api/v1/seller/shops | Create Shop |
 | [**getOwnShopApiV1SellerShopsShopIdGet**](ShopsApi.md#getOwnShopApiV1SellerShopsShopIdGet) | **GET** api/v1/seller/shops/{shop_id} | Get Own Shop |
 | [**getShopAdminApiV1AdminShopsShopIdGet**](ShopsApi.md#getShopAdminApiV1AdminShopsShopIdGet) | **GET** api/v1/admin/shops/{shop_id} | Get Shop Admin |
+| [**getShopPublicApiV1ShopsBySlugSlugGet**](ShopsApi.md#getShopPublicApiV1ShopsBySlugSlugGet) | **GET** api/v1/shops/by-slug/{slug} | Get Shop Public |
 | [**inviteStaffApiV1SellerShopsShopIdStaffPost**](ShopsApi.md#inviteStaffApiV1SellerShopsShopIdStaffPost) | **POST** api/v1/seller/shops/{shop_id}/staff | Invite Staff |
 | [**listAllShopsApiV1AdminShopsGet**](ShopsApi.md#listAllShopsApiV1AdminShopsGet) | **GET** api/v1/admin/shops | List All Shops |
 | [**listAuditLogApiV1AdminAuditLogGet**](ShopsApi.md#listAuditLogApiV1AdminAuditLogGet) | **GET** api/v1/admin/audit-log | List Audit Log |
@@ -289,6 +290,45 @@ launch(Dispatchers.IO) {
 ### Return type
 
 [**ShopRead**](ShopRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+Get Shop Public
+
+An active shop&#39;s public profile; 404 for any other status. Shop slugs never change.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(ShopsApi::class.java)
+val slug : kotlin.String = slug_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : ShopPublicRead = webService.getShopPublicApiV1ShopsBySlugSlugGet(slug)
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **slug** | **kotlin.String**|  | |
+
+### Return type
+
+[**ShopPublicRead**](ShopPublicRead.md)
 
 ### Authorization
 

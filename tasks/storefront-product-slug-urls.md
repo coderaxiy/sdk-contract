@@ -3,11 +3,11 @@ id: storefront-product-slug-urls
 title: Look up a public product by shop slug + product slug
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: products
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -52,3 +52,15 @@ so one lookup by the URL's slugs is what the page needs.
 - docs/products-and-moderation-api.md "Error shape" (the per-shop slug 400)
 - Related: `storefront-public-product-read`, `storefront-public-shop-and-brands`
   (`/shops/by-slug/{slug}`)
+
+## Resolution
+
+`GET /shops/by-slug/{shop_slug}/products/{product_slug}` → `ProductPublicRead`, 404 unless
+the product is visible.
+
+**Slug history is kept** (new `product_slug_history` table): when a seller renames a product,
+the old slug keeps resolving to it. The response carries the current `slug` and
+`shop.slug`, so redirect when they differ. If another product in the shop later takes an old
+slug, it belongs to that product from then on. The `-{id}` fallback isn't needed.
+
+Docs: `docs/storefront-catalog-api.md` §3.

@@ -3,11 +3,11 @@ id: storefront-catalog-search
 title: Public catalog listing and search with filters, sorting and pagination
 author: frontend
 to: backend
-status: open
+status: closed
 priority: high
 area: products
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -92,3 +92,26 @@ Search is the storefront's main entry point (the header search pill and the
 - docs/api-standards.md → "Lists and pagination", "Money"
 - docs/products-and-moderation-api.md §4 (visibility rule, "catalog/search doc territory")
 - Related: `storefront-public-product-read`, `storefront-category-tree`
+
+## Resolution
+
+`GET /products` (public) → `ProductCardRead[]`, with every param from the table.
+Full reference: `docs/storefront-catalog-api.md` §2.
+
+- **Total:** `X-Total-Count` header, exposed via `Access-Control-Expose-Headers`.
+- **`limit`:** default 50, max 100 (`422` above).
+- **`q`:** case-insensitive substring match on the title or the brand name. We support
+  Uzbek Latin ↔ Cyrillic transliteration (х tried as both x and h) and fold every
+  apostrophe variant (`ʻ ʼ ‘ ’` etc.) to `'`. It's not fuzzy: typos don't match.
+  `%`/`_` are literal.
+- **`relevance`:** title prefix match, then title contains, then brand-only; newest first
+  within each rank. Every sort ends on `id`, so it's stable.
+- **`attr`** needs `category_id`, else `400 "attr filters need a category_id"`. A non-filterable
+  or unknown key → `400 "'<key>' is not a filterable attribute of this category"`; malformed →
+  `400 "Invalid attr filter '<x>' — expected key:value"`. It matches product attribute values
+  (a multi_select matches if it contains the value) or active variants' attributes, by
+  exact value.
+- **`category_id`** includes all visible descendants; not in the public tree → `404`.
+- **Facets (nice-to-have): done.** `GET /products/facets` takes the same filters and returns
+  `{ brands: {id,name,count}[], price: {min,max} }`. Brands ignore the `brand_id` filter;
+  price is the range of `price_min` and ignores the price filters.

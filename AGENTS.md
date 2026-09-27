@@ -109,6 +109,7 @@ For each task and each spec change:
 
 - Update your app's copy of the SDK (pull the repo / bump the submodule), then
   make the changes using the SDK types and clients — never hand-written copies.
+  (One exception: the customer storefront; see "Using the SDK → Web".)
 - Follow the task and the matching `docs/*-api.md`.
 - Build and type-check your app against the new SDK, then run it against a local
   backend (`http://localhost:8000`) for the flows the task touches.
@@ -150,6 +151,16 @@ await api.PATCH('/api/v1/admin/sellers/{seller_id}/reject', {
 ```
 
 `credentials: 'include'` is what sends the auth cookie.
+
+**Exception: the customer storefront (`coderaxiy/emarket`)** uses hand-written
+types that mirror `openapi/api.yaml` (`src/lib/api/types/`, one file per entity,
+each naming the schema it mirrors) and one axios client with every path in
+`src/lib/api/endpoints.ts`, instead of `sdk/typescript`. That's its owner's
+decision: don't switch it to the SDK or flag it as a violation. When the spec
+changes, update the matching type file by hand from the spec diff. Everything
+else here still applies to it: the spec is the source of truth, no guessing,
+`tasks/` for requests. The rest of this section applies to the other web
+clients.
 
 ### Android (Kotlin) — `sdk/mobile/kotlin`
 

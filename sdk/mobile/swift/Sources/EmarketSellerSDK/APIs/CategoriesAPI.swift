@@ -255,6 +255,81 @@ open class CategoriesAPI {
     }
 
     /**
+     Get Category Attributes Public
+     
+     - parameter categoryId: (path)  
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [CategoryAttributePublicRead]
+     */
+    open class func getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGet(categoryId: Int, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [CategoryAttributePublicRead] {
+        return try await getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGetWithRequestBuilder(categoryId: categoryId, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Get Category Attributes Public
+     - GET /api/v1/categories/{category_id}/attributes
+     - Effective attributes (inherited ones included) of an active category; 404 otherwise.
+     - parameter categoryId: (path)  
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[CategoryAttributePublicRead]> 
+     */
+    open class func getCategoryAttributesPublicApiV1CategoriesCategoryIdAttributesGetWithRequestBuilder(categoryId: Int, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[CategoryAttributePublicRead]> {
+        var localVariablePath = "/api/v1/categories/{category_id}/attributes"
+        let categoryIdPreEscape = "\(APIHelper.mapValueToPathItem(categoryId))"
+        let categoryIdPostEscape = categoryIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{category_id}", with: categoryIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[CategoryAttributePublicRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Get Category Tree
+     
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [CategoryNodeRead]
+     */
+    open class func getCategoryTreeApiV1CategoriesGet(apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [CategoryNodeRead] {
+        return try await getCategoryTreeApiV1CategoriesGetWithRequestBuilder(apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Get Category Tree
+     - GET /api/v1/categories
+     - The active category tree (roots, children nested), ordered by sort_order then id. A deactivated category hides its whole subtree. Slugs are globally unique.
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[CategoryNodeRead]> 
+     */
+    open class func getCategoryTreeApiV1CategoriesGetWithRequestBuilder(apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[CategoryNodeRead]> {
+        let localVariablePath = "/api/v1/categories"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[CategoryNodeRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Get Effective Attributes Admin
      
      - parameter categoryId: (path)  

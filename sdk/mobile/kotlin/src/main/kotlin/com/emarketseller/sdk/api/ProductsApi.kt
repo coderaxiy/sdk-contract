@@ -7,17 +7,24 @@ import okhttp3.RequestBody
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+import com.emarketseller.sdk.model.BrandPublicRead
 import com.emarketseller.sdk.model.BrandRead
 import com.emarketseller.sdk.model.BrandRejectRequest
 import com.emarketseller.sdk.model.BrandRequestCreate
 import com.emarketseller.sdk.model.BrandStatus
+import com.emarketseller.sdk.model.CatalogFacetsRead
+import com.emarketseller.sdk.model.CatalogSort
 import com.emarketseller.sdk.model.DelistRequest
 import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.ModerationConfigRead
 import com.emarketseller.sdk.model.ModerationConfigUpdate
 import com.emarketseller.sdk.model.ModerationQueueItemRead
+import com.emarketseller.sdk.model.PriceMax
+import com.emarketseller.sdk.model.PriceMin
+import com.emarketseller.sdk.model.ProductCardRead
 import com.emarketseller.sdk.model.ProductCreate
 import com.emarketseller.sdk.model.ProductModerationLogRead
+import com.emarketseller.sdk.model.ProductPublicRead
 import com.emarketseller.sdk.model.ProductRead
 import com.emarketseller.sdk.model.ProductStatus
 import com.emarketseller.sdk.model.ProductUpdate
@@ -25,6 +32,8 @@ import com.emarketseller.sdk.model.ProductVariantCreate
 import com.emarketseller.sdk.model.ProductVariantRead
 import com.emarketseller.sdk.model.ProductVariantUpdate
 import com.emarketseller.sdk.model.RejectRequest
+
+import com.emarketseller.sdk.model.*
 
 interface ProductsApi {
     /**
@@ -152,6 +161,27 @@ interface ProductsApi {
     suspend fun delistProductSellerApiV1SellerProductsProductIdDelistPost(@Path("product_id") productId: kotlin.Int, @Body delistRequest: DelistRequest, ): Response<ProductRead>
 
     /**
+     * GET api/v1/products/facets
+     * Get Catalog Facets
+     * Brands (with counts) and the price range for the filter sidebar, given the same filters as GET /products.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param q Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match (optional)
+     * @param categoryId The category and all its descendants (optional)
+     * @param brandId Repeatable; OR across values (optional)
+     * @param shopId  (optional)
+     * @param priceMin Compared against the card&#39;s price_min (optional)
+     * @param priceMax Compared against the card&#39;s price_min (optional)
+     * @param inStock true hides out-of-stock products (optional)
+     * @param attr Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys (optional)
+     * @return [CatalogFacetsRead]
+     */
+    @GET("api/v1/products/facets")
+    suspend fun getCatalogFacetsApiV1ProductsFacetsGet(@Query("q") q: kotlin.String? = null, @Query("category_id") categoryId: kotlin.Int? = null, @Query("brand_id") brandId: @JvmSuppressWildcards kotlin.collections.List<kotlin.Int?>? = null, @Query("shop_id") shopId: kotlin.Int? = null, @Query("price_min") priceMin: PriceMin? = null, @Query("price_max") priceMax: PriceMax? = null, @Query("in_stock") inStock: kotlin.Boolean? = null, @Query("attr") attr: @JvmSuppressWildcards kotlin.collections.List<kotlin.String?>? = null): Response<CatalogFacetsRead>
+
+    /**
      * GET api/v1/admin/moderation-config
      * Get Moderation Config
      * 
@@ -215,6 +245,21 @@ interface ProductsApi {
     suspend fun getProductAdminApiV1AdminProductsProductIdGet(@Path("product_id") productId: kotlin.Int, ): Response<ProductRead>
 
     /**
+     * GET api/v1/shops/by-slug/{shop_slug}/products/{product_slug}
+     * Get Product By Slugs
+     * A product&#39;s previous slugs still resolve; compare the response&#39;s &#x60;slug&#x60; and &#x60;shop.slug&#x60; with the URL and redirect when they differ.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param shopSlug 
+     * @param productSlug 
+     * @return [ProductPublicRead]
+     */
+    @GET("api/v1/shops/by-slug/{shop_slug}/products/{product_slug}")
+    suspend fun getProductBySlugsApiV1ShopsBySlugShopSlugProductsProductSlugGet(@Path("shop_slug") shopSlug: kotlin.String, @Path("product_slug") productSlug: kotlin.String): Response<ProductPublicRead>
+
+    /**
      * GET api/v1/products/{product_id}
      * Get Product Public
      * 
@@ -223,10 +268,10 @@ interface ProductsApi {
      *  - 422: Validation Error
      *
      * @param productId 
-     * @return [ProductRead]
+     * @return [ProductPublicRead]
      */
     @GET("api/v1/products/{product_id}")
-    suspend fun getProductPublicApiV1ProductsProductIdGet(@Path("product_id") productId: kotlin.Int): Response<ProductRead>
+    suspend fun getProductPublicApiV1ProductsProductIdGet(@Path("product_id") productId: kotlin.Int): Response<ProductPublicRead>
 
     /**
      * GET api/v1/seller/products/{product_id}
@@ -261,6 +306,21 @@ interface ProductsApi {
     suspend fun listBrandsAdminApiV1AdminBrandsGet(@Query("status") status: BrandStatus? = null, @Query("skip") skip: kotlin.Int? = 0, @Query("limit") limit: kotlin.Int? = 50, ): Response<kotlin.collections.List<BrandRead>>
 
     /**
+     * GET api/v1/brands
+     * List Brands Public
+     * Approved brands, ordered by name.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param categoryId Only brands with a visible product in this category or its descendants (optional)
+     * @param q Case-insensitive match on the brand name (optional)
+     * @return [kotlin.collections.List<BrandPublicRead>]
+     */
+    @GET("api/v1/brands")
+    suspend fun listBrandsPublicApiV1BrandsGet(@Query("category_id") categoryId: kotlin.Int? = null, @Query("q") q: kotlin.String? = null): Response<kotlin.collections.List<BrandPublicRead>>
+
+    /**
      * GET api/v1/seller/brands
      * List Brands Seller
      * 
@@ -271,6 +331,30 @@ interface ProductsApi {
      */
     @GET("api/v1/seller/brands")
     suspend fun listBrandsSellerApiV1SellerBrandsGet(): Response<kotlin.collections.List<BrandRead>>
+
+    /**
+     * GET api/v1/products
+     * List Catalog
+     * Public catalog and search. The total match count is in the &#x60;X-Total-Count&#x60; header.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param sort Default: relevance when q is set, newest otherwise (optional)
+     * @param skip  (optional, default to 0)
+     * @param limit  (optional, default to 50)
+     * @param q Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match (optional)
+     * @param categoryId The category and all its descendants (optional)
+     * @param brandId Repeatable; OR across values (optional, default to arrayListOf())
+     * @param shopId  (optional)
+     * @param priceMin Compared against the card&#39;s price_min (optional)
+     * @param priceMax Compared against the card&#39;s price_min (optional)
+     * @param inStock true hides out-of-stock products (optional)
+     * @param attr Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys (optional, default to arrayListOf())
+     * @return [kotlin.collections.List<ProductCardRead>]
+     */
+    @GET("api/v1/products")
+    suspend fun listCatalogApiV1ProductsGet(@Query("sort") sort: CatalogSort? = null, @Query("skip") skip: kotlin.Int? = 0, @Query("limit") limit: kotlin.Int? = 50, @Query("q") q: kotlin.String? = null, @Query("category_id") categoryId: kotlin.Int? = null, @Query("brand_id") brandId: @JvmSuppressWildcards kotlin.collections.List<kotlin.Int?>? = arrayListOf(), @Query("shop_id") shopId: kotlin.Int? = null, @Query("price_min") priceMin: PriceMin? = null, @Query("price_max") priceMax: PriceMax? = null, @Query("in_stock") inStock: kotlin.Boolean? = null, @Query("attr") attr: @JvmSuppressWildcards kotlin.collections.List<kotlin.String?>? = arrayListOf()): Response<kotlin.collections.List<ProductCardRead>>
 
     /**
      * GET api/v1/admin/products
@@ -317,10 +401,10 @@ interface ProductsApi {
      *  - 422: Validation Error
      *
      * @param shopId 
-     * @return [kotlin.collections.List<ProductRead>]
+     * @return [kotlin.collections.List<ProductPublicRead>]
      */
     @GET("api/v1/shops/{shop_id}/products")
-    suspend fun listShopProductsPublicApiV1ShopsShopIdProductsGet(@Path("shop_id") shopId: kotlin.Int): Response<kotlin.collections.List<ProductRead>>
+    suspend fun listShopProductsPublicApiV1ShopsShopIdProductsGet(@Path("shop_id") shopId: kotlin.Int): Response<kotlin.collections.List<ProductPublicRead>>
 
     /**
      * PATCH api/v1/admin/brands/{brand_id}/reject

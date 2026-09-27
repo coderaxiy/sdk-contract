@@ -13,7 +13,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Register */
+        /**
+         * Register
+         * @description A guest cart (cart_token cookie) is merged into the new account's cart and the cookie cleared.
+         */
         post: operations["register_api_v1_auth_register_post"];
         delete?: never;
         options?: never;
@@ -30,7 +33,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Login */
+        /**
+         * Login
+         * @description A guest cart (cart_token cookie) is merged into the buyer's cart and the cookie cleared.
+         */
         post: operations["login_api_v1_auth_login_post"];
         delete?: never;
         options?: never;
@@ -554,6 +560,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Catalog
+         * @description Public catalog and search. The total match count is in the `X-Total-Count` header.
+         */
+        get: operations["list_catalog_api_v1_products_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/products/facets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Catalog Facets
+         * @description Brands (with counts) and the price range for the filter sidebar, given the same filters as GET /products.
+         */
+        get: operations["get_catalog_facets_api_v1_products_facets_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/products/{product_id}": {
         parameters: {
             query?: never;
@@ -571,6 +617,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/shops/by-slug/{shop_slug}/products/{product_slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Product By Slugs
+         * @description A product's previous slugs still resolve; compare the response's `slug` and
+         *     `shop.slug` with the URL and redirect when they differ.
+         */
+        get: operations["get_product_by_slugs_api_v1_shops_by_slug__shop_slug__products__product_slug__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/shops/{shop_id}/products": {
         parameters: {
             query?: never;
@@ -580,6 +647,26 @@ export interface paths {
         };
         /** List Shop Products Public */
         get: operations["list_shop_products_public_api_v1_shops__shop_id__products_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/brands": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Brands Public
+         * @description Approved brands, ordered by name.
+         */
+        get: operations["list_brands_public_api_v1_brands_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -792,6 +879,47 @@ export interface paths {
         };
         /** Commission Preview */
         get: operations["commission_preview_api_v1_seller_shops__shop_id__commission_preview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Category Tree
+         * @description The active category tree (roots, children nested), ordered by sort_order then id.
+         *     A deactivated category hides its whole subtree. Slugs are globally unique.
+         */
+        get: operations["get_category_tree_api_v1_categories_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/categories/{category_id}/attributes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Category Attributes Public
+         * @description Effective attributes (inherited ones included) of an active category; 404 otherwise.
+         */
+        get: operations["get_category_attributes_public_api_v1_categories__category_id__attributes_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1824,6 +1952,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/shops/by-slug/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Shop Public
+         * @description An active shop's public profile; 404 for any other status. Shop slugs never change.
+         */
+        get: operations["get_shop_public_api_v1_shops_by_slug__slug__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/permissions/": {
         parameters: {
             query?: never;
@@ -2581,6 +2729,26 @@ export interface components {
              */
             file: string;
         };
+        /** BrandFacetRead */
+        BrandFacetRead: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /** Count */
+            count: number;
+        };
+        /** BrandPublicRead */
+        BrandPublicRead: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /** Logo Url */
+            logo_url: string | null;
+            /** Is Verified */
+            is_verified: boolean;
+        };
         /** BrandRead */
         BrandRead: {
             /** Id */
@@ -2637,38 +2805,57 @@ export interface components {
         CartItemRead: {
             /** Id */
             id: number;
-            /** Product Id */
-            product_id: number;
-            /** Variant Id */
-            variant_id: number | null;
             /** Quantity */
             quantity: number;
-            /** Price Snapshot */
-            price_snapshot: string;
             /**
              * Added At
              * Format: date-time
              */
             added_at: string;
+            product: components["schemas"]["CartProductRead"];
+            variant: components["schemas"]["CartVariantRead"] | null;
+            shop: components["schemas"]["ShopSummaryRead"];
+            /** Price Snapshot */
+            price_snapshot: string;
+            /** Unit Price */
+            unit_price: string;
+            /** Line Total */
+            line_total: string;
+            /** Available */
+            available: boolean;
+            /** In Stock */
+            in_stock: boolean;
         };
         /** CartItemUpdateRequest */
         CartItemUpdateRequest: {
             /** Quantity */
             quantity: number;
         };
+        /** CartProductRead */
+        CartProductRead: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Title */
+            title: string;
+            /** Image Url */
+            image_url: string | null;
+        };
         /** CartRead */
         CartRead: {
             /** Id */
             id: number;
-            /** Buyer Id */
-            buyer_id: number;
-            /** Status */
-            status: string;
+            status: components["schemas"]["CartStatus"];
             /**
              * Items
              * @default []
              */
             items: components["schemas"]["CartItemRead"][];
+            /** Item Count */
+            item_count: number;
+            /** Subtotal */
+            subtotal: string;
             /**
              * Created At
              * Format: date-time
@@ -2679,6 +2866,20 @@ export interface components {
              * Format: date-time
              */
             updated_at: string;
+        };
+        /**
+         * CartStatus
+         * @enum {string}
+         */
+        CartStatus: "active" | "checked_out" | "abandoned";
+        /** CartVariantRead */
+        CartVariantRead: {
+            /** Id */
+            id: number;
+            /** Attributes */
+            attributes: {
+                [key: string]: string | number | boolean;
+            };
         };
         /** CashCollectionRecordItemRead */
         CashCollectionRecordItemRead: {
@@ -2714,6 +2915,17 @@ export interface components {
              */
             items: components["schemas"]["CashCollectionRecordItemRead"][];
         };
+        /** CatalogFacetsRead */
+        CatalogFacetsRead: {
+            /** Brands */
+            brands: components["schemas"]["BrandFacetRead"][];
+            price: components["schemas"]["PriceRangeRead"];
+        };
+        /**
+         * CatalogSort
+         * @enum {string}
+         */
+        CatalogSort: "relevance" | "newest" | "price_asc" | "price_desc";
         /** CategoryAncestorRead */
         CategoryAncestorRead: {
             /** Id */
@@ -2789,6 +3001,32 @@ export interface components {
             /** Translations */
             translations: components["schemas"]["AttributeTranslationIn"][];
         };
+        /**
+         * CategoryAttributePublicRead
+         * @description An effective attribute (inherited ones included) as the storefront sees it.
+         */
+        CategoryAttributePublicRead: {
+            /** Id */
+            id: number;
+            /** Key */
+            key: string;
+            data_type: components["schemas"]["AttributeDataType"];
+            /** Options */
+            options: string[] | null;
+            /** Unit */
+            unit: string | null;
+            /** Is Filterable */
+            is_filterable: boolean;
+            /** Is Variant Defining */
+            is_variant_defining: boolean;
+            /** Sort Order */
+            sort_order: number;
+            /**
+             * Translations
+             * @default []
+             */
+            translations: components["schemas"]["AttributeTranslationRead"][];
+        };
         /** CategoryAttributeRead */
         CategoryAttributeRead: {
             /** Id */
@@ -2854,6 +3092,36 @@ export interface components {
         CategoryMoveRequest: {
             /** New Parent Id */
             new_parent_id?: number | null;
+        };
+        /**
+         * CategoryNodeRead
+         * @description One node of the public category tree (active categories only).
+         */
+        CategoryNodeRead: {
+            /** Id */
+            id: number;
+            /** Parent Id */
+            parent_id: number | null;
+            /** Slug */
+            slug: string;
+            /** Icon Url */
+            icon_url: string | null;
+            /** Sort Order */
+            sort_order: number;
+            /** Is Leaf */
+            is_leaf: boolean;
+            /**
+             * Translations
+             * @default []
+             */
+            translations: components["schemas"]["TranslationRead"][];
+            /** Product Count */
+            product_count: number;
+            /**
+             * Children
+             * @default []
+             */
+            children: components["schemas"]["CategoryNodeRead"][];
         };
         /** CategoryRead */
         CategoryRead: {
@@ -3903,6 +4171,13 @@ export interface components {
             /** Items */
             items: components["schemas"]["PickupStatusItemRead"][];
         };
+        /** PriceRangeRead */
+        PriceRangeRead: {
+            /** Min */
+            min: string | null;
+            /** Max */
+            max: string | null;
+        };
         /** ProductAttributeValueIn */
         ProductAttributeValueIn: {
             /** Category Attribute Id */
@@ -3922,6 +4197,51 @@ export interface components {
             value: {
                 [key: string]: unknown;
             } | unknown[] | string | number | boolean;
+        };
+        /** ProductCardRead */
+        ProductCardRead: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Title */
+            title: string;
+            /** Price Min */
+            price_min: string;
+            /** Price Max */
+            price_max: string;
+            /** In Stock */
+            in_stock: boolean;
+            /** Has Variants */
+            has_variants: boolean;
+            /** Image Url */
+            image_url: string | null;
+            shop: components["schemas"]["ShopSummaryRead"];
+            brand: components["schemas"]["BrandPublicRead"] | null;
+            /** Category Id */
+            category_id: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** ProductCategoryRead */
+        ProductCategoryRead: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /**
+             * Translations
+             * @default []
+             */
+            translations: components["schemas"]["TranslationRead"][];
+            /**
+             * Ancestors
+             * @default []
+             */
+            ancestors: components["schemas"]["CategoryAncestorRead"][];
         };
         /** ProductCreate */
         ProductCreate: {
@@ -4005,6 +4325,99 @@ export interface components {
              * Format: date-time
              */
             created_at: string;
+        };
+        /** ProductPublicAttributeRead */
+        ProductPublicAttributeRead: {
+            /** Key */
+            key: string;
+            /**
+             * Label Translations
+             * @default []
+             */
+            label_translations: components["schemas"]["AttributeTranslationRead"][];
+            data_type: components["schemas"]["AttributeDataType"];
+            /** Unit */
+            unit: string | null;
+            /** Value */
+            value: {
+                [key: string]: unknown;
+            } | unknown[] | string | number | boolean;
+            /** Is Variant Defining */
+            is_variant_defining: boolean;
+            /** Sort Order */
+            sort_order: number;
+        };
+        /** ProductPublicImageRead */
+        ProductPublicImageRead: {
+            /** Id */
+            id: number;
+            /** Url */
+            url: string;
+            /** Sort Order */
+            sort_order: number;
+            /** Is Primary */
+            is_primary: boolean;
+        };
+        /** ProductPublicRead */
+        ProductPublicRead: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Title */
+            title: string;
+            /** Description */
+            description: string | null;
+            /** Platform Sku */
+            platform_sku: string | null;
+            /** Has Variants */
+            has_variants: boolean;
+            /** Price Min */
+            price_min: string;
+            /** Price Max */
+            price_max: string;
+            /** In Stock */
+            in_stock: boolean;
+            shop: components["schemas"]["ShopSummaryRead"];
+            brand: components["schemas"]["BrandPublicRead"] | null;
+            category: components["schemas"]["ProductCategoryRead"];
+            /**
+             * Images
+             * @default []
+             */
+            images: components["schemas"]["ProductPublicImageRead"][];
+            /**
+             * Variants
+             * @default []
+             */
+            variants: components["schemas"]["ProductPublicVariantRead"][];
+            /**
+             * Attributes
+             * @default []
+             */
+            attributes: components["schemas"]["ProductPublicAttributeRead"][];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** ProductPublicVariantRead */
+        ProductPublicVariantRead: {
+            /** Id */
+            id: number;
+            /** Platform Sku */
+            platform_sku: string;
+            /** Price */
+            price: string;
+            /** In Stock */
+            in_stock: boolean;
+            /** Attributes */
+            attributes: {
+                [key: string]: string | number | boolean;
+            };
+            /** Image Ids */
+            image_ids: number[] | null;
         };
         /** ProductRead */
         ProductRead: {
@@ -4588,6 +5001,33 @@ export interface components {
              */
             legal_entity_override: boolean;
         };
+        /**
+         * ShopPublicRead
+         * @description The public shop profile. Only active shops have one.
+         */
+        ShopPublicRead: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Name */
+            name: string;
+            /** Description */
+            description: string | null;
+            /** Logo Url */
+            logo_url: string | null;
+            /** Banner Url */
+            banner_url: string | null;
+            /** Rating Avg */
+            rating_avg: string | null;
+            /** Rating Count */
+            rating_count: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
         /** ShopRead */
         ShopRead: {
             /** Id */
@@ -4648,6 +5088,20 @@ export interface components {
          * @enum {string}
          */
         ShopStatus: "pending_review" | "active" | "suspended" | "closed" | "rejected";
+        /**
+         * ShopSummaryRead
+         * @description A shop as buyers see it next to a product or cart line.
+         */
+        ShopSummaryRead: {
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Name */
+            name: string;
+            /** Logo Url */
+            logo_url: string | null;
+        };
         /**
          * ShopUpdateRequest
          * @description PATCH: omitted fields are unchanged. `null` clears logo_key, banner_key or
@@ -4872,7 +5326,9 @@ export interface operations {
             query?: never;
             header?: never;
             path?: never;
-            cookie?: never;
+            cookie?: {
+                cart_token?: string | null;
+            };
         };
         requestBody: {
             content: {
@@ -4905,7 +5361,9 @@ export interface operations {
             query?: never;
             header?: never;
             path?: never;
-            cookie?: never;
+            cookie?: {
+                cart_token?: string | null;
+            };
         };
         requestBody: {
             content: {
@@ -6154,6 +6612,100 @@ export interface operations {
             };
         };
     };
+    list_catalog_api_v1_products_get: {
+        parameters: {
+            query?: {
+                /** @description Default: relevance when q is set, newest otherwise */
+                sort?: components["schemas"]["CatalogSort"] | null;
+                skip?: number;
+                limit?: number;
+                /** @description Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match */
+                q?: string | null;
+                /** @description The category and all its descendants */
+                category_id?: number | null;
+                /** @description Repeatable; OR across values */
+                brand_id?: number[];
+                shop_id?: number | null;
+                /** @description Compared against the card's price_min */
+                price_min?: number | string | null;
+                /** @description Compared against the card's price_min */
+                price_max?: number | string | null;
+                /** @description true hides out-of-stock products */
+                in_stock?: boolean | null;
+                /** @description Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys */
+                attr?: string[];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductCardRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_catalog_facets_api_v1_products_facets_get: {
+        parameters: {
+            query?: {
+                /** @description Case-insensitive match on title or brand name; Uzbek Latin and Cyrillic spellings both match */
+                q?: string | null;
+                /** @description The category and all its descendants */
+                category_id?: number | null;
+                /** @description Repeatable; OR across values */
+                brand_id?: number[];
+                shop_id?: number | null;
+                /** @description Compared against the card's price_min */
+                price_min?: number | string | null;
+                /** @description Compared against the card's price_min */
+                price_max?: number | string | null;
+                /** @description true hides out-of-stock products */
+                in_stock?: boolean | null;
+                /** @description Repeatable key:value on a filterable attribute of category_id (required). OR within a key, AND across keys */
+                attr?: string[];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CatalogFacetsRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_product_public_api_v1_products__product_id__get: {
         parameters: {
             query?: never;
@@ -6171,7 +6723,39 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductRead"];
+                    "application/json": components["schemas"]["ProductPublicRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_product_by_slugs_api_v1_shops_by_slug__shop_slug__products__product_slug__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                shop_slug: string;
+                product_slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductPublicRead"];
                 };
             };
             /** @description Validation Error */
@@ -6202,7 +6786,41 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductRead"][];
+                    "application/json": components["schemas"]["ProductPublicRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_brands_public_api_v1_brands_get: {
+        parameters: {
+            query?: {
+                /** @description Only brands with a visible product in this category or its descendants */
+                category_id?: number | null;
+                /** @description Case-insensitive match on the brand name */
+                q?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BrandPublicRead"][];
                 };
             };
             /** @description Validation Error */
@@ -6749,6 +7367,57 @@ export interface operations {
             };
         };
     };
+    get_category_tree_api_v1_categories_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryNodeRead"][];
+                };
+            };
+        };
+    };
+    get_category_attributes_public_api_v1_categories__category_id__attributes_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                category_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CategoryAttributePublicRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_cart_api_v1_cart_get: {
         parameters: {
             query?: never;
@@ -6756,6 +7425,7 @@ export interface operations {
             path?: never;
             cookie?: {
                 access_token?: string | null;
+                cart_token?: string | null;
             };
         };
         requestBody?: never;
@@ -6787,6 +7457,7 @@ export interface operations {
             path?: never;
             cookie?: {
                 access_token?: string | null;
+                cart_token?: string | null;
             };
         };
         requestBody: {
@@ -6824,6 +7495,7 @@ export interface operations {
             };
             cookie?: {
                 access_token?: string | null;
+                cart_token?: string | null;
             };
         };
         requestBody?: never;
@@ -6855,6 +7527,7 @@ export interface operations {
             };
             cookie?: {
                 access_token?: string | null;
+                cart_token?: string | null;
             };
         };
         requestBody: {
@@ -8970,6 +9643,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["AuditLogRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_shop_public_api_v1_shops_by_slug__slug__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ShopPublicRead"];
                 };
             };
             /** @description Validation Error */

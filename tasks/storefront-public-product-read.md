@@ -3,11 +3,11 @@ id: storefront-public-product-read
 title: Buyer-safe product response for public product endpoints
 author: frontend
 to: backend
-status: open
+status: closed
 priority: high
 area: products
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -117,3 +117,23 @@ page to assemble shop/brand/category/attribute labels.
 - docs/products-and-moderation-api.md §4 (buyer endpoints), §5 (`ProductRead`)
 - Related: `storefront-catalog-search` (card shape), `storefront-product-slug-urls`,
   `storefront-cart-product-info`
+
+## Resolution
+
+`ProductPublicRead` is live on `GET /products/{product_id}`, `GET /shops/{shop_id}/products`
+and `GET /shops/by-slug/{shop_slug}/products/{product_slug}`. `ProductRead` is unchanged
+for seller/admin.
+
+- The shape is as requested. One addition: `brand` is `BrandPublicRead` (`{ id, name, logo_url, is_verified }`)
+  and `shop` is `ShopSummaryRead` (`{ id, slug, name, logo_url }`). Cards and cart lines use the same two schemas.
+- **Stock:** booleans only (`in_stock` on the product and on each variant). No
+  `max_order_quantity`. The stepper relies on `400 "Not enough stock for the requested quantity"`.
+- `price_min`/`price_max`/`in_stock` are single SQL expressions shared by the card,
+  the product page and the facets (`app/modules/products/repository.py`).
+- Visibility is unchanged (approved + active shop), plus one rule: a variant product
+  whose variants are all deleted has no price, so it's hidden (404) until it has one.
+- `images` are ordered by `sort_order`, `variants` are active only (by id), and `attributes`
+  are resolved with `label_translations`, ordered by `sort_order` then `key`.
+- `return_window_days` isn't exposed yet (orders doc §6 known gaps).
+
+Docs: `docs/storefront-catalog-api.md` §1, §3.

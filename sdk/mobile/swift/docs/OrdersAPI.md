@@ -38,7 +38,7 @@ Method | HTTP request | Description
 
 # **addCartItemApiV1CartItemsPost**
 ```swift
-    open class func addCartItemApiV1CartItemsPost(cartItemAddRequest: CartItemAddRequest, accessToken: String? = nil, completion: @escaping (_ data: CartItemRead?, _ error: Error?) -> Void)
+    open class func addCartItemApiV1CartItemsPost(cartItemAddRequest: CartItemAddRequest, accessToken: String? = nil, cartToken: String? = nil, completion: @escaping (_ data: CartItemRead?, _ error: Error?) -> Void)
 ```
 
 Add Cart Item
@@ -50,9 +50,10 @@ import EmarketSellerSDK
 
 let cartItemAddRequest = CartItemAddRequest(productId: 123, variantId: 123, quantity: 123) // CartItemAddRequest | 
 let accessToken = "accessToken_example" // String |  (optional)
+let cartToken = "cartToken_example" // String |  (optional)
 
 // Add Cart Item
-OrdersAPI.addCartItemApiV1CartItemsPost(cartItemAddRequest: cartItemAddRequest, accessToken: accessToken) { (response, error) in
+OrdersAPI.addCartItemApiV1CartItemsPost(cartItemAddRequest: cartItemAddRequest, accessToken: accessToken, cartToken: cartToken) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -70,6 +71,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cartItemAddRequest** | [**CartItemAddRequest**](CartItemAddRequest.md) |  | 
  **accessToken** | **String** |  | [optional] 
+ **cartToken** | **String** |  | [optional] 
 
 ### Return type
 
@@ -398,7 +400,7 @@ No authorization required
 
 # **getCartApiV1CartGet**
 ```swift
-    open class func getCartApiV1CartGet(accessToken: String? = nil, completion: @escaping (_ data: CartRead?, _ error: Error?) -> Void)
+    open class func getCartApiV1CartGet(accessToken: String? = nil, cartToken: String? = nil, completion: @escaping (_ data: CartRead?, _ error: Error?) -> Void)
 ```
 
 Get Cart
@@ -409,9 +411,10 @@ Get Cart
 import EmarketSellerSDK
 
 let accessToken = "accessToken_example" // String |  (optional)
+let cartToken = "cartToken_example" // String |  (optional)
 
 // Get Cart
-OrdersAPI.getCartApiV1CartGet(accessToken: accessToken) { (response, error) in
+OrdersAPI.getCartApiV1CartGet(accessToken: accessToken, cartToken: cartToken) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -428,6 +431,7 @@ OrdersAPI.getCartApiV1CartGet(accessToken: accessToken) { (response, error) in
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accessToken** | **String** |  | [optional] 
+ **cartToken** | **String** |  | [optional] 
 
 ### Return type
 
@@ -1236,7 +1240,7 @@ No authorization required
 
 # **removeCartItemApiV1CartItemsCartItemIdDelete**
 ```swift
-    open class func removeCartItemApiV1CartItemsCartItemIdDelete(cartItemId: Int, accessToken: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func removeCartItemApiV1CartItemsCartItemIdDelete(cartItemId: Int, accessToken: String? = nil, cartToken: String? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Remove Cart Item
@@ -1248,9 +1252,10 @@ import EmarketSellerSDK
 
 let cartItemId = 987 // Int | 
 let accessToken = "accessToken_example" // String |  (optional)
+let cartToken = "cartToken_example" // String |  (optional)
 
 // Remove Cart Item
-OrdersAPI.removeCartItemApiV1CartItemsCartItemIdDelete(cartItemId: cartItemId, accessToken: accessToken) { (response, error) in
+OrdersAPI.removeCartItemApiV1CartItemsCartItemIdDelete(cartItemId: cartItemId, accessToken: accessToken, cartToken: cartToken) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1268,6 +1273,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **cartItemId** | **Int** |  | 
  **accessToken** | **String** |  | [optional] 
+ **cartToken** | **String** |  | [optional] 
 
 ### Return type
 
@@ -1490,7 +1496,7 @@ No authorization required
 
 # **updateCartItemApiV1CartItemsCartItemIdPatch**
 ```swift
-    open class func updateCartItemApiV1CartItemsCartItemIdPatch(cartItemId: Int, cartItemUpdateRequest: CartItemUpdateRequest, accessToken: String? = nil, completion: @escaping (_ data: CartItemRead?, _ error: Error?) -> Void)
+    open class func updateCartItemApiV1CartItemsCartItemIdPatch(cartItemId: Int, cartItemUpdateRequest: CartItemUpdateRequest, accessToken: String? = nil, cartToken: String? = nil, completion: @escaping (_ data: CartItemRead?, _ error: Error?) -> Void)
 ```
 
 Update Cart Item
@@ -1503,9 +1509,10 @@ import EmarketSellerSDK
 let cartItemId = 987 // Int | 
 let cartItemUpdateRequest = CartItemUpdateRequest(quantity: 123) // CartItemUpdateRequest | 
 let accessToken = "accessToken_example" // String |  (optional)
+let cartToken = "cartToken_example" // String |  (optional)
 
 // Update Cart Item
-OrdersAPI.updateCartItemApiV1CartItemsCartItemIdPatch(cartItemId: cartItemId, cartItemUpdateRequest: cartItemUpdateRequest, accessToken: accessToken) { (response, error) in
+OrdersAPI.updateCartItemApiV1CartItemsCartItemIdPatch(cartItemId: cartItemId, cartItemUpdateRequest: cartItemUpdateRequest, accessToken: accessToken, cartToken: cartToken) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1524,6 +1531,7 @@ Name | Type | Description  | Notes
  **cartItemId** | **Int** |  | 
  **cartItemUpdateRequest** | [**CartItemUpdateRequest**](CartItemUpdateRequest.md) |  | 
  **accessToken** | **String** |  | [optional] 
+ **cartToken** | **String** |  | [optional] 
 
 ### Return type
 

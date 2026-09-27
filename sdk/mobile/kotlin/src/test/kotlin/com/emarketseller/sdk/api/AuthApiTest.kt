@@ -50,7 +50,8 @@ class AuthApiTest : ShouldSpec() {
         should("test loginApiV1AuthLoginPost") {
             // uncomment below to test loginApiV1AuthLoginPost
             //val loginRequest : LoginRequest =  // LoginRequest | 
-            //val result : TokenResponse = apiInstance.loginApiV1AuthLoginPost(loginRequest)
+            //val cartToken : kotlin.String = cartToken_example // kotlin.String | 
+            //val result : TokenResponse = apiInstance.loginApiV1AuthLoginPost(loginRequest, cartToken)
             //result shouldBe ("TODO")
         }
 
@@ -65,7 +66,8 @@ class AuthApiTest : ShouldSpec() {
         should("test registerApiV1AuthRegisterPost") {
             // uncomment below to test registerApiV1AuthRegisterPost
             //val registerRequest : RegisterRequest =  // RegisterRequest | 
-            //val result : UserRead = apiInstance.registerApiV1AuthRegisterPost(registerRequest)
+            //val cartToken : kotlin.String = cartToken_example // kotlin.String | 
+            //val result : UserRead = apiInstance.registerApiV1AuthRegisterPost(registerRequest, cartToken)
             //result shouldBe ("TODO")
         }
 

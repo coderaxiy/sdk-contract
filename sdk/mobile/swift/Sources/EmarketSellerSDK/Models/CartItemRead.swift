@@ -10,29 +10,46 @@ import Foundation
 public struct CartItemRead: Sendable, Codable, Hashable {
 
     public static let priceSnapshotRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
+    public static let unitPriceRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
+    public static let lineTotalRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
     public var id: Int
-    public var productId: Int
-    public var variantId: Int?
     public var quantity: Int
-    public var priceSnapshot: String
     public var addedAt: Date
+    public var product: CartProductRead
+    public var variant: CartVariantRead?
+    public var shop: ShopSummaryRead
+    public var priceSnapshot: String
+    public var unitPrice: String
+    public var lineTotal: String
+    public var available: Bool
+    public var inStock: Bool
 
-    public init(id: Int, productId: Int, variantId: Int?, quantity: Int, priceSnapshot: String, addedAt: Date) {
+    public init(id: Int, quantity: Int, addedAt: Date, product: CartProductRead, variant: CartVariantRead?, shop: ShopSummaryRead, priceSnapshot: String, unitPrice: String, lineTotal: String, available: Bool, inStock: Bool) {
         self.id = id
-        self.productId = productId
-        self.variantId = variantId
         self.quantity = quantity
-        self.priceSnapshot = priceSnapshot
         self.addedAt = addedAt
+        self.product = product
+        self.variant = variant
+        self.shop = shop
+        self.priceSnapshot = priceSnapshot
+        self.unitPrice = unitPrice
+        self.lineTotal = lineTotal
+        self.available = available
+        self.inStock = inStock
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
-        case productId = "product_id"
-        case variantId = "variant_id"
         case quantity
-        case priceSnapshot = "price_snapshot"
         case addedAt = "added_at"
+        case product
+        case variant
+        case shop
+        case priceSnapshot = "price_snapshot"
+        case unitPrice = "unit_price"
+        case lineTotal = "line_total"
+        case available
+        case inStock = "in_stock"
     }
 
     // Encodable protocol methods
@@ -40,11 +57,16 @@ public struct CartItemRead: Sendable, Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(productId, forKey: .productId)
-        try container.encode(variantId, forKey: .variantId)
         try container.encode(quantity, forKey: .quantity)
-        try container.encode(priceSnapshot, forKey: .priceSnapshot)
         try container.encode(addedAt, forKey: .addedAt)
+        try container.encode(product, forKey: .product)
+        try container.encode(variant, forKey: .variant)
+        try container.encode(shop, forKey: .shop)
+        try container.encode(priceSnapshot, forKey: .priceSnapshot)
+        try container.encode(unitPrice, forKey: .unitPrice)
+        try container.encode(lineTotal, forKey: .lineTotal)
+        try container.encode(available, forKey: .available)
+        try container.encode(inStock, forKey: .inStock)
     }
 }
 

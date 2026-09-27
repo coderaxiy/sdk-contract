@@ -3,11 +3,11 @@ id: storefront-typescript-types
 title: AGENTS.md: note that the storefront uses hand-written TS types, not sdk/typescript
 author: frontend
 to: backend
-status: open
+status: closed
 priority: low
 area: docs
 created: 2026-09-27
-closed:
+closed: 2026-09-27
 reply_to:
 ---
 
@@ -47,3 +47,8 @@ act on a rule the storefront doesn't follow.
 ## References
 
 - AGENTS.md → "3. Implement", "Using the SDK → Web (TypeScript)"
+
+## Resolution
+
+Added the exception to `AGENTS.md` under "Using the SDK → Web (TypeScript)", with a pointer
+from "3. Implement".
