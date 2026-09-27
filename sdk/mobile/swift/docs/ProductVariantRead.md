@@ -5,7 +5,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Int** |  | 
 **productId** | **Int** |  | 
-**sku** | **String** |  | 
+**platformSku** | **String** |  | 
+**sellerSku** | **String** |  | 
 **price** | **String** |  | 
 **stockQuantity** | **Int** |  | 
 **isActive** | **Bool** |  | 

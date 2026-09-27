@@ -33,4 +33,7 @@ order). Details: `docs/orders-and-payments-api.md` §2 and
 5. **Statuses:** new `at_warehouse` ("At our warehouse"); `shipped` = "On the
    way to your pickup point". `OrderShopGroupRead` has `delivered_at`.
 
+6. **Order lines:** `sku_snapshot` is renamed `platform_sku_snapshot` (the
+   platform's code, e.g. `PSK-8F3K2Q`).
+
 Regenerate the SDK: `Recipient`, `OrderPickupPointRead` new; `ShippingAddressIn` gone.

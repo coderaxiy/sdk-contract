@@ -45,7 +45,8 @@ import kotlinx.serialization.Contextual
  * @param hasVariants 
  * @param basePrice 
  * @param stockQuantity 
- * @param sku 
+ * @param platformSku 
+ * @param sellerSku 
  * @param status 
  * @param rejectionReason 
  * @param needsAttention 
@@ -91,8 +92,11 @@ data class ProductRead (
     @SerialName(value = "stock_quantity")
     val stockQuantity: kotlin.Int?,
 
-    @SerialName(value = "sku")
-    val sku: kotlin.String?,
+    @SerialName(value = "platform_sku")
+    val platformSku: kotlin.String?,
+
+    @SerialName(value = "seller_sku")
+    val sellerSku: kotlin.String?,
 
     @Contextual @SerialName(value = "status")
     val status: ProductStatus,

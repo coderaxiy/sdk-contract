@@ -35,10 +35,10 @@ class ProductVariantUpdateTest : ShouldSpec() {
         // uncomment below to create an instance of ProductVariantUpdate
         //val modelInstance = ProductVariantUpdate()
 
-        // to test the property `sku`
-        should("test sku") {
+        // to test the property `sellerSku`
+        should("test sellerSku") {
             // uncomment below to test the property
-            //modelInstance.sku shouldBe ("TODO")
+            //modelInstance.sellerSku shouldBe ("TODO")
         }
 
         // to test the property `price`

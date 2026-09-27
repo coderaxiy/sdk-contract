@@ -12,7 +12,8 @@ public struct ProductVariantRead: Sendable, Codable, Hashable {
     public static let priceRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
     public var id: Int
     public var productId: Int
-    public var sku: String
+    public var platformSku: String
+    public var sellerSku: String?
     public var price: String
     public var stockQuantity: Int
     public var isActive: Bool
@@ -21,10 +22,11 @@ public struct ProductVariantRead: Sendable, Codable, Hashable {
     public var createdAt: Date
     public var updatedAt: Date
 
-    public init(id: Int, productId: Int, sku: String, price: String, stockQuantity: Int, isActive: Bool, attributes: [String: AttributesValue], imageIds: [Int]?, createdAt: Date, updatedAt: Date) {
+    public init(id: Int, productId: Int, platformSku: String, sellerSku: String?, price: String, stockQuantity: Int, isActive: Bool, attributes: [String: AttributesValue], imageIds: [Int]?, createdAt: Date, updatedAt: Date) {
         self.id = id
         self.productId = productId
-        self.sku = sku
+        self.platformSku = platformSku
+        self.sellerSku = sellerSku
         self.price = price
         self.stockQuantity = stockQuantity
         self.isActive = isActive
@@ -37,7 +39,8 @@ public struct ProductVariantRead: Sendable, Codable, Hashable {
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
         case productId = "product_id"
-        case sku
+        case platformSku = "platform_sku"
+        case sellerSku = "seller_sku"
         case price
         case stockQuantity = "stock_quantity"
         case isActive = "is_active"
@@ -53,7 +56,8 @@ public struct ProductVariantRead: Sendable, Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(productId, forKey: .productId)
-        try container.encode(sku, forKey: .sku)
+        try container.encode(platformSku, forKey: .platformSku)
+        try container.encode(sellerSku, forKey: .sellerSku)
         try container.encode(price, forKey: .price)
         try container.encode(stockQuantity, forKey: .stockQuantity)
         try container.encode(isActive, forKey: .isActive)

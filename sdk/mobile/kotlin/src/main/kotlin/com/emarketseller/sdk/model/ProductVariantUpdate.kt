@@ -31,9 +31,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Contextual
 
 /**
- * 
+ * PATCH: omitted fields are unchanged; `seller_sku: null` clears it.
  *
- * @param sku 
+ * @param sellerSku 
  * @param price 
  * @param stockQuantity 
  * @param attributes 
@@ -44,8 +44,8 @@ import kotlinx.serialization.Contextual
 
 data class ProductVariantUpdate (
 
-    @SerialName(value = "sku")
-    val sku: kotlin.String? = null,
+    @SerialName(value = "seller_sku")
+    val sellerSku: kotlin.String? = null,
 
     @SerialName(value = "price")
     val price: Price1? = null,

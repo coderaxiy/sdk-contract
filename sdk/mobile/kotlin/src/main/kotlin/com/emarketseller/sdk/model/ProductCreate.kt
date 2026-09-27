@@ -42,7 +42,7 @@ import kotlinx.serialization.Contextual
  * @param hasVariants 
  * @param basePrice 
  * @param stockQuantity 
- * @param sku 
+ * @param sellerSku 
  * @param images 
  * @param attributeValues 
  */
@@ -74,8 +74,8 @@ data class ProductCreate (
     @SerialName(value = "stock_quantity")
     val stockQuantity: kotlin.Int? = null,
 
-    @SerialName(value = "sku")
-    val sku: kotlin.String? = null,
+    @SerialName(value = "seller_sku")
+    val sellerSku: kotlin.String? = null,
 
     @SerialName(value = "images")
     val images: kotlin.collections.List<ProductImageIn>? = null,

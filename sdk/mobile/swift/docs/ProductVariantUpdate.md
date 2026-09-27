@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sku** | **String** |  | [optional] 
+**sellerSku** | **String** |  | [optional] 
 **price** | [**Price1**](Price1.md) |  | [optional] 
 **stockQuantity** | **Int** |  | [optional] 
 **attributes** | [String: AttributesValue] |  | [optional] 

@@ -7755,11 +7755,16 @@ components:
           - type: integer
           - type: 'null'
           title: Stock Quantity
-        sku:
+        platform_sku:
           anyOf:
           - type: string
           - type: 'null'
-          title: Sku
+          title: Platform Sku
+        seller_sku:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Seller Sku
         status:
           $ref: '#/components/schemas/ProductStatus'
         rejection_reason:
@@ -7825,7 +7830,8 @@ components:
       - has_variants
       - base_price
       - stock_quantity
-      - sku
+      - platform_sku
+      - seller_sku
       - status
       - rejection_reason
       - needs_attention
@@ -7982,9 +7988,9 @@ components:
         product_title_snapshot:
           type: string
           title: Product Title Snapshot
-        sku_snapshot:
+        platform_sku_snapshot:
           type: string
-          title: Sku Snapshot
+          title: Platform Sku Snapshot
         unit_price:
           type: string
           pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
@@ -8008,6 +8014,11 @@ components:
           type: string
           format: date-time
           title: Created At
+        seller_sku_snapshot:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Seller Sku Snapshot
         commission_rule_id:
           anyOf:
           - type: integer
@@ -8025,13 +8036,14 @@ components:
       - product_id
       - variant_id
       - product_title_snapshot
-      - sku_snapshot
+      - platform_sku_snapshot
       - unit_price
       - quantity
       - line_total
       - status
       - physical_return_received_at
       - created_at
+      - seller_sku_snapshot
       - commission_rule_id
       - commission_amount
       title: OrderLineDetailRead
@@ -8052,9 +8064,9 @@ components:
         product_title_snapshot:
           type: string
           title: Product Title Snapshot
-        sku_snapshot:
+        platform_sku_snapshot:
           type: string
-          title: Sku Snapshot
+          title: Platform Sku Snapshot
         unit_price:
           type: string
           pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
@@ -8084,7 +8096,7 @@ components:
       - product_id
       - variant_id
       - product_title_snapshot
-      - sku_snapshot
+      - platform_sku_snapshot
       - unit_price
       - quantity
       - line_total
@@ -8880,11 +8892,13 @@ components:
             minimum: 0.0
           - type: 'null'
           title: Stock Quantity
-        sku:
+        seller_sku:
           anyOf:
           - type: string
+            maxLength: 100
+            minLength: 1
           - type: 'null'
-          title: Sku
+          title: Seller Sku
         images:
           items:
             $ref: '#/components/schemas/ProductImageIn'
@@ -8897,6 +8911,7 @@ components:
           type: array
           title: Attribute Values
           default: []
+      additionalProperties: false
       type: object
       required:
       - category_id
@@ -9025,11 +9040,16 @@ components:
           - type: integer
           - type: 'null'
           title: Stock Quantity
-        sku:
+        platform_sku:
           anyOf:
           - type: string
           - type: 'null'
-          title: Sku
+          title: Platform Sku
+        seller_sku:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Seller Sku
         status:
           $ref: '#/components/schemas/ProductStatus'
         rejection_reason:
@@ -9089,7 +9109,8 @@ components:
       - has_variants
       - base_price
       - stock_quantity
-      - sku
+      - platform_sku
+      - seller_sku
       - status
       - rejection_reason
       - needs_attention
@@ -9151,11 +9172,13 @@ components:
             minimum: 0.0
           - type: 'null'
           title: Stock Quantity
-        sku:
+        seller_sku:
           anyOf:
           - type: string
+            maxLength: 100
+            minLength: 1
           - type: 'null'
-          title: Sku
+          title: Seller Sku
         images:
           anyOf:
           - items:
@@ -9170,20 +9193,25 @@ components:
             type: array
           - type: 'null'
           title: Attribute Values
+      additionalProperties: false
       type: object
       title: ProductUpdate
       description: 'PATCH semantics — only provided fields are changed; an explicit null
 
-        clears `brand_id` and `description` (null is ignored for the rest). Editing a
+        clears `brand_id`, `description` and `seller_sku` (null is ignored for the rest). Editing a
 
         sensitive field (per admin-configured list, §4.4) on an approved product
 
         triggers re-review automatically; status itself is never set directly here.'
     ProductVariantCreate:
       properties:
-        sku:
-          type: string
-          title: Sku
+        seller_sku:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Seller Sku
         price:
           anyOf:
           - type: number
@@ -9210,9 +9238,9 @@ components:
             type: array
           - type: 'null'
           title: Image Ids
+      additionalProperties: false
       type: object
       required:
-      - sku
       - price
       - stock_quantity
       - attributes
@@ -9225,9 +9253,14 @@ components:
         product_id:
           type: integer
           title: Product Id
-        sku:
+        platform_sku:
           type: string
-          title: Sku
+          title: Platform Sku
+        seller_sku:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Seller Sku
         price:
           type: string
           pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
@@ -9265,7 +9298,8 @@ components:
       required:
       - id
       - product_id
-      - sku
+      - platform_sku
+      - seller_sku
       - price
       - stock_quantity
       - is_active
@@ -9276,11 +9310,13 @@ components:
       title: ProductVariantRead
     ProductVariantUpdate:
       properties:
-        sku:
+        seller_sku:
           anyOf:
           - type: string
+            maxLength: 100
+            minLength: 1
           - type: 'null'
-          title: Sku
+          title: Seller Sku
         price:
           anyOf:
           - type: number
@@ -9317,8 +9353,10 @@ components:
           - type: boolean
           - type: 'null'
           title: Is Active
+      additionalProperties: false
       type: object
       title: ProductVariantUpdate
+      description: 'PATCH: omitted fields are unchanged; `seller_sku: null` clears it.'
     Recipient:
       properties:
         full_name:

@@ -9,15 +9,16 @@ import Foundation
 
 public struct ProductVariantCreate: Sendable, Codable, Hashable {
 
+    public static let sellerSkuRule = StringRule(minLength: 1, maxLength: 100, pattern: nil)
     public static let stockQuantityRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
-    public var sku: String
+    public var sellerSku: String?
     public var price: Price
     public var stockQuantity: Int
     public var attributes: [String: AttributesValue]
     public var imageIds: [Int]?
 
-    public init(sku: String, price: Price, stockQuantity: Int, attributes: [String: AttributesValue], imageIds: [Int]? = nil) {
-        self.sku = sku
+    public init(sellerSku: String? = nil, price: Price, stockQuantity: Int, attributes: [String: AttributesValue], imageIds: [Int]? = nil) {
+        self.sellerSku = sellerSku
         self.price = price
         self.stockQuantity = stockQuantity
         self.attributes = attributes
@@ -25,7 +26,7 @@ public struct ProductVariantCreate: Sendable, Codable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case sku
+        case sellerSku = "seller_sku"
         case price
         case stockQuantity = "stock_quantity"
         case attributes
@@ -36,7 +37,7 @@ public struct ProductVariantCreate: Sendable, Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(sku, forKey: .sku)
+        try container.encodeIfPresent(sellerSku, forKey: .sellerSku)
         try container.encode(price, forKey: .price)
         try container.encode(stockQuantity, forKey: .stockQuantity)
         try container.encode(attributes, forKey: .attributes)

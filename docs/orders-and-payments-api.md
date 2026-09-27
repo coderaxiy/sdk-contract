@@ -397,7 +397,7 @@ never shown to buyers.
   product_id: number
   variant_id: number | null
   product_title_snapshot: string   // frozen at purchase — may differ from the live product now
-  sku_snapshot: string
+  platform_sku_snapshot: string    // frozen platform_sku — what the store and pickup points match on
   unit_price: string
   quantity: number
   line_total: string
@@ -406,7 +406,8 @@ never shown to buyers.
   created_at: string
 }
 ```
-Seller/admin lines additionally include `commission_rule_id` and
+Seller/admin lines additionally include `seller_sku_snapshot` (the seller's own
+code at purchase, informational only; may be `null`), `commission_rule_id` and
 `commission_amount` (both `null` on a COD line until the group is
 `delivered` — see §1).
 

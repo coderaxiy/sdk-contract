@@ -7,13 +7,14 @@ Name | Type | Description | Notes
 **productId** | **Int** |  | 
 **variantId** | **Int** |  | 
 **productTitleSnapshot** | **String** |  | 
-**skuSnapshot** | **String** |  | 
+**platformSkuSnapshot** | **String** |  | 
 **unitPrice** | **String** |  | 
 **quantity** | **Int** |  | 
 **lineTotal** | **String** |  | 
 **status** | [**OrderLineStatus**](OrderLineStatus.md) |  | 
 **physicalReturnReceivedAt** | **Date** |  | 
 **createdAt** | **Date** |  | 
+**sellerSkuSnapshot** | **String** |  | 
 **commissionRuleId** | **Int** |  | 
 **commissionAmount** | **String** |  | 
 

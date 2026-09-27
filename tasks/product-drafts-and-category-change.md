@@ -62,3 +62,7 @@ state.
 4. **SKUs:** yes, unique platform-wide — now across simple products *and*
    variants in one namespace (`400`). Enforced in the service; there's no
    cross-table DB constraint.
+
+**Follow-up (same day):** superseded by the SKU split (Doc 03 §2.1a). `sku` is
+now `platform_sku` (generated, platform-wide unique) + `seller_sku` (optional,
+unique within the shop only). See notice `products-lifecycle-notice`.

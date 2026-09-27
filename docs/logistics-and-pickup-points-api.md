@@ -402,7 +402,7 @@ collectible and there's currently no refund/return path wired to this outcome
   status: "preparing" | "at_warehouse"
   pickup_point_id: number | null   // the buyer's point; null only on legacy orders
   warehouse_received_at: string | null
-  lines: OrderLineRead[]           // product title/sku snapshot, quantity
+  lines: OrderLineRead[]           // title, platform_sku_snapshot (match the goods on this), quantity
 }
 ```
 

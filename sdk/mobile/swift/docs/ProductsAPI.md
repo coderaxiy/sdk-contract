@@ -195,7 +195,7 @@ Create Product
 import EmarketSellerSDK
 
 let shopId = 987 // Int | 
-let productCreate = ProductCreate(categoryId: 123, brandId: 123, title: "title_example", slug: "slug_example", description: "description_example", hasVariants: false, basePrice: Base_Price(), stockQuantity: 123, sku: "sku_example", images: [ProductImageIn(key: "key_example", sortOrder: 123, isPrimary: false)], attributeValues: [ProductAttributeValueIn(categoryAttributeId: 123, value: Value())]) // ProductCreate | 
+let productCreate = ProductCreate(categoryId: 123, brandId: 123, title: "title_example", slug: "slug_example", description: "description_example", hasVariants: false, basePrice: Base_Price(), stockQuantity: 123, sellerSku: "sellerSku_example", images: [ProductImageIn(key: "key_example", sortOrder: 123, isPrimary: false)], attributeValues: [ProductAttributeValueIn(categoryAttributeId: 123, value: Value())]) // ProductCreate | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Create Product
@@ -247,7 +247,7 @@ Create Variant
 import EmarketSellerSDK
 
 let productId = 987 // Int | 
-let productVariantCreate = ProductVariantCreate(sku: "sku_example", price: Price(), stockQuantity: 123, attributes: "TODO", imageIds: [123]) // ProductVariantCreate | 
+let productVariantCreate = ProductVariantCreate(sellerSku: "sellerSku_example", price: Price(), stockQuantity: 123, attributes: "TODO", imageIds: [123]) // ProductVariantCreate | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Create Variant
@@ -1269,7 +1269,7 @@ Update Product
 import EmarketSellerSDK
 
 let productId = 987 // Int | 
-let productUpdate = ProductUpdate(categoryId: 123, brandId: 123, title: "title_example", slug: "slug_example", description: "description_example", basePrice: Base_Price(), stockQuantity: 123, sku: "sku_example", images: [ProductImageIn(key: "key_example", sortOrder: 123, isPrimary: false)], attributeValues: [ProductAttributeValueIn(categoryAttributeId: 123, value: Value())]) // ProductUpdate | 
+let productUpdate = ProductUpdate(categoryId: 123, brandId: 123, title: "title_example", slug: "slug_example", description: "description_example", basePrice: Base_Price(), stockQuantity: 123, sellerSku: "sellerSku_example", images: [ProductImageIn(key: "key_example", sortOrder: 123, isPrimary: false)], attributeValues: [ProductAttributeValueIn(categoryAttributeId: 123, value: Value())]) // ProductUpdate | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Update Product
@@ -1321,7 +1321,7 @@ Update Variant
 import EmarketSellerSDK
 
 let variantId = 987 // Int | 
-let productVariantUpdate = ProductVariantUpdate(sku: "sku_example", price: Price_1(), stockQuantity: 123, attributes: "TODO", imageIds: [123], isActive: false) // ProductVariantUpdate | 
+let productVariantUpdate = ProductVariantUpdate(sellerSku: "sellerSku_example", price: Price_1(), stockQuantity: 123, attributes: "TODO", imageIds: [123], isActive: false) // ProductVariantUpdate | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Update Variant

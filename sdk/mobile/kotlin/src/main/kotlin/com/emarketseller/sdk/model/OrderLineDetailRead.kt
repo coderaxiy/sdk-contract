@@ -36,13 +36,14 @@ import kotlinx.serialization.Contextual
  * @param productId 
  * @param variantId 
  * @param productTitleSnapshot 
- * @param skuSnapshot 
+ * @param platformSkuSnapshot 
  * @param unitPrice 
  * @param quantity 
  * @param lineTotal 
  * @param status 
  * @param physicalReturnReceivedAt 
  * @param createdAt 
+ * @param sellerSkuSnapshot 
  * @param commissionRuleId 
  * @param commissionAmount 
  */
@@ -62,8 +63,8 @@ data class OrderLineDetailRead (
     @SerialName(value = "product_title_snapshot")
     val productTitleSnapshot: kotlin.String,
 
-    @SerialName(value = "sku_snapshot")
-    val skuSnapshot: kotlin.String,
+    @SerialName(value = "platform_sku_snapshot")
+    val platformSkuSnapshot: kotlin.String,
 
     @SerialName(value = "unit_price")
     val unitPrice: kotlin.String,
@@ -82,6 +83,9 @@ data class OrderLineDetailRead (
 
     @Contextual @SerialName(value = "created_at")
     val createdAt: java.time.OffsetDateTime,
+
+    @SerialName(value = "seller_sku_snapshot")
+    val sellerSkuSnapshot: kotlin.String?,
 
     @SerialName(value = "commission_rule_id")
     val commissionRuleId: kotlin.Int?,

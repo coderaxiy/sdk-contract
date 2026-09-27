@@ -66,17 +66,32 @@ edit was applied without a status change.
 
 ### `has_variants` — a hard fork in the form
 
-- `has_variants: false` → the form must collect `base_price`, `stock_quantity`,
-  `sku` directly on the product, and these become **required** on create.
-- `has_variants: true` → those three fields must be `null`/omitted on the
-  product; price/stock/SKU are entered per-variant instead, via the separate
-  variant endpoints. A product can't be submitted for review until it has at
-  least one **active** variant (deleted ones don't count).
+- `has_variants: false` → the form must collect `base_price` and
+  `stock_quantity` (**required** on create) and optionally `seller_sku`
+  directly on the product.
+- `has_variants: true` → those fields must be `null`/omitted on the product;
+  price/stock/SKU are entered per-variant instead, via the separate variant
+  endpoints. A product can't be submitted for review until it has at least one
+  **active** variant (deleted ones don't count).
 
-**SKUs are unique platform-wide**, across simple products and variants, and
-including deleted variants (they keep their SKU so they can be reactivated).
-A taken SKU is `400`; one held by a deleted variant says which variant to
-reactivate.
+### SKUs: two fields
+
+Every simple product and every variant has two codes:
+
+| Field | Who sets it | Unique | Used for |
+|---|---|---|---|
+| `platform_sku` | **The platform**, at creation (`PSK-` + 6 characters, e.g. `PSK-8F3K2Q`). Never editable | Platform-wide | Fulfillment: warehouse and pickup-point matching, labels |
+| `seller_sku` | The seller, optional free text (1–100 chars) | Within the seller's shop only | The seller's own inventory code, shown on their product and order views |
+
+- **Never send `platform_sku`.** It, and the old `sku` field, are rejected with
+  `422` on every product and variant write.
+- `seller_sku` is unique across the shop's products **and** variants, deleted
+  variants included (they keep it so they can be reactivated): `400 "Your shop
+  already uses SKU 'RED-L'"`, or, if a deleted variant holds it, a `400` naming
+  the variant to reactivate. Other shops can use the same code.
+- `seller_sku: null` on `PATCH` clears it.
+- A variant product has `platform_sku: null` and `seller_sku: null` itself;
+  its codes are on `variants[]`.
 
 This is enforced server-side (422 on mismatch) — build the create/edit form as
 two distinct modes, not one form with optional fields.
@@ -175,7 +190,7 @@ RBAC: `products:moderate` permission required on all of these.
 
 | Method | Path | Body | Notes |
 |---|---|---|---|
-| GET | `/admin/products` | — | Query: `status`, `shop_id`, `category_id`, `search` (case-insensitive partial match on title, SKU, or any variant's SKU), `skip`, `limit` |
+| GET | `/admin/products` | — | Query: `status`, `shop_id`, `category_id`, `search` (case-insensitive partial match on title, or the `platform_sku` / `seller_sku` of the product or any of its variants), `skip`, `limit` |
 | GET | `/admin/products/{product_id}` | — | Full detail incl. variants/images/attribute values |
 | GET | `/admin/moderation-queue` | — | Query: `category_id`, `shop_id`, `only_flagged` (bool). Returns `ModerationQueueItemRead[]` — `ProductRead` + `flags`. Flagged items sort first; ties preserve oldest-first order. |
 | PATCH | `/admin/products/{product_id}/approve` | — | 400 if not `pending_review`, or if the shop's category assignment is no longer approved |
@@ -202,9 +217,9 @@ is enforced server-side.
 | POST | `/seller/products/{product_id}/archive` | — | From anything but `pending_review` and `archived`; terminal. Use it to remove drafts |
 | GET | `/seller/products` | — | Query: `shop_id?`, `status?`. Omit `shop_id` to list across all of the seller's shops |
 | GET | `/seller/products/{product_id}` | — | Full detail incl. `rejection_reason` when applicable |
-| POST | `/seller/products/{product_id}/variants` | `ProductVariantCreate` | Only on `has_variants=true` products. 400 on a taken SKU, a duplicate attribute combination, or `image_ids` that aren't this product's images. If a **deleted** variant has the same combination or SKU, the 400 names it: reactivate it instead |
+| POST | `/seller/products/{product_id}/variants` | `ProductVariantCreate` | Only on `has_variants=true` products. `platform_sku` is generated. 400 on a `seller_sku` already used in the shop, a duplicate attribute combination, or `image_ids` that aren't this product's images. If a **deleted** variant has the same combination or SKU, the 400 names it: reactivate it instead |
 | PATCH | `/seller/variants/{variant_id}` | `ProductVariantUpdate` (all optional) | `is_active: true` reactivates a deleted variant (its keys must still be variant-defining); `false` deletes it. Changing `price` or reactivating may flip the parent product back to `pending_review` if `base_price` is a configured sensitive field |
-| DELETE | `/seller/variants/{variant_id}` | — | Soft-delete (`is_active=false`); `204`. The variant keeps its SKU and combination; `PATCH {is_active: true}` brings it back |
+| DELETE | `/seller/variants/{variant_id}` | — | Soft-delete (`is_active=false`); `204`. The variant keeps its SKUs and combination; `PATCH {is_active: true}` brings it back |
 | GET | `/seller/categories` | — | Active **leaf** categories (the only ones products can use). Each has `ancestors: [{ id, slug, translations }]`, root → parent, so the picker can show "Phones › Smartphones" in the user's locale; `[]` for a root leaf |
 | GET | `/seller/brands` | — | Approved brands only — populate the brand `<select>` from this |
 | POST | `/seller/brands/request` | `BrandRequestCreate` | `{shop_id, name, logo_url?}` — creates a `pending` brand for admin review; 400 if a brand with that name already exists/pending |
@@ -239,7 +254,8 @@ catalog/search doc territory). Show an out-of-stock state in the UI based on
   has_variants: boolean
   base_price: string | null      // Decimal, serialized as string — parse before formatting
   stock_quantity: number | null
-  sku: string | null
+  platform_sku: string | null    // generated; null on variant products (see variants[])
+  seller_sku: string | null
   status: "draft" | "pending_review" | "approved" | "rejected" | "delisted" | "archived"
   rejection_reason: string | null
   needs_attention: boolean
@@ -258,7 +274,8 @@ catalog/search doc territory). Show an out-of-stock state in the UI based on
 {
   id: number
   product_id: number
-  sku: string
+  platform_sku: string           // generated, immutable, platform-wide unique
+  seller_sku: string | null      // the seller's own code, unique within the shop
   price: string                  // Decimal as string
   stock_quantity: number
   is_active: boolean

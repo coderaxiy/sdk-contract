@@ -7,18 +7,20 @@
 
 import Foundation
 
+/** PATCH: omitted fields are unchanged; &#x60;seller_sku: null&#x60; clears it. */
 public struct ProductVariantUpdate: Sendable, Codable, Hashable {
 
+    public static let sellerSkuRule = StringRule(minLength: 1, maxLength: 100, pattern: nil)
     public static let stockQuantityRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
-    public var sku: String?
+    public var sellerSku: String?
     public var price: Price1?
     public var stockQuantity: Int?
     public var attributes: [String: AttributesValue]?
     public var imageIds: [Int]?
     public var isActive: Bool?
 
-    public init(sku: String? = nil, price: Price1? = nil, stockQuantity: Int? = nil, attributes: [String: AttributesValue]? = nil, imageIds: [Int]? = nil, isActive: Bool? = nil) {
-        self.sku = sku
+    public init(sellerSku: String? = nil, price: Price1? = nil, stockQuantity: Int? = nil, attributes: [String: AttributesValue]? = nil, imageIds: [Int]? = nil, isActive: Bool? = nil) {
+        self.sellerSku = sellerSku
         self.price = price
         self.stockQuantity = stockQuantity
         self.attributes = attributes
@@ -27,7 +29,7 @@ public struct ProductVariantUpdate: Sendable, Codable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case sku
+        case sellerSku = "seller_sku"
         case price
         case stockQuantity = "stock_quantity"
         case attributes
@@ -39,7 +41,7 @@ public struct ProductVariantUpdate: Sendable, Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(sku, forKey: .sku)
+        try container.encodeIfPresent(sellerSku, forKey: .sellerSku)
         try container.encodeIfPresent(price, forKey: .price)
         try container.encodeIfPresent(stockQuantity, forKey: .stockQuantity)
         try container.encodeIfPresent(attributes, forKey: .attributes)

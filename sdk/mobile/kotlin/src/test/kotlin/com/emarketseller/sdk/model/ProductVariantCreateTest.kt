@@ -35,12 +35,6 @@ class ProductVariantCreateTest : ShouldSpec() {
         // uncomment below to create an instance of ProductVariantCreate
         //val modelInstance = ProductVariantCreate()
 
-        // to test the property `sku`
-        should("test sku") {
-            // uncomment below to test the property
-            //modelInstance.sku shouldBe ("TODO")
-        }
-
         // to test the property `price`
         should("test price") {
             // uncomment below to test the property
@@ -57,6 +51,12 @@ class ProductVariantCreateTest : ShouldSpec() {
         should("test attributes") {
             // uncomment below to test the property
             //modelInstance.attributes shouldBe ("TODO")
+        }
+
+        // to test the property `sellerSku`
+        should("test sellerSku") {
+            // uncomment below to test the property
+            //modelInstance.sellerSku shouldBe ("TODO")
         }
 
         // to test the property `imageIds`

@@ -58,10 +58,10 @@ class OrderLineDetailReadTest : ShouldSpec() {
             //modelInstance.productTitleSnapshot shouldBe ("TODO")
         }
 
-        // to test the property `skuSnapshot`
-        should("test skuSnapshot") {
+        // to test the property `platformSkuSnapshot`
+        should("test platformSkuSnapshot") {
             // uncomment below to test the property
-            //modelInstance.skuSnapshot shouldBe ("TODO")
+            //modelInstance.platformSkuSnapshot shouldBe ("TODO")
         }
 
         // to test the property `unitPrice`
@@ -98,6 +98,12 @@ class OrderLineDetailReadTest : ShouldSpec() {
         should("test createdAt") {
             // uncomment below to test the property
             //modelInstance.createdAt shouldBe ("TODO")
+        }
+
+        // to test the property `sellerSkuSnapshot`
+        should("test sellerSkuSnapshot") {
+            // uncomment below to test the property
+            //modelInstance.sellerSkuSnapshot shouldBe ("TODO")
         }
 
         // to test the property `commissionRuleId`

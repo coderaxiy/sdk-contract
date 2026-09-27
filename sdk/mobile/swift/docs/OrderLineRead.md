@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **productId** | **Int** |  | 
 **variantId** | **Int** |  | 
 **productTitleSnapshot** | **String** |  | 
-**skuSnapshot** | **String** |  | 
+**platformSkuSnapshot** | **String** |  | 
 **unitPrice** | **String** |  | 
 **quantity** | **Int** |  | 
 **lineTotal** | **String** |  | 

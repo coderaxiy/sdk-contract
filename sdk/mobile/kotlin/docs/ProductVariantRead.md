@@ -6,7 +6,8 @@
 | ------------ | ------------- | ------------- | ------------- |
 | **id** | **kotlin.Int** |  |  |
 | **productId** | **kotlin.Int** |  |  |
-| **sku** | **kotlin.String** |  |  |
+| **platformSku** | **kotlin.String** |  |  |
+| **sellerSku** | **kotlin.String** |  |  |
 | **price** | **kotlin.String** |  |  |
 | **stockQuantity** | **kotlin.Int** |  |  |
 | **isActive** | **kotlin.Boolean** |  |  |

@@ -14,7 +14,8 @@
 | **hasVariants** | **kotlin.Boolean** |  |  |
 | **basePrice** | **kotlin.String** |  |  |
 | **stockQuantity** | **kotlin.Int** |  |  |
-| **sku** | **kotlin.String** |  |  |
+| **platformSku** | **kotlin.String** |  |  |
+| **sellerSku** | **kotlin.String** |  |  |
 | **status** | [**ProductStatus**](ProductStatus.md) |  |  |
 | **rejectionReason** | **kotlin.String** |  |  |
 | **needsAttention** | **kotlin.Boolean** |  |  |

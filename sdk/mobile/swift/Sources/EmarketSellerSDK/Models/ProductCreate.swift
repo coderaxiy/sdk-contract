@@ -12,6 +12,7 @@ public struct ProductCreate: Sendable, Codable, Hashable {
     public static let titleRule = StringRule(minLength: nil, maxLength: 500, pattern: nil)
     public static let slugRule = StringRule(minLength: nil, maxLength: 255, pattern: nil)
     public static let stockQuantityRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let sellerSkuRule = StringRule(minLength: 1, maxLength: 100, pattern: nil)
     public var categoryId: Int
     public var brandId: Int?
     public var title: String
@@ -20,11 +21,11 @@ public struct ProductCreate: Sendable, Codable, Hashable {
     public var hasVariants: Bool? = false
     public var basePrice: BasePrice?
     public var stockQuantity: Int?
-    public var sku: String?
+    public var sellerSku: String?
     public var images: [ProductImageIn]?
     public var attributeValues: [ProductAttributeValueIn]?
 
-    public init(categoryId: Int, brandId: Int? = nil, title: String, slug: String, description: String? = nil, hasVariants: Bool? = false, basePrice: BasePrice? = nil, stockQuantity: Int? = nil, sku: String? = nil, images: [ProductImageIn]? = nil, attributeValues: [ProductAttributeValueIn]? = nil) {
+    public init(categoryId: Int, brandId: Int? = nil, title: String, slug: String, description: String? = nil, hasVariants: Bool? = false, basePrice: BasePrice? = nil, stockQuantity: Int? = nil, sellerSku: String? = nil, images: [ProductImageIn]? = nil, attributeValues: [ProductAttributeValueIn]? = nil) {
         self.categoryId = categoryId
         self.brandId = brandId
         self.title = title
@@ -33,7 +34,7 @@ public struct ProductCreate: Sendable, Codable, Hashable {
         self.hasVariants = hasVariants
         self.basePrice = basePrice
         self.stockQuantity = stockQuantity
-        self.sku = sku
+        self.sellerSku = sellerSku
         self.images = images
         self.attributeValues = attributeValues
     }
@@ -47,7 +48,7 @@ public struct ProductCreate: Sendable, Codable, Hashable {
         case hasVariants = "has_variants"
         case basePrice = "base_price"
         case stockQuantity = "stock_quantity"
-        case sku
+        case sellerSku = "seller_sku"
         case images
         case attributeValues = "attribute_values"
     }
@@ -64,7 +65,7 @@ public struct ProductCreate: Sendable, Codable, Hashable {
         try container.encodeIfPresent(hasVariants, forKey: .hasVariants)
         try container.encodeIfPresent(basePrice, forKey: .basePrice)
         try container.encodeIfPresent(stockQuantity, forKey: .stockQuantity)
-        try container.encodeIfPresent(sku, forKey: .sku)
+        try container.encodeIfPresent(sellerSku, forKey: .sellerSku)
         try container.encodeIfPresent(images, forKey: .images)
         try container.encodeIfPresent(attributeValues, forKey: .attributeValues)
     }

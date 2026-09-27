@@ -32,7 +32,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Contextual
 
 /**
- * PATCH semantics — only provided fields are changed; an explicit null clears `brand_id` and `description` (null is ignored for the rest). Editing a sensitive field (per admin-configured list, §4.4) on an approved product triggers re-review automatically; status itself is never set directly here.
+ * PATCH semantics — only provided fields are changed; an explicit null clears `brand_id`, `description` and `seller_sku` (null is ignored for the rest). Editing a sensitive field (per admin-configured list, §4.4) on an approved product triggers re-review automatically; status itself is never set directly here.
  *
  * @param categoryId 
  * @param brandId 
@@ -41,7 +41,7 @@ import kotlinx.serialization.Contextual
  * @param description 
  * @param basePrice 
  * @param stockQuantity 
- * @param sku 
+ * @param sellerSku 
  * @param images 
  * @param attributeValues 
  */
@@ -70,8 +70,8 @@ data class ProductUpdate (
     @SerialName(value = "stock_quantity")
     val stockQuantity: kotlin.Int? = null,
 
-    @SerialName(value = "sku")
-    val sku: kotlin.String? = null,
+    @SerialName(value = "seller_sku")
+    val sellerSku: kotlin.String? = null,
 
     @SerialName(value = "images")
     val images: kotlin.collections.List<ProductImageIn>? = null,

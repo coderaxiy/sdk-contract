@@ -3326,8 +3326,10 @@ export interface components {
             base_price: string | null;
             /** Stock Quantity */
             stock_quantity: number | null;
-            /** Sku */
-            sku: string | null;
+            /** Platform Sku */
+            platform_sku: string | null;
+            /** Seller Sku */
+            seller_sku: string | null;
             status: components["schemas"]["ProductStatus"];
             /** Rejection Reason */
             rejection_reason: string | null;
@@ -3454,8 +3456,8 @@ export interface components {
             variant_id: number | null;
             /** Product Title Snapshot */
             product_title_snapshot: string;
-            /** Sku Snapshot */
-            sku_snapshot: string;
+            /** Platform Sku Snapshot */
+            platform_sku_snapshot: string;
             /** Unit Price */
             unit_price: string;
             /** Quantity */
@@ -3470,6 +3472,8 @@ export interface components {
              * Format: date-time
              */
             created_at: string;
+            /** Seller Sku Snapshot */
+            seller_sku_snapshot: string | null;
             /** Commission Rule Id */
             commission_rule_id: number | null;
             /** Commission Amount */
@@ -3488,8 +3492,8 @@ export interface components {
             variant_id: number | null;
             /** Product Title Snapshot */
             product_title_snapshot: string;
-            /** Sku Snapshot */
-            sku_snapshot: string;
+            /** Platform Sku Snapshot */
+            platform_sku_snapshot: string;
             /** Unit Price */
             unit_price: string;
             /** Quantity */
@@ -3940,8 +3944,8 @@ export interface components {
             base_price?: number | string | null;
             /** Stock Quantity */
             stock_quantity?: number | null;
-            /** Sku */
-            sku?: string | null;
+            /** Seller Sku */
+            seller_sku?: string | null;
             /**
              * Images
              * @default []
@@ -4024,8 +4028,10 @@ export interface components {
             base_price: string | null;
             /** Stock Quantity */
             stock_quantity: number | null;
-            /** Sku */
-            sku: string | null;
+            /** Platform Sku */
+            platform_sku: string | null;
+            /** Seller Sku */
+            seller_sku: string | null;
             status: components["schemas"]["ProductStatus"];
             /** Rejection Reason */
             rejection_reason: string | null;
@@ -4069,7 +4075,7 @@ export interface components {
         /**
          * ProductUpdate
          * @description PATCH semantics — only provided fields are changed; an explicit null
-         *     clears `brand_id` and `description` (null is ignored for the rest). Editing a
+         *     clears `brand_id`, `description` and `seller_sku` (null is ignored for the rest). Editing a
          *     sensitive field (per admin-configured list, §4.4) on an approved product
          *     triggers re-review automatically; status itself is never set directly here.
          */
@@ -4088,8 +4094,8 @@ export interface components {
             base_price?: number | string | null;
             /** Stock Quantity */
             stock_quantity?: number | null;
-            /** Sku */
-            sku?: string | null;
+            /** Seller Sku */
+            seller_sku?: string | null;
             /** Images */
             images?: components["schemas"]["ProductImageIn"][] | null;
             /** Attribute Values */
@@ -4097,8 +4103,8 @@ export interface components {
         };
         /** ProductVariantCreate */
         ProductVariantCreate: {
-            /** Sku */
-            sku: string;
+            /** Seller Sku */
+            seller_sku?: string | null;
             /** Price */
             price: number | string;
             /** Stock Quantity */
@@ -4116,8 +4122,10 @@ export interface components {
             id: number;
             /** Product Id */
             product_id: number;
-            /** Sku */
-            sku: string;
+            /** Platform Sku */
+            platform_sku: string;
+            /** Seller Sku */
+            seller_sku: string | null;
             /** Price */
             price: string;
             /** Stock Quantity */
@@ -4141,10 +4149,13 @@ export interface components {
              */
             updated_at: string;
         };
-        /** ProductVariantUpdate */
+        /**
+         * ProductVariantUpdate
+         * @description PATCH: omitted fields are unchanged; `seller_sku: null` clears it.
+         */
         ProductVariantUpdate: {
-            /** Sku */
-            sku?: string | null;
+            /** Seller Sku */
+            seller_sku?: string | null;
             /** Price */
             price?: number | string | null;
             /** Stock Quantity */

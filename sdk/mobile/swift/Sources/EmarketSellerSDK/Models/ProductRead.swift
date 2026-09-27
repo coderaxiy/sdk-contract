@@ -20,7 +20,8 @@ public struct ProductRead: Sendable, Codable, Hashable {
     public var hasVariants: Bool
     public var basePrice: String?
     public var stockQuantity: Int?
-    public var sku: String?
+    public var platformSku: String?
+    public var sellerSku: String?
     public var status: ProductStatus
     public var rejectionReason: String?
     public var needsAttention: Bool
@@ -32,7 +33,7 @@ public struct ProductRead: Sendable, Codable, Hashable {
     public var variants: [ProductVariantRead]?
     public var attributeValues: [ProductAttributeValueRead]?
 
-    public init(id: Int, shopId: Int, categoryId: Int, brandId: Int?, title: String, slug: String, description: String?, hasVariants: Bool, basePrice: String?, stockQuantity: Int?, sku: String?, status: ProductStatus, rejectionReason: String?, needsAttention: Bool, moderatedBy: Int?, moderatedAt: Date?, createdAt: Date, updatedAt: Date, images: [ProductImageRead]? = nil, variants: [ProductVariantRead]? = nil, attributeValues: [ProductAttributeValueRead]? = nil) {
+    public init(id: Int, shopId: Int, categoryId: Int, brandId: Int?, title: String, slug: String, description: String?, hasVariants: Bool, basePrice: String?, stockQuantity: Int?, platformSku: String?, sellerSku: String?, status: ProductStatus, rejectionReason: String?, needsAttention: Bool, moderatedBy: Int?, moderatedAt: Date?, createdAt: Date, updatedAt: Date, images: [ProductImageRead]? = nil, variants: [ProductVariantRead]? = nil, attributeValues: [ProductAttributeValueRead]? = nil) {
         self.id = id
         self.shopId = shopId
         self.categoryId = categoryId
@@ -43,7 +44,8 @@ public struct ProductRead: Sendable, Codable, Hashable {
         self.hasVariants = hasVariants
         self.basePrice = basePrice
         self.stockQuantity = stockQuantity
-        self.sku = sku
+        self.platformSku = platformSku
+        self.sellerSku = sellerSku
         self.status = status
         self.rejectionReason = rejectionReason
         self.needsAttention = needsAttention
@@ -67,7 +69,8 @@ public struct ProductRead: Sendable, Codable, Hashable {
         case hasVariants = "has_variants"
         case basePrice = "base_price"
         case stockQuantity = "stock_quantity"
-        case sku
+        case platformSku = "platform_sku"
+        case sellerSku = "seller_sku"
         case status
         case rejectionReason = "rejection_reason"
         case needsAttention = "needs_attention"
@@ -94,7 +97,8 @@ public struct ProductRead: Sendable, Codable, Hashable {
         try container.encode(hasVariants, forKey: .hasVariants)
         try container.encode(basePrice, forKey: .basePrice)
         try container.encode(stockQuantity, forKey: .stockQuantity)
-        try container.encode(sku, forKey: .sku)
+        try container.encode(platformSku, forKey: .platformSku)
+        try container.encode(sellerSku, forKey: .sellerSku)
         try container.encode(status, forKey: .status)
         try container.encode(rejectionReason, forKey: .rejectionReason)
         try container.encode(needsAttention, forKey: .needsAttention)

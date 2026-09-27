@@ -8,13 +8,14 @@
 | **productId** | **kotlin.Int** |  |  |
 | **variantId** | **kotlin.Int** |  |  |
 | **productTitleSnapshot** | **kotlin.String** |  |  |
-| **skuSnapshot** | **kotlin.String** |  |  |
+| **platformSkuSnapshot** | **kotlin.String** |  |  |
 | **unitPrice** | **kotlin.String** |  |  |
 | **quantity** | **kotlin.Int** |  |  |
 | **lineTotal** | **kotlin.String** |  |  |
 | **status** | [**OrderLineStatus**](OrderLineStatus.md) |  |  |
 | **physicalReturnReceivedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
+| **sellerSkuSnapshot** | **kotlin.String** |  |  |
 | **commissionRuleId** | **kotlin.Int** |  |  |
 | **commissionAmount** | **kotlin.String** |  |  |
 

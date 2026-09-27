@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **hasVariants** | **Bool** |  | [optional] [default to false]
 **basePrice** | [**BasePrice**](BasePrice.md) |  | [optional] 
 **stockQuantity** | **Int** |  | [optional] 
-**sku** | **String** |  | [optional] 
+**sellerSku** | **String** |  | [optional] 
 **images** | [ProductImageIn] |  | [optional] 
 **attributeValues** | [ProductAttributeValueIn] |  | [optional] 
 

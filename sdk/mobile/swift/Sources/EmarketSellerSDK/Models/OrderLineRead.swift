@@ -16,7 +16,7 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
     public var productId: Int
     public var variantId: Int?
     public var productTitleSnapshot: String
-    public var skuSnapshot: String
+    public var platformSkuSnapshot: String
     public var unitPrice: String
     public var quantity: Int
     public var lineTotal: String
@@ -24,12 +24,12 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
     public var physicalReturnReceivedAt: Date?
     public var createdAt: Date
 
-    public init(id: Int, productId: Int, variantId: Int?, productTitleSnapshot: String, skuSnapshot: String, unitPrice: String, quantity: Int, lineTotal: String, status: OrderLineStatus, physicalReturnReceivedAt: Date?, createdAt: Date) {
+    public init(id: Int, productId: Int, variantId: Int?, productTitleSnapshot: String, platformSkuSnapshot: String, unitPrice: String, quantity: Int, lineTotal: String, status: OrderLineStatus, physicalReturnReceivedAt: Date?, createdAt: Date) {
         self.id = id
         self.productId = productId
         self.variantId = variantId
         self.productTitleSnapshot = productTitleSnapshot
-        self.skuSnapshot = skuSnapshot
+        self.platformSkuSnapshot = platformSkuSnapshot
         self.unitPrice = unitPrice
         self.quantity = quantity
         self.lineTotal = lineTotal
@@ -43,7 +43,7 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
         case productId = "product_id"
         case variantId = "variant_id"
         case productTitleSnapshot = "product_title_snapshot"
-        case skuSnapshot = "sku_snapshot"
+        case platformSkuSnapshot = "platform_sku_snapshot"
         case unitPrice = "unit_price"
         case quantity
         case lineTotal = "line_total"
@@ -60,7 +60,7 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
         try container.encode(productId, forKey: .productId)
         try container.encode(variantId, forKey: .variantId)
         try container.encode(productTitleSnapshot, forKey: .productTitleSnapshot)
-        try container.encode(skuSnapshot, forKey: .skuSnapshot)
+        try container.encode(platformSkuSnapshot, forKey: .platformSkuSnapshot)
         try container.encode(unitPrice, forKey: .unitPrice)
         try container.encode(quantity, forKey: .quantity)
         try container.encode(lineTotal, forKey: .lineTotal)

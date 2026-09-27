@@ -36,7 +36,7 @@ import kotlinx.serialization.Contextual
  * @param productId 
  * @param variantId 
  * @param productTitleSnapshot 
- * @param skuSnapshot 
+ * @param platformSkuSnapshot 
  * @param unitPrice 
  * @param quantity 
  * @param lineTotal 
@@ -60,8 +60,8 @@ data class OrderLineRead (
     @SerialName(value = "product_title_snapshot")
     val productTitleSnapshot: kotlin.String,
 
-    @SerialName(value = "sku_snapshot")
-    val skuSnapshot: kotlin.String,
+    @SerialName(value = "platform_sku_snapshot")
+    val platformSkuSnapshot: kotlin.String,
 
     @SerialName(value = "unit_price")
     val unitPrice: kotlin.String,

@@ -33,18 +33,15 @@ import kotlinx.serialization.Contextual
 /**
  * 
  *
- * @param sku 
  * @param price 
  * @param stockQuantity 
  * @param attributes 
+ * @param sellerSku 
  * @param imageIds 
  */
 @Serializable
 
 data class ProductVariantCreate (
-
-    @SerialName(value = "sku")
-    val sku: kotlin.String,
 
     @SerialName(value = "price")
     val price: Price,
@@ -54,6 +51,9 @@ data class ProductVariantCreate (
 
     @Contextual @SerialName(value = "attributes")
     val attributes: kotlin.collections.Map<kotlin.String, AttributesValue>,
+
+    @SerialName(value = "seller_sku")
+    val sellerSku: kotlin.String? = null,
 
     @SerialName(value = "image_ids")
     val imageIds: kotlin.collections.List<kotlin.Int>? = null

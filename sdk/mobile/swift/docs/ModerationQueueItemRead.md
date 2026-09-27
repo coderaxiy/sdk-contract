@@ -13,7 +13,8 @@ Name | Type | Description | Notes
 **hasVariants** | **Bool** |  | 
 **basePrice** | **String** |  | 
 **stockQuantity** | **Int** |  | 
-**sku** | **String** |  | 
+**platformSku** | **String** |  | 
+**sellerSku** | **String** |  | 
 **status** | [**ProductStatus**](ProductStatus.md) |  | 
 **rejectionReason** | **String** |  | 
 **needsAttention** | **Bool** |  | 

@@ -7,12 +7,13 @@
 
 import Foundation
 
-/** PATCH semantics — only provided fields are changed; an explicit null clears &#x60;brand_id&#x60; and &#x60;description&#x60; (null is ignored for the rest). Editing a sensitive field (per admin-configured list, §4.4) on an approved product triggers re-review automatically; status itself is never set directly here. */
+/** PATCH semantics — only provided fields are changed; an explicit null clears &#x60;brand_id&#x60;, &#x60;description&#x60; and &#x60;seller_sku&#x60; (null is ignored for the rest). Editing a sensitive field (per admin-configured list, §4.4) on an approved product triggers re-review automatically; status itself is never set directly here. */
 public struct ProductUpdate: Sendable, Codable, Hashable {
 
     public static let titleRule = StringRule(minLength: nil, maxLength: 500, pattern: nil)
     public static let slugRule = StringRule(minLength: nil, maxLength: 255, pattern: nil)
     public static let stockQuantityRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: false, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
+    public static let sellerSkuRule = StringRule(minLength: 1, maxLength: 100, pattern: nil)
     public var categoryId: Int?
     public var brandId: Int?
     public var title: String?
@@ -20,11 +21,11 @@ public struct ProductUpdate: Sendable, Codable, Hashable {
     public var description: String?
     public var basePrice: BasePrice?
     public var stockQuantity: Int?
-    public var sku: String?
+    public var sellerSku: String?
     public var images: [ProductImageIn]?
     public var attributeValues: [ProductAttributeValueIn]?
 
-    public init(categoryId: Int? = nil, brandId: Int? = nil, title: String? = nil, slug: String? = nil, description: String? = nil, basePrice: BasePrice? = nil, stockQuantity: Int? = nil, sku: String? = nil, images: [ProductImageIn]? = nil, attributeValues: [ProductAttributeValueIn]? = nil) {
+    public init(categoryId: Int? = nil, brandId: Int? = nil, title: String? = nil, slug: String? = nil, description: String? = nil, basePrice: BasePrice? = nil, stockQuantity: Int? = nil, sellerSku: String? = nil, images: [ProductImageIn]? = nil, attributeValues: [ProductAttributeValueIn]? = nil) {
         self.categoryId = categoryId
         self.brandId = brandId
         self.title = title
@@ -32,7 +33,7 @@ public struct ProductUpdate: Sendable, Codable, Hashable {
         self.description = description
         self.basePrice = basePrice
         self.stockQuantity = stockQuantity
-        self.sku = sku
+        self.sellerSku = sellerSku
         self.images = images
         self.attributeValues = attributeValues
     }
@@ -45,7 +46,7 @@ public struct ProductUpdate: Sendable, Codable, Hashable {
         case description
         case basePrice = "base_price"
         case stockQuantity = "stock_quantity"
-        case sku
+        case sellerSku = "seller_sku"
         case images
         case attributeValues = "attribute_values"
     }
@@ -61,7 +62,7 @@ public struct ProductUpdate: Sendable, Codable, Hashable {
         try container.encodeIfPresent(description, forKey: .description)
         try container.encodeIfPresent(basePrice, forKey: .basePrice)
         try container.encodeIfPresent(stockQuantity, forKey: .stockQuantity)
-        try container.encodeIfPresent(sku, forKey: .sku)
+        try container.encodeIfPresent(sellerSku, forKey: .sellerSku)
         try container.encodeIfPresent(images, forKey: .images)
         try container.encodeIfPresent(attributeValues, forKey: .attributeValues)
     }

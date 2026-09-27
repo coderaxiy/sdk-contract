@@ -97,10 +97,16 @@ class ProductReadTest : ShouldSpec() {
             //modelInstance.stockQuantity shouldBe ("TODO")
         }
 
-        // to test the property `sku`
-        should("test sku") {
+        // to test the property `platformSku`
+        should("test platformSku") {
             // uncomment below to test the property
-            //modelInstance.sku shouldBe ("TODO")
+            //modelInstance.platformSku shouldBe ("TODO")
+        }
+
+        // to test the property `sellerSku`
+        should("test sellerSku") {
+            // uncomment below to test the property
+            //modelInstance.sellerSku shouldBe ("TODO")
         }
 
         // to test the property `status`

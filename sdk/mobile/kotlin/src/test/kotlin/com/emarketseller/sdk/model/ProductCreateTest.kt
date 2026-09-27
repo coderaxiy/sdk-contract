@@ -84,10 +84,10 @@ class ProductCreateTest : ShouldSpec() {
             //modelInstance.stockQuantity shouldBe ("TODO")
         }
 
-        // to test the property `sku`
-        should("test sku") {
+        // to test the property `sellerSku`
+        should("test sellerSku") {
             // uncomment below to test the property
-            //modelInstance.sku shouldBe ("TODO")
+            //modelInstance.sellerSku shouldBe ("TODO")
         }
 
         // to test the property `images`

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **description** | **String** |  | [optional] 
 **basePrice** | [**BasePrice**](BasePrice.md) |  | [optional] 
 **stockQuantity** | **Int** |  | [optional] 
-**sku** | **String** |  | [optional] 
+**sellerSku** | **String** |  | [optional] 
 **images** | [ProductImageIn] |  | [optional] 
 **attributeValues** | [ProductAttributeValueIn] |  | [optional] 
 
