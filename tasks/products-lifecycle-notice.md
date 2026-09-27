@@ -48,3 +48,14 @@ Details: `docs/products-and-moderation-api.md` §1–§3.
 Regenerate the SDK: `platform_sku`/`seller_sku` on products and variants,
 `OrderLineRead.platform_sku_snapshot`, `ProductVariantUpdate.is_active`, `SellerCategoryRead`,
 `CategoryAncestorRead`, and the `search` params.
+
+## Admin panel progress (2026-09-27)
+
+Done in market-admin commit `6bd5a19` (branch `claude/laughing-galileo-ey0lux`):
+- `GET /admin/products?search=` and `GET /admin/orders?search=` search boxes were
+  already in place.
+- SKU split: product detail shows `platform_sku` / `seller_sku` (simple products)
+  and both per variant; admin order lines show `platform_sku_snapshot` with
+  `seller_sku_snapshot` under it; the product search placeholder names both SKUs.
+
+Still open: the seller-website items (1–8) above.
