@@ -55,3 +55,18 @@ with `422` (`key` / `file_key` missing).
 - `docs/products-and-moderation-api.md` → Images
 - `docs/sellers-and-approval-api.md` → Documents
 - `openapi/api.yaml` → `UploadRead`, `UploadPurpose`, `ShopCreateRequest`, `ProductImageIn`, `DocumentSubmitRequest`
+
+## Progress (frontend, 2026-09-27)
+
+- **1. Shop create/edit: done** in the seller website. Logo and banner upload
+  on selection (`purpose=shop_logo` / `shop_banner`, click or drag-and-drop,
+  progress, the backend's `detail` shown as-is), and `logo_key` / `banner_key`
+  are sent on save. Save is disabled while an upload runs. The edit form
+  only offers "Replace", because an attached image can't be cleared (see
+  `shop-image-removal`). The shared uploader (`ImageUploadField`, and
+  `uploadFile()` / `precheckImage()` in `src/lib/api/uploads.ts`) is ready for
+  products.
+- **2. Product images: not started.** The Products page isn't built yet.
+- **3. KYC documents: not started.** Onboarding has no documents step yet.
+- **4. Admin panel:** not this app.
+- Leaving this task open until 2 and 3 are done.
