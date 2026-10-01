@@ -3,11 +3,11 @@ id: storefront-buyer-returns
 title: Buyer returns — find my refund requests, return deadline, photo evidence, how to bring the item back
 author: frontend
 to: backend
-status: open
+status: closed
 priority: high
 area: orders
 created: 2026-09-27
-closed:
+closed: 2026-10-01
 reply_to:
 ---
 
@@ -96,3 +96,20 @@ buyer doesn't know what to do next.
   §6 "Known gaps" (returns at pickup points)
 - docs/media-uploads-api.md (purposes, keys vs URLs), docs/api-standards.md "Files"
 - Related: `storefront-order-details` (shop and product info on lines)
+
+## Progress (2026-10-01, backend)
+
+All four items are done; the task is closed.
+
+- **Item 1 done.** `OrderLineRead.refund_request` (buyer-facing, in `GET /orders` and `GET /orders/{id}`) holds the line's latest request: `id`, `status`, `reason_code`, `created_at`, `resolved_at`, `escalated_at`, `resolution_note`. `RefundRequestRead` has `resolution_note` too. It is set when a seller or admin rejects; older rejections have `null`. A line can have several requests (a rejected one doesn't block a new one), and the latest is returned.
+- **Item 2 done, on the line.** The window is per category, so it can differ within a group: `OrderLineRead.return_deadline` (ISO, `delivered_at` + the category's window or the 14-day default; `null` until delivered).
+- **Item 4 done.** The buyer returns the item to the pickup point where they collected it.
+  - Buyer side: while the line is `return_pending`, `refund_request.return_point` is that point. There is no `return_instructions` text: the apps are localized, so build the message from `return_point`.
+  - Staff side: `GET /pickup-staff/returns` and `POST /pickup-staff/returns/{id}/receive`. The line moves to the new status `returned_to_point`.
+  - Money still waits for the seller's `confirm-return`, which now accepts `return_pending` or `returned_to_point`.
+  - Notices: `pickup-returns-notice` (frontend) and `pickup-returns-notice-mobile` (mobile).
+- **Item 3 done.** New upload purpose `refund_evidence` (private WebP, 2048 px), open to any logged-in user with a cap of 30 uploads per day. `RefundRequestCreate.evidence_keys` (max 5) replaces `evidence_urls`: the old field is gone from the request, and a client still sending it has it ignored. `RefundRequestRead.evidence` is `{ key, url }[]` with signed 15-minute URLs, visible to the buyer, the shop's seller and admins through the refund endpoints. `evidence_urls` stays on the read schema for old rows only. `POST /uploads` now needs only a login for this purpose; the seller-only purposes are unchanged.
+
+## Resolution
+
+All four items are live. Docs: `docs/orders-and-payments-api.md`, `docs/media-uploads-api.md`, `docs/logistics-and-pickup-points-api.md`. Notices: `pickup-returns-notice`, `pickup-returns-notice-mobile`. The clients must also handle the new `evidence_keys` (request) and `evidence` (read) fields, described above.

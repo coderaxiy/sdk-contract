@@ -34,7 +34,7 @@ import kotlinx.serialization.Contextual
  *
  * @param reasonCode 
  * @param reasonText 
- * @param evidenceUrls 
+ * @param evidenceKeys 
  */
 @Serializable
 
@@ -46,8 +46,8 @@ data class RefundRequestCreate (
     @SerialName(value = "reason_text")
     val reasonText: kotlin.String? = null,
 
-    @SerialName(value = "evidence_urls")
-    val evidenceUrls: kotlin.collections.List<kotlin.String>? = null
+    @SerialName(value = "evidence_keys")
+    val evidenceKeys: kotlin.collections.List<kotlin.String>? = null
 
 ) {
 

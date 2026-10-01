@@ -23,13 +23,13 @@ public struct OrderShopGroupDetailRead: Sendable, Codable, Hashable {
     public var cancellationReason: String?
     public var warehouseReceivedAt: Date?
     public var deliveredAt: Date?
-    public var lines: [OrderLineDetailRead]?
     public var createdAt: Date
     public var updatedAt: Date
     public var commissionTotal: String
     public var payoutAmount: String
+    public var lines: [OrderLineDetailRead]?
 
-    public init(id: Int, orderId: Int, shopId: Int, status: OrderShopGroupStatus, subtotal: String, shippingFee: String, cancellationReason: String?, warehouseReceivedAt: Date?, deliveredAt: Date?, lines: [OrderLineDetailRead]? = nil, createdAt: Date, updatedAt: Date, commissionTotal: String, payoutAmount: String) {
+    public init(id: Int, orderId: Int, shopId: Int, status: OrderShopGroupStatus, subtotal: String, shippingFee: String, cancellationReason: String?, warehouseReceivedAt: Date?, deliveredAt: Date?, createdAt: Date, updatedAt: Date, commissionTotal: String, payoutAmount: String, lines: [OrderLineDetailRead]? = nil) {
         self.id = id
         self.orderId = orderId
         self.shopId = shopId
@@ -39,11 +39,11 @@ public struct OrderShopGroupDetailRead: Sendable, Codable, Hashable {
         self.cancellationReason = cancellationReason
         self.warehouseReceivedAt = warehouseReceivedAt
         self.deliveredAt = deliveredAt
-        self.lines = lines
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.commissionTotal = commissionTotal
         self.payoutAmount = payoutAmount
+        self.lines = lines
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -56,11 +56,11 @@ public struct OrderShopGroupDetailRead: Sendable, Codable, Hashable {
         case cancellationReason = "cancellation_reason"
         case warehouseReceivedAt = "warehouse_received_at"
         case deliveredAt = "delivered_at"
-        case lines
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case commissionTotal = "commission_total"
         case payoutAmount = "payout_amount"
+        case lines
     }
 
     // Encodable protocol methods
@@ -76,11 +76,11 @@ public struct OrderShopGroupDetailRead: Sendable, Codable, Hashable {
         try container.encode(cancellationReason, forKey: .cancellationReason)
         try container.encode(warehouseReceivedAt, forKey: .warehouseReceivedAt)
         try container.encode(deliveredAt, forKey: .deliveredAt)
-        try container.encodeIfPresent(lines, forKey: .lines)
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(commissionTotal, forKey: .commissionTotal)
         try container.encode(payoutAmount, forKey: .payoutAmount)
+        try container.encodeIfPresent(lines, forKey: .lines)
     }
 }
 

@@ -12,4 +12,5 @@ public enum UploadPurpose: String, Sendable, Codable, CaseIterable {
     case shopBanner = "shop_banner"
     case productImage = "product_image"
     case sellerDocument = "seller_document"
+    case refundEvidence = "refund_evidence"
 }

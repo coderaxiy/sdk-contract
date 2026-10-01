@@ -42,7 +42,9 @@ import com.emarketseller.sdk.model.ManualAdjustmentRequest
 import com.emarketseller.sdk.model.OrderAdminRead
 import com.emarketseller.sdk.model.OrderRead
 import com.emarketseller.sdk.model.OrderShopGroupDetailRead
+import com.emarketseller.sdk.model.OrderShopGroupRead
 import com.emarketseller.sdk.model.OrderShopGroupStatus
+import com.emarketseller.sdk.model.OrderStatus
 import com.emarketseller.sdk.model.PayoutRead
 import com.emarketseller.sdk.model.PayoutRunRequest
 import com.emarketseller.sdk.model.RefundApproveRequest
@@ -85,7 +87,7 @@ class OrdersApiTest : ShouldSpec() {
             //val groupId : kotlin.Int = 56 // kotlin.Int | 
             //val cancelGroupRequest : CancelGroupRequest =  // CancelGroupRequest | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : OrderShopGroupDetailRead = apiInstance.cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost(orderId, groupId, cancelGroupRequest, accessToken)
+            //val result : OrderShopGroupRead = apiInstance.cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost(orderId, groupId, cancelGroupRequest, accessToken)
             //result shouldBe ("TODO")
         }
 
@@ -197,8 +199,11 @@ class OrdersApiTest : ShouldSpec() {
         // to test listMyOrdersApiV1OrdersGet
         should("test listMyOrdersApiV1OrdersGet") {
             // uncomment below to test listMyOrdersApiV1OrdersGet
+            //val status : kotlin.collections.List<OrderStatus> =  // kotlin.collections.List<OrderStatus> | 
+            //val skip : kotlin.Int = 56 // kotlin.Int | 
+            //val limit : kotlin.Int = 56 // kotlin.Int | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : kotlin.collections.List<OrderRead> = apiInstance.listMyOrdersApiV1OrdersGet(accessToken)
+            //val result : kotlin.collections.List<OrderRead> = apiInstance.listMyOrdersApiV1OrdersGet(status, skip, limit, accessToken)
             //result shouldBe ("TODO")
         }
 

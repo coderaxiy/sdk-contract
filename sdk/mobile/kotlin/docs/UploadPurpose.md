@@ -12,5 +12,7 @@
 
     * `seller_document` (value: `"seller_document"`)
 
+    * `refund_evidence` (value: `"refund_evidence"`)
+
 
 

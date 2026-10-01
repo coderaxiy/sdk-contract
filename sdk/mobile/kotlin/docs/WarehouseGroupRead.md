@@ -11,7 +11,7 @@
 | **status** | [**OrderShopGroupStatus**](OrderShopGroupStatus.md) |  |  |
 | **pickupPointId** | **kotlin.Int** |  |  |
 | **warehouseReceivedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
-| **lines** | [**kotlin.collections.List&lt;OrderLineRead&gt;**](OrderLineRead.md) |  |  |
+| **lines** | [**kotlin.collections.List&lt;OrderLineBase&gt;**](OrderLineBase.md) |  |  |
 
 
 

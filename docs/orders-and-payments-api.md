@@ -100,7 +100,7 @@ refund changes one of them. Nobody sets it directly:
 
 | Lines | Group status |
 |---|---|
-| any line `return_pending` | `return_requested` |
+| any line `return_pending` or `returned_to_point` | `return_requested` |
 | otherwise, all lines `refunded` | `refunded` |
 | otherwise, some lines `refunded` | `partially_refunded` |
 | no refund activity | unchanged (`delivered`) |
@@ -132,11 +132,14 @@ A pending or rejected refund request doesn't change anything: the group stays
 Set only by the refund flow:
 
 ```
-active ──(refund approved, reason needs the item back)──▶ return_pending ──(seller confirms the item is back)──▶ refunded
-active ──(refund approved, reason needs no return: never_arrived)──────────────────────────────────────────────▶ refunded
+active ──(refund approved, reason needs the item back)──▶ return_pending ──(pickup staff take it in)──▶ returned_to_point ──(seller confirms the item is back)──▶ refunded
+                                                          └──────────────────(seller confirms it directly)───────────────────────────────────────────▶ refunded
+active ──(refund approved, reason needs no return: never_arrived)──────────────────────────────────────────────────────────────────────────────────────▶ refunded
 ```
 
 `physical_return_received_at` records when the seller confirmed the item back.
+`returned_to_point` means the buyer handed the item in at the pickup point they collected the
+order at (`RefundRequestRead.point_received_at`); it's on its way back to the seller and **no money has moved yet**.
 A pending or rejected refund request leaves the line `active`.
 
 ### Cash on Delivery is a first-class payment method with different timing
@@ -182,7 +185,13 @@ on `reason_code`:
   nothing yet. When the item arrives, the seller calls
   `POST /seller/refund-requests/{id}/confirm-return` (`{ condition_note? }`):
   line → `refunded`, ledger entries written. `400` unless the request is
-  `approved` and its line is `return_pending`.
+  `approved` and its line is `return_pending` or `returned_to_point`.
+- **How the buyer brings the item back:** to the pickup point the order was
+  collected at (the order's `pickup_point`). While the line is `return_pending`,
+  `OrderLineRead.refund_request.return_point` holds that point; show "Bring the item
+  to {name}". The pickup staff record it (`POST /pickup-staff/returns/{id}/receive`,
+  see the logistics doc), the line becomes `returned_to_point`, and the UI says the
+  item was handed in and the refund follows once the seller has it.
 - The "shipping refunded" column isn't applied yet: `shipping_fee` is always
   `0` until logistics sets real fees. The planned rule (not final) is to refund
   the group's shipping once, when its last line is refunded.
@@ -217,13 +226,10 @@ shipping fee, per the table above.
 
 Buyers can only request a refund/return on a **delivered** line, within a
 window that's **category-specific** (falls back to a 14-day platform
-default if the category doesn't set one — this isn't exposed to the
-frontend directly; the API just returns `400` with a clear message once the
-window has passed). There's no endpoint to check the remaining window
-in advance — if you want to show a countdown, you'd need the category's
-`return_window_days` from `GET /seller/categories/{id}` /
-`GET /admin/categories/{id}` (Doc 02/03 API) combined with the
-group's `delivered_at`.
+default if the category doesn't set one). Each line carries its own
+`return_deadline` (`delivered_at` + that window), so the client needs no category
+lookup; it can differ between lines of one group. The API still returns `400`
+with a clear message once the window has passed.
 
 ---
 
@@ -296,10 +302,10 @@ no saved-recipient feature yet; prefill from the user's profile if you have it.
 | PATCH | `/cart/items/{id}` | `{ quantity }` (sets it) → `CartItemRead`. Also sets `price_snapshot` to the current price |
 | DELETE | `/cart/items/{id}` | `204` |
 | POST | `/checkout` | See §2 |
-| GET | `/orders` | Buyer's own orders, all shops |
+| GET | `/orders` | Buyer's own orders, all shops, newest first. Query: `status` (`OrderStatus`, repeatable; omit for all), `skip` (default `0`), `limit` (default `50`, max `100`). Total match count in the `X-Total-Count` header |
 | GET | `/orders/{id}` | Full detail incl. all shop groups |
-| POST | `/orders/{id}/groups/{group_id}/cancel` | `{ reason }` — only while group is `pending`/`confirmed` |
-| POST | `/order-lines/{id}/refund-request` | `{ reason_code, reason_text?, evidence_urls? }` — line must belong to a `delivered` group, within the return window. `refund_amount` is set to the line's `line_total` (see "Refunds are all-or-nothing") |
+| POST | `/orders/{id}/groups/{group_id}/cancel` | `{ reason }` — only while group is `pending`/`confirmed`. Returns the buyer-facing `OrderShopGroupRead` (no commission or payout fields) |
+| POST | `/order-lines/{id}/refund-request` | `{ reason_code, reason_text?, evidence_keys? }` — `evidence_keys` are at most 5 keys from `POST /uploads?purpose=refund_evidence` (photos; matters most for `defective`, `not_as_described`, `wrong_item`), the same rule as other upload keys (yours, right purpose, else `400`). Line must belong to a `delivered` group, within the return window. `refund_amount` is set to the line's `line_total` (see "Refunds are all-or-nothing") |
 | GET | `/refund-requests/{id}` | Visible to the requester or the seller who owns the shop |
 | POST | `/refund-requests/{id}/escalate` | Call when a buyer disputes a seller's rejection. Only on a `rejected` request that hasn't been escalated before (`escalated_at` is null) |
 
@@ -443,6 +449,7 @@ Returned in `CartRead.items` and by `POST /cart/items` / `PATCH /cart/items/{id}
   id: number
   order_id: number
   shop_id: number
+  shop: { id: number, slug: string, name: string, logo_url: string | null }   // ShopSummaryRead, same as the cart
   status: "pending" | "confirmed" | "preparing" | "at_warehouse" | "shipped" | "delivered" | "cancelled"
         | "return_requested" | "partially_refunded" | "refunded"   // refund rollup, see §1
         | "arrived_at_point" | "partially_collected" | "rejected_by_buyer" | "return_to_seller"
@@ -456,9 +463,12 @@ Returned in `CartRead.items` and by `POST /cart/items` / `PATCH /cart/items/{id}
   updated_at: string
 }
 ```
+`shop` is the shop's *current* name and logo, not a snapshot, and is still
+returned if the shop has closed since.
+
 Seller/admin views (`GET /seller/order-groups/{id}`, `GET /admin/orders/{id}`)
 return the same shape **plus** `commission_total` and `payout_amount` —
-never shown to buyers.
+never shown to buyers — but **without** `shop`.
 
 ### `OrderLineRead` (buyer-facing)
 ```ts
@@ -471,12 +481,39 @@ never shown to buyers.
   unit_price: string
   quantity: number
   line_total: string
-  status: "active" | "return_pending" | "refunded"
+  status: "active" | "return_pending" | "returned_to_point" | "refunded"
   physical_return_received_at: string | null
   created_at: string
+  image_url: string | null         // the variant's first image, else the product's primary image (current, not a snapshot)
+  variant_attributes: Record<string, string | number | boolean> | null   // the variant's current attributes; null for non-variant products
+  product_slug: string | null      // current slug; null when the product isn't visible any more (hide the link)
+  return_deadline: string | null   // last moment a refund can be requested; null until the group is delivered
+  refund_request: {                // the line's latest request; null if it never had one
+    id: number
+    status: "pending" | "approved" | "rejected" | "escalated_to_admin"
+    reason_code: RefundReasonCode
+    created_at: string
+    resolved_at: string | null
+    escalated_at: string | null
+    resolution_note: string | null  // the reason when rejected — show it before offering "escalate"
+    return_point: PickupPoint | null  // the point to bring the item to, only while the line is `return_pending`
+    point_received_at: string | null  // when pickup staff took the item in
+  } | null
 }
 ```
-Seller/admin lines additionally include `seller_sku_snapshot` (the seller's own
+
+Link a line to `/shops/{group.shop.slug}/{product_slug}` when `product_slug` is set.
+
+Reading a line's return state: `return_deadline` passed → hide "Return this item". A
+`refund_request` with `pending` or `escalated_to_admin` → show "Return requested" and
+hide the button. `rejected` with `escalated_at: null` → show the note and offer
+`POST /refund-requests/{id}/escalate`. `rejected` with `escalated_at` set → final.
+A line can have several requests over time: only a `pending` or `escalated_to_admin`
+request blocks a new one, so after a rejection the buyer may submit another. The API
+does not stop a new request after an admin's final rejection either. `refund_request` is
+always the most recent one.
+
+Seller/admin lines do not have the three product fields above. They additionally include `seller_sku_snapshot` (the seller's own
 code at purchase, informational only; may be `null`), `commission_rule_id` and
 `commission_amount` (both `null` on a COD line until the group is
 `delivered` — see §1).
@@ -490,10 +527,13 @@ code at purchase, informational only; may be `null`), `commission_rule_id` and
   status: "pending" | "approved" | "rejected" | "escalated_to_admin",
   refund_amount: string,  // always the line's full line_total, never edited
   who_bears_cost: "seller" | "platform" | null,  // null until approved
-  evidence_urls: string[] | null,
+  evidence: { key: string, url: string }[],   // the buyer's photos; `url` is signed and lasts 15 minutes — display it, don't store it
+  evidence_urls: string[] | null,              // legacy: free-form URLs from before uploads existed; no longer written
   resolved_by: number | null,
   resolved_at: string | null,
   escalated_at: string | null,  // set when the buyer escalated; only once
+  resolution_note: string | null,  // the seller's or admin's reason when rejected; null otherwise
+  point_received_at: string | null,  // when pickup staff took the returned item in
   created_at: string,
 }
 ```
@@ -557,5 +597,7 @@ requested window. Don't sum `entries` yourself and expect it to equal
 - Shipping fee is always `0` — logistics/rate calculation is a separate future doc.
 - Admins can't yet waive the physical return or override the shipping rule on
   a single request (planned for `other`).
-- Returns delivered to a pickup point instead of the seller have no
-  confirm-return path for pickup-point staff yet; the seller confirms.
+- Pickup staff can record a return being handed in, but that doesn't release the
+  refund: the seller still confirms with `confirm-return` once the item reaches
+  them. Nothing ships returned items from the point back to the seller yet (see the
+  logistics doc, reverse logistics).

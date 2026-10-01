@@ -26,10 +26,14 @@ All URIs are relative to *http://localhost:8000*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AuthAPI* | [**changeMyPasswordApiV1AuthMePasswordPost**](docs/AuthAPI.md#changemypasswordapiv1authmepasswordpost) | **POST** /api/v1/auth/me/password | Change My Password
+*AuthAPI* | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](docs/AuthAPI.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** /api/v1/auth/password-reset/confirm | Confirm Password Reset
 *AuthAPI* | [**getMeApiV1AuthMeGet**](docs/AuthAPI.md#getmeapiv1authmeget) | **GET** /api/v1/auth/me | Get Me
 *AuthAPI* | [**loginApiV1AuthLoginPost**](docs/AuthAPI.md#loginapiv1authloginpost) | **POST** /api/v1/auth/login | Login
 *AuthAPI* | [**logoutApiV1AuthLogoutPost**](docs/AuthAPI.md#logoutapiv1authlogoutpost) | **POST** /api/v1/auth/logout | Logout
 *AuthAPI* | [**registerApiV1AuthRegisterPost**](docs/AuthAPI.md#registerapiv1authregisterpost) | **POST** /api/v1/auth/register | Register
+*AuthAPI* | [**requestPasswordResetApiV1AuthPasswordResetRequestPost**](docs/AuthAPI.md#requestpasswordresetapiv1authpasswordresetrequestpost) | **POST** /api/v1/auth/password-reset/request | Request Password Reset
+*AuthAPI* | [**updateMeApiV1AuthMePatch**](docs/AuthAPI.md#updatemeapiv1authmepatch) | **PATCH** /api/v1/auth/me | Update Me
 *CategoriesAPI* | [**commissionPreviewApiV1SellerShopsShopIdCommissionPreviewGet**](docs/CategoriesAPI.md#commissionpreviewapiv1sellershopsshopidcommissionpreviewget) | **GET** /api/v1/seller/shops/{shop_id}/commission-preview | Commission Preview
 *CategoriesAPI* | [**confirmCategoryDeactivationApiV1AdminCategoriesCategoryIdDeactivateConfirmPost**](docs/CategoriesAPI.md#confirmcategorydeactivationapiv1admincategoriescategoryiddeactivateconfirmpost) | **POST** /api/v1/admin/categories/{category_id}/deactivate/confirm | Confirm Category Deactivation
 *CategoriesAPI* | [**createCategoryApiV1AdminCategoriesPost**](docs/CategoriesAPI.md#createcategoryapiv1admincategoriespost) | **POST** /api/v1/admin/categories | Create Category
@@ -68,12 +72,14 @@ Class | Method | HTTP request | Description
 *LogisticsAPI* | [**listReconciliationsAdminApiV1AdminReconciliationsGet**](docs/LogisticsAPI.md#listreconciliationsadminapiv1adminreconciliationsget) | **GET** /api/v1/admin/reconciliations | List Reconciliations Admin
 *LogisticsAPI* | [**listRegionsAdminApiV1AdminRegionsGet**](docs/LogisticsAPI.md#listregionsadminapiv1adminregionsget) | **GET** /api/v1/admin/regions | List Regions Admin
 *LogisticsAPI* | [**listRegionsApiV1RegionsGet**](docs/LogisticsAPI.md#listregionsapiv1regionsget) | **GET** /api/v1/regions | List Regions
+*LogisticsAPI* | [**listReturnsForStaffApiV1PickupStaffReturnsGet**](docs/LogisticsAPI.md#listreturnsforstaffapiv1pickupstaffreturnsget) | **GET** /api/v1/pickup-staff/returns | List Returns For Staff
 *LogisticsAPI* | [**listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet**](docs/LogisticsAPI.md#listshipmentdiscrepanciesadminapiv1adminshipmentsget) | **GET** /api/v1/admin/shipments | List Shipment Discrepancies Admin
 *LogisticsAPI* | [**listShipmentsForStaffApiV1PickupStaffShipmentsGet**](docs/LogisticsAPI.md#listshipmentsforstaffapiv1pickupstaffshipmentsget) | **GET** /api/v1/pickup-staff/shipments | List Shipments For Staff
 *LogisticsAPI* | [**listWarehouseInboundApiV1WarehouseInboundGet**](docs/LogisticsAPI.md#listwarehouseinboundapiv1warehouseinboundget) | **GET** /api/v1/warehouse/inbound | List Warehouse Inbound
 *LogisticsAPI* | [**listWarehouseOutboundApiV1WarehouseOutboundGet**](docs/LogisticsAPI.md#listwarehouseoutboundapiv1warehouseoutboundget) | **GET** /api/v1/warehouse/outbound | List Warehouse Outbound
 *LogisticsAPI* | [**listWarehouseShipmentsApiV1WarehouseShipmentsGet**](docs/LogisticsAPI.md#listwarehouseshipmentsapiv1warehouseshipmentsget) | **GET** /api/v1/warehouse/shipments | List Warehouse Shipments
 *LogisticsAPI* | [**receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost**](docs/LogisticsAPI.md#receiveordergroupapiv1warehouseordergroupsgroupidreceivepost) | **POST** /api/v1/warehouse/order-groups/{group_id}/receive | Receive Order Group
+*LogisticsAPI* | [**receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost**](docs/LogisticsAPI.md#receivereturnapiv1pickupstaffreturnsrefundrequestidreceivepost) | **POST** /api/v1/pickup-staff/returns/{refund_request_id}/receive | Receive Return
 *LogisticsAPI* | [**rejectHoldingItemsApiV1PickupStaffHoldingsHoldingIdRejectPost**](docs/LogisticsAPI.md#rejectholdingitemsapiv1pickupstaffholdingsholdingidrejectpost) | **POST** /api/v1/pickup-staff/holdings/{holding_id}/reject | Reject Holding Items
 *LogisticsAPI* | [**resolveReconciliationAdminApiV1AdminReconciliationsReconciliationIdResolvePatch**](docs/LogisticsAPI.md#resolvereconciliationadminapiv1adminreconciliationsreconciliationidresolvepatch) | **PATCH** /api/v1/admin/reconciliations/{reconciliation_id}/resolve | Resolve Reconciliation Admin
 *LogisticsAPI* | [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](docs/LogisticsAPI.md#resolveshipmentdiscrepancyapiv1adminshipmentsshipmentidresolvediscrepancypatch) | **PATCH** /api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy
@@ -81,6 +87,8 @@ Class | Method | HTTP request | Description
 *LogisticsAPI* | [**updatePickupPointApiV1AdminPickupPointsPointIdPatch**](docs/LogisticsAPI.md#updatepickuppointapiv1adminpickuppointspointidpatch) | **PATCH** /api/v1/admin/pickup-points/{point_id} | Update Pickup Point
 *LogisticsAPI* | [**updatePickupPointStatusApiV1AdminPickupPointsPointIdStatusPatch**](docs/LogisticsAPI.md#updatepickuppointstatusapiv1adminpickuppointspointidstatuspatch) | **PATCH** /api/v1/admin/pickup-points/{point_id}/status | Update Pickup Point Status
 *LogisticsAPI* | [**updatePickupStaffRoleApiV1PickupStaffStaffStaffIdRolePatch**](docs/LogisticsAPI.md#updatepickupstaffroleapiv1pickupstaffstaffstaffidrolepatch) | **PATCH** /api/v1/pickup-staff/staff/{staff_id}/role | Update Pickup Staff Role
+*NotificationsAPI* | [**registerDeviceApiV1DevicesPut**](docs/NotificationsAPI.md#registerdeviceapiv1devicesput) | **PUT** /api/v1/devices | Register Device
+*NotificationsAPI* | [**unregisterDeviceApiV1DevicesDelete**](docs/NotificationsAPI.md#unregisterdeviceapiv1devicesdelete) | **DELETE** /api/v1/devices | Unregister Device
 *OrdersAPI* | [**addCartItemApiV1CartItemsPost**](docs/OrdersAPI.md#addcartitemapiv1cartitemspost) | **POST** /api/v1/cart/items | Add Cart Item
 *OrdersAPI* | [**approveRefundRequestApiV1SellerRefundRequestsRefundIdApprovePatch**](docs/OrdersAPI.md#approverefundrequestapiv1sellerrefundrequestsrefundidapprovepatch) | **PATCH** /api/v1/seller/refund-requests/{refund_id}/approve | Approve Refund Request
 *OrdersAPI* | [**cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost**](docs/OrdersAPI.md#cancelordergroupapiv1ordersorderidgroupsgroupidcancelpost) | **POST** /api/v1/orders/{order_id}/groups/{group_id}/cancel | Cancel Order Group
@@ -244,6 +252,7 @@ Class | Method | HTTP request | Description
  - [CategoryNodeRead](docs/CategoryNodeRead.md)
  - [CategoryRead](docs/CategoryRead.md)
  - [CategoryUpdate](docs/CategoryUpdate.md)
+ - [ChangePasswordRequest](docs/ChangePasswordRequest.md)
  - [CheckInItemInput](docs/CheckInItemInput.md)
  - [CheckInRequest](docs/CheckInRequest.md)
  - [CheckoutRequest](docs/CheckoutRequest.md)
@@ -260,6 +269,9 @@ Class | Method | HTTP request | Description
  - [DeclareReconciliationRequest](docs/DeclareReconciliationRequest.md)
  - [DeclaredAmount](docs/DeclaredAmount.md)
  - [DelistRequest](docs/DelistRequest.md)
+ - [DevicePlatform](docs/DevicePlatform.md)
+ - [DeviceRead](docs/DeviceRead.md)
+ - [DeviceRegisterRequest](docs/DeviceRegisterRequest.md)
  - [DiscrepancyItemResolution](docs/DiscrepancyItemResolution.md)
  - [DocumentRead](docs/DocumentRead.md)
  - [DocumentReviewRequest](docs/DocumentReviewRequest.md)
@@ -283,6 +295,7 @@ Class | Method | HTTP request | Description
  - [Longitude1](docs/Longitude1.md)
  - [ManualAdjustmentRequest](docs/ManualAdjustmentRequest.md)
  - [MaxAmount](docs/MaxAmount.md)
+ - [MessageResponse](docs/MessageResponse.md)
  - [MinAmount](docs/MinAmount.md)
  - [ModerationAction](docs/ModerationAction.md)
  - [ModerationConfigRead](docs/ModerationConfigRead.md)
@@ -290,15 +303,19 @@ Class | Method | HTTP request | Description
  - [ModerationQueueItemRead](docs/ModerationQueueItemRead.md)
  - [NearbyPickupPointRead](docs/NearbyPickupPointRead.md)
  - [OrderAdminRead](docs/OrderAdminRead.md)
+ - [OrderLineBase](docs/OrderLineBase.md)
  - [OrderLineDetailRead](docs/OrderLineDetailRead.md)
  - [OrderLineRead](docs/OrderLineRead.md)
  - [OrderLineStatus](docs/OrderLineStatus.md)
  - [OrderPickupPointRead](docs/OrderPickupPointRead.md)
  - [OrderRead](docs/OrderRead.md)
+ - [OrderShopGroupBase](docs/OrderShopGroupBase.md)
  - [OrderShopGroupDetailRead](docs/OrderShopGroupDetailRead.md)
  - [OrderShopGroupRead](docs/OrderShopGroupRead.md)
  - [OrderShopGroupStatus](docs/OrderShopGroupStatus.md)
  - [OrderStatus](docs/OrderStatus.md)
+ - [PasswordResetConfirm](docs/PasswordResetConfirm.md)
+ - [PasswordResetRequest](docs/PasswordResetRequest.md)
  - [PaymentMethod](docs/PaymentMethod.md)
  - [PayoutRead](docs/PayoutRead.md)
  - [PayoutRunRequest](docs/PayoutRunRequest.md)
@@ -320,6 +337,7 @@ Class | Method | HTTP request | Description
  - [PickupPointStatusUpdateRequest](docs/PickupPointStatusUpdateRequest.md)
  - [PickupPointType](docs/PickupPointType.md)
  - [PickupPointUpdateRequest](docs/PickupPointUpdateRequest.md)
+ - [PickupReturnRead](docs/PickupReturnRead.md)
  - [PickupStatusItemRead](docs/PickupStatusItemRead.md)
  - [PickupStatusRead](docs/PickupStatusRead.md)
  - [Price](docs/Price.md)
@@ -345,15 +363,18 @@ Class | Method | HTTP request | Description
  - [ProductVariantCreate](docs/ProductVariantCreate.md)
  - [ProductVariantRead](docs/ProductVariantRead.md)
  - [ProductVariantUpdate](docs/ProductVariantUpdate.md)
+ - [ReceiveReturnRequest](docs/ReceiveReturnRequest.md)
  - [Recipient](docs/Recipient.md)
  - [ReconciliationRead](docs/ReconciliationRead.md)
  - [RefundApproveRequest](docs/RefundApproveRequest.md)
  - [RefundConfirmReturnRequest](docs/RefundConfirmReturnRequest.md)
  - [RefundDecision](docs/RefundDecision.md)
+ - [RefundEvidenceRead](docs/RefundEvidenceRead.md)
  - [RefundReasonCode](docs/RefundReasonCode.md)
  - [RefundRejectRequest](docs/RefundRejectRequest.md)
  - [RefundRequestCreate](docs/RefundRequestCreate.md)
  - [RefundRequestRead](docs/RefundRequestRead.md)
+ - [RefundRequestSummaryRead](docs/RefundRequestSummaryRead.md)
  - [RefundRequestedBy](docs/RefundRequestedBy.md)
  - [RefundResolveRequest](docs/RefundResolveRequest.md)
  - [RefundStatus](docs/RefundStatus.md)
@@ -387,6 +408,7 @@ Class | Method | HTTP request | Description
  - [TokenResponse](docs/TokenResponse.md)
  - [TranslationIn](docs/TranslationIn.md)
  - [TranslationRead](docs/TranslationRead.md)
+ - [UpdateProfileRequest](docs/UpdateProfileRequest.md)
  - [UpdateShopLimitRequest](docs/UpdateShopLimitRequest.md)
  - [UpdateStaffRoleRequest](docs/UpdateStaffRoleRequest.md)
  - [UploadPurpose](docs/UploadPurpose.md)

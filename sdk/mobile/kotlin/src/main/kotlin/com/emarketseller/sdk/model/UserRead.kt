@@ -35,6 +35,7 @@ import kotlinx.serialization.Contextual
  * @param id 
  * @param isActive 
  * @param fullName 
+ * @param phone 
  * @param roles 
  */
 @Serializable
@@ -52,6 +53,9 @@ data class UserRead (
 
     @SerialName(value = "full_name")
     val fullName: kotlin.String? = null,
+
+    @SerialName(value = "phone")
+    val phone: kotlin.String? = null,
 
     @SerialName(value = "roles")
     val roles: kotlin.collections.List<kotlin.String>? = null

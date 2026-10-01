@@ -9,20 +9,21 @@ import Foundation
 
 public struct RefundRequestCreate: Sendable, Codable, Hashable {
 
+    public static let evidenceKeysRule = ArrayRule(minItems: nil, maxItems: 5, uniqueItems: false)
     public var reasonCode: RefundReasonCode
     public var reasonText: String?
-    public var evidenceUrls: [String]?
+    public var evidenceKeys: [String]?
 
-    public init(reasonCode: RefundReasonCode, reasonText: String? = nil, evidenceUrls: [String]? = nil) {
+    public init(reasonCode: RefundReasonCode, reasonText: String? = nil, evidenceKeys: [String]? = nil) {
         self.reasonCode = reasonCode
         self.reasonText = reasonText
-        self.evidenceUrls = evidenceUrls
+        self.evidenceKeys = evidenceKeys
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case reasonCode = "reason_code"
         case reasonText = "reason_text"
-        case evidenceUrls = "evidence_urls"
+        case evidenceKeys = "evidence_keys"
     }
 
     // Encodable protocol methods
@@ -31,7 +32,7 @@ public struct RefundRequestCreate: Sendable, Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(reasonCode, forKey: .reasonCode)
         try container.encodeIfPresent(reasonText, forKey: .reasonText)
-        try container.encodeIfPresent(evidenceUrls, forKey: .evidenceUrls)
+        try container.encodeIfPresent(evidenceKeys, forKey: .evidenceKeys)
     }
 }
 

@@ -23,7 +23,9 @@
 
 package com.emarketseller.sdk.model
 
+import com.emarketseller.sdk.model.AttributesValue
 import com.emarketseller.sdk.model.OrderLineStatus
+import com.emarketseller.sdk.model.RefundRequestSummaryRead
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -43,6 +45,11 @@ import kotlinx.serialization.Contextual
  * @param status 
  * @param physicalReturnReceivedAt 
  * @param createdAt 
+ * @param imageUrl 
+ * @param variantAttributes 
+ * @param productSlug 
+ * @param returnDeadline 
+ * @param refundRequest 
  */
 @Serializable
 
@@ -79,7 +86,22 @@ data class OrderLineRead (
     val physicalReturnReceivedAt: java.time.OffsetDateTime?,
 
     @Contextual @SerialName(value = "created_at")
-    val createdAt: java.time.OffsetDateTime
+    val createdAt: java.time.OffsetDateTime,
+
+    @SerialName(value = "image_url")
+    val imageUrl: kotlin.String?,
+
+    @Contextual @SerialName(value = "variant_attributes")
+    val variantAttributes: kotlin.collections.Map<kotlin.String, AttributesValue>?,
+
+    @SerialName(value = "product_slug")
+    val productSlug: kotlin.String?,
+
+    @Contextual @SerialName(value = "return_deadline")
+    val returnDeadline: java.time.OffsetDateTime?,
+
+    @SerialName(value = "refund_request")
+    val refundRequest: RefundRequestSummaryRead?
 
 ) {
 

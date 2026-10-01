@@ -17,9 +17,9 @@ public struct WarehouseGroupRead: Sendable, Codable, Hashable {
     public var status: OrderShopGroupStatus
     public var pickupPointId: Int?
     public var warehouseReceivedAt: Date?
-    public var lines: [OrderLineRead]
+    public var lines: [OrderLineBase]
 
-    public init(id: Int, orderId: Int, orderNumber: String, shopId: Int, status: OrderShopGroupStatus, pickupPointId: Int?, warehouseReceivedAt: Date?, lines: [OrderLineRead]) {
+    public init(id: Int, orderId: Int, orderNumber: String, shopId: Int, status: OrderShopGroupStatus, pickupPointId: Int?, warehouseReceivedAt: Date?, lines: [OrderLineBase]) {
         self.id = id
         self.orderId = orderId
         self.orderNumber = orderNumber

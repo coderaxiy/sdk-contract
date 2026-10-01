@@ -23,12 +23,14 @@ Method | HTTP request | Description
 [**listReconciliationsAdminApiV1AdminReconciliationsGet**](LogisticsAPI.md#listreconciliationsadminapiv1adminreconciliationsget) | **GET** /api/v1/admin/reconciliations | List Reconciliations Admin
 [**listRegionsAdminApiV1AdminRegionsGet**](LogisticsAPI.md#listregionsadminapiv1adminregionsget) | **GET** /api/v1/admin/regions | List Regions Admin
 [**listRegionsApiV1RegionsGet**](LogisticsAPI.md#listregionsapiv1regionsget) | **GET** /api/v1/regions | List Regions
+[**listReturnsForStaffApiV1PickupStaffReturnsGet**](LogisticsAPI.md#listreturnsforstaffapiv1pickupstaffreturnsget) | **GET** /api/v1/pickup-staff/returns | List Returns For Staff
 [**listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet**](LogisticsAPI.md#listshipmentdiscrepanciesadminapiv1adminshipmentsget) | **GET** /api/v1/admin/shipments | List Shipment Discrepancies Admin
 [**listShipmentsForStaffApiV1PickupStaffShipmentsGet**](LogisticsAPI.md#listshipmentsforstaffapiv1pickupstaffshipmentsget) | **GET** /api/v1/pickup-staff/shipments | List Shipments For Staff
 [**listWarehouseInboundApiV1WarehouseInboundGet**](LogisticsAPI.md#listwarehouseinboundapiv1warehouseinboundget) | **GET** /api/v1/warehouse/inbound | List Warehouse Inbound
 [**listWarehouseOutboundApiV1WarehouseOutboundGet**](LogisticsAPI.md#listwarehouseoutboundapiv1warehouseoutboundget) | **GET** /api/v1/warehouse/outbound | List Warehouse Outbound
 [**listWarehouseShipmentsApiV1WarehouseShipmentsGet**](LogisticsAPI.md#listwarehouseshipmentsapiv1warehouseshipmentsget) | **GET** /api/v1/warehouse/shipments | List Warehouse Shipments
 [**receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost**](LogisticsAPI.md#receiveordergroupapiv1warehouseordergroupsgroupidreceivepost) | **POST** /api/v1/warehouse/order-groups/{group_id}/receive | Receive Order Group
+[**receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost**](LogisticsAPI.md#receivereturnapiv1pickupstaffreturnsrefundrequestidreceivepost) | **POST** /api/v1/pickup-staff/returns/{refund_request_id}/receive | Receive Return
 [**rejectHoldingItemsApiV1PickupStaffHoldingsHoldingIdRejectPost**](LogisticsAPI.md#rejectholdingitemsapiv1pickupstaffholdingsholdingidrejectpost) | **POST** /api/v1/pickup-staff/holdings/{holding_id}/reject | Reject Holding Items
 [**resolveReconciliationAdminApiV1AdminReconciliationsReconciliationIdResolvePatch**](LogisticsAPI.md#resolvereconciliationadminapiv1adminreconciliationsreconciliationidresolvepatch) | **PATCH** /api/v1/admin/reconciliations/{reconciliation_id}/resolve | Resolve Reconciliation Admin
 [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](LogisticsAPI.md#resolveshipmentdiscrepancyapiv1adminshipmentsshipmentidresolvediscrepancypatch) | **PATCH** /api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy
@@ -982,6 +984,56 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **listReturnsForStaffApiV1PickupStaffReturnsGet**
+```swift
+    open class func listReturnsForStaffApiV1PickupStaffReturnsGet(accessToken: String? = nil, completion: @escaping (_ data: [PickupReturnRead]?, _ error: Error?) -> Void)
+```
+
+List Returns For Staff
+
+Approved returns for orders collected at this point, waiting for the buyer to hand the item in.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let accessToken = "accessToken_example" // String |  (optional)
+
+// List Returns For Staff
+LogisticsAPI.listReturnsForStaffApiV1PickupStaffReturnsGet(accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**[PickupReturnRead]**](PickupReturnRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet**
 ```swift
     open class func listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet(status: PickupPointShipmentStatus? = nil, accessToken: String? = nil, completion: @escaping (_ data: [ShipmentRead]?, _ error: Error?) -> Void)
@@ -1238,7 +1290,7 @@ No authorization required
 
 # **receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost**
 ```swift
-    open class func receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId: Int, accessToken: String? = nil, completion: @escaping (_ data: OrderShopGroupRead?, _ error: Error?) -> Void)
+    open class func receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId: Int, accessToken: String? = nil, completion: @escaping (_ data: OrderShopGroupBase?, _ error: Error?) -> Void)
 ```
 
 Receive Order Group
@@ -1273,7 +1325,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OrderShopGroupRead**](OrderShopGroupRead.md)
+[**OrderShopGroupBase**](OrderShopGroupBase.md)
 
 ### Authorization
 
@@ -1282,6 +1334,60 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost**
+```swift
+    open class func receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost(refundRequestId: Int, receiveReturnRequest: ReceiveReturnRequest, accessToken: String? = nil, completion: @escaping (_ data: RefundRequestRead?, _ error: Error?) -> Void)
+```
+
+Receive Return
+
+Take in a returned item. The line becomes `returned_to_point`; the seller's confirm-return still releases the refund.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let refundRequestId = 987 // Int | 
+let receiveReturnRequest = ReceiveReturnRequest(conditionNote: "conditionNote_example") // ReceiveReturnRequest | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Receive Return
+LogisticsAPI.receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost(refundRequestId: refundRequestId, receiveReturnRequest: receiveReturnRequest, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **refundRequestId** | **Int** |  | 
+ **receiveReturnRequest** | [**ReceiveReturnRequest**](ReceiveReturnRequest.md) |  | 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**RefundRequestRead**](RefundRequestRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

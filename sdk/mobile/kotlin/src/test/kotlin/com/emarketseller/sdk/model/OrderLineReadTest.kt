@@ -27,7 +27,9 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.model.OrderLineRead
+import com.emarketseller.sdk.model.AttributesValue
 import com.emarketseller.sdk.model.OrderLineStatus
+import com.emarketseller.sdk.model.RefundRequestSummaryRead
 
 class OrderLineReadTest : ShouldSpec() {
     init {
@@ -98,6 +100,36 @@ class OrderLineReadTest : ShouldSpec() {
         should("test createdAt") {
             // uncomment below to test the property
             //modelInstance.createdAt shouldBe ("TODO")
+        }
+
+        // to test the property `imageUrl`
+        should("test imageUrl") {
+            // uncomment below to test the property
+            //modelInstance.imageUrl shouldBe ("TODO")
+        }
+
+        // to test the property `variantAttributes`
+        should("test variantAttributes") {
+            // uncomment below to test the property
+            //modelInstance.variantAttributes shouldBe ("TODO")
+        }
+
+        // to test the property `productSlug`
+        should("test productSlug") {
+            // uncomment below to test the property
+            //modelInstance.productSlug shouldBe ("TODO")
+        }
+
+        // to test the property `returnDeadline`
+        should("test returnDeadline") {
+            // uncomment below to test the property
+            //modelInstance.returnDeadline shouldBe ("TODO")
+        }
+
+        // to test the property `refundRequest`
+        should("test refundRequest") {
+            // uncomment below to test the property
+            //modelInstance.refundRequest shouldBe ("TODO")
         }
 
     }

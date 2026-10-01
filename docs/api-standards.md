@@ -14,6 +14,37 @@ All paths are under `/api/v1`, e.g. `GET /api/v1/seller/me`. Local dev:
 ## Auth
 
 - `POST /auth/register`, `POST /auth/login`, `POST /auth/logout`, `GET /auth/me`.
+- **Account self-service** (any logged-in user):
+  - `PATCH /auth/me` — `{ full_name?, phone? }` → `UserRead`. Send only what changes; `phone: null`
+    clears the saved number (`phone` is on `UserRead`, `null` by default, 5–30 chars). Both are trimmed.
+    Email can't be changed here.
+  - `POST /auth/me/password` — `{ current_password, new_password }`. `400` with a message
+    (`"Current password is incorrect"`, or the new one equals the old); `422` if `new_password` is
+    shorter than 8 characters or longer than 72 bytes. On success **every other session is signed out**
+    (their next request gets `401 "Session expired — log in again"`) and the response sets a fresh
+    `access_token` cookie, so the current session carries on. Registering has no length rule yet.
+  - `PATCH /users/{id}` and `POST /users/{id}/password` are **admin** endpoints (`users:manage`);
+    an admin setting a password also signs that user's sessions out.
+- **Forgotten password** (public, no login):
+  1. `POST /auth/password-reset/request` — `{ email }` → always `202 { message }`, whether or not the
+     account exists (no account enumeration). If it does, a **6-digit code** is emailed (Uzbek, Russian and
+     English in one message), valid for **15 minutes**. At most 3 codes per account per hour; asking again
+     replaces the previous code.
+  2. `POST /auth/password-reset/confirm` — `{ email, code, new_password }` → `200 { message }`. Show an
+     input for the code (there is no link, so **no deep-link handling** is needed). `400 "Invalid or expired
+     code"` for a wrong, expired or used code, and for a code guessed wrong 5 times (request a new one).
+     `422` for a malformed code (not 6 digits) or a short password (same rule as `POST /auth/me/password`).
+     Success signs out every session of that user; it does **not** log in, so send them to the login screen.
+  Email is sent through `EMAIL_BACKEND`: `console` (default, logs the message at WARNING, local dev only)
+  or `smtp` (`SMTP_*` and `EMAIL_FROM` in `.env`). Production needs an SMTP relay before this works for real users.
+- **Session lifetime.** The `access_token` cookie is a JWT that lasts **7 days from login**
+  (`Max-Age=604800`, so it is a *persistent* cookie, not a session cookie: it survives closing the
+  browser and restarting an app, as long as the client's cookie store keeps persistent cookies). The
+  lifetime is **fixed, not sliding** — using the app does not extend it — and there is **no refresh
+  endpoint**. After 7 days any request returns `401` and the client sends the user to login. Other
+  ways a session ends: `POST /auth/logout` (clears the cookie on that client only; the JWT itself is not
+  revoked) and a password change (see above). Cookie flags: `HttpOnly`, `SameSite=Lax` by default,
+  `Secure` in production.
 - Login sets an **httpOnly cookie** named `access_token`. There's no token to
   store on the web — send every request with credentials included
   (`fetch(url, { credentials: 'include' })` / `axios.defaults.withCredentials = true`).

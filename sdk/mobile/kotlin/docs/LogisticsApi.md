@@ -23,12 +23,14 @@ All URIs are relative to *http://localhost:8000*
 | [**listReconciliationsAdminApiV1AdminReconciliationsGet**](LogisticsApi.md#listReconciliationsAdminApiV1AdminReconciliationsGet) | **GET** api/v1/admin/reconciliations | List Reconciliations Admin |
 | [**listRegionsAdminApiV1AdminRegionsGet**](LogisticsApi.md#listRegionsAdminApiV1AdminRegionsGet) | **GET** api/v1/admin/regions | List Regions Admin |
 | [**listRegionsApiV1RegionsGet**](LogisticsApi.md#listRegionsApiV1RegionsGet) | **GET** api/v1/regions | List Regions |
+| [**listReturnsForStaffApiV1PickupStaffReturnsGet**](LogisticsApi.md#listReturnsForStaffApiV1PickupStaffReturnsGet) | **GET** api/v1/pickup-staff/returns | List Returns For Staff |
 | [**listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet**](LogisticsApi.md#listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet) | **GET** api/v1/admin/shipments | List Shipment Discrepancies Admin |
 | [**listShipmentsForStaffApiV1PickupStaffShipmentsGet**](LogisticsApi.md#listShipmentsForStaffApiV1PickupStaffShipmentsGet) | **GET** api/v1/pickup-staff/shipments | List Shipments For Staff |
 | [**listWarehouseInboundApiV1WarehouseInboundGet**](LogisticsApi.md#listWarehouseInboundApiV1WarehouseInboundGet) | **GET** api/v1/warehouse/inbound | List Warehouse Inbound |
 | [**listWarehouseOutboundApiV1WarehouseOutboundGet**](LogisticsApi.md#listWarehouseOutboundApiV1WarehouseOutboundGet) | **GET** api/v1/warehouse/outbound | List Warehouse Outbound |
 | [**listWarehouseShipmentsApiV1WarehouseShipmentsGet**](LogisticsApi.md#listWarehouseShipmentsApiV1WarehouseShipmentsGet) | **GET** api/v1/warehouse/shipments | List Warehouse Shipments |
 | [**receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost**](LogisticsApi.md#receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost) | **POST** api/v1/warehouse/order-groups/{group_id}/receive | Receive Order Group |
+| [**receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost**](LogisticsApi.md#receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost) | **POST** api/v1/pickup-staff/returns/{refund_request_id}/receive | Receive Return |
 | [**rejectHoldingItemsApiV1PickupStaffHoldingsHoldingIdRejectPost**](LogisticsApi.md#rejectHoldingItemsApiV1PickupStaffHoldingsHoldingIdRejectPost) | **POST** api/v1/pickup-staff/holdings/{holding_id}/reject | Reject Holding Items |
 | [**resolveReconciliationAdminApiV1AdminReconciliationsReconciliationIdResolvePatch**](LogisticsApi.md#resolveReconciliationAdminApiV1AdminReconciliationsReconciliationIdResolvePatch) | **PATCH** api/v1/admin/reconciliations/{reconciliation_id}/resolve | Resolve Reconciliation Admin |
 | [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](LogisticsApi.md#resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch) | **PATCH** api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy |
@@ -775,6 +777,45 @@ No authorization required
  - **Accept**: application/json
 
 
+List Returns For Staff
+
+Approved returns for orders collected at this point, waiting for the buyer to hand the item in.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : kotlin.collections.List<PickupReturnRead> = webService.listReturnsForStaffApiV1PickupStaffReturnsGet(accessToken)
+}
+```
+
+### Parameters
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**kotlin.collections.List&lt;PickupReturnRead&gt;**](PickupReturnRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
 List Shipment Discrepancies Admin
 
 ### Example
@@ -989,7 +1030,7 @@ val groupId : kotlin.Int = 56 // kotlin.Int |
 val accessToken : kotlin.String = accessToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : OrderShopGroupRead = webService.receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId, accessToken)
+    val result : OrderShopGroupBase = webService.receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId, accessToken)
 }
 ```
 
@@ -1001,7 +1042,7 @@ launch(Dispatchers.IO) {
 
 ### Return type
 
-[**OrderShopGroupRead**](OrderShopGroupRead.md)
+[**OrderShopGroupBase**](OrderShopGroupBase.md)
 
 ### Authorization
 
@@ -1010,6 +1051,49 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+Receive Return
+
+Take in a returned item. The line becomes &#x60;returned_to_point&#x60;; the seller&#39;s confirm-return still releases the refund.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val refundRequestId : kotlin.Int = 56 // kotlin.Int | 
+val receiveReturnRequest : ReceiveReturnRequest =  // ReceiveReturnRequest | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : RefundRequestRead = webService.receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost(refundRequestId, receiveReturnRequest, accessToken)
+}
+```
+
+### Parameters
+| **refundRequestId** | **kotlin.Int**|  | |
+| **receiveReturnRequest** | [**ReceiveReturnRequest**](ReceiveReturnRequest.md)|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**RefundRequestRead**](RefundRequestRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 

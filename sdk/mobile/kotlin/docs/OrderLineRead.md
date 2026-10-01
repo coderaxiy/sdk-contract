@@ -15,6 +15,11 @@
 | **status** | [**OrderLineStatus**](OrderLineStatus.md) |  |  |
 | **physicalReturnReceivedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
+| **imageUrl** | **kotlin.String** |  |  |
+| **variantAttributes** | [**kotlin.collections.Map&lt;kotlin.String, AttributesValue&gt;**](AttributesValue.md) |  |  |
+| **productSlug** | **kotlin.String** |  |  |
+| **returnDeadline** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
+| **refundRequest** | [**RefundRequestSummaryRead**](RefundRequestSummaryRead.md) |  |  |
 
 
 

@@ -12,9 +12,10 @@ Name | Type | Description | Notes
 **cancellationReason** | **String** |  | 
 **warehouseReceivedAt** | **Date** |  | 
 **deliveredAt** | **Date** |  | 
-**lines** | [OrderLineRead] |  | [optional] 
 **createdAt** | **Date** |  | 
 **updatedAt** | **Date** |  | 
+**shop** | [**ShopSummaryRead**](ShopSummaryRead.md) |  | 
+**lines** | [OrderLineRead] |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

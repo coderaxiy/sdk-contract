@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **email** | **String** |  | 
 **fullName** | **String** |  | [optional] 
 **id** | **Int** |  | 
+**phone** | **String** |  | [optional] 
 **isActive** | **Bool** |  | 
 **roles** | **[String]** |  | [optional] 
 

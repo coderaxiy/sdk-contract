@@ -142,7 +142,7 @@ No authorization required
 
 # **cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost**
 ```swift
-    open class func cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost(orderId: Int, groupId: Int, cancelGroupRequest: CancelGroupRequest, accessToken: String? = nil, completion: @escaping (_ data: OrderShopGroupDetailRead?, _ error: Error?) -> Void)
+    open class func cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost(orderId: Int, groupId: Int, cancelGroupRequest: CancelGroupRequest, accessToken: String? = nil, completion: @escaping (_ data: OrderShopGroupRead?, _ error: Error?) -> Void)
 ```
 
 Cancel Order Group
@@ -181,7 +181,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OrderShopGroupDetailRead**](OrderShopGroupDetailRead.md)
+[**OrderShopGroupRead**](OrderShopGroupRead.md)
 
 ### Authorization
 
@@ -758,20 +758,25 @@ No authorization required
 
 # **listMyOrdersApiV1OrdersGet**
 ```swift
-    open class func listMyOrdersApiV1OrdersGet(accessToken: String? = nil, completion: @escaping (_ data: [OrderRead]?, _ error: Error?) -> Void)
+    open class func listMyOrdersApiV1OrdersGet(status: [OrderStatus]? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, completion: @escaping (_ data: [OrderRead]?, _ error: Error?) -> Void)
 ```
 
 List My Orders
+
+My orders, newest first. `status` may repeat; the total match count is in `X-Total-Count`.
 
 ### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import EmarketSellerSDK
 
+let status = [OrderStatus()] // [OrderStatus] |  (optional)
+let skip = 987 // Int |  (optional) (default to 0)
+let limit = 987 // Int |  (optional) (default to 50)
 let accessToken = "accessToken_example" // String |  (optional)
 
 // List My Orders
-OrdersAPI.listMyOrdersApiV1OrdersGet(accessToken: accessToken) { (response, error) in
+OrdersAPI.listMyOrdersApiV1OrdersGet(status: status, skip: skip, limit: limit, accessToken: accessToken) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -787,6 +792,9 @@ OrdersAPI.listMyOrdersApiV1OrdersGet(accessToken: accessToken) { (response, erro
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **status** | [**[OrderStatus]**](OrderStatus.md) |  | [optional] 
+ **skip** | **Int** |  | [optional] [default to 0]
+ **limit** | **Int** |  | [optional] [default to 50]
  **accessToken** | **String** |  | [optional] 
 
 ### Return type
@@ -1303,7 +1311,7 @@ Request Refund
 import EmarketSellerSDK
 
 let orderLineId = 987 // Int | 
-let refundRequestCreate = RefundRequestCreate(reasonCode: RefundReasonCode(), reasonText: "reasonText_example", evidenceUrls: ["evidenceUrls_example"]) // RefundRequestCreate | 
+let refundRequestCreate = RefundRequestCreate(reasonCode: RefundReasonCode(), reasonText: "reasonText_example", evidenceKeys: ["evidenceKeys_example"]) // RefundRequestCreate | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Request Refund

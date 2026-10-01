@@ -3,11 +3,11 @@ id: storefront-account-self-service
 title: Buyer account self-service — edit my name, change my password
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: auth
 created: 2026-09-27
-closed:
+closed: 2026-10-01
 reply_to:
 ---
 
@@ -45,3 +45,12 @@ change their password without contacting support.
 - openapi/api.yaml → `/api/v1/auth/me`, `/api/v1/users/{user_id}`,
   `/api/v1/users/{user_id}/password`, `UserUpdate`, `UserPasswordSet`, `UserRead`
 - docs/api-standards.md → "Auth"
+
+## Resolution
+
+Done in the backend (not committed yet); contract exported and SDKs regenerated. Documented in `docs/api-standards.md` (Auth).
+
+- `PATCH /auth/me` — `{ full_name?, phone? }` → `UserRead`. `phone` is new on `UserRead` (`string | null`); `phone: null` clears it. Email change is not included, as agreed.
+- `POST /auth/me/password` — `{ current_password, new_password }`. `400` on a wrong current password. `new_password` needs 8 to 72 bytes; register still has no length rule. Decision on the open question: **other sessions are signed out** (via the new `users.password_changed_at` checked against the token's issue time), and the response sets a fresh cookie, so the current session stays logged in.
+- Admin `POST /users/{id}/password` now signs that user's sessions out too.
+- Existing tokens without an issue time keep working until a password change, and are rejected after one.

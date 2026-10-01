@@ -15,6 +15,7 @@
 | **deliveredAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 | **updatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
+| **shop** | [**ShopSummaryRead**](ShopSummaryRead.md) |  |  |
 | **lines** | [**kotlin.collections.List&lt;OrderLineRead&gt;**](OrderLineRead.md) |  |  [optional] |
 
 

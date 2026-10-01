@@ -57,6 +57,12 @@ class UserReadTest : ShouldSpec() {
             //modelInstance.fullName shouldBe ("TODO")
         }
 
+        // to test the property `phone`
+        should("test phone") {
+            // uncomment below to test the property
+            //modelInstance.phone shouldBe ("TODO")
+        }
+
         // to test the property `roles`
         should("test roles") {
             // uncomment below to test the property

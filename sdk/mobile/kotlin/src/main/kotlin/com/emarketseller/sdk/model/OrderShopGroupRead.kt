@@ -25,6 +25,7 @@ package com.emarketseller.sdk.model
 
 import com.emarketseller.sdk.model.OrderLineRead
 import com.emarketseller.sdk.model.OrderShopGroupStatus
+import com.emarketseller.sdk.model.ShopSummaryRead
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -44,6 +45,7 @@ import kotlinx.serialization.Contextual
  * @param deliveredAt 
  * @param createdAt 
  * @param updatedAt 
+ * @param shop 
  * @param lines 
  */
 @Serializable
@@ -82,6 +84,9 @@ data class OrderShopGroupRead (
 
     @Contextual @SerialName(value = "updated_at")
     val updatedAt: java.time.OffsetDateTime,
+
+    @SerialName(value = "shop")
+    val shop: ShopSummaryRead,
 
     @SerialName(value = "lines")
     val lines: kotlin.collections.List<OrderLineRead>? = null

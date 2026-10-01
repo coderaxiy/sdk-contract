@@ -31,7 +31,7 @@ import kotlinx.serialization.Serializable
 /**
  * 
  *
- * Values: shop_logo,shop_banner,product_image,seller_document
+ * Values: shop_logo,shop_banner,product_image,seller_document,refund_evidence
  */
 @Serializable
 enum class UploadPurpose(val value: kotlin.String) {
@@ -46,7 +46,10 @@ enum class UploadPurpose(val value: kotlin.String) {
     product_image("product_image"),
 
     @SerialName(value = "seller_document")
-    seller_document("seller_document");
+    seller_document("seller_document"),
+
+    @SerialName(value = "refund_evidence")
+    refund_evidence("refund_evidence");
 
     /**
      * Override [toString()] to avoid using the enum variable name as the value, and instead use

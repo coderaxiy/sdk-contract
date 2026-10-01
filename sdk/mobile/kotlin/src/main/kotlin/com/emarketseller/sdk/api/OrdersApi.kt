@@ -22,7 +22,9 @@ import com.emarketseller.sdk.model.ManualAdjustmentRequest
 import com.emarketseller.sdk.model.OrderAdminRead
 import com.emarketseller.sdk.model.OrderRead
 import com.emarketseller.sdk.model.OrderShopGroupDetailRead
+import com.emarketseller.sdk.model.OrderShopGroupRead
 import com.emarketseller.sdk.model.OrderShopGroupStatus
+import com.emarketseller.sdk.model.OrderStatus
 import com.emarketseller.sdk.model.PayoutRead
 import com.emarketseller.sdk.model.PayoutRunRequest
 import com.emarketseller.sdk.model.RefundApproveRequest
@@ -78,10 +80,10 @@ interface OrdersApi {
      * @param groupId 
      * @param cancelGroupRequest 
      * @param accessToken  (optional)
-     * @return [OrderShopGroupDetailRead]
+     * @return [OrderShopGroupRead]
      */
     @POST("api/v1/orders/{order_id}/groups/{group_id}/cancel")
-    suspend fun cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost(@Path("order_id") orderId: kotlin.Int, @Path("group_id") groupId: kotlin.Int, @Body cancelGroupRequest: CancelGroupRequest, ): Response<OrderShopGroupDetailRead>
+    suspend fun cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost(@Path("order_id") orderId: kotlin.Int, @Path("group_id") groupId: kotlin.Int, @Body cancelGroupRequest: CancelGroupRequest, ): Response<OrderShopGroupRead>
 
     /**
      * POST api/v1/checkout
@@ -257,16 +259,19 @@ interface OrdersApi {
     /**
      * GET api/v1/orders
      * List My Orders
-     * 
+     * My orders, newest first. &#x60;status&#x60; may repeat; the total match count is in &#x60;X-Total-Count&#x60;.
      * Responses:
      *  - 200: Successful Response
      *  - 422: Validation Error
      *
+     * @param status  (optional, default to arrayListOf())
+     * @param skip  (optional, default to 0)
+     * @param limit  (optional, default to 50)
      * @param accessToken  (optional)
      * @return [kotlin.collections.List<OrderRead>]
      */
     @GET("api/v1/orders")
-    suspend fun listMyOrdersApiV1OrdersGet(): Response<kotlin.collections.List<OrderRead>>
+    suspend fun listMyOrdersApiV1OrdersGet(@Query("status") status: @JvmSuppressWildcards kotlin.collections.List<OrderStatus>? = arrayListOf(), @Query("skip") skip: kotlin.Int? = 0, @Query("limit") limit: kotlin.Int? = 50, ): Response<kotlin.collections.List<OrderRead>>
 
     /**
      * GET api/v1/admin/orders

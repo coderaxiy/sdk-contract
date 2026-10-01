@@ -45,10 +45,14 @@ All URIs are relative to *http://localhost:8000*
 
 | Class | Method | HTTP request | Description |
 | ------------ | ------------- | ------------- | ------------- |
+| *AuthApi* | [**changeMyPasswordApiV1AuthMePasswordPost**](docs/AuthApi.md#changemypasswordapiv1authmepasswordpost) | **POST** api/v1/auth/me/password | Change My Password |
+| *AuthApi* | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](docs/AuthApi.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** api/v1/auth/password-reset/confirm | Confirm Password Reset |
 | *AuthApi* | [**getMeApiV1AuthMeGet**](docs/AuthApi.md#getmeapiv1authmeget) | **GET** api/v1/auth/me | Get Me |
 | *AuthApi* | [**loginApiV1AuthLoginPost**](docs/AuthApi.md#loginapiv1authloginpost) | **POST** api/v1/auth/login | Login |
 | *AuthApi* | [**logoutApiV1AuthLogoutPost**](docs/AuthApi.md#logoutapiv1authlogoutpost) | **POST** api/v1/auth/logout | Logout |
 | *AuthApi* | [**registerApiV1AuthRegisterPost**](docs/AuthApi.md#registerapiv1authregisterpost) | **POST** api/v1/auth/register | Register |
+| *AuthApi* | [**requestPasswordResetApiV1AuthPasswordResetRequestPost**](docs/AuthApi.md#requestpasswordresetapiv1authpasswordresetrequestpost) | **POST** api/v1/auth/password-reset/request | Request Password Reset |
+| *AuthApi* | [**updateMeApiV1AuthMePatch**](docs/AuthApi.md#updatemeapiv1authmepatch) | **PATCH** api/v1/auth/me | Update Me |
 | *CategoriesApi* | [**commissionPreviewApiV1SellerShopsShopIdCommissionPreviewGet**](docs/CategoriesApi.md#commissionpreviewapiv1sellershopsshopidcommissionpreviewget) | **GET** api/v1/seller/shops/{shop_id}/commission-preview | Commission Preview |
 | *CategoriesApi* | [**confirmCategoryDeactivationApiV1AdminCategoriesCategoryIdDeactivateConfirmPost**](docs/CategoriesApi.md#confirmcategorydeactivationapiv1admincategoriescategoryiddeactivateconfirmpost) | **POST** api/v1/admin/categories/{category_id}/deactivate/confirm | Confirm Category Deactivation |
 | *CategoriesApi* | [**createCategoryApiV1AdminCategoriesPost**](docs/CategoriesApi.md#createcategoryapiv1admincategoriespost) | **POST** api/v1/admin/categories | Create Category |
@@ -87,12 +91,14 @@ All URIs are relative to *http://localhost:8000*
 | *LogisticsApi* | [**listReconciliationsAdminApiV1AdminReconciliationsGet**](docs/LogisticsApi.md#listreconciliationsadminapiv1adminreconciliationsget) | **GET** api/v1/admin/reconciliations | List Reconciliations Admin |
 | *LogisticsApi* | [**listRegionsAdminApiV1AdminRegionsGet**](docs/LogisticsApi.md#listregionsadminapiv1adminregionsget) | **GET** api/v1/admin/regions | List Regions Admin |
 | *LogisticsApi* | [**listRegionsApiV1RegionsGet**](docs/LogisticsApi.md#listregionsapiv1regionsget) | **GET** api/v1/regions | List Regions |
+| *LogisticsApi* | [**listReturnsForStaffApiV1PickupStaffReturnsGet**](docs/LogisticsApi.md#listreturnsforstaffapiv1pickupstaffreturnsget) | **GET** api/v1/pickup-staff/returns | List Returns For Staff |
 | *LogisticsApi* | [**listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet**](docs/LogisticsApi.md#listshipmentdiscrepanciesadminapiv1adminshipmentsget) | **GET** api/v1/admin/shipments | List Shipment Discrepancies Admin |
 | *LogisticsApi* | [**listShipmentsForStaffApiV1PickupStaffShipmentsGet**](docs/LogisticsApi.md#listshipmentsforstaffapiv1pickupstaffshipmentsget) | **GET** api/v1/pickup-staff/shipments | List Shipments For Staff |
 | *LogisticsApi* | [**listWarehouseInboundApiV1WarehouseInboundGet**](docs/LogisticsApi.md#listwarehouseinboundapiv1warehouseinboundget) | **GET** api/v1/warehouse/inbound | List Warehouse Inbound |
 | *LogisticsApi* | [**listWarehouseOutboundApiV1WarehouseOutboundGet**](docs/LogisticsApi.md#listwarehouseoutboundapiv1warehouseoutboundget) | **GET** api/v1/warehouse/outbound | List Warehouse Outbound |
 | *LogisticsApi* | [**listWarehouseShipmentsApiV1WarehouseShipmentsGet**](docs/LogisticsApi.md#listwarehouseshipmentsapiv1warehouseshipmentsget) | **GET** api/v1/warehouse/shipments | List Warehouse Shipments |
 | *LogisticsApi* | [**receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost**](docs/LogisticsApi.md#receiveordergroupapiv1warehouseordergroupsgroupidreceivepost) | **POST** api/v1/warehouse/order-groups/{group_id}/receive | Receive Order Group |
+| *LogisticsApi* | [**receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost**](docs/LogisticsApi.md#receivereturnapiv1pickupstaffreturnsrefundrequestidreceivepost) | **POST** api/v1/pickup-staff/returns/{refund_request_id}/receive | Receive Return |
 | *LogisticsApi* | [**rejectHoldingItemsApiV1PickupStaffHoldingsHoldingIdRejectPost**](docs/LogisticsApi.md#rejectholdingitemsapiv1pickupstaffholdingsholdingidrejectpost) | **POST** api/v1/pickup-staff/holdings/{holding_id}/reject | Reject Holding Items |
 | *LogisticsApi* | [**resolveReconciliationAdminApiV1AdminReconciliationsReconciliationIdResolvePatch**](docs/LogisticsApi.md#resolvereconciliationadminapiv1adminreconciliationsreconciliationidresolvepatch) | **PATCH** api/v1/admin/reconciliations/{reconciliation_id}/resolve | Resolve Reconciliation Admin |
 | *LogisticsApi* | [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](docs/LogisticsApi.md#resolveshipmentdiscrepancyapiv1adminshipmentsshipmentidresolvediscrepancypatch) | **PATCH** api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy |
@@ -100,6 +106,8 @@ All URIs are relative to *http://localhost:8000*
 | *LogisticsApi* | [**updatePickupPointApiV1AdminPickupPointsPointIdPatch**](docs/LogisticsApi.md#updatepickuppointapiv1adminpickuppointspointidpatch) | **PATCH** api/v1/admin/pickup-points/{point_id} | Update Pickup Point |
 | *LogisticsApi* | [**updatePickupPointStatusApiV1AdminPickupPointsPointIdStatusPatch**](docs/LogisticsApi.md#updatepickuppointstatusapiv1adminpickuppointspointidstatuspatch) | **PATCH** api/v1/admin/pickup-points/{point_id}/status | Update Pickup Point Status |
 | *LogisticsApi* | [**updatePickupStaffRoleApiV1PickupStaffStaffStaffIdRolePatch**](docs/LogisticsApi.md#updatepickupstaffroleapiv1pickupstaffstaffstaffidrolepatch) | **PATCH** api/v1/pickup-staff/staff/{staff_id}/role | Update Pickup Staff Role |
+| *NotificationsApi* | [**registerDeviceApiV1DevicesPut**](docs/NotificationsApi.md#registerdeviceapiv1devicesput) | **PUT** api/v1/devices | Register Device |
+| *NotificationsApi* | [**unregisterDeviceApiV1DevicesDelete**](docs/NotificationsApi.md#unregisterdeviceapiv1devicesdelete) | **DELETE** api/v1/devices | Unregister Device |
 | *OrdersApi* | [**addCartItemApiV1CartItemsPost**](docs/OrdersApi.md#addcartitemapiv1cartitemspost) | **POST** api/v1/cart/items | Add Cart Item |
 | *OrdersApi* | [**approveRefundRequestApiV1SellerRefundRequestsRefundIdApprovePatch**](docs/OrdersApi.md#approverefundrequestapiv1sellerrefundrequestsrefundidapprovepatch) | **PATCH** api/v1/seller/refund-requests/{refund_id}/approve | Approve Refund Request |
 | *OrdersApi* | [**cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost**](docs/OrdersApi.md#cancelordergroupapiv1ordersorderidgroupsgroupidcancelpost) | **POST** api/v1/orders/{order_id}/groups/{group_id}/cancel | Cancel Order Group |
@@ -263,6 +271,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.CategoryNodeRead](docs/CategoryNodeRead.md)
  - [com.emarketseller.sdk.model.CategoryRead](docs/CategoryRead.md)
  - [com.emarketseller.sdk.model.CategoryUpdate](docs/CategoryUpdate.md)
+ - [com.emarketseller.sdk.model.ChangePasswordRequest](docs/ChangePasswordRequest.md)
  - [com.emarketseller.sdk.model.CheckInItemInput](docs/CheckInItemInput.md)
  - [com.emarketseller.sdk.model.CheckInRequest](docs/CheckInRequest.md)
  - [com.emarketseller.sdk.model.CheckoutRequest](docs/CheckoutRequest.md)
@@ -279,6 +288,9 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.DeclareReconciliationRequest](docs/DeclareReconciliationRequest.md)
  - [com.emarketseller.sdk.model.DeclaredAmount](docs/DeclaredAmount.md)
  - [com.emarketseller.sdk.model.DelistRequest](docs/DelistRequest.md)
+ - [com.emarketseller.sdk.model.DevicePlatform](docs/DevicePlatform.md)
+ - [com.emarketseller.sdk.model.DeviceRead](docs/DeviceRead.md)
+ - [com.emarketseller.sdk.model.DeviceRegisterRequest](docs/DeviceRegisterRequest.md)
  - [com.emarketseller.sdk.model.DiscrepancyItemResolution](docs/DiscrepancyItemResolution.md)
  - [com.emarketseller.sdk.model.DocumentRead](docs/DocumentRead.md)
  - [com.emarketseller.sdk.model.DocumentReviewRequest](docs/DocumentReviewRequest.md)
@@ -302,6 +314,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.Longitude1](docs/Longitude1.md)
  - [com.emarketseller.sdk.model.ManualAdjustmentRequest](docs/ManualAdjustmentRequest.md)
  - [com.emarketseller.sdk.model.MaxAmount](docs/MaxAmount.md)
+ - [com.emarketseller.sdk.model.MessageResponse](docs/MessageResponse.md)
  - [com.emarketseller.sdk.model.MinAmount](docs/MinAmount.md)
  - [com.emarketseller.sdk.model.ModerationAction](docs/ModerationAction.md)
  - [com.emarketseller.sdk.model.ModerationConfigRead](docs/ModerationConfigRead.md)
@@ -309,15 +322,19 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.ModerationQueueItemRead](docs/ModerationQueueItemRead.md)
  - [com.emarketseller.sdk.model.NearbyPickupPointRead](docs/NearbyPickupPointRead.md)
  - [com.emarketseller.sdk.model.OrderAdminRead](docs/OrderAdminRead.md)
+ - [com.emarketseller.sdk.model.OrderLineBase](docs/OrderLineBase.md)
  - [com.emarketseller.sdk.model.OrderLineDetailRead](docs/OrderLineDetailRead.md)
  - [com.emarketseller.sdk.model.OrderLineRead](docs/OrderLineRead.md)
  - [com.emarketseller.sdk.model.OrderLineStatus](docs/OrderLineStatus.md)
  - [com.emarketseller.sdk.model.OrderPickupPointRead](docs/OrderPickupPointRead.md)
  - [com.emarketseller.sdk.model.OrderRead](docs/OrderRead.md)
+ - [com.emarketseller.sdk.model.OrderShopGroupBase](docs/OrderShopGroupBase.md)
  - [com.emarketseller.sdk.model.OrderShopGroupDetailRead](docs/OrderShopGroupDetailRead.md)
  - [com.emarketseller.sdk.model.OrderShopGroupRead](docs/OrderShopGroupRead.md)
  - [com.emarketseller.sdk.model.OrderShopGroupStatus](docs/OrderShopGroupStatus.md)
  - [com.emarketseller.sdk.model.OrderStatus](docs/OrderStatus.md)
+ - [com.emarketseller.sdk.model.PasswordResetConfirm](docs/PasswordResetConfirm.md)
+ - [com.emarketseller.sdk.model.PasswordResetRequest](docs/PasswordResetRequest.md)
  - [com.emarketseller.sdk.model.PaymentMethod](docs/PaymentMethod.md)
  - [com.emarketseller.sdk.model.PayoutRead](docs/PayoutRead.md)
  - [com.emarketseller.sdk.model.PayoutRunRequest](docs/PayoutRunRequest.md)
@@ -339,6 +356,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.PickupPointStatusUpdateRequest](docs/PickupPointStatusUpdateRequest.md)
  - [com.emarketseller.sdk.model.PickupPointType](docs/PickupPointType.md)
  - [com.emarketseller.sdk.model.PickupPointUpdateRequest](docs/PickupPointUpdateRequest.md)
+ - [com.emarketseller.sdk.model.PickupReturnRead](docs/PickupReturnRead.md)
  - [com.emarketseller.sdk.model.PickupStatusItemRead](docs/PickupStatusItemRead.md)
  - [com.emarketseller.sdk.model.PickupStatusRead](docs/PickupStatusRead.md)
  - [com.emarketseller.sdk.model.Price](docs/Price.md)
@@ -364,15 +382,18 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.ProductVariantCreate](docs/ProductVariantCreate.md)
  - [com.emarketseller.sdk.model.ProductVariantRead](docs/ProductVariantRead.md)
  - [com.emarketseller.sdk.model.ProductVariantUpdate](docs/ProductVariantUpdate.md)
+ - [com.emarketseller.sdk.model.ReceiveReturnRequest](docs/ReceiveReturnRequest.md)
  - [com.emarketseller.sdk.model.Recipient](docs/Recipient.md)
  - [com.emarketseller.sdk.model.ReconciliationRead](docs/ReconciliationRead.md)
  - [com.emarketseller.sdk.model.RefundApproveRequest](docs/RefundApproveRequest.md)
  - [com.emarketseller.sdk.model.RefundConfirmReturnRequest](docs/RefundConfirmReturnRequest.md)
  - [com.emarketseller.sdk.model.RefundDecision](docs/RefundDecision.md)
+ - [com.emarketseller.sdk.model.RefundEvidenceRead](docs/RefundEvidenceRead.md)
  - [com.emarketseller.sdk.model.RefundReasonCode](docs/RefundReasonCode.md)
  - [com.emarketseller.sdk.model.RefundRejectRequest](docs/RefundRejectRequest.md)
  - [com.emarketseller.sdk.model.RefundRequestCreate](docs/RefundRequestCreate.md)
  - [com.emarketseller.sdk.model.RefundRequestRead](docs/RefundRequestRead.md)
+ - [com.emarketseller.sdk.model.RefundRequestSummaryRead](docs/RefundRequestSummaryRead.md)
  - [com.emarketseller.sdk.model.RefundRequestedBy](docs/RefundRequestedBy.md)
  - [com.emarketseller.sdk.model.RefundResolveRequest](docs/RefundResolveRequest.md)
  - [com.emarketseller.sdk.model.RefundStatus](docs/RefundStatus.md)
@@ -406,6 +427,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.TokenResponse](docs/TokenResponse.md)
  - [com.emarketseller.sdk.model.TranslationIn](docs/TranslationIn.md)
  - [com.emarketseller.sdk.model.TranslationRead](docs/TranslationRead.md)
+ - [com.emarketseller.sdk.model.UpdateProfileRequest](docs/UpdateProfileRequest.md)
  - [com.emarketseller.sdk.model.UpdateShopLimitRequest](docs/UpdateShopLimitRequest.md)
  - [com.emarketseller.sdk.model.UpdateStaffRoleRequest](docs/UpdateStaffRoleRequest.md)
  - [com.emarketseller.sdk.model.UploadPurpose](docs/UploadPurpose.md)

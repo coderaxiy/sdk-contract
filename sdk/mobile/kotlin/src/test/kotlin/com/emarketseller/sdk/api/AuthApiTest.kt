@@ -27,16 +27,38 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.api.AuthApi
+import com.emarketseller.sdk.model.ChangePasswordRequest
 import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.LoginRequest
+import com.emarketseller.sdk.model.MessageResponse
+import com.emarketseller.sdk.model.PasswordResetConfirm
+import com.emarketseller.sdk.model.PasswordResetRequest
 import com.emarketseller.sdk.model.RegisterRequest
 import com.emarketseller.sdk.model.TokenResponse
+import com.emarketseller.sdk.model.UpdateProfileRequest
 import com.emarketseller.sdk.model.UserRead
 
 class AuthApiTest : ShouldSpec() {
     init {
         // uncomment below to create an instance of AuthApi
         //val apiInstance = AuthApi()
+
+        // to test changeMyPasswordApiV1AuthMePasswordPost
+        should("test changeMyPasswordApiV1AuthMePasswordPost") {
+            // uncomment below to test changeMyPasswordApiV1AuthMePasswordPost
+            //val changePasswordRequest : ChangePasswordRequest =  // ChangePasswordRequest | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : TokenResponse = apiInstance.changeMyPasswordApiV1AuthMePasswordPost(changePasswordRequest, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test confirmPasswordResetApiV1AuthPasswordResetConfirmPost
+        should("test confirmPasswordResetApiV1AuthPasswordResetConfirmPost") {
+            // uncomment below to test confirmPasswordResetApiV1AuthPasswordResetConfirmPost
+            //val passwordResetConfirm : PasswordResetConfirm =  // PasswordResetConfirm | 
+            //val result : MessageResponse = apiInstance.confirmPasswordResetApiV1AuthPasswordResetConfirmPost(passwordResetConfirm)
+            //result shouldBe ("TODO")
+        }
 
         // to test getMeApiV1AuthMeGet
         should("test getMeApiV1AuthMeGet") {
@@ -68,6 +90,23 @@ class AuthApiTest : ShouldSpec() {
             //val registerRequest : RegisterRequest =  // RegisterRequest | 
             //val cartToken : kotlin.String = cartToken_example // kotlin.String | 
             //val result : UserRead = apiInstance.registerApiV1AuthRegisterPost(registerRequest, cartToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test requestPasswordResetApiV1AuthPasswordResetRequestPost
+        should("test requestPasswordResetApiV1AuthPasswordResetRequestPost") {
+            // uncomment below to test requestPasswordResetApiV1AuthPasswordResetRequestPost
+            //val passwordResetRequest : PasswordResetRequest =  // PasswordResetRequest | 
+            //val result : MessageResponse = apiInstance.requestPasswordResetApiV1AuthPasswordResetRequestPost(passwordResetRequest)
+            //result shouldBe ("TODO")
+        }
+
+        // to test updateMeApiV1AuthMePatch
+        should("test updateMeApiV1AuthMePatch") {
+            // uncomment below to test updateMeApiV1AuthMePatch
+            //val updateProfileRequest : UpdateProfileRequest =  // UpdateProfileRequest | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : UserRead = apiInstance.updateMeApiV1AuthMePatch(updateProfileRequest, accessToken)
             //result shouldBe ("TODO")
         }
 

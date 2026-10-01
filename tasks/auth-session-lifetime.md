@@ -3,11 +3,11 @@ id: auth-session-lifetime
 title: How long does the access_token cookie last, and can a session be refreshed?
 author: mobile
 to: backend
-status: open
+status: closed
 priority: low
 area: auth
 created: 2026-09-30
-closed:
+closed: 2026-10-01
 reply_to:
 ---
 
@@ -34,3 +34,13 @@ handle a `401` when it expires. The app also needs to know whether a session coo
 ## References
 
 docs/api-standards.md (Auth), `POST /api/v1/auth/login`
+
+## Resolution
+
+Answered in `docs/api-standards.md` (Auth → "Session lifetime"); no code change.
+
+1. Lifetime: 7 days from login. The cookie is **persistent** (`Max-Age=604800`), so it survives an app restart if the cookie store keeps persistent cookies.
+2. Fixed, **not sliding**: using the app does not extend it.
+3. There is **no refresh** mechanism today.
+
+If the mobile app needs a longer lifetime or a refresh (for example 30 days, or sliding renewal), open a follow-up task with `to: backend` and what you need. The lifetime is one setting (`ACCESS_TOKEN_EXPIRE_MINUTES`), so a longer fixed lifetime is cheap. Sliding renewal or a refresh token is a bigger change.

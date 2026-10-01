@@ -3,11 +3,11 @@ id: buyer-password-reset
 title: Password reset for buyers who forgot their password
 author: mobile
 to: backend
-status: open
+status: closed
 priority: normal
 area: auth
 created: 2026-09-30
-closed:
+closed: 2026-10-01
 reply_to:
 ---
 
@@ -38,3 +38,13 @@ and loses their orders.
 
 openapi/api.yaml → `/api/v1/auth/*`, `/api/v1/users/{user_id}/password`,
 docs/api-standards.md (Auth)
+
+## Resolution
+
+Done in the backend (not committed yet); contract exported and SDKs regenerated. Documented in `docs/api-standards.md` (Auth → "Forgotten password").
+
+- `POST /auth/password-reset/request` `{ email }` → `202`, the same response for known and unknown emails.
+- `POST /auth/password-reset/confirm` `{ email, code, new_password }` → `200`; wrong, expired or used codes get `400 "Invalid or expired code"`.
+- **Channel decision:** a 6-digit code by email, valid 15 minutes, 5 wrong guesses kill it, 3 codes per account per hour. A code rather than a link, so the app needs an input field and no deep-link handling. Only a keyed hash of the code is stored.
+- Success signs out every session of the user (same mechanism as a password change) and does not log in.
+- **Not ready for real users yet:** the default email backend only logs the message. Production needs `EMAIL_BACKEND=smtp` with a relay, which is a deployment decision.

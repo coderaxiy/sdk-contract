@@ -29,6 +29,7 @@ import io.kotlintest.specs.ShouldSpec
 import com.emarketseller.sdk.model.OrderShopGroupRead
 import com.emarketseller.sdk.model.OrderLineRead
 import com.emarketseller.sdk.model.OrderShopGroupStatus
+import com.emarketseller.sdk.model.ShopSummaryRead
 
 class OrderShopGroupReadTest : ShouldSpec() {
     init {
@@ -99,6 +100,12 @@ class OrderShopGroupReadTest : ShouldSpec() {
         should("test updatedAt") {
             // uncomment below to test the property
             //modelInstance.updatedAt shouldBe ("TODO")
+        }
+
+        // to test the property `shop`
+        should("test shop") {
+            // uncomment below to test the property
+            //modelInstance.shop shouldBe ("TODO")
         }
 
         // to test the property `lines`

@@ -12,13 +12,15 @@ public struct UserRead: Sendable, Codable, Hashable {
     public var email: String
     public var fullName: String?
     public var id: Int
+    public var phone: String?
     public var isActive: Bool
     public var roles: [String]?
 
-    public init(email: String, fullName: String? = nil, id: Int, isActive: Bool, roles: [String]? = nil) {
+    public init(email: String, fullName: String? = nil, id: Int, phone: String? = nil, isActive: Bool, roles: [String]? = nil) {
         self.email = email
         self.fullName = fullName
         self.id = id
+        self.phone = phone
         self.isActive = isActive
         self.roles = roles
     }
@@ -27,6 +29,7 @@ public struct UserRead: Sendable, Codable, Hashable {
         case email
         case fullName = "full_name"
         case id
+        case phone
         case isActive = "is_active"
         case roles
     }
@@ -38,6 +41,7 @@ public struct UserRead: Sendable, Codable, Hashable {
         try container.encode(email, forKey: .email)
         try container.encodeIfPresent(fullName, forKey: .fullName)
         try container.encode(id, forKey: .id)
+        try container.encodeIfPresent(phone, forKey: .phone)
         try container.encode(isActive, forKey: .isActive)
         try container.encodeIfPresent(roles, forKey: .roles)
     }

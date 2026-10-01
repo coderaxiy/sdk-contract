@@ -136,7 +136,7 @@ val cancelGroupRequest : CancelGroupRequest =  // CancelGroupRequest |
 val accessToken : kotlin.String = accessToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : OrderShopGroupDetailRead = webService.cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost(orderId, groupId, cancelGroupRequest, accessToken)
+    val result : OrderShopGroupRead = webService.cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost(orderId, groupId, cancelGroupRequest, accessToken)
 }
 ```
 
@@ -150,7 +150,7 @@ launch(Dispatchers.IO) {
 
 ### Return type
 
-[**OrderShopGroupDetailRead**](OrderShopGroupDetailRead.md)
+[**OrderShopGroupRead**](OrderShopGroupRead.md)
 
 ### Authorization
 
@@ -605,6 +605,8 @@ No authorization required
 
 List My Orders
 
+My orders, newest first. &#x60;status&#x60; may repeat; the total match count is in &#x60;X-Total-Count&#x60;.
+
 ### Example
 ```kotlin
 // Import classes:
@@ -614,14 +616,20 @@ List My Orders
 
 val apiClient = ApiClient()
 val webService = apiClient.createWebservice(OrdersApi::class.java)
+val status : kotlin.collections.List<OrderStatus> =  // kotlin.collections.List<OrderStatus> | 
+val skip : kotlin.Int = 56 // kotlin.Int | 
+val limit : kotlin.Int = 56 // kotlin.Int | 
 val accessToken : kotlin.String = accessToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : kotlin.collections.List<OrderRead> = webService.listMyOrdersApiV1OrdersGet(accessToken)
+    val result : kotlin.collections.List<OrderRead> = webService.listMyOrdersApiV1OrdersGet(status, skip, limit, accessToken)
 }
 ```
 
 ### Parameters
+| **status** | [**kotlin.collections.List&lt;OrderStatus&gt;**](OrderStatus.md)|  | [optional] [default to arrayListOf()] |
+| **skip** | **kotlin.Int**|  | [optional] [default to 0] |
+| **limit** | **kotlin.Int**|  | [optional] [default to 50] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **accessToken** | **kotlin.String**|  | [optional] |

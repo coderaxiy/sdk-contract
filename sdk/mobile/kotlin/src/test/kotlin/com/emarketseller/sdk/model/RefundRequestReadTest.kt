@@ -27,6 +27,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.model.RefundRequestRead
+import com.emarketseller.sdk.model.RefundEvidenceRead
 import com.emarketseller.sdk.model.RefundReasonCode
 import com.emarketseller.sdk.model.RefundRequestedBy
 import com.emarketseller.sdk.model.RefundStatus
@@ -115,10 +116,28 @@ class RefundRequestReadTest : ShouldSpec() {
             //modelInstance.escalatedAt shouldBe ("TODO")
         }
 
+        // to test the property `resolutionNote`
+        should("test resolutionNote") {
+            // uncomment below to test the property
+            //modelInstance.resolutionNote shouldBe ("TODO")
+        }
+
+        // to test the property `pointReceivedAt`
+        should("test pointReceivedAt") {
+            // uncomment below to test the property
+            //modelInstance.pointReceivedAt shouldBe ("TODO")
+        }
+
         // to test the property `createdAt`
         should("test createdAt") {
             // uncomment below to test the property
             //modelInstance.createdAt shouldBe ("TODO")
+        }
+
+        // to test the property `evidence` - The buyer's photos. `url` is signed and short-lived — display it, never store it.
+        should("test evidence") {
+            // uncomment below to test the property
+            //modelInstance.evidence shouldBe ("TODO")
         }
 
     }

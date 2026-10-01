@@ -3,11 +3,11 @@ id: storefront-order-details
 title: Buyer orders — shop and product info on groups and lines, list pagination, no seller fields on cancel
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: orders
 created: 2026-09-27
-closed:
+closed: 2026-09-30
 reply_to:
 ---
 
@@ -73,3 +73,19 @@ Pagination keeps "My orders" fast for repeat buyers.
 - docs/orders-and-payments-api.md §3.1, §4 (`OrderShopGroupRead`, `OrderLineRead`: "never shown to buyers")
 - docs/api-standards.md → "Lists and pagination"
 - Same summary shape as `CartItemRead.shop` / `CartProductRead` (task `storefront-cart-product-info`)
+
+## Resolution
+
+Done in the backend (not committed yet); contract exported and SDKs regenerated.
+
+1. **Shop on each group.** `OrderShopGroupRead.shop` (`ShopSummaryRead`: `id`, `slug`, `name`, `logo_url`), the shop's current values. `shop_id` is kept.
+2. **Product info on each line.** `OrderLineRead` gained `image_url`, `variant_attributes` and `product_slug`.
+   - `image_url` is the variant's first image, else the product's primary image.
+   - `product_slug` is `null` unless the product is `approved` and its shop `active`.
+   - **Differs from the ask:** `variant_attributes` are the variant's *current* attributes, not a purchase-time snapshot (lines store no snapshot). They are `null` for non-variant products or if the variant is gone.
+3. **Pagination.** `GET /orders` takes `skip` (default `0`), `limit` (default `50`, max `100`) and a repeatable `status`, newest first, with `X-Total-Count`.
+4. **Cancel response.** `POST /orders/{id}/groups/{group_id}/cancel` returns the buyer-facing `OrderShopGroupRead`, with `shop` and `lines`. The buyer no longer receives `commission_total` or `payout_amount`.
+
+Side effects on seller and staff shapes: the seller/admin detail schemas (`OrderShopGroupDetailRead`, `OrderLineDetailRead`) no longer extend the buyer ones, so they have no `shop` or product fields. The warehouse endpoints use new `OrderLineBase` / `OrderShopGroupBase` schemas. `POST /warehouse/order-groups/{id}/receive` now returns the group without a `lines` array; it was always empty there.
+
+Docs: `docs/orders-and-payments-api.md`, `docs/logistics-and-pickup-points-api.md`.

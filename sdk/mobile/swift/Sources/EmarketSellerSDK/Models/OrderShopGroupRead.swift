@@ -21,11 +21,12 @@ public struct OrderShopGroupRead: Sendable, Codable, Hashable {
     public var cancellationReason: String?
     public var warehouseReceivedAt: Date?
     public var deliveredAt: Date?
-    public var lines: [OrderLineRead]?
     public var createdAt: Date
     public var updatedAt: Date
+    public var shop: ShopSummaryRead
+    public var lines: [OrderLineRead]?
 
-    public init(id: Int, orderId: Int, shopId: Int, status: OrderShopGroupStatus, subtotal: String, shippingFee: String, cancellationReason: String?, warehouseReceivedAt: Date?, deliveredAt: Date?, lines: [OrderLineRead]? = nil, createdAt: Date, updatedAt: Date) {
+    public init(id: Int, orderId: Int, shopId: Int, status: OrderShopGroupStatus, subtotal: String, shippingFee: String, cancellationReason: String?, warehouseReceivedAt: Date?, deliveredAt: Date?, createdAt: Date, updatedAt: Date, shop: ShopSummaryRead, lines: [OrderLineRead]? = nil) {
         self.id = id
         self.orderId = orderId
         self.shopId = shopId
@@ -35,9 +36,10 @@ public struct OrderShopGroupRead: Sendable, Codable, Hashable {
         self.cancellationReason = cancellationReason
         self.warehouseReceivedAt = warehouseReceivedAt
         self.deliveredAt = deliveredAt
-        self.lines = lines
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.shop = shop
+        self.lines = lines
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -50,9 +52,10 @@ public struct OrderShopGroupRead: Sendable, Codable, Hashable {
         case cancellationReason = "cancellation_reason"
         case warehouseReceivedAt = "warehouse_received_at"
         case deliveredAt = "delivered_at"
-        case lines
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+        case shop
+        case lines
     }
 
     // Encodable protocol methods
@@ -68,9 +71,10 @@ public struct OrderShopGroupRead: Sendable, Codable, Hashable {
         try container.encode(cancellationReason, forKey: .cancellationReason)
         try container.encode(warehouseReceivedAt, forKey: .warehouseReceivedAt)
         try container.encode(deliveredAt, forKey: .deliveredAt)
-        try container.encodeIfPresent(lines, forKey: .lines)
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(shop, forKey: .shop)
+        try container.encodeIfPresent(lines, forKey: .lines)
     }
 }
 

@@ -1,6 +1,7 @@
 # Media Uploads API — Frontend & Mobile Integration Guide
 
-How sellers upload shop logos and banners, product images, and KYC documents.
+How sellers upload shop logos and banners, product images, and KYC documents, and how
+buyers upload photo evidence for a return.
 All paths are relative to the API base (`/api/v1`). Schemas: `openapi/api.yaml`
 → `UploadRead`, `UploadPurpose`.
 
@@ -34,15 +35,17 @@ is harmless.
 
 ## Auth
 
-Registered sellers only — `403 "Not registered as a seller"` otherwise, and
-banned sellers get `403`. Sellers in `pending_review` **can** upload (they need
+Every purpose needs a login. All purposes except `refund_evidence` are for
+registered sellers only — `403 "Not registered as a seller"` otherwise, and
+banned sellers get `403`. `refund_evidence` is open to **any logged-in user** (buyers),
+limited to 30 uploads per day (`400 "Too many uploads today — try again tomorrow"`). Sellers in `pending_review` **can** upload (they need
 to, for KYC documents).
 
 ## `POST /uploads`
 
 | | |
 |---|---|
-| Query | `purpose` (required): `shop_logo` \| `shop_banner` \| `product_image` \| `seller_document` |
+| Query | `purpose` (required): `shop_logo` \| `shop_banner` \| `product_image` \| `seller_document` \| `refund_evidence` |
 | Body | `multipart/form-data` with one field, `file` |
 | Response | `201` `UploadRead` |
 
@@ -56,6 +59,7 @@ to, for KYC documents).
 | `shop_banner` | JPEG, PNG, WebP | WebP | 2400 × 2400 | public |
 | `product_image` | JPEG, PNG, WebP | WebP | 2048 × 2048 | public |
 | `seller_document` | JPEG, PNG, WebP, **PDF** | WebP (images), PDF as-is | 3000 × 3000 | **private** |
+| `refund_evidence` | JPEG, PNG, WebP | WebP | 2048 × 2048 | **private** — the buyer, the shop's seller and admins, through the refund request |
 
 - **Max 10 MB** per file as sent, and at most 50 megapixels.
 - Images are **always re-encoded to WebP**: the phone's rotation is applied,
@@ -75,7 +79,7 @@ to, for KYC documents).
   id: number
   key: string           // send this when attaching the file
   url: string           // for immediate preview only — see "Private files"
-  purpose: "shop_logo" | "shop_banner" | "product_image" | "seller_document"
+  purpose: "shop_logo" | "shop_banner" | "product_image" | "seller_document" | "refund_evidence"
   content_type: string  // "image/webp" or "application/pdf"
   size_bytes: number    // size as stored, after re-encoding
   width: number | null  // null for PDFs
@@ -107,7 +111,7 @@ When you send a key in step 2, the server checks it. Both are `400`:
 
 - **Public** (logos, banners, product images): `url` is permanent. Safe to cache
   and to use directly in `<img>` / image loaders.
-- **Private** (`seller_document`): `url` / `file_url` is a **signed link valid
+- **Private** (`seller_document`, `refund_evidence`): `url` / `file_url` is a **signed link valid
   for 15 minutes**. The same URL without its signature returns `403`. Don't
   cache it — re-fetch the document (`GET /admin/sellers/{id}/documents`, or the
   response of the call that returned it) to get a fresh link when showing it

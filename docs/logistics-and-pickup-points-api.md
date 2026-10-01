@@ -303,6 +303,8 @@ or doing arithmetic.
 | GET | `/pickup-staff/holdings` | All holdings at this staff member's point |
 | POST | `/pickup-staff/holdings/{id}/collect` | See §2.4 |
 | POST | `/pickup-staff/holdings/{id}/reject` | See §2.4 |
+| GET | `/pickup-staff/returns` | Approved returns for orders collected at this point, waiting for the buyer to hand the item in (`PickupReturnRead`: order number, recipient name and phone, product, quantity, reason). Check the recipient against the person at the counter |
+| POST | `/pickup-staff/returns/{refund_request_id}/receive` | `{ condition_note? }` — the item was handed in. The line goes `return_pending → returned_to_point`; returns the `RefundRequestRead`. `404` for a return that belongs to another point, `400` unless the request is `approved` and its line is `return_pending`. **No money moves:** the seller's confirm-return releases the refund |
 | GET | `/pickup-staff/reconciliation/current` | Manager only — `403` for `operator` |
 | POST | `/pickup-staff/reconciliation/{id}/declare` | Manager only |
 | GET | `/pickup-staff/staff` | Manager only — co-staff at this point |
@@ -315,7 +317,7 @@ or doing arithmetic.
 | Method | Path | Notes |
 |---|---|---|
 | GET | `/warehouse/inbound` | Query: `shop_id`. Groups in `preparing` |
-| POST | `/warehouse/order-groups/{group_id}/receive` | No body. `preparing → at_warehouse`; returns `OrderShopGroupRead` |
+| POST | `/warehouse/order-groups/{group_id}/receive` | No body. `preparing → at_warehouse`; returns `OrderShopGroupBase` (the group without `lines`) |
 | GET | `/warehouse/outbound` | Query: `pickup_point_id`. Groups in `at_warehouse` |
 | POST | `/warehouse/shipments` | `{ pickup_point_id, order_shop_group_ids }` → `201 ShipmentRead`. See §2.2 |
 | GET | `/warehouse/shipments` | Query: `status`, `skip`, `limit` (max 200) |
@@ -402,7 +404,7 @@ collectible and there's currently no refund/return path wired to this outcome
   status: "preparing" | "at_warehouse"
   pickup_point_id: number | null   // the buyer's point; null only on legacy orders
   warehouse_received_at: string | null
-  lines: OrderLineRead[]           // title, platform_sku_snapshot (match the goods on this), quantity
+  lines: OrderLineBase[]           // title, platform_sku_snapshot (match the goods on this), quantity
 }
 ```
 

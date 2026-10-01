@@ -61,6 +61,49 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/auth/password-reset/request": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Request Password Reset
+         * @description Public. Emails a 6-digit code valid for 15 minutes. The response is identical whether
+         *     or not the account exists, so it can't be used to find out who is registered.
+         */
+        post: operations["request_password_reset_api_v1_auth_password_reset_request_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/password-reset/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Confirm Password Reset
+         * @description Public. Sets a new password from the emailed code and signs out every session;
+         *     the user then logs in normally. `400 "Invalid or expired code"` covers a wrong,
+         *     expired or used code, and a code that was guessed wrong too many times.
+         */
+        post: operations["confirm_password_reset_api_v1_auth_password_reset_confirm_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/auth/me": {
         parameters: {
             query?: never;
@@ -72,6 +115,31 @@ export interface paths {
         get: operations["get_me_api_v1_auth_me_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Me
+         * @description Edit my name or saved phone. Email can't be changed here.
+         */
+        patch: operations["update_me_api_v1_auth_me_patch"];
+        trace?: never;
+    };
+    "/api/v1/auth/me/password": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Change My Password
+         * @description Needs the current password (`400` if wrong). Every other session is signed out;
+         *     this one gets a fresh `access_token` cookie in the response.
+         */
+        post: operations["change_my_password_api_v1_auth_me_password_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1021,7 +1089,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** List My Orders */
+        /**
+         * List My Orders
+         * @description My orders, newest first. `status` may repeat; the total match count is in `X-Total-Count`.
+         */
         get: operations["list_my_orders_api_v1_orders_get"];
         put?: never;
         post?: never;
@@ -2315,6 +2386,47 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/pickup-staff/returns": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Returns For Staff
+         * @description Approved returns for orders collected at this point, waiting for the buyer to hand the item in.
+         */
+        get: operations["list_returns_for_staff_api_v1_pickup_staff_returns_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/pickup-staff/returns/{refund_request_id}/receive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Receive Return
+         * @description Take in a returned item. The line becomes `returned_to_point`; the seller's
+         *     confirm-return still releases the refund.
+         */
+        post: operations["receive_return_api_v1_pickup_staff_returns__refund_request_id__receive_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/pickup-staff/reconciliation/current": {
         parameters: {
             query?: never;
@@ -2586,6 +2698,33 @@ export interface paths {
         /** Create Upload */
         post: operations["create_upload_api_v1_uploads_post"];
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/devices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Register Device
+         * @description Register (or refresh) this phone's push token for the logged-in user. Call it after
+         *     login and whenever the token or the app language changes. A token already registered to
+         *     another account moves to this one.
+         */
+        put: operations["register_device_api_v1_devices_put"];
+        post?: never;
+        /**
+         * Unregister Device
+         * @description Stop pushes to this phone for the logged-in user. Call it **before** `POST /auth/logout`.
+         *     Unknown tokens, and tokens of another user, are ignored (`204` either way).
+         */
+        delete: operations["unregister_device_api_v1_devices_delete"];
         options?: never;
         head?: never;
         patch?: never;
@@ -3193,6 +3332,13 @@ export interface components {
             /** Translations */
             translations?: components["schemas"]["TranslationIn"][] | null;
         };
+        /** ChangePasswordRequest */
+        ChangePasswordRequest: {
+            /** Current Password */
+            current_password: string;
+            /** New Password */
+            new_password: string;
+        };
         /** CheckInItemInput */
         CheckInItemInput: {
             /** Item Id */
@@ -3356,6 +3502,37 @@ export interface components {
         DelistRequest: {
             /** Reason */
             reason?: string | null;
+        };
+        /**
+         * DevicePlatform
+         * @enum {string}
+         */
+        DevicePlatform: "android" | "ios";
+        /** DeviceRead */
+        DeviceRead: {
+            /** Id */
+            id: number;
+            platform: components["schemas"]["DevicePlatform"];
+            /** Locale */
+            locale: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /** DeviceRegisterRequest */
+        DeviceRegisterRequest: {
+            /** Token */
+            token: string;
+            platform: components["schemas"]["DevicePlatform"];
+            /** Locale */
+            locale?: ("uz" | "ru" | "en") | null;
         };
         /** DiscrepancyItemResolution */
         DiscrepancyItemResolution: {
@@ -3550,6 +3727,11 @@ export interface components {
             /** Note */
             note: string;
         };
+        /** MessageResponse */
+        MessageResponse: {
+            /** Message */
+            message: string;
+        };
         /**
          * ModerationAction
          * @enum {string}
@@ -3711,6 +3893,33 @@ export interface components {
              */
             groups: components["schemas"]["OrderShopGroupDetailRead"][];
         };
+        /** OrderLineBase */
+        OrderLineBase: {
+            /** Id */
+            id: number;
+            /** Product Id */
+            product_id: number;
+            /** Variant Id */
+            variant_id: number | null;
+            /** Product Title Snapshot */
+            product_title_snapshot: string;
+            /** Platform Sku Snapshot */
+            platform_sku_snapshot: string;
+            /** Unit Price */
+            unit_price: string;
+            /** Quantity */
+            quantity: number;
+            /** Line Total */
+            line_total: string;
+            status: components["schemas"]["OrderLineStatus"];
+            /** Physical Return Received At */
+            physical_return_received_at: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
         /**
          * OrderLineDetailRead
          * @description Seller/admin only — includes the frozen commission (§2.5).
@@ -3776,13 +3985,24 @@ export interface components {
              * Format: date-time
              */
             created_at: string;
+            /** Image Url */
+            image_url: string | null;
+            /** Variant Attributes */
+            variant_attributes: {
+                [key: string]: string | number | boolean;
+            } | null;
+            /** Product Slug */
+            product_slug: string | null;
+            /** Return Deadline */
+            return_deadline: string | null;
+            refund_request: components["schemas"]["RefundRequestSummaryRead"] | null;
         };
         /**
          * OrderLineStatus
          * @description Owned by RefundService (Doc 04 §3.1a).
          * @enum {string}
          */
-        OrderLineStatus: "active" | "return_pending" | "refunded";
+        OrderLineStatus: "active" | "return_pending" | "returned_to_point" | "refunded";
         /** OrderPickupPointRead */
         OrderPickupPointRead: {
             /** Id */
@@ -3838,6 +4058,36 @@ export interface components {
              */
             groups: components["schemas"]["OrderShopGroupRead"][];
         };
+        /** OrderShopGroupBase */
+        OrderShopGroupBase: {
+            /** Id */
+            id: number;
+            /** Order Id */
+            order_id: number;
+            /** Shop Id */
+            shop_id: number;
+            status: components["schemas"]["OrderShopGroupStatus"];
+            /** Subtotal */
+            subtotal: string;
+            /** Shipping Fee */
+            shipping_fee: string;
+            /** Cancellation Reason */
+            cancellation_reason: string | null;
+            /** Warehouse Received At */
+            warehouse_received_at: string | null;
+            /** Delivered At */
+            delivered_at: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
         /**
          * OrderShopGroupDetailRead
          * @description Seller/admin only.
@@ -3861,11 +4111,6 @@ export interface components {
             /** Delivered At */
             delivered_at: string | null;
             /**
-             * Lines
-             * @default []
-             */
-            lines: components["schemas"]["OrderLineDetailRead"][];
-            /**
              * Created At
              * Format: date-time
              */
@@ -3879,6 +4124,11 @@ export interface components {
             commission_total: string;
             /** Payout Amount */
             payout_amount: string;
+            /**
+             * Lines
+             * @default []
+             */
+            lines: components["schemas"]["OrderLineDetailRead"][];
         };
         /**
          * OrderShopGroupRead
@@ -3903,11 +4153,6 @@ export interface components {
             /** Delivered At */
             delivered_at: string | null;
             /**
-             * Lines
-             * @default []
-             */
-            lines: components["schemas"]["OrderLineRead"][];
-            /**
              * Created At
              * Format: date-time
              */
@@ -3917,6 +4162,12 @@ export interface components {
              * Format: date-time
              */
             updated_at: string;
+            shop: components["schemas"]["ShopSummaryRead"];
+            /**
+             * Lines
+             * @default []
+             */
+            lines: components["schemas"]["OrderLineRead"][];
         };
         /**
          * OrderShopGroupStatus
@@ -3928,6 +4179,26 @@ export interface components {
          * @enum {string}
          */
         OrderStatus: "pending_payment" | "paid" | "partially_fulfilled" | "completed" | "cancelled" | "payment_failed";
+        /** PasswordResetConfirm */
+        PasswordResetConfirm: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Code */
+            code: string;
+            /** New Password */
+            new_password: string;
+        };
+        /** PasswordResetRequest */
+        PasswordResetRequest: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+        };
         /**
          * PaymentMethod
          * @enum {string}
@@ -4140,6 +4411,33 @@ export interface components {
             contact_phone?: string | null;
             /** Region Id */
             region_id?: number | null;
+        };
+        /**
+         * PickupReturnRead
+         * @description An approved return the buyer is expected to bring to this point.
+         */
+        PickupReturnRead: {
+            /** Refund Request Id */
+            refund_request_id: number;
+            /** Order Id */
+            order_id: number;
+            /** Order Number */
+            order_number: string;
+            /** Recipient Name */
+            recipient_name: string;
+            /** Recipient Phone */
+            recipient_phone: string;
+            /** Product Title */
+            product_title: string;
+            /** Platform Sku */
+            platform_sku: string;
+            /** Quantity */
+            quantity: number;
+            reason_code: components["schemas"]["RefundReasonCode"];
+            /** Reason Text */
+            reason_text: string | null;
+            /** Approved At */
+            approved_at: string | null;
         };
         /** PickupStatusItemRead */
         PickupStatusItemRead: {
@@ -4582,6 +4880,11 @@ export interface components {
             /** Is Active */
             is_active?: boolean | null;
         };
+        /** ReceiveReturnRequest */
+        ReceiveReturnRequest: {
+            /** Condition Note */
+            condition_note?: string | null;
+        };
         /**
          * Recipient
          * @description Who collects the order at the pickup point — staff check it against the buyer.
@@ -4644,6 +4947,13 @@ export interface components {
          * @enum {string}
          */
         RefundDecision: "approve" | "reject";
+        /** RefundEvidenceRead */
+        RefundEvidenceRead: {
+            /** Key */
+            key: string;
+            /** Url */
+            url: string;
+        };
         /**
          * RefundReasonCode
          * @enum {string}
@@ -4659,8 +4969,8 @@ export interface components {
             reason_code: components["schemas"]["RefundReasonCode"];
             /** Reason Text */
             reason_text?: string | null;
-            /** Evidence Urls */
-            evidence_urls?: string[] | null;
+            /** Evidence Keys */
+            evidence_keys?: string[] | null;
         };
         /** RefundRequestRead */
         RefundRequestRead: {
@@ -4686,11 +4996,44 @@ export interface components {
             resolved_at: string | null;
             /** Escalated At */
             escalated_at: string | null;
+            /** Resolution Note */
+            resolution_note: string | null;
+            /** Point Received At */
+            point_received_at: string | null;
             /**
              * Created At
              * Format: date-time
              */
             created_at: string;
+            /**
+             * Evidence
+             * @description The buyer's photos. `url` is signed and short-lived — display it, never store it.
+             */
+            readonly evidence: components["schemas"]["RefundEvidenceRead"][];
+        };
+        /**
+         * RefundRequestSummaryRead
+         * @description A line's latest refund request, as the buyer's order page needs it.
+         */
+        RefundRequestSummaryRead: {
+            /** Id */
+            id: number;
+            status: components["schemas"]["RefundStatus"];
+            reason_code: components["schemas"]["RefundReasonCode"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Resolved At */
+            resolved_at: string | null;
+            /** Escalated At */
+            escalated_at: string | null;
+            /** Resolution Note */
+            resolution_note: string | null;
+            return_point: components["schemas"]["OrderPickupPointRead"] | null;
+            /** Point Received At */
+            point_received_at: string | null;
         };
         /**
          * RefundRequestedBy
@@ -5162,6 +5505,16 @@ export interface components {
             /** Description */
             description: string | null;
         };
+        /**
+         * UpdateProfileRequest
+         * @description PATCH /auth/me — send only what changes. `phone: null` clears the saved number.
+         */
+        UpdateProfileRequest: {
+            /** Full Name */
+            full_name?: string | null;
+            /** Phone */
+            phone?: string | null;
+        };
         /** UpdateShopLimitRequest */
         UpdateShopLimitRequest: {
             /** Shop Limit */
@@ -5175,7 +5528,7 @@ export interface components {
          * UploadPurpose
          * @enum {string}
          */
-        UploadPurpose: "shop_logo" | "shop_banner" | "product_image" | "seller_document";
+        UploadPurpose: "shop_logo" | "shop_banner" | "product_image" | "seller_document" | "refund_evidence";
         /** UploadRead */
         UploadRead: {
             /** Id */
@@ -5233,6 +5586,8 @@ export interface components {
             full_name?: string | null;
             /** Id */
             id: number;
+            /** Phone */
+            phone?: string | null;
             /** Is Active */
             is_active: boolean;
             /**
@@ -5284,7 +5639,7 @@ export interface components {
             /** Warehouse Received At */
             warehouse_received_at: string | null;
             /** Lines */
-            lines: components["schemas"]["OrderLineRead"][];
+            lines: components["schemas"]["OrderLineBase"][];
         };
         /** WarehouseShipmentCreateRequest */
         WarehouseShipmentCreateRequest: {
@@ -5411,6 +5766,72 @@ export interface operations {
             };
         };
     };
+    request_password_reset_api_v1_auth_password_reset_request_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PasswordResetRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MessageResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    confirm_password_reset_api_v1_auth_password_reset_confirm_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PasswordResetConfirm"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MessageResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_me_api_v1_auth_me_get: {
         parameters: {
             query?: never;
@@ -5429,6 +5850,76 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_me_api_v1_auth_me_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateProfileRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    change_my_password_api_v1_auth_me_password_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChangePasswordRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenResponse"];
                 };
             };
             /** @description Validation Error */
@@ -7627,7 +8118,11 @@ export interface operations {
     };
     list_my_orders_api_v1_orders_get: {
         parameters: {
-            query?: never;
+            query?: {
+                status?: components["schemas"]["OrderStatus"][];
+                skip?: number;
+                limit?: number;
+            };
             header?: never;
             path?: never;
             cookie?: {
@@ -7713,7 +8208,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OrderShopGroupDetailRead"];
+                    "application/json": components["schemas"]["OrderShopGroupRead"];
                 };
             };
             /** @description Validation Error */
@@ -10472,6 +10967,74 @@ export interface operations {
             };
         };
     };
+    list_returns_for_staff_api_v1_pickup_staff_returns_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PickupReturnRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    receive_return_api_v1_pickup_staff_returns__refund_request_id__receive_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                refund_request_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReceiveReturnRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RefundRequestRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_current_reconciliation_for_staff_api_v1_pickup_staff_reconciliation_current_get: {
         parameters: {
             query?: never;
@@ -10728,7 +11291,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OrderShopGroupRead"];
+                    "application/json": components["schemas"]["OrderShopGroupBase"];
                 };
             };
             /** @description Validation Error */
@@ -11019,6 +11582,72 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["UploadRead"];
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    register_device_api_v1_devices_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DeviceRegisterRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeviceRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    unregister_device_api_v1_devices_delete: {
+        parameters: {
+            query: {
+                token: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {

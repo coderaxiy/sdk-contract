@@ -15,7 +15,7 @@ import com.emarketseller.sdk.model.DeclareReconciliationRequest
 import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.HoldingRead
 import com.emarketseller.sdk.model.NearbyPickupPointRead
-import com.emarketseller.sdk.model.OrderShopGroupRead
+import com.emarketseller.sdk.model.OrderShopGroupBase
 import com.emarketseller.sdk.model.PickupPointCashReconciliationStatus
 import com.emarketseller.sdk.model.PickupPointCreateRequest
 import com.emarketseller.sdk.model.PickupPointRead
@@ -24,8 +24,11 @@ import com.emarketseller.sdk.model.PickupPointStaffRead
 import com.emarketseller.sdk.model.PickupPointStatus
 import com.emarketseller.sdk.model.PickupPointStatusUpdateRequest
 import com.emarketseller.sdk.model.PickupPointUpdateRequest
+import com.emarketseller.sdk.model.PickupReturnRead
 import com.emarketseller.sdk.model.PickupStatusRead
+import com.emarketseller.sdk.model.ReceiveReturnRequest
 import com.emarketseller.sdk.model.ReconciliationRead
+import com.emarketseller.sdk.model.RefundRequestRead
 import com.emarketseller.sdk.model.RegionRead
 import com.emarketseller.sdk.model.RejectItemsRequest
 import com.emarketseller.sdk.model.ResolveDiscrepancyRequest
@@ -318,6 +321,20 @@ interface LogisticsApi {
     suspend fun listRegionsApiV1RegionsGet(): Response<kotlin.collections.List<RegionRead>>
 
     /**
+     * GET api/v1/pickup-staff/returns
+     * List Returns For Staff
+     * Approved returns for orders collected at this point, waiting for the buyer to hand the item in.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param accessToken  (optional)
+     * @return [kotlin.collections.List<PickupReturnRead>]
+     */
+    @GET("api/v1/pickup-staff/returns")
+    suspend fun listReturnsForStaffApiV1PickupStaffReturnsGet(): Response<kotlin.collections.List<PickupReturnRead>>
+
+    /**
      * GET api/v1/admin/shipments
      * List Shipment Discrepancies Admin
      * 
@@ -404,10 +421,26 @@ interface LogisticsApi {
      *
      * @param groupId 
      * @param accessToken  (optional)
-     * @return [OrderShopGroupRead]
+     * @return [OrderShopGroupBase]
      */
     @POST("api/v1/warehouse/order-groups/{group_id}/receive")
-    suspend fun receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(@Path("group_id") groupId: kotlin.Int, ): Response<OrderShopGroupRead>
+    suspend fun receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(@Path("group_id") groupId: kotlin.Int, ): Response<OrderShopGroupBase>
+
+    /**
+     * POST api/v1/pickup-staff/returns/{refund_request_id}/receive
+     * Receive Return
+     * Take in a returned item. The line becomes &#x60;returned_to_point&#x60;; the seller&#39;s confirm-return still releases the refund.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param refundRequestId 
+     * @param receiveReturnRequest 
+     * @param accessToken  (optional)
+     * @return [RefundRequestRead]
+     */
+    @POST("api/v1/pickup-staff/returns/{refund_request_id}/receive")
+    suspend fun receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost(@Path("refund_request_id") refundRequestId: kotlin.Int, @Body receiveReturnRequest: ReceiveReturnRequest, ): Response<RefundRequestRead>
 
     /**
      * POST api/v1/pickup-staff/holdings/{holding_id}/reject

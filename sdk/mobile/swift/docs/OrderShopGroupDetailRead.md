@@ -12,11 +12,11 @@ Name | Type | Description | Notes
 **cancellationReason** | **String** |  | 
 **warehouseReceivedAt** | **Date** |  | 
 **deliveredAt** | **Date** |  | 
-**lines** | [OrderLineDetailRead] |  | [optional] 
 **createdAt** | **Date** |  | 
 **updatedAt** | **Date** |  | 
 **commissionTotal** | **String** |  | 
 **payoutAmount** | **String** |  | 
+**lines** | [OrderLineDetailRead] |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

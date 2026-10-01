@@ -86,6 +86,64 @@ paths:
           content:
             application/json:
               schema: {}
+  /api/v1/auth/password-reset/request:
+    post:
+      tags:
+      - auth
+      summary: Request Password Reset
+      description: 'Public. Emails a 6-digit code valid for 15 minutes. The response is identical whether
+
+        or not the account exists, so it can''t be used to find out who is registered.'
+      operationId: request_password_reset_api_v1_auth_password_reset_request_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetRequest'
+        required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/auth/password-reset/confirm:
+    post:
+      tags:
+      - auth
+      summary: Confirm Password Reset
+      description: 'Public. Sets a new password from the emailed code and signs out every session;
+
+        the user then logs in normally. `400 "Invalid or expired code"` covers a wrong,
+
+        expired or used code, and a code that was guessed wrong too many times.'
+      operationId: confirm_password_reset_api_v1_auth_password_reset_confirm_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/auth/me:
     get:
       tags:
@@ -108,6 +166,77 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - auth
+      summary: Update Me
+      description: Edit my name or saved phone. Email can't be changed here.
+      operationId: update_me_api_v1_auth_me_patch
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/auth/me/password:
+    post:
+      tags:
+      - auth
+      summary: Change My Password
+      description: 'Needs the current password (`400` if wrong). Every other session is signed out;
+
+        this one gets a fresh `access_token` cookie in the response.'
+      operationId: change_my_password_api_v1_auth_me_password_post
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
         '422':
           description: Validation Error
           content:
@@ -2711,8 +2840,35 @@ paths:
       tags:
       - orders
       summary: List My Orders
+      description: My orders, newest first. `status` may repeat; the total match count is in `X-Total-Count`.
       operationId: list_my_orders_api_v1_orders_get
       parameters:
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderStatus'
+          default: []
+          title: Status
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 50
+          title: Limit
       - name: access_token
         in: cookie
         required: false
@@ -2810,7 +2966,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrderShopGroupDetailRead'
+                $ref: '#/components/schemas/OrderShopGroupRead'
         '422':
           description: Validation Error
           content:
@@ -5943,6 +6099,82 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/pickup-staff/returns:
+    get:
+      tags:
+      - logistics
+      summary: List Returns For Staff
+      description: Approved returns for orders collected at this point, waiting for the buyer to hand
+        the item in.
+      operationId: list_returns_for_staff_api_v1_pickup_staff_returns_get
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PickupReturnRead'
+                title: Response List Returns For Staff Api V1 Pickup Staff Returns Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/pickup-staff/returns/{refund_request_id}/receive:
+    post:
+      tags:
+      - logistics
+      summary: Receive Return
+      description: 'Take in a returned item. The line becomes `returned_to_point`; the seller''s
+
+        confirm-return still releases the refund.'
+      operationId: receive_return_api_v1_pickup_staff_returns__refund_request_id__receive_post
+      parameters:
+      - name: refund_request_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Refund Request Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReceiveReturnRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundRequestRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/pickup-staff/reconciliation/current:
     get:
       tags:
@@ -6220,7 +6452,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrderShopGroupRead'
+                $ref: '#/components/schemas/OrderShopGroupBase'
         '422':
           description: Validation Error
           content:
@@ -6554,6 +6786,79 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UploadRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/devices:
+    put:
+      tags:
+      - notifications
+      summary: Register Device
+      description: 'Register (or refresh) this phone''s push token for the logged-in user. Call it after
+
+        login and whenever the token or the app language changes. A token already registered to
+
+        another account moves to this one.'
+      operationId: register_device_api_v1_devices_put
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceRegisterRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - notifications
+      summary: Unregister Device
+      description: 'Stop pushes to this phone for the logged-in user. Call it **before** `POST /auth/logout`.
+
+        Unknown tokens, and tokens of another user, are ignored (`204` either way).'
+      operationId: unregister_device_api_v1_devices_delete
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 512
+          title: Token
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '204':
+          description: Successful Response
         '422':
           description: Validation Error
           content:
@@ -7642,6 +7947,20 @@ components:
         goes through the deactivate preview/confirm flow — reactivation (True) is
 
         allowed here since it never destroys data.'
+    ChangePasswordRequest:
+      properties:
+        current_password:
+          type: string
+          title: Current Password
+        new_password:
+          type: string
+          minLength: 8
+          title: New Password
+      type: object
+      required:
+      - current_password
+      - new_password
+      title: ChangePasswordRequest
     CheckInItemInput:
       properties:
         item_id:
@@ -8011,6 +8330,63 @@ components:
           title: Reason
       type: object
       title: DelistRequest
+    DevicePlatform:
+      type: string
+      enum:
+      - android
+      - ios
+      title: DevicePlatform
+    DeviceRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        platform:
+          $ref: '#/components/schemas/DevicePlatform'
+        locale:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Locale
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - platform
+      - locale
+      - created_at
+      - updated_at
+      title: DeviceRead
+    DeviceRegisterRequest:
+      properties:
+        token:
+          type: string
+          maxLength: 512
+          minLength: 10
+          title: Token
+        platform:
+          $ref: '#/components/schemas/DevicePlatform'
+        locale:
+          anyOf:
+          - type: string
+            enum:
+            - uz
+            - ru
+            - en
+          - type: 'null'
+          title: Locale
+      type: object
+      required:
+      - token
+      - platform
+      title: DeviceRegisterRequest
     DiscrepancyItemResolution:
       properties:
         item_id:
@@ -8366,6 +8742,15 @@ components:
       - amount
       - note
       title: ManualAdjustmentRequest
+    MessageResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: MessageResponse
     ModerationAction:
       type: string
       enum:
@@ -8667,6 +9052,62 @@ components:
       - created_at
       - updated_at
       title: OrderAdminRead
+    OrderLineBase:
+      properties:
+        id:
+          type: integer
+          title: Id
+        product_id:
+          type: integer
+          title: Product Id
+        variant_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Variant Id
+        product_title_snapshot:
+          type: string
+          title: Product Title Snapshot
+        platform_sku_snapshot:
+          type: string
+          title: Platform Sku Snapshot
+        unit_price:
+          type: string
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Unit Price
+        quantity:
+          type: integer
+          title: Quantity
+        line_total:
+          type: string
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Line Total
+        status:
+          $ref: '#/components/schemas/OrderLineStatus'
+        physical_return_received_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Physical Return Received At
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - product_id
+      - variant_id
+      - product_title_snapshot
+      - platform_sku_snapshot
+      - unit_price
+      - quantity
+      - line_total
+      - status
+      - physical_return_received_at
+      - created_at
+      title: OrderLineBase
     OrderLineDetailRead:
       properties:
         id:
@@ -8785,6 +9226,36 @@ components:
           type: string
           format: date-time
           title: Created At
+        image_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Image Url
+        variant_attributes:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: number
+              - type: boolean
+            type: object
+          - type: 'null'
+          title: Variant Attributes
+        product_slug:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Product Slug
+        return_deadline:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Return Deadline
+        refund_request:
+          anyOf:
+          - $ref: '#/components/schemas/RefundRequestSummaryRead'
+          - type: 'null'
       type: object
       required:
       - id
@@ -8798,6 +9269,11 @@ components:
       - status
       - physical_return_received_at
       - created_at
+      - image_url
+      - variant_attributes
+      - product_slug
+      - return_deadline
+      - refund_request
       title: OrderLineRead
       description: Buyer-safe — no commission fields.
     OrderLineStatus:
@@ -8805,6 +9281,7 @@ components:
       enum:
       - active
       - return_pending
+      - returned_to_point
       - refunded
       title: OrderLineStatus
       description: Owned by RefundService (Doc 04 §3.1a).
@@ -8910,6 +9387,66 @@ components:
       - created_at
       - updated_at
       title: OrderRead
+    OrderShopGroupBase:
+      properties:
+        id:
+          type: integer
+          title: Id
+        order_id:
+          type: integer
+          title: Order Id
+        shop_id:
+          type: integer
+          title: Shop Id
+        status:
+          $ref: '#/components/schemas/OrderShopGroupStatus'
+        subtotal:
+          type: string
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Subtotal
+        shipping_fee:
+          type: string
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Shipping Fee
+        cancellation_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cancellation Reason
+        warehouse_received_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Warehouse Received At
+        delivered_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Delivered At
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - order_id
+      - shop_id
+      - status
+      - subtotal
+      - shipping_fee
+      - cancellation_reason
+      - warehouse_received_at
+      - delivered_at
+      - created_at
+      - updated_at
+      title: OrderShopGroupBase
     OrderShopGroupDetailRead:
       properties:
         id:
@@ -8948,12 +9485,6 @@ components:
             format: date-time
           - type: 'null'
           title: Delivered At
-        lines:
-          items:
-            $ref: '#/components/schemas/OrderLineDetailRead'
-          type: array
-          title: Lines
-          default: []
         created_at:
           type: string
           format: date-time
@@ -8970,6 +9501,12 @@ components:
           type: string
           pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
           title: Payout Amount
+        lines:
+          items:
+            $ref: '#/components/schemas/OrderLineDetailRead'
+          type: array
+          title: Lines
+          default: []
       type: object
       required:
       - id
@@ -9025,12 +9562,6 @@ components:
             format: date-time
           - type: 'null'
           title: Delivered At
-        lines:
-          items:
-            $ref: '#/components/schemas/OrderLineRead'
-          type: array
-          title: Lines
-          default: []
         created_at:
           type: string
           format: date-time
@@ -9039,6 +9570,14 @@ components:
           type: string
           format: date-time
           title: Updated At
+        shop:
+          $ref: '#/components/schemas/ShopSummaryRead'
+        lines:
+          items:
+            $ref: '#/components/schemas/OrderLineRead'
+          type: array
+          title: Lines
+          default: []
       type: object
       required:
       - id
@@ -9052,6 +9591,7 @@ components:
       - delivered_at
       - created_at
       - updated_at
+      - shop
       title: OrderShopGroupRead
       description: Buyer-safe — no commission_total/payout_amount.
     OrderShopGroupStatus:
@@ -9082,6 +9622,36 @@ components:
       - cancelled
       - payment_failed
       title: OrderStatus
+    PasswordResetConfirm:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        code:
+          type: string
+          pattern: ^\d{6}$
+          title: Code
+        new_password:
+          type: string
+          minLength: 8
+          title: New Password
+      type: object
+      required:
+      - email
+      - code
+      - new_password
+      title: PasswordResetConfirm
+    PasswordResetRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+      type: object
+      required:
+      - email
+      title: PasswordResetRequest
     PaymentMethod:
       type: string
       enum:
@@ -9450,6 +10020,60 @@ components:
           title: Region Id
       type: object
       title: PickupPointUpdateRequest
+    PickupReturnRead:
+      properties:
+        refund_request_id:
+          type: integer
+          title: Refund Request Id
+        order_id:
+          type: integer
+          title: Order Id
+        order_number:
+          type: string
+          title: Order Number
+        recipient_name:
+          type: string
+          title: Recipient Name
+        recipient_phone:
+          type: string
+          title: Recipient Phone
+        product_title:
+          type: string
+          title: Product Title
+        platform_sku:
+          type: string
+          title: Platform Sku
+        quantity:
+          type: integer
+          title: Quantity
+        reason_code:
+          $ref: '#/components/schemas/RefundReasonCode'
+        reason_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason Text
+        approved_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Approved At
+      type: object
+      required:
+      - refund_request_id
+      - order_id
+      - order_number
+      - recipient_name
+      - recipient_phone
+      - product_title
+      - platform_sku
+      - quantity
+      - reason_code
+      - reason_text
+      - approved_at
+      title: PickupReturnRead
+      description: An approved return the buyer is expected to bring to this point.
     PickupStatusItemRead:
       properties:
         order_line_id:
@@ -10338,6 +10962,15 @@ components:
       type: object
       title: ProductVariantUpdate
       description: 'PATCH: omitted fields are unchanged; `seller_sku: null` clears it.'
+    ReceiveReturnRequest:
+      properties:
+        condition_note:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Condition Note
+      type: object
+      title: ReceiveReturnRequest
     Recipient:
       properties:
         full_name:
@@ -10451,6 +11084,19 @@ components:
       - approve
       - reject
       title: RefundDecision
+    RefundEvidenceRead:
+      properties:
+        key:
+          type: string
+          title: Key
+        url:
+          type: string
+          title: Url
+      type: object
+      required:
+      - key
+      - url
+      title: RefundEvidenceRead
     RefundReasonCode:
       type: string
       enum:
@@ -10480,13 +11126,14 @@ components:
           - type: string
           - type: 'null'
           title: Reason Text
-        evidence_urls:
+        evidence_keys:
           anyOf:
           - items:
               type: string
             type: array
+            maxItems: 5
           - type: 'null'
-          title: Evidence Urls
+          title: Evidence Keys
       type: object
       required:
       - reason_code
@@ -10545,10 +11192,28 @@ components:
             format: date-time
           - type: 'null'
           title: Escalated At
+        resolution_note:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Resolution Note
+        point_received_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Point Received At
         created_at:
           type: string
           format: date-time
           title: Created At
+        evidence:
+          items:
+            $ref: '#/components/schemas/RefundEvidenceRead'
+          type: array
+          title: Evidence
+          description: The buyer's photos. `url` is signed and short-lived — display it, never store it.
+          readOnly: true
       type: object
       required:
       - id
@@ -10564,8 +11229,64 @@ components:
       - resolved_by
       - resolved_at
       - escalated_at
+      - resolution_note
+      - point_received_at
       - created_at
+      - evidence
       title: RefundRequestRead
+    RefundRequestSummaryRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        status:
+          $ref: '#/components/schemas/RefundStatus'
+        reason_code:
+          $ref: '#/components/schemas/RefundReasonCode'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        resolved_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Resolved At
+        escalated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Escalated At
+        resolution_note:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Resolution Note
+        return_point:
+          anyOf:
+          - $ref: '#/components/schemas/OrderPickupPointRead'
+          - type: 'null'
+        point_received_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Point Received At
+      type: object
+      required:
+      - id
+      - status
+      - reason_code
+      - created_at
+      - resolved_at
+      - escalated_at
+      - resolution_note
+      - return_point
+      - point_received_at
+      title: RefundRequestSummaryRead
+      description: A line's latest refund request, as the buyer's order page needs it.
     RefundRequestedBy:
       type: string
       enum:
@@ -11459,6 +12180,25 @@ components:
       - name
       - description
       title: TranslationRead
+    UpdateProfileRequest:
+      properties:
+        full_name:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Full Name
+        phone:
+          anyOf:
+          - type: string
+            maxLength: 30
+            minLength: 5
+          - type: 'null'
+          title: Phone
+      type: object
+      title: UpdateProfileRequest
+      description: 'PATCH /auth/me — send only what changes. `phone: null` clears the saved number.'
     UpdateShopLimitRequest:
       properties:
         shop_limit:
@@ -11483,6 +12223,7 @@ components:
       - shop_banner
       - product_image
       - seller_document
+      - refund_evidence
       title: UploadPurpose
     UploadRead:
       properties:
@@ -11573,6 +12314,11 @@ components:
         id:
           type: integer
           title: Id
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
         is_active:
           type: boolean
           title: Is Active
@@ -11659,7 +12405,7 @@ components:
           title: Warehouse Received At
         lines:
           items:
-            $ref: '#/components/schemas/OrderLineRead'
+            $ref: '#/components/schemas/OrderLineBase'
           type: array
           title: Lines
       type: object

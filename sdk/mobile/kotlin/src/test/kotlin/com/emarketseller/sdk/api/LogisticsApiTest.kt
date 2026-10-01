@@ -35,7 +35,7 @@ import com.emarketseller.sdk.model.DeclareReconciliationRequest
 import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.HoldingRead
 import com.emarketseller.sdk.model.NearbyPickupPointRead
-import com.emarketseller.sdk.model.OrderShopGroupRead
+import com.emarketseller.sdk.model.OrderShopGroupBase
 import com.emarketseller.sdk.model.PickupPointCashReconciliationStatus
 import com.emarketseller.sdk.model.PickupPointCreateRequest
 import com.emarketseller.sdk.model.PickupPointRead
@@ -44,8 +44,11 @@ import com.emarketseller.sdk.model.PickupPointStaffRead
 import com.emarketseller.sdk.model.PickupPointStatus
 import com.emarketseller.sdk.model.PickupPointStatusUpdateRequest
 import com.emarketseller.sdk.model.PickupPointUpdateRequest
+import com.emarketseller.sdk.model.PickupReturnRead
 import com.emarketseller.sdk.model.PickupStatusRead
+import com.emarketseller.sdk.model.ReceiveReturnRequest
 import com.emarketseller.sdk.model.ReconciliationRead
+import com.emarketseller.sdk.model.RefundRequestRead
 import com.emarketseller.sdk.model.RegionRead
 import com.emarketseller.sdk.model.RejectItemsRequest
 import com.emarketseller.sdk.model.ResolveDiscrepancyRequest
@@ -228,6 +231,14 @@ class LogisticsApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test listReturnsForStaffApiV1PickupStaffReturnsGet
+        should("test listReturnsForStaffApiV1PickupStaffReturnsGet") {
+            // uncomment below to test listReturnsForStaffApiV1PickupStaffReturnsGet
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : kotlin.collections.List<PickupReturnRead> = apiInstance.listReturnsForStaffApiV1PickupStaffReturnsGet(accessToken)
+            //result shouldBe ("TODO")
+        }
+
         // to test listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet
         should("test listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet") {
             // uncomment below to test listShipmentDiscrepanciesAdminApiV1AdminShipmentsGet
@@ -280,7 +291,17 @@ class LogisticsApiTest : ShouldSpec() {
             // uncomment below to test receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost
             //val groupId : kotlin.Int = 56 // kotlin.Int | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : OrderShopGroupRead = apiInstance.receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId, accessToken)
+            //val result : OrderShopGroupBase = apiInstance.receiveOrderGroupApiV1WarehouseOrderGroupsGroupIdReceivePost(groupId, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost
+        should("test receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost") {
+            // uncomment below to test receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost
+            //val refundRequestId : kotlin.Int = 56 // kotlin.Int | 
+            //val receiveReturnRequest : ReceiveReturnRequest =  // ReceiveReturnRequest | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : RefundRequestRead = apiInstance.receiveReturnApiV1PickupStaffReturnsRefundRequestIdReceivePost(refundRequestId, receiveReturnRequest, accessToken)
             //result shouldBe ("TODO")
         }
 

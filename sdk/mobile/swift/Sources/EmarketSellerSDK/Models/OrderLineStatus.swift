@@ -11,5 +11,6 @@ import Foundation
 public enum OrderLineStatus: String, Sendable, Codable, CaseIterable {
     case active = "active"
     case returnPending = "return_pending"
+    case returnedToPoint = "returned_to_point"
     case refunded = "refunded"
 }

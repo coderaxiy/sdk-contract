@@ -10,6 +10,82 @@ import Foundation
 open class AuthAPI {
 
     /**
+     Change My Password
+     
+     - parameter changePasswordRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: TokenResponse
+     */
+    open class func changeMyPasswordApiV1AuthMePasswordPost(changePasswordRequest: ChangePasswordRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> TokenResponse {
+        return try await changeMyPasswordApiV1AuthMePasswordPostWithRequestBuilder(changePasswordRequest: changePasswordRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Change My Password
+     - POST /api/v1/auth/me/password
+     - Needs the current password (`400` if wrong). Every other session is signed out; this one gets a fresh `access_token` cookie in the response.
+     - parameter changePasswordRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<TokenResponse> 
+     */
+    open class func changeMyPasswordApiV1AuthMePasswordPostWithRequestBuilder(changePasswordRequest: ChangePasswordRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<TokenResponse> {
+        let localVariablePath = "/api/v1/auth/me/password"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: changePasswordRequest, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<TokenResponse>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Confirm Password Reset
+     
+     - parameter passwordResetConfirm: (body)  
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: MessageResponse
+     */
+    open class func confirmPasswordResetApiV1AuthPasswordResetConfirmPost(passwordResetConfirm: PasswordResetConfirm, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> MessageResponse {
+        return try await confirmPasswordResetApiV1AuthPasswordResetConfirmPostWithRequestBuilder(passwordResetConfirm: passwordResetConfirm, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Confirm Password Reset
+     - POST /api/v1/auth/password-reset/confirm
+     - Public. Sets a new password from the emailed code and signs out every session; the user then logs in normally. `400 \"Invalid or expired code\"` covers a wrong, expired or used code, and a code that was guessed wrong too many times.
+     - parameter passwordResetConfirm: (body)  
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<MessageResponse> 
+     */
+    open class func confirmPasswordResetApiV1AuthPasswordResetConfirmPostWithRequestBuilder(passwordResetConfirm: PasswordResetConfirm, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<MessageResponse> {
+        let localVariablePath = "/api/v1/auth/password-reset/confirm"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: passwordResetConfirm, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<MessageResponse>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Get Me
      
      - parameter accessToken: ()  (optional)
@@ -155,5 +231,81 @@ open class AuthAPI {
         let localVariableRequestBuilder: RequestBuilder<UserRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Request Password Reset
+     
+     - parameter passwordResetRequest: (body)  
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: MessageResponse
+     */
+    open class func requestPasswordResetApiV1AuthPasswordResetRequestPost(passwordResetRequest: PasswordResetRequest, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> MessageResponse {
+        return try await requestPasswordResetApiV1AuthPasswordResetRequestPostWithRequestBuilder(passwordResetRequest: passwordResetRequest, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Request Password Reset
+     - POST /api/v1/auth/password-reset/request
+     - Public. Emails a 6-digit code valid for 15 minutes. The response is identical whether or not the account exists, so it can't be used to find out who is registered.
+     - parameter passwordResetRequest: (body)  
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<MessageResponse> 
+     */
+    open class func requestPasswordResetApiV1AuthPasswordResetRequestPostWithRequestBuilder(passwordResetRequest: PasswordResetRequest, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<MessageResponse> {
+        let localVariablePath = "/api/v1/auth/password-reset/request"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: passwordResetRequest, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<MessageResponse>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Update Me
+     
+     - parameter updateProfileRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: UserRead
+     */
+    open class func updateMeApiV1AuthMePatch(updateProfileRequest: UpdateProfileRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> UserRead {
+        return try await updateMeApiV1AuthMePatchWithRequestBuilder(updateProfileRequest: updateProfileRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Update Me
+     - PATCH /api/v1/auth/me
+     - Edit my name or saved phone. Email can't be changed here.
+     - parameter updateProfileRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<UserRead> 
+     */
+    open class func updateMeApiV1AuthMePatchWithRequestBuilder(updateProfileRequest: UpdateProfileRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<UserRead> {
+        let localVariablePath = "/api/v1/auth/me"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: updateProfileRequest, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<UserRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }
 }

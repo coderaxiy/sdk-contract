@@ -23,6 +23,7 @@
 
 package com.emarketseller.sdk.model
 
+import com.emarketseller.sdk.model.RefundEvidenceRead
 import com.emarketseller.sdk.model.RefundReasonCode
 import com.emarketseller.sdk.model.RefundRequestedBy
 import com.emarketseller.sdk.model.RefundStatus
@@ -48,7 +49,10 @@ import kotlinx.serialization.Contextual
  * @param resolvedBy 
  * @param resolvedAt 
  * @param escalatedAt 
+ * @param resolutionNote 
+ * @param pointReceivedAt 
  * @param createdAt 
+ * @param evidence The buyer's photos. `url` is signed and short-lived — display it, never store it.
  */
 @Serializable
 
@@ -93,8 +97,18 @@ data class RefundRequestRead (
     @Contextual @SerialName(value = "escalated_at")
     val escalatedAt: java.time.OffsetDateTime?,
 
+    @SerialName(value = "resolution_note")
+    val resolutionNote: kotlin.String?,
+
+    @Contextual @SerialName(value = "point_received_at")
+    val pointReceivedAt: java.time.OffsetDateTime?,
+
     @Contextual @SerialName(value = "created_at")
-    val createdAt: java.time.OffsetDateTime
+    val createdAt: java.time.OffsetDateTime,
+
+    /* The buyer's photos. `url` is signed and short-lived — display it, never store it. */
+    @SerialName(value = "evidence")
+    val evidence: kotlin.collections.List<RefundEvidenceRead>
 
 ) {
 

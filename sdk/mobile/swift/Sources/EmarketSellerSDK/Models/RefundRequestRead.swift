@@ -23,9 +23,13 @@ public struct RefundRequestRead: Sendable, Codable, Hashable {
     public var resolvedBy: Int?
     public var resolvedAt: Date?
     public var escalatedAt: Date?
+    public var resolutionNote: String?
+    public var pointReceivedAt: Date?
     public var createdAt: Date
+    /** The buyer's photos. `url` is signed and short-lived — display it, never store it. */
+    public var evidence: [RefundEvidenceRead]
 
-    public init(id: Int, orderLineId: Int, requestedBy: RefundRequestedBy, requesterUserId: Int, reasonCode: RefundReasonCode, reasonText: String?, status: RefundStatus, refundAmount: String, whoBearsCost: WhoBearsCost?, evidenceUrls: [String]?, resolvedBy: Int?, resolvedAt: Date?, escalatedAt: Date?, createdAt: Date) {
+    public init(id: Int, orderLineId: Int, requestedBy: RefundRequestedBy, requesterUserId: Int, reasonCode: RefundReasonCode, reasonText: String?, status: RefundStatus, refundAmount: String, whoBearsCost: WhoBearsCost?, evidenceUrls: [String]?, resolvedBy: Int?, resolvedAt: Date?, escalatedAt: Date?, resolutionNote: String?, pointReceivedAt: Date?, createdAt: Date, evidence: [RefundEvidenceRead]) {
         self.id = id
         self.orderLineId = orderLineId
         self.requestedBy = requestedBy
@@ -39,7 +43,10 @@ public struct RefundRequestRead: Sendable, Codable, Hashable {
         self.resolvedBy = resolvedBy
         self.resolvedAt = resolvedAt
         self.escalatedAt = escalatedAt
+        self.resolutionNote = resolutionNote
+        self.pointReceivedAt = pointReceivedAt
         self.createdAt = createdAt
+        self.evidence = evidence
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -56,7 +63,10 @@ public struct RefundRequestRead: Sendable, Codable, Hashable {
         case resolvedBy = "resolved_by"
         case resolvedAt = "resolved_at"
         case escalatedAt = "escalated_at"
+        case resolutionNote = "resolution_note"
+        case pointReceivedAt = "point_received_at"
         case createdAt = "created_at"
+        case evidence
     }
 
     // Encodable protocol methods
@@ -76,7 +86,10 @@ public struct RefundRequestRead: Sendable, Codable, Hashable {
         try container.encode(resolvedBy, forKey: .resolvedBy)
         try container.encode(resolvedAt, forKey: .resolvedAt)
         try container.encode(escalatedAt, forKey: .escalatedAt)
+        try container.encode(resolutionNote, forKey: .resolutionNote)
+        try container.encode(pointReceivedAt, forKey: .pointReceivedAt)
         try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(evidence, forKey: .evidence)
     }
 }
 

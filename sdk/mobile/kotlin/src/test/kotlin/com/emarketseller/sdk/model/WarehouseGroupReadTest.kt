@@ -27,7 +27,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.model.WarehouseGroupRead
-import com.emarketseller.sdk.model.OrderLineRead
+import com.emarketseller.sdk.model.OrderLineBase
 import com.emarketseller.sdk.model.OrderShopGroupStatus
 
 class WarehouseGroupReadTest : ShouldSpec() {

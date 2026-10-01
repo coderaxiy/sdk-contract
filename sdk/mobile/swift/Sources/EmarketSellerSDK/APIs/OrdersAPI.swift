@@ -100,9 +100,9 @@ open class OrdersAPI {
      - parameter cancelGroupRequest: (body)  
      - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
-     - returns: OrderShopGroupDetailRead
+     - returns: OrderShopGroupRead
      */
-    open class func cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost(orderId: Int, groupId: Int, cancelGroupRequest: CancelGroupRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> OrderShopGroupDetailRead {
+    open class func cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPost(orderId: Int, groupId: Int, cancelGroupRequest: CancelGroupRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> OrderShopGroupRead {
         return try await cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPostWithRequestBuilder(orderId: orderId, groupId: groupId, cancelGroupRequest: cancelGroupRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
     }
 
@@ -114,9 +114,9 @@ open class OrdersAPI {
      - parameter cancelGroupRequest: (body)  
      - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
-     - returns: RequestBuilder<OrderShopGroupDetailRead> 
+     - returns: RequestBuilder<OrderShopGroupRead> 
      */
-    open class func cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPostWithRequestBuilder(orderId: Int, groupId: Int, cancelGroupRequest: CancelGroupRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<OrderShopGroupDetailRead> {
+    open class func cancelOrderGroupApiV1OrdersOrderIdGroupsGroupIdCancelPostWithRequestBuilder(orderId: Int, groupId: Int, cancelGroupRequest: CancelGroupRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<OrderShopGroupRead> {
         var localVariablePath = "/api/v1/orders/{order_id}/groups/{group_id}/cancel"
         let orderIdPreEscape = "\(APIHelper.mapValueToPathItem(orderId))"
         let orderIdPostEscape = orderIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -135,7 +135,7 @@ open class OrdersAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<OrderShopGroupDetailRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<OrderShopGroupRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }
@@ -608,27 +608,39 @@ open class OrdersAPI {
     /**
      List My Orders
      
+     - parameter status: (query)  (optional)
+     - parameter skip: (query)  (optional, default to 0)
+     - parameter limit: (query)  (optional, default to 50)
      - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: [OrderRead]
      */
-    open class func listMyOrdersApiV1OrdersGet(accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [OrderRead] {
-        return try await listMyOrdersApiV1OrdersGetWithRequestBuilder(accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    open class func listMyOrdersApiV1OrdersGet(status: [OrderStatus]? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [OrderRead] {
+        return try await listMyOrdersApiV1OrdersGetWithRequestBuilder(status: status, skip: skip, limit: limit, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
      List My Orders
      - GET /api/v1/orders
+     - My orders, newest first. `status` may repeat; the total match count is in `X-Total-Count`.
+     - parameter status: (query)  (optional)
+     - parameter skip: (query)  (optional, default to 0)
+     - parameter limit: (query)  (optional, default to 50)
      - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: RequestBuilder<[OrderRead]> 
      */
-    open class func listMyOrdersApiV1OrdersGetWithRequestBuilder(accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[OrderRead]> {
+    open class func listMyOrdersApiV1OrdersGetWithRequestBuilder(status: [OrderStatus]? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[OrderRead]> {
         let localVariablePath = "/api/v1/orders"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters: [String: any Sendable]? = nil
 
-        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "status": (wrappedValue: status?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "skip": (wrappedValue: skip?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "limit": (wrappedValue: limit?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
 
         let localVariableNillableHeaders: [String: (any Sendable)?] = [
             :

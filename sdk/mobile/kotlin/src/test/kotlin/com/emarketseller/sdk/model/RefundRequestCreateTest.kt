@@ -46,10 +46,10 @@ class RefundRequestCreateTest : ShouldSpec() {
             //modelInstance.reasonText shouldBe ("TODO")
         }
 
-        // to test the property `evidenceUrls`
-        should("test evidenceUrls") {
+        // to test the property `evidenceKeys`
+        should("test evidenceKeys") {
             // uncomment below to test the property
-            //modelInstance.evidenceUrls shouldBe ("TODO")
+            //modelInstance.evidenceKeys shouldBe ("TODO")
         }
 
     }

@@ -3,11 +3,11 @@ id: buyer-push-notifications
 title: Push notifications for buyers — device token registration and order events
 author: mobile
 to: backend
-status: open
+status: closed
 priority: normal
 area: orders
 created: 2026-09-30
-closed:
+closed: 2026-10-01
 reply_to:
 ---
 
@@ -37,3 +37,13 @@ Today the app could only show that by polling while it is open.
 ## References
 
 docs/logistics-and-pickup-points-api.md (pickup status), docs/orders-and-payments-api.md §1, §3.1
+
+## Resolution
+
+Shipped in stages, as the task allowed. **Registration and the events are live; real delivery is not.** Documented in the new `docs/notifications-api.md`.
+
+1. **Device tokens:** `PUT /devices` `{ token, platform, locale? }` and `DELETE /devices?token=`. A token moves to whoever registered it last, so a shared phone only notifies the newest login. Call `DELETE /devices` before logout.
+2. **Events:** `order_group.arrived_at_point` (with `collection_deadline`), `order_group.cancelled` (not for a cancellation the buyer made), `refund.approved` and `refund.rejected`. Each carries `type`, `order_id`, `group_id`, and for refunds `refund_request_id`, as strings in `data`. Text is localized to the device's `locale` (`uz`, `ru`, `en`; Uzbek if unset).
+3. **Delivery is stage two.** The backend sender only logs messages (`PUSH_BACKEND=console`). Real Android and iOS delivery needs an FCM project, credentials and a provider library, so it is a deployment decision. The app can build against the registration and payloads now; nothing in the API changes when delivery goes live.
+
+Not included: a collection-deadline reminder push, pushes for other group statuses, per-event opt-out, automatic clean-up of dead tokens.

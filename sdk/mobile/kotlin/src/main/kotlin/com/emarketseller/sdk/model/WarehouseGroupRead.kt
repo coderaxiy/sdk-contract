@@ -23,7 +23,7 @@
 
 package com.emarketseller.sdk.model
 
-import com.emarketseller.sdk.model.OrderLineRead
+import com.emarketseller.sdk.model.OrderLineBase
 import com.emarketseller.sdk.model.OrderShopGroupStatus
 
 import kotlinx.serialization.Serializable
@@ -68,7 +68,7 @@ data class WarehouseGroupRead (
     val warehouseReceivedAt: java.time.OffsetDateTime?,
 
     @SerialName(value = "lines")
-    val lines: kotlin.collections.List<OrderLineRead>
+    val lines: kotlin.collections.List<OrderLineBase>
 
 ) {
 

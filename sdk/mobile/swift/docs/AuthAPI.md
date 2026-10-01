@@ -4,11 +4,117 @@ All URIs are relative to *http://localhost:8000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**changeMyPasswordApiV1AuthMePasswordPost**](AuthAPI.md#changemypasswordapiv1authmepasswordpost) | **POST** /api/v1/auth/me/password | Change My Password
+[**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](AuthAPI.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** /api/v1/auth/password-reset/confirm | Confirm Password Reset
 [**getMeApiV1AuthMeGet**](AuthAPI.md#getmeapiv1authmeget) | **GET** /api/v1/auth/me | Get Me
 [**loginApiV1AuthLoginPost**](AuthAPI.md#loginapiv1authloginpost) | **POST** /api/v1/auth/login | Login
 [**logoutApiV1AuthLogoutPost**](AuthAPI.md#logoutapiv1authlogoutpost) | **POST** /api/v1/auth/logout | Logout
 [**registerApiV1AuthRegisterPost**](AuthAPI.md#registerapiv1authregisterpost) | **POST** /api/v1/auth/register | Register
+[**requestPasswordResetApiV1AuthPasswordResetRequestPost**](AuthAPI.md#requestpasswordresetapiv1authpasswordresetrequestpost) | **POST** /api/v1/auth/password-reset/request | Request Password Reset
+[**updateMeApiV1AuthMePatch**](AuthAPI.md#updatemeapiv1authmepatch) | **PATCH** /api/v1/auth/me | Update Me
 
+
+# **changeMyPasswordApiV1AuthMePasswordPost**
+```swift
+    open class func changeMyPasswordApiV1AuthMePasswordPost(changePasswordRequest: ChangePasswordRequest, accessToken: String? = nil, completion: @escaping (_ data: TokenResponse?, _ error: Error?) -> Void)
+```
+
+Change My Password
+
+Needs the current password (`400` if wrong). Every other session is signed out; this one gets a fresh `access_token` cookie in the response.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let changePasswordRequest = ChangePasswordRequest(currentPassword: "currentPassword_example", newPassword: "newPassword_example") // ChangePasswordRequest | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Change My Password
+AuthAPI.changeMyPasswordApiV1AuthMePasswordPost(changePasswordRequest: changePasswordRequest, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **changePasswordRequest** | [**ChangePasswordRequest**](ChangePasswordRequest.md) |  | 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**TokenResponse**](TokenResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **confirmPasswordResetApiV1AuthPasswordResetConfirmPost**
+```swift
+    open class func confirmPasswordResetApiV1AuthPasswordResetConfirmPost(passwordResetConfirm: PasswordResetConfirm, completion: @escaping (_ data: MessageResponse?, _ error: Error?) -> Void)
+```
+
+Confirm Password Reset
+
+Public. Sets a new password from the emailed code and signs out every session; the user then logs in normally. `400 \"Invalid or expired code\"` covers a wrong, expired or used code, and a code that was guessed wrong too many times.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let passwordResetConfirm = PasswordResetConfirm(email: "email_example", code: "code_example", newPassword: "newPassword_example") // PasswordResetConfirm | 
+
+// Confirm Password Reset
+AuthAPI.confirmPasswordResetApiV1AuthPasswordResetConfirmPost(passwordResetConfirm: passwordResetConfirm) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **passwordResetConfirm** | [**PasswordResetConfirm**](PasswordResetConfirm.md) |  | 
+
+### Return type
+
+[**MessageResponse**](MessageResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getMeApiV1AuthMeGet**
 ```swift
@@ -190,6 +296,108 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **registerRequest** | [**RegisterRequest**](RegisterRequest.md) |  | 
  **cartToken** | **String** |  | [optional] 
+
+### Return type
+
+[**UserRead**](UserRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **requestPasswordResetApiV1AuthPasswordResetRequestPost**
+```swift
+    open class func requestPasswordResetApiV1AuthPasswordResetRequestPost(passwordResetRequest: PasswordResetRequest, completion: @escaping (_ data: MessageResponse?, _ error: Error?) -> Void)
+```
+
+Request Password Reset
+
+Public. Emails a 6-digit code valid for 15 minutes. The response is identical whether or not the account exists, so it can't be used to find out who is registered.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let passwordResetRequest = PasswordResetRequest(email: "email_example") // PasswordResetRequest | 
+
+// Request Password Reset
+AuthAPI.requestPasswordResetApiV1AuthPasswordResetRequestPost(passwordResetRequest: passwordResetRequest) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **passwordResetRequest** | [**PasswordResetRequest**](PasswordResetRequest.md) |  | 
+
+### Return type
+
+[**MessageResponse**](MessageResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateMeApiV1AuthMePatch**
+```swift
+    open class func updateMeApiV1AuthMePatch(updateProfileRequest: UpdateProfileRequest, accessToken: String? = nil, completion: @escaping (_ data: UserRead?, _ error: Error?) -> Void)
+```
+
+Update Me
+
+Edit my name or saved phone. Email can't be changed here.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let updateProfileRequest = UpdateProfileRequest(fullName: "fullName_example", phone: "phone_example") // UpdateProfileRequest | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Update Me
+AuthAPI.updateMeApiV1AuthMePatch(updateProfileRequest: updateProfileRequest, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateProfileRequest** | [**UpdateProfileRequest**](UpdateProfileRequest.md) |  | 
+ **accessToken** | **String** |  | [optional] 
 
 ### Return type
 

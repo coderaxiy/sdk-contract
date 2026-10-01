@@ -6,7 +6,7 @@
 | ------------ | ------------- | ------------- | ------------- |
 | **reasonCode** | [**RefundReasonCode**](RefundReasonCode.md) |  |  |
 | **reasonText** | **kotlin.String** |  |  [optional] |
-| **evidenceUrls** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional] |
+| **evidenceKeys** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional] |
 
 
 

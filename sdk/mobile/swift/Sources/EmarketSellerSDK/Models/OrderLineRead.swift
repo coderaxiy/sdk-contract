@@ -23,8 +23,13 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
     public var status: OrderLineStatus
     public var physicalReturnReceivedAt: Date?
     public var createdAt: Date
+    public var imageUrl: String?
+    public var variantAttributes: [String: AttributesValue]?
+    public var productSlug: String?
+    public var returnDeadline: Date?
+    public var refundRequest: RefundRequestSummaryRead?
 
-    public init(id: Int, productId: Int, variantId: Int?, productTitleSnapshot: String, platformSkuSnapshot: String, unitPrice: String, quantity: Int, lineTotal: String, status: OrderLineStatus, physicalReturnReceivedAt: Date?, createdAt: Date) {
+    public init(id: Int, productId: Int, variantId: Int?, productTitleSnapshot: String, platformSkuSnapshot: String, unitPrice: String, quantity: Int, lineTotal: String, status: OrderLineStatus, physicalReturnReceivedAt: Date?, createdAt: Date, imageUrl: String?, variantAttributes: [String: AttributesValue]?, productSlug: String?, returnDeadline: Date?, refundRequest: RefundRequestSummaryRead?) {
         self.id = id
         self.productId = productId
         self.variantId = variantId
@@ -36,6 +41,11 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
         self.status = status
         self.physicalReturnReceivedAt = physicalReturnReceivedAt
         self.createdAt = createdAt
+        self.imageUrl = imageUrl
+        self.variantAttributes = variantAttributes
+        self.productSlug = productSlug
+        self.returnDeadline = returnDeadline
+        self.refundRequest = refundRequest
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -50,6 +60,11 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
         case status
         case physicalReturnReceivedAt = "physical_return_received_at"
         case createdAt = "created_at"
+        case imageUrl = "image_url"
+        case variantAttributes = "variant_attributes"
+        case productSlug = "product_slug"
+        case returnDeadline = "return_deadline"
+        case refundRequest = "refund_request"
     }
 
     // Encodable protocol methods
@@ -67,6 +82,11 @@ public struct OrderLineRead: Sendable, Codable, Hashable {
         try container.encode(status, forKey: .status)
         try container.encode(physicalReturnReceivedAt, forKey: .physicalReturnReceivedAt)
         try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(imageUrl, forKey: .imageUrl)
+        try container.encode(variantAttributes, forKey: .variantAttributes)
+        try container.encode(productSlug, forKey: .productSlug)
+        try container.encode(returnDeadline, forKey: .returnDeadline)
+        try container.encode(refundRequest, forKey: .refundRequest)
     }
 }
 
