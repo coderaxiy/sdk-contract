@@ -1524,7 +1524,11 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch?: never;
+        /**
+         * Update Seller Me
+         * @description Send only what changes. Today that is `interest_category_ids`.
+         */
+        patch: operations["update_seller_me_api_v1_seller_me_patch"];
         trace?: never;
     };
     "/api/v1/seller/documents": {
@@ -1534,7 +1538,11 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /**
+         * List My Documents
+         * @description My documents, newest first, with review status and rejection reason.
+         */
+        get: operations["list_my_documents_api_v1_seller_documents_get"];
         put?: never;
         /** Submit Document */
         post: operations["submit_document_api_v1_seller_documents_post"];
@@ -1551,7 +1559,11 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /**
+         * List My Bank Accounts
+         * @description My accounts plus those of my shops with their own legal entity. Account numbers are never returned.
+         */
+        get: operations["list_my_bank_accounts_api_v1_seller_bank_accounts_get"];
         put?: never;
         /** Add Bank Account */
         post: operations["add_bank_account_api_v1_seller_bank_accounts_post"];
@@ -5153,6 +5165,8 @@ export interface components {
             status_reason: string | null;
             /** Shop Limit */
             shop_limit: number;
+            /** Interest Category Ids */
+            interest_category_ids: number[];
             /** Risk Score */
             risk_score: number | null;
             /** Verified At */
@@ -5242,6 +5256,8 @@ export interface components {
             status_reason: string | null;
             /** Shop Limit */
             shop_limit: number;
+            /** Interest Category Ids */
+            interest_category_ids: number[];
             /** Risk Score */
             risk_score: number | null;
             /** Verified At */
@@ -5273,12 +5289,25 @@ export interface components {
             contact_email: string;
             /** Contact Phone */
             contact_phone?: string | null;
+            /**
+             * Interest Category Ids
+             * @default []
+             */
+            interest_category_ids: number[];
         };
         /**
          * SellerStatus
          * @enum {string}
          */
         SellerStatus: "pending_review" | "active" | "suspended" | "banned" | "rejected";
+        /**
+         * SellerUpdateRequest
+         * @description PATCH /seller/me — send only what changes.
+         */
+        SellerUpdateRequest: {
+            /** Interest Category Ids */
+            interest_category_ids?: number[] | null;
+        };
         /** SetAttributesRequest */
         SetAttributesRequest: {
             /** Attributes */
@@ -9034,6 +9063,75 @@ export interface operations {
             };
         };
     };
+    update_seller_me_api_v1_seller_me_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SellerUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SellerRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_my_documents_api_v1_seller_documents_get: {
+        parameters: {
+            query?: {
+                /** @description Only this shop's own documents */
+                shop_id?: number | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     submit_document_api_v1_seller_documents_post: {
         parameters: {
             query?: never;
@@ -9056,6 +9154,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DocumentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_my_bank_accounts_api_v1_seller_bank_accounts_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BankAccountRead"][];
                 };
             };
             /** @description Validation Error */

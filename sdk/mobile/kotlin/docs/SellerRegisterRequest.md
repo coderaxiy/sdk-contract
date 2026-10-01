@@ -10,6 +10,7 @@
 | **country** | **kotlin.String** |  |  |
 | **contactEmail** | **kotlin.String** |  |  |
 | **contactPhone** | **kotlin.String** |  |  [optional] |
+| **interestCategoryIds** | **kotlin.collections.List&lt;kotlin.Int&gt;** |  |  [optional] |
 
 
 

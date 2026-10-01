@@ -16,6 +16,7 @@ import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.SellerAdminRead
 import com.emarketseller.sdk.model.SellerRead
 import com.emarketseller.sdk.model.SellerRegisterRequest
+import com.emarketseller.sdk.model.SellerUpdateRequest
 import com.emarketseller.sdk.model.StatusReasonRequest
 import com.emarketseller.sdk.model.UpdateShopLimitRequest
 
@@ -94,6 +95,35 @@ interface SellersApi {
      */
     @GET("api/v1/seller/me")
     suspend fun getSellerMeApiV1SellerMeGet(): Response<SellerRead>
+
+    /**
+     * GET api/v1/seller/bank-accounts
+     * List My Bank Accounts
+     * My accounts plus those of my shops with their own legal entity. Account numbers are never returned.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param accessToken  (optional)
+     * @return [kotlin.collections.List<BankAccountRead>]
+     */
+    @GET("api/v1/seller/bank-accounts")
+    suspend fun listMyBankAccountsApiV1SellerBankAccountsGet(): Response<kotlin.collections.List<BankAccountRead>>
+
+    /**
+     * GET api/v1/seller/documents
+     * List My Documents
+     * My documents, newest first, with review status and rejection reason.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param shopId Only this shop&#39;s own documents (optional)
+     * @param accessToken  (optional)
+     * @return [kotlin.collections.List<DocumentRead>]
+     */
+    @GET("api/v1/seller/documents")
+    suspend fun listMyDocumentsApiV1SellerDocumentsGet(@Query("shop_id") shopId: kotlin.Int? = null, ): Response<kotlin.collections.List<DocumentRead>>
 
     /**
      * GET api/v1/admin/sellers/{seller_id}/documents
@@ -221,6 +251,21 @@ interface SellersApi {
      */
     @PATCH("api/v1/admin/sellers/{seller_id}/suspend")
     suspend fun suspendSellerApiV1AdminSellersSellerIdSuspendPatch(@Path("seller_id") sellerId: kotlin.Int, @Body statusReasonRequest: StatusReasonRequest, ): Response<SellerRead>
+
+    /**
+     * PATCH api/v1/seller/me
+     * Update Seller Me
+     * Send only what changes. Today that is &#x60;interest_category_ids&#x60;.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param sellerUpdateRequest 
+     * @param accessToken  (optional)
+     * @return [SellerRead]
+     */
+    @PATCH("api/v1/seller/me")
+    suspend fun updateSellerMeApiV1SellerMePatch(@Body sellerUpdateRequest: SellerUpdateRequest, ): Response<SellerRead>
 
     /**
      * PATCH api/v1/admin/sellers/{seller_id}/shop-limit

@@ -23,44 +23,19 @@
 
 package com.emarketseller.sdk.model
 
-import com.emarketseller.sdk.model.EntityType
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Contextual
 
 /**
- * 
+ * PATCH /seller/me — send only what changes.
  *
- * @param legalName 
- * @param entityType 
- * @param taxId 
- * @param country 
- * @param contactEmail 
- * @param contactPhone 
  * @param interestCategoryIds 
  */
 @Serializable
 
-data class SellerRegisterRequest (
-
-    @SerialName(value = "legal_name")
-    val legalName: kotlin.String,
-
-    @Contextual @SerialName(value = "entity_type")
-    val entityType: EntityType,
-
-    @SerialName(value = "tax_id")
-    val taxId: kotlin.String,
-
-    @SerialName(value = "country")
-    val country: kotlin.String,
-
-    @SerialName(value = "contact_email")
-    val contactEmail: kotlin.String,
-
-    @SerialName(value = "contact_phone")
-    val contactPhone: kotlin.String? = null,
+data class SellerUpdateRequest (
 
     @SerialName(value = "interest_category_ids")
     val interestCategoryIds: kotlin.collections.List<kotlin.Int>? = null

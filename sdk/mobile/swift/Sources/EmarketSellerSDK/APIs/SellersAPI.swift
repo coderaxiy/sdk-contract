@@ -209,6 +209,85 @@ open class SellersAPI {
     }
 
     /**
+     List My Bank Accounts
+     
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [BankAccountRead]
+     */
+    open class func listMyBankAccountsApiV1SellerBankAccountsGet(accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [BankAccountRead] {
+        return try await listMyBankAccountsApiV1SellerBankAccountsGetWithRequestBuilder(accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     List My Bank Accounts
+     - GET /api/v1/seller/bank-accounts
+     - My accounts plus those of my shops with their own legal entity. Account numbers are never returned.
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[BankAccountRead]> 
+     */
+    open class func listMyBankAccountsApiV1SellerBankAccountsGetWithRequestBuilder(accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[BankAccountRead]> {
+        let localVariablePath = "/api/v1/seller/bank-accounts"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[BankAccountRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     List My Documents
+     
+     - parameter shopId: (query) Only this shop&#39;s own documents (optional)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [DocumentRead]
+     */
+    open class func listMyDocumentsApiV1SellerDocumentsGet(shopId: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [DocumentRead] {
+        return try await listMyDocumentsApiV1SellerDocumentsGetWithRequestBuilder(shopId: shopId, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     List My Documents
+     - GET /api/v1/seller/documents
+     - My documents, newest first, with review status and rejection reason.
+     - parameter shopId: (query) Only this shop&#39;s own documents (optional)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[DocumentRead]> 
+     */
+    open class func listMyDocumentsApiV1SellerDocumentsGetWithRequestBuilder(shopId: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[DocumentRead]> {
+        let localVariablePath = "/api/v1/seller/documents"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "shop_id": (wrappedValue: shopId?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[DocumentRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      List Seller Documents
      
      - parameter sellerId: (path)  
@@ -536,6 +615,45 @@ open class SellersAPI {
         localVariablePath = localVariablePath.replacingOccurrences(of: "{seller_id}", with: sellerIdPostEscape, options: .literal, range: nil)
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: statusReasonRequest, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<SellerRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Update Seller Me
+     
+     - parameter sellerUpdateRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: SellerRead
+     */
+    open class func updateSellerMeApiV1SellerMePatch(sellerUpdateRequest: SellerUpdateRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> SellerRead {
+        return try await updateSellerMeApiV1SellerMePatchWithRequestBuilder(sellerUpdateRequest: sellerUpdateRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Update Seller Me
+     - PATCH /api/v1/seller/me
+     - Send only what changes. Today that is `interest_category_ids`.
+     - parameter sellerUpdateRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<SellerRead> 
+     */
+    open class func updateSellerMeApiV1SellerMePatchWithRequestBuilder(sellerUpdateRequest: SellerUpdateRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<SellerRead> {
+        let localVariablePath = "/api/v1/seller/me"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: sellerUpdateRequest, codableHelper: apiConfiguration.codableHelper)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 

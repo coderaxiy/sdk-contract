@@ -36,6 +36,7 @@ import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.SellerAdminRead
 import com.emarketseller.sdk.model.SellerRead
 import com.emarketseller.sdk.model.SellerRegisterRequest
+import com.emarketseller.sdk.model.SellerUpdateRequest
 import com.emarketseller.sdk.model.StatusReasonRequest
 import com.emarketseller.sdk.model.UpdateShopLimitRequest
 
@@ -86,6 +87,23 @@ class SellersApiTest : ShouldSpec() {
             // uncomment below to test getSellerMeApiV1SellerMeGet
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : SellerRead = apiInstance.getSellerMeApiV1SellerMeGet(accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test listMyBankAccountsApiV1SellerBankAccountsGet
+        should("test listMyBankAccountsApiV1SellerBankAccountsGet") {
+            // uncomment below to test listMyBankAccountsApiV1SellerBankAccountsGet
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : kotlin.collections.List<BankAccountRead> = apiInstance.listMyBankAccountsApiV1SellerBankAccountsGet(accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test listMyDocumentsApiV1SellerDocumentsGet
+        should("test listMyDocumentsApiV1SellerDocumentsGet") {
+            // uncomment below to test listMyDocumentsApiV1SellerDocumentsGet
+            //val shopId : kotlin.Int = 56 // kotlin.Int | Only this shop's own documents
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : kotlin.collections.List<DocumentRead> = apiInstance.listMyDocumentsApiV1SellerDocumentsGet(shopId, accessToken)
             //result shouldBe ("TODO")
         }
 
@@ -165,6 +183,15 @@ class SellersApiTest : ShouldSpec() {
             //val statusReasonRequest : StatusReasonRequest =  // StatusReasonRequest | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : SellerRead = apiInstance.suspendSellerApiV1AdminSellersSellerIdSuspendPatch(sellerId, statusReasonRequest, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test updateSellerMeApiV1SellerMePatch
+        should("test updateSellerMeApiV1SellerMePatch") {
+            // uncomment below to test updateSellerMeApiV1SellerMePatch
+            //val sellerUpdateRequest : SellerUpdateRequest =  // SellerUpdateRequest | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : SellerRead = apiInstance.updateSellerMeApiV1SellerMePatch(sellerUpdateRequest, accessToken)
             //result shouldBe ("TODO")
         }
 

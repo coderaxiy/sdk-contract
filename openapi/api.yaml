@@ -3957,7 +3957,82 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - sellers
+      summary: Update Seller Me
+      description: Send only what changes. Today that is `interest_category_ids`.
+      operationId: update_seller_me_api_v1_seller_me_patch
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SellerUpdateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SellerRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/seller/documents:
+    get:
+      tags:
+      - sellers
+      summary: List My Documents
+      description: My documents, newest first, with review status and rejection reason.
+      operationId: list_my_documents_api_v1_seller_documents_get
+      parameters:
+      - name: shop_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Only this shop's own documents
+          title: Shop Id
+        description: Only this shop's own documents
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentRead'
+                title: Response List My Documents Api V1 Seller Documents Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
       - sellers
@@ -3992,6 +4067,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/seller/bank-accounts:
+    get:
+      tags:
+      - sellers
+      summary: List My Bank Accounts
+      description: My accounts plus those of my shops with their own legal entity. Account numbers are
+        never returned.
+      operationId: list_my_bank_accounts_api_v1_seller_bank_accounts_get
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BankAccountRead'
+                title: Response List My Bank Accounts Api V1 Seller Bank Accounts Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
       - sellers
@@ -11497,6 +11604,11 @@ components:
         shop_limit:
           type: integer
           title: Shop Limit
+        interest_category_ids:
+          items:
+            type: integer
+          type: array
+          title: Interest Category Ids
         risk_score:
           anyOf:
           - type: integer
@@ -11535,6 +11647,7 @@ components:
       - status
       - status_reason
       - shop_limit
+      - interest_category_ids
       - risk_score
       - verified_at
       - created_at
@@ -11665,6 +11778,11 @@ components:
         shop_limit:
           type: integer
           title: Shop Limit
+        interest_category_ids:
+          items:
+            type: integer
+          type: array
+          title: Interest Category Ids
         risk_score:
           anyOf:
           - type: integer
@@ -11697,6 +11815,7 @@ components:
       - status
       - status_reason
       - shop_limit
+      - interest_category_ids
       - risk_score
       - verified_at
       - created_at
@@ -11724,6 +11843,13 @@ components:
           - type: string
           - type: 'null'
           title: Contact Phone
+        interest_category_ids:
+          items:
+            type: integer
+          type: array
+          maxItems: 50
+          title: Interest Category Ids
+          default: []
       type: object
       required:
       - legal_name
@@ -11741,6 +11867,19 @@ components:
       - banned
       - rejected
       title: SellerStatus
+    SellerUpdateRequest:
+      properties:
+        interest_category_ids:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+            maxItems: 50
+          - type: 'null'
+          title: Interest Category Ids
+      type: object
+      title: SellerUpdateRequest
+      description: PATCH /seller/me — send only what changes.
     SetAttributesRequest:
       properties:
         attributes:

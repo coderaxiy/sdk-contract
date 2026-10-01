@@ -44,6 +44,7 @@ import kotlinx.serialization.Contextual
  * @param status 
  * @param statusReason 
  * @param shopLimit 
+ * @param interestCategoryIds 
  * @param riskScore 
  * @param verifiedAt 
  * @param createdAt 
@@ -85,6 +86,9 @@ data class SellerRead (
 
     @SerialName(value = "shop_limit")
     val shopLimit: kotlin.Int,
+
+    @SerialName(value = "interest_category_ids")
+    val interestCategoryIds: kotlin.collections.List<kotlin.Int>,
 
     @SerialName(value = "risk_score")
     val riskScore: kotlin.Int?,

@@ -161,6 +161,8 @@ Class | Method | HTTP request | Description
 *SellersAPI* | [**banSellerApiV1AdminSellersSellerIdBanPatch**](docs/SellersAPI.md#bansellerapiv1adminsellersselleridbanpatch) | **PATCH** /api/v1/admin/sellers/{seller_id}/ban | Ban Seller
 *SellersAPI* | [**getSellerAdminApiV1AdminSellersSellerIdGet**](docs/SellersAPI.md#getselleradminapiv1adminsellersselleridget) | **GET** /api/v1/admin/sellers/{seller_id} | Get Seller Admin
 *SellersAPI* | [**getSellerMeApiV1SellerMeGet**](docs/SellersAPI.md#getsellermeapiv1sellermeget) | **GET** /api/v1/seller/me | Get Seller Me
+*SellersAPI* | [**listMyBankAccountsApiV1SellerBankAccountsGet**](docs/SellersAPI.md#listmybankaccountsapiv1sellerbankaccountsget) | **GET** /api/v1/seller/bank-accounts | List My Bank Accounts
+*SellersAPI* | [**listMyDocumentsApiV1SellerDocumentsGet**](docs/SellersAPI.md#listmydocumentsapiv1sellerdocumentsget) | **GET** /api/v1/seller/documents | List My Documents
 *SellersAPI* | [**listSellerDocumentsApiV1AdminSellersSellerIdDocumentsGet**](docs/SellersAPI.md#listsellerdocumentsapiv1adminsellersselleriddocumentsget) | **GET** /api/v1/admin/sellers/{seller_id}/documents | List Seller Documents
 *SellersAPI* | [**listSellersApiV1AdminSellersGet**](docs/SellersAPI.md#listsellersapiv1adminsellersget) | **GET** /api/v1/admin/sellers | List Sellers
 *SellersAPI* | [**registerSellerApiV1SellerRegisterPost**](docs/SellersAPI.md#registersellerapiv1sellerregisterpost) | **POST** /api/v1/seller/register | Register Seller
@@ -169,6 +171,7 @@ Class | Method | HTTP request | Description
 *SellersAPI* | [**reviewDocumentApiV1AdminSellersSellerIdDocumentsDocIdPatch**](docs/SellersAPI.md#reviewdocumentapiv1adminsellersselleriddocumentsdocidpatch) | **PATCH** /api/v1/admin/sellers/{seller_id}/documents/{doc_id} | Review Document
 *SellersAPI* | [**submitDocumentApiV1SellerDocumentsPost**](docs/SellersAPI.md#submitdocumentapiv1sellerdocumentspost) | **POST** /api/v1/seller/documents | Submit Document
 *SellersAPI* | [**suspendSellerApiV1AdminSellersSellerIdSuspendPatch**](docs/SellersAPI.md#suspendsellerapiv1adminsellersselleridsuspendpatch) | **PATCH** /api/v1/admin/sellers/{seller_id}/suspend | Suspend Seller
+*SellersAPI* | [**updateSellerMeApiV1SellerMePatch**](docs/SellersAPI.md#updatesellermeapiv1sellermepatch) | **PATCH** /api/v1/seller/me | Update Seller Me
 *SellersAPI* | [**updateShopLimitApiV1AdminSellersSellerIdShopLimitPatch**](docs/SellersAPI.md#updateshoplimitapiv1adminsellersselleridshoplimitpatch) | **PATCH** /api/v1/admin/sellers/{seller_id}/shop-limit | Update Shop Limit
 *ShopsAPI* | [**approveCategoryAssignmentApiV1AdminShopCategoryAssignmentsAssignmentIdApprovePatch**](docs/ShopsAPI.md#approvecategoryassignmentapiv1adminshopcategoryassignmentsassignmentidapprovepatch) | **PATCH** /api/v1/admin/shop-category-assignments/{assignment_id}/approve | Approve Category Assignment
 *ShopsAPI* | [**approveShopApiV1AdminShopsShopIdApprovePatch**](docs/ShopsAPI.md#approveshopapiv1adminshopsshopidapprovepatch) | **PATCH** /api/v1/admin/shops/{shop_id}/approve | Approve Shop
@@ -392,6 +395,7 @@ Class | Method | HTTP request | Description
  - [SellerRead](docs/SellerRead.md)
  - [SellerRegisterRequest](docs/SellerRegisterRequest.md)
  - [SellerStatus](docs/SellerStatus.md)
+ - [SellerUpdateRequest](docs/SellerUpdateRequest.md)
  - [SetAttributesRequest](docs/SetAttributesRequest.md)
  - [ShipmentItemRead](docs/ShipmentItemRead.md)
  - [ShipmentRead](docs/ShipmentRead.md)

@@ -216,6 +216,7 @@ Sources/EmarketSellerSDK/Models/SellerCategoryRead.swift
 Sources/EmarketSellerSDK/Models/SellerRead.swift
 Sources/EmarketSellerSDK/Models/SellerRegisterRequest.swift
 Sources/EmarketSellerSDK/Models/SellerStatus.swift
+Sources/EmarketSellerSDK/Models/SellerUpdateRequest.swift
 Sources/EmarketSellerSDK/Models/SetAttributesRequest.swift
 Sources/EmarketSellerSDK/Models/ShipmentItemRead.swift
 Sources/EmarketSellerSDK/Models/ShipmentRead.swift
@@ -439,6 +440,7 @@ docs/SellerCategoryRead.md
 docs/SellerRead.md
 docs/SellerRegisterRequest.md
 docs/SellerStatus.md
+docs/SellerUpdateRequest.md
 docs/SellersAPI.md
 docs/SetAttributesRequest.md
 docs/ShipmentItemRead.md

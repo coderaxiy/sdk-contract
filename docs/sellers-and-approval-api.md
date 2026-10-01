@@ -93,8 +93,20 @@ list to view a document again rather than caching the link.
 |---|---|---|
 | `POST /seller/register` | `SellerRegisterRequest` | `201` `SellerRead` |
 | `GET /seller/me` | — | `SellerRead` |
+| `PATCH /seller/me` | `SellerUpdateRequest` — `{ interest_category_ids? }` | `SellerRead` |
+| `GET /seller/documents` | Query: `shop_id` (optional) | `DocumentRead[]` |
 | `POST /seller/documents` | `DocumentSubmitRequest` | `201` `DocumentRead` |
+| `GET /seller/bank-accounts` | — | `BankAccountRead[]` |
 | `POST /seller/bank-accounts` | `BankAccountCreateRequest` | `201` `BankAccountRead` |
+
+### What the seller will sell (`interest_category_ids`)
+
+An optional onboarding answer, kept on the seller (`SellerRead.interest_category_ids`, also in
+`SellerAdminRead`, so admins see it next to the documents). Set it on `POST /seller/register` or
+later with `PATCH /seller/me`; the list **replaces** the previous one and `[]` clears it. Ids must be
+**active top-level categories** (no parent): `400 "Not an active top-level category: 14"` otherwise
+(duplicates are dropped, at most 50). Omitting the field leaves it alone. It is informational only and
+gates nothing: what a shop may sell stays with its category assignments and admin approval.
 
 ### Register
 
@@ -130,6 +142,21 @@ a product_image, not a seller_document"` if it was uploaded with another purpose
 must exist (`404 "Shop not found"`), belong to this seller
 (`403 "You do not own this shop"`), and have `legal_entity_override: true`
 (`400` otherwise). Leave it out for the seller's own documents.
+
+### Read back my documents and bank accounts
+
+- `GET /seller/documents` — the seller's own documents, **newest first**, each with `status`
+  (`pending` / `approved` / `rejected`), `rejection_reason` and a signed 15-minute `file_url`.
+  There is no replace endpoint: a rejected document stays in the list, and re-uploading means a new
+  `POST /seller/documents` of the same `type`, which starts as `pending` next to the old one. Seller
+  approval only needs *an* `approved` document of each required type, so for display treat a type as done
+  when any document of it is `approved`, and as needing action when its newest one is `rejected`. `?shop_id=` limits it to one shop's own documents (`404`/`403` for a shop that doesn't exist or
+  isn't theirs). Without it you get all of them, shop-level included.
+- `GET /seller/bank-accounts` — the seller's own accounts plus those of their shops that run under their
+  own legal entity, newest first. The account number is never returned, as in the `POST` response.
+
+Both need a registered seller (`403 "Not registered as a seller"`), and work in every seller status,
+including `pending_review`, `suspended` and `banned`.
 
 ### Add a bank account
 

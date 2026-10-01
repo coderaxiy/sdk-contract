@@ -70,5 +70,11 @@ class SellerRegisterRequestTest : ShouldSpec() {
             //modelInstance.contactPhone shouldBe ("TODO")
         }
 
+        // to test the property `interestCategoryIds`
+        should("test interestCategoryIds") {
+            // uncomment below to test the property
+            //modelInstance.interestCategoryIds shouldBe ("TODO")
+        }
+
     }
 }

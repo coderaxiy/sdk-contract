@@ -180,6 +180,8 @@ All URIs are relative to *http://localhost:8000*
 | *SellersApi* | [**banSellerApiV1AdminSellersSellerIdBanPatch**](docs/SellersApi.md#bansellerapiv1adminsellersselleridbanpatch) | **PATCH** api/v1/admin/sellers/{seller_id}/ban | Ban Seller |
 | *SellersApi* | [**getSellerAdminApiV1AdminSellersSellerIdGet**](docs/SellersApi.md#getselleradminapiv1adminsellersselleridget) | **GET** api/v1/admin/sellers/{seller_id} | Get Seller Admin |
 | *SellersApi* | [**getSellerMeApiV1SellerMeGet**](docs/SellersApi.md#getsellermeapiv1sellermeget) | **GET** api/v1/seller/me | Get Seller Me |
+| *SellersApi* | [**listMyBankAccountsApiV1SellerBankAccountsGet**](docs/SellersApi.md#listmybankaccountsapiv1sellerbankaccountsget) | **GET** api/v1/seller/bank-accounts | List My Bank Accounts |
+| *SellersApi* | [**listMyDocumentsApiV1SellerDocumentsGet**](docs/SellersApi.md#listmydocumentsapiv1sellerdocumentsget) | **GET** api/v1/seller/documents | List My Documents |
 | *SellersApi* | [**listSellerDocumentsApiV1AdminSellersSellerIdDocumentsGet**](docs/SellersApi.md#listsellerdocumentsapiv1adminsellersselleriddocumentsget) | **GET** api/v1/admin/sellers/{seller_id}/documents | List Seller Documents |
 | *SellersApi* | [**listSellersApiV1AdminSellersGet**](docs/SellersApi.md#listsellersapiv1adminsellersget) | **GET** api/v1/admin/sellers | List Sellers |
 | *SellersApi* | [**registerSellerApiV1SellerRegisterPost**](docs/SellersApi.md#registersellerapiv1sellerregisterpost) | **POST** api/v1/seller/register | Register Seller |
@@ -188,6 +190,7 @@ All URIs are relative to *http://localhost:8000*
 | *SellersApi* | [**reviewDocumentApiV1AdminSellersSellerIdDocumentsDocIdPatch**](docs/SellersApi.md#reviewdocumentapiv1adminsellersselleriddocumentsdocidpatch) | **PATCH** api/v1/admin/sellers/{seller_id}/documents/{doc_id} | Review Document |
 | *SellersApi* | [**submitDocumentApiV1SellerDocumentsPost**](docs/SellersApi.md#submitdocumentapiv1sellerdocumentspost) | **POST** api/v1/seller/documents | Submit Document |
 | *SellersApi* | [**suspendSellerApiV1AdminSellersSellerIdSuspendPatch**](docs/SellersApi.md#suspendsellerapiv1adminsellersselleridsuspendpatch) | **PATCH** api/v1/admin/sellers/{seller_id}/suspend | Suspend Seller |
+| *SellersApi* | [**updateSellerMeApiV1SellerMePatch**](docs/SellersApi.md#updatesellermeapiv1sellermepatch) | **PATCH** api/v1/seller/me | Update Seller Me |
 | *SellersApi* | [**updateShopLimitApiV1AdminSellersSellerIdShopLimitPatch**](docs/SellersApi.md#updateshoplimitapiv1adminsellersselleridshoplimitpatch) | **PATCH** api/v1/admin/sellers/{seller_id}/shop-limit | Update Shop Limit |
 | *ShopsApi* | [**approveCategoryAssignmentApiV1AdminShopCategoryAssignmentsAssignmentIdApprovePatch**](docs/ShopsApi.md#approvecategoryassignmentapiv1adminshopcategoryassignmentsassignmentidapprovepatch) | **PATCH** api/v1/admin/shop-category-assignments/{assignment_id}/approve | Approve Category Assignment |
 | *ShopsApi* | [**approveShopApiV1AdminShopsShopIdApprovePatch**](docs/ShopsApi.md#approveshopapiv1adminshopsshopidapprovepatch) | **PATCH** api/v1/admin/shops/{shop_id}/approve | Approve Shop |
@@ -411,6 +414,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.SellerRead](docs/SellerRead.md)
  - [com.emarketseller.sdk.model.SellerRegisterRequest](docs/SellerRegisterRequest.md)
  - [com.emarketseller.sdk.model.SellerStatus](docs/SellerStatus.md)
+ - [com.emarketseller.sdk.model.SellerUpdateRequest](docs/SellerUpdateRequest.md)
  - [com.emarketseller.sdk.model.SetAttributesRequest](docs/SetAttributesRequest.md)
  - [com.emarketseller.sdk.model.ShipmentItemRead](docs/ShipmentItemRead.md)
  - [com.emarketseller.sdk.model.ShipmentRead](docs/ShipmentRead.md)

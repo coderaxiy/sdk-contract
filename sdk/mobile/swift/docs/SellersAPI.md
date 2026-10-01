@@ -9,6 +9,8 @@ Method | HTTP request | Description
 [**banSellerApiV1AdminSellersSellerIdBanPatch**](SellersAPI.md#bansellerapiv1adminsellersselleridbanpatch) | **PATCH** /api/v1/admin/sellers/{seller_id}/ban | Ban Seller
 [**getSellerAdminApiV1AdminSellersSellerIdGet**](SellersAPI.md#getselleradminapiv1adminsellersselleridget) | **GET** /api/v1/admin/sellers/{seller_id} | Get Seller Admin
 [**getSellerMeApiV1SellerMeGet**](SellersAPI.md#getsellermeapiv1sellermeget) | **GET** /api/v1/seller/me | Get Seller Me
+[**listMyBankAccountsApiV1SellerBankAccountsGet**](SellersAPI.md#listmybankaccountsapiv1sellerbankaccountsget) | **GET** /api/v1/seller/bank-accounts | List My Bank Accounts
+[**listMyDocumentsApiV1SellerDocumentsGet**](SellersAPI.md#listmydocumentsapiv1sellerdocumentsget) | **GET** /api/v1/seller/documents | List My Documents
 [**listSellerDocumentsApiV1AdminSellersSellerIdDocumentsGet**](SellersAPI.md#listsellerdocumentsapiv1adminsellersselleriddocumentsget) | **GET** /api/v1/admin/sellers/{seller_id}/documents | List Seller Documents
 [**listSellersApiV1AdminSellersGet**](SellersAPI.md#listsellersapiv1adminsellersget) | **GET** /api/v1/admin/sellers | List Sellers
 [**registerSellerApiV1SellerRegisterPost**](SellersAPI.md#registersellerapiv1sellerregisterpost) | **POST** /api/v1/seller/register | Register Seller
@@ -17,6 +19,7 @@ Method | HTTP request | Description
 [**reviewDocumentApiV1AdminSellersSellerIdDocumentsDocIdPatch**](SellersAPI.md#reviewdocumentapiv1adminsellersselleriddocumentsdocidpatch) | **PATCH** /api/v1/admin/sellers/{seller_id}/documents/{doc_id} | Review Document
 [**submitDocumentApiV1SellerDocumentsPost**](SellersAPI.md#submitdocumentapiv1sellerdocumentspost) | **POST** /api/v1/seller/documents | Submit Document
 [**suspendSellerApiV1AdminSellersSellerIdSuspendPatch**](SellersAPI.md#suspendsellerapiv1adminsellersselleridsuspendpatch) | **PATCH** /api/v1/admin/sellers/{seller_id}/suspend | Suspend Seller
+[**updateSellerMeApiV1SellerMePatch**](SellersAPI.md#updatesellermeapiv1sellermepatch) | **PATCH** /api/v1/seller/me | Update Seller Me
 [**updateShopLimitApiV1AdminSellersSellerIdShopLimitPatch**](SellersAPI.md#updateshoplimitapiv1adminsellersselleridshoplimitpatch) | **PATCH** /api/v1/admin/sellers/{seller_id}/shop-limit | Update Shop Limit
 
 
@@ -270,6 +273,108 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **listMyBankAccountsApiV1SellerBankAccountsGet**
+```swift
+    open class func listMyBankAccountsApiV1SellerBankAccountsGet(accessToken: String? = nil, completion: @escaping (_ data: [BankAccountRead]?, _ error: Error?) -> Void)
+```
+
+List My Bank Accounts
+
+My accounts plus those of my shops with their own legal entity. Account numbers are never returned.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let accessToken = "accessToken_example" // String |  (optional)
+
+// List My Bank Accounts
+SellersAPI.listMyBankAccountsApiV1SellerBankAccountsGet(accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**[BankAccountRead]**](BankAccountRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **listMyDocumentsApiV1SellerDocumentsGet**
+```swift
+    open class func listMyDocumentsApiV1SellerDocumentsGet(shopId: Int? = nil, accessToken: String? = nil, completion: @escaping (_ data: [DocumentRead]?, _ error: Error?) -> Void)
+```
+
+List My Documents
+
+My documents, newest first, with review status and rejection reason.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let shopId = 987 // Int | Only this shop's own documents (optional)
+let accessToken = "accessToken_example" // String |  (optional)
+
+// List My Documents
+SellersAPI.listMyDocumentsApiV1SellerDocumentsGet(shopId: shopId, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **shopId** | **Int** | Only this shop&#39;s own documents | [optional] 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**[DocumentRead]**](DocumentRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **listSellerDocumentsApiV1AdminSellersSellerIdDocumentsGet**
 ```swift
     open class func listSellerDocumentsApiV1AdminSellersSellerIdDocumentsGet(sellerId: Int, accessToken: String? = nil, completion: @escaping (_ data: [DocumentRead]?, _ error: Error?) -> Void)
@@ -388,7 +493,7 @@ Register Seller
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import EmarketSellerSDK
 
-let sellerRegisterRequest = SellerRegisterRequest(legalName: "legalName_example", entityType: EntityType(), taxId: "taxId_example", country: "country_example", contactEmail: "contactEmail_example", contactPhone: "contactPhone_example") // SellerRegisterRequest | 
+let sellerRegisterRequest = SellerRegisterRequest(legalName: "legalName_example", entityType: EntityType(), taxId: "taxId_example", country: "country_example", contactEmail: "contactEmail_example", contactPhone: "contactPhone_example", interestCategoryIds: [123]) // SellerRegisterRequest | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Register Seller
@@ -667,6 +772,58 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sellerId** | **Int** |  | 
  **statusReasonRequest** | [**StatusReasonRequest**](StatusReasonRequest.md) |  | 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**SellerRead**](SellerRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateSellerMeApiV1SellerMePatch**
+```swift
+    open class func updateSellerMeApiV1SellerMePatch(sellerUpdateRequest: SellerUpdateRequest, accessToken: String? = nil, completion: @escaping (_ data: SellerRead?, _ error: Error?) -> Void)
+```
+
+Update Seller Me
+
+Send only what changes. Today that is `interest_category_ids`.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let sellerUpdateRequest = SellerUpdateRequest(interestCategoryIds: [123]) // SellerUpdateRequest | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Update Seller Me
+SellersAPI.updateSellerMeApiV1SellerMePatch(sellerUpdateRequest: sellerUpdateRequest, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sellerUpdateRequest** | [**SellerUpdateRequest**](SellerUpdateRequest.md) |  | 
  **accessToken** | **String** |  | [optional] 
 
 ### Return type

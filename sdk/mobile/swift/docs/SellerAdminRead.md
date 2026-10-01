@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **status** | [**SellerStatus**](SellerStatus.md) |  | 
 **statusReason** | **String** |  | 
 **shopLimit** | **Int** |  | 
+**interestCategoryIds** | **[Int]** |  | 
 **riskScore** | **Int** |  | 
 **verifiedAt** | **Date** |  | 
 **createdAt** | **Date** |  | 

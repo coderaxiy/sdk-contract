@@ -20,12 +20,13 @@ public struct SellerRead: Sendable, Codable, Hashable {
     public var status: SellerStatus
     public var statusReason: String?
     public var shopLimit: Int
+    public var interestCategoryIds: [Int]
     public var riskScore: Int?
     public var verifiedAt: Date?
     public var createdAt: Date
     public var updatedAt: Date
 
-    public init(id: Int, userId: Int, legalName: String, entityType: EntityType, taxId: String, country: String, contactEmail: String, contactPhone: String?, status: SellerStatus, statusReason: String?, shopLimit: Int, riskScore: Int?, verifiedAt: Date?, createdAt: Date, updatedAt: Date) {
+    public init(id: Int, userId: Int, legalName: String, entityType: EntityType, taxId: String, country: String, contactEmail: String, contactPhone: String?, status: SellerStatus, statusReason: String?, shopLimit: Int, interestCategoryIds: [Int], riskScore: Int?, verifiedAt: Date?, createdAt: Date, updatedAt: Date) {
         self.id = id
         self.userId = userId
         self.legalName = legalName
@@ -37,6 +38,7 @@ public struct SellerRead: Sendable, Codable, Hashable {
         self.status = status
         self.statusReason = statusReason
         self.shopLimit = shopLimit
+        self.interestCategoryIds = interestCategoryIds
         self.riskScore = riskScore
         self.verifiedAt = verifiedAt
         self.createdAt = createdAt
@@ -55,6 +57,7 @@ public struct SellerRead: Sendable, Codable, Hashable {
         case status
         case statusReason = "status_reason"
         case shopLimit = "shop_limit"
+        case interestCategoryIds = "interest_category_ids"
         case riskScore = "risk_score"
         case verifiedAt = "verified_at"
         case createdAt = "created_at"
@@ -76,6 +79,7 @@ public struct SellerRead: Sendable, Codable, Hashable {
         try container.encode(status, forKey: .status)
         try container.encode(statusReason, forKey: .statusReason)
         try container.encode(shopLimit, forKey: .shopLimit)
+        try container.encode(interestCategoryIds, forKey: .interestCategoryIds)
         try container.encode(riskScore, forKey: .riskScore)
         try container.encode(verifiedAt, forKey: .verifiedAt)
         try container.encode(createdAt, forKey: .createdAt)

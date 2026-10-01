@@ -194,6 +194,7 @@ docs/SellerCategoryRead.md
 docs/SellerRead.md
 docs/SellerRegisterRequest.md
 docs/SellerStatus.md
+docs/SellerUpdateRequest.md
 docs/SellersApi.md
 docs/SetAttributesRequest.md
 docs/ShipmentItemRead.md
@@ -447,6 +448,7 @@ src/main/kotlin/com/emarketseller/sdk/model/SellerCategoryRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/SellerRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/SellerRegisterRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/SellerStatus.kt
+src/main/kotlin/com/emarketseller/sdk/model/SellerUpdateRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/SetAttributesRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/ShipmentItemRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/ShipmentRead.kt
@@ -674,6 +676,7 @@ src/test/kotlin/com/emarketseller/sdk/model/SellerCategoryReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/SellerReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/SellerRegisterRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/SellerStatusTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/SellerUpdateRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/SetAttributesRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ShipmentItemReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ShipmentReadTest.kt

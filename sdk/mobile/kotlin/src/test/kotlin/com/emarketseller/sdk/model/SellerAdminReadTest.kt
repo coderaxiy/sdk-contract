@@ -101,6 +101,12 @@ class SellerAdminReadTest : ShouldSpec() {
             //modelInstance.shopLimit shouldBe ("TODO")
         }
 
+        // to test the property `interestCategoryIds`
+        should("test interestCategoryIds") {
+            // uncomment below to test the property
+            //modelInstance.interestCategoryIds shouldBe ("TODO")
+        }
+
         // to test the property `riskScore`
         should("test riskScore") {
             // uncomment below to test the property

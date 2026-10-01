@@ -9,20 +9,23 @@ import Foundation
 
 public struct SellerRegisterRequest: Sendable, Codable, Hashable {
 
+    public static let interestCategoryIdsRule = ArrayRule(minItems: nil, maxItems: 50, uniqueItems: false)
     public var legalName: String
     public var entityType: EntityType
     public var taxId: String
     public var country: String
     public var contactEmail: String
     public var contactPhone: String?
+    public var interestCategoryIds: [Int]?
 
-    public init(legalName: String, entityType: EntityType, taxId: String, country: String, contactEmail: String, contactPhone: String? = nil) {
+    public init(legalName: String, entityType: EntityType, taxId: String, country: String, contactEmail: String, contactPhone: String? = nil, interestCategoryIds: [Int]? = nil) {
         self.legalName = legalName
         self.entityType = entityType
         self.taxId = taxId
         self.country = country
         self.contactEmail = contactEmail
         self.contactPhone = contactPhone
+        self.interestCategoryIds = interestCategoryIds
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -32,6 +35,7 @@ public struct SellerRegisterRequest: Sendable, Codable, Hashable {
         case country
         case contactEmail = "contact_email"
         case contactPhone = "contact_phone"
+        case interestCategoryIds = "interest_category_ids"
     }
 
     // Encodable protocol methods
@@ -44,6 +48,7 @@ public struct SellerRegisterRequest: Sendable, Codable, Hashable {
         try container.encode(country, forKey: .country)
         try container.encode(contactEmail, forKey: .contactEmail)
         try container.encodeIfPresent(contactPhone, forKey: .contactPhone)
+        try container.encodeIfPresent(interestCategoryIds, forKey: .interestCategoryIds)
     }
 }
 
