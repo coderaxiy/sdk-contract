@@ -46,6 +46,7 @@ All URIs are relative to *http://localhost:8000*
 | Class | Method | HTTP request | Description |
 | ------------ | ------------- | ------------- | ------------- |
 | *AuthApi* | [**changeMyPasswordApiV1AuthMePasswordPost**](docs/AuthApi.md#changemypasswordapiv1authmepasswordpost) | **POST** api/v1/auth/me/password | Change My Password |
+| *AuthApi* | [**completeQuickStartApiV1AuthMeQuickStartPost**](docs/AuthApi.md#completequickstartapiv1authmequickstartpost) | **POST** api/v1/auth/me/quick-start | Complete Quick Start |
 | *AuthApi* | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](docs/AuthApi.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** api/v1/auth/password-reset/confirm | Confirm Password Reset |
 | *AuthApi* | [**getMeApiV1AuthMeGet**](docs/AuthApi.md#getmeapiv1authmeget) | **GET** api/v1/auth/me | Get Me |
 | *AuthApi* | [**loginApiV1AuthLoginPost**](docs/AuthApi.md#loginapiv1authloginpost) | **POST** api/v1/auth/login | Login |
@@ -301,6 +302,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.DocumentSubmitRequest](docs/DocumentSubmitRequest.md)
  - [com.emarketseller.sdk.model.DocumentType](docs/DocumentType.md)
  - [com.emarketseller.sdk.model.EntityType](docs/EntityType.md)
+ - [com.emarketseller.sdk.model.ErrorResponse](docs/ErrorResponse.md)
  - [com.emarketseller.sdk.model.FlatFeeAmount](docs/FlatFeeAmount.md)
  - [com.emarketseller.sdk.model.GroupStatusUpdateRequest](docs/GroupStatusUpdateRequest.md)
  - [com.emarketseller.sdk.model.HTTPValidationError](docs/HTTPValidationError.md)
@@ -385,6 +387,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.ProductVariantCreate](docs/ProductVariantCreate.md)
  - [com.emarketseller.sdk.model.ProductVariantRead](docs/ProductVariantRead.md)
  - [com.emarketseller.sdk.model.ProductVariantUpdate](docs/ProductVariantUpdate.md)
+ - [com.emarketseller.sdk.model.QuickStartRequest](docs/QuickStartRequest.md)
  - [com.emarketseller.sdk.model.ReceiveReturnRequest](docs/ReceiveReturnRequest.md)
  - [com.emarketseller.sdk.model.Recipient](docs/Recipient.md)
  - [com.emarketseller.sdk.model.ReconciliationRead](docs/ReconciliationRead.md)

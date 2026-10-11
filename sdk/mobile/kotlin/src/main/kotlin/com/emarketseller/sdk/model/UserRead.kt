@@ -37,6 +37,8 @@ import kotlinx.serialization.Contextual
  * @param fullName 
  * @param phone 
  * @param roles 
+ * @param adminQuickStartAt 
+ * @param sellerQuickStartAt 
  */
 @Serializable
 
@@ -58,7 +60,13 @@ data class UserRead (
     val phone: kotlin.String? = null,
 
     @SerialName(value = "roles")
-    val roles: kotlin.collections.List<kotlin.String>? = null
+    val roles: kotlin.collections.List<kotlin.String>? = null,
+
+    @Contextual @SerialName(value = "admin_quick_start_at")
+    val adminQuickStartAt: java.time.OffsetDateTime? = null,
+
+    @Contextual @SerialName(value = "seller_quick_start_at")
+    val sellerQuickStartAt: java.time.OffsetDateTime? = null
 
 ) {
 

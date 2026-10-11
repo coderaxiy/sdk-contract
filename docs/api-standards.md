@@ -18,6 +18,11 @@ All paths are under `/api/v1`, e.g. `GET /api/v1/seller/me`. Local dev:
   - `PATCH /auth/me` — `{ full_name?, phone? }` → `UserRead`. Send only what changes; `phone: null`
     clears the saved number (`phone` is on `UserRead`, `null` by default, 5–30 chars). Both are trimmed.
     Email can't be changed here.
+  - `POST /auth/me/quick-start` — `{ app: "admin" | "seller" }` → `UserRead`. Records that the
+    caller finished or skipped that web app's one-time first-run quick start. Idempotent: the
+    first timestamp is kept. Read it back from `UserRead.admin_quick_start_at` /
+    `seller_quick_start_at` (ISO timestamp, `null` until completed). Per user, so it follows
+    them across browsers and devices.
   - `POST /auth/me/password` — `{ current_password, new_password }`. `400` with a message
     (`"Current password is incorrect"`, or the new one equals the old); `422` if `new_password` is
     shorter than 8 characters or longer than 72 bytes. On success **every other session is signed out**
@@ -83,6 +88,36 @@ Standard FastAPI shape:
 `400` `detail` strings are written for humans — show them to the user as-is.
 Exceptions that return a structured `detail` object are documented in their
 module guide (e.g. checkout price mismatch in `orders-and-payments-api.md`).
+
+### Language
+
+Send the UI language on every request: `Accept-Language: uz` or `Accept-Language: ru`
+(full lists like `ru-RU,ru;q=0.9,en;q=0.8` are parsed; the first supported tag wins).
+Missing or unsupported (`en`, `fr`, …) falls back to `uz`. The server setting
+`DEFAULT_LOCALE` / `CONTENT_LOCALES` controls this.
+
+- `detail` (400/401/403/404/409/5xx) is returned in that language for errors in the message
+  catalog, together with a stable machine-readable `code`:
+
+  ```json
+  { "detail": "Faol menejer biriktirilmagan olib ketish punktini faollashtirib bo'lmaydi",
+    "code": "pickup_point.no_active_manager" }
+  ```
+
+  `code` is additive and never changes once published; branch on it, not on the text.
+  Errors not yet in the catalog return their English `detail` with no `code` — that is
+  the current state of most module-specific guards, which are being moved over
+  incrementally (see task `localized-error-messages`). Treat a missing `code` as "no
+  translation yet".
+- `422`: the `msg` of each item is translated for the common Pydantic types (required,
+  string length, number bounds, enum, date, email, …). `loc`, `type`, `input` and `ctx`
+  are unchanged. Messages from custom validators stay English for now.
+- Structured `detail` objects keep their shape.
+- Error bodies are described by the `ErrorResponse` schema in the spec (`detail`, optional `code`).
+
+Codes available so far: `common.*` (default 400/404/409/503 texts), `auth.*` (not
+authenticated, invalid/expired token, session expired, forbidden, role/permission
+required, not a seller, not pickup staff) and `pickup_point.no_active_manager`.
 
 ## Paths and IDs
 

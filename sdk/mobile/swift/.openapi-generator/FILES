@@ -121,6 +121,7 @@ Sources/EmarketSellerSDK/Models/ManualAdjustmentRequest.swift
 Sources/EmarketSellerSDK/Models/MaxAmount.swift
 Sources/EmarketSellerSDK/Models/MessageResponse.swift
 Sources/EmarketSellerSDK/Models/MinAmount.swift
+Sources/EmarketSellerSDK/Models/ModelErrorResponse.swift
 Sources/EmarketSellerSDK/Models/ModerationAction.swift
 Sources/EmarketSellerSDK/Models/ModerationConfigRead.swift
 Sources/EmarketSellerSDK/Models/ModerationConfigUpdate.swift
@@ -187,6 +188,7 @@ Sources/EmarketSellerSDK/Models/ProductUpdate.swift
 Sources/EmarketSellerSDK/Models/ProductVariantCreate.swift
 Sources/EmarketSellerSDK/Models/ProductVariantRead.swift
 Sources/EmarketSellerSDK/Models/ProductVariantUpdate.swift
+Sources/EmarketSellerSDK/Models/QuickStartRequest.swift
 Sources/EmarketSellerSDK/Models/ReceiveReturnRequest.swift
 Sources/EmarketSellerSDK/Models/Recipient.swift
 Sources/EmarketSellerSDK/Models/ReconciliationRead.swift
@@ -341,6 +343,7 @@ docs/ManualAdjustmentRequest.md
 docs/MaxAmount.md
 docs/MessageResponse.md
 docs/MinAmount.md
+docs/ModelErrorResponse.md
 docs/ModerationAction.md
 docs/ModerationConfigRead.md
 docs/ModerationConfigUpdate.md
@@ -410,6 +413,7 @@ docs/ProductVariantCreate.md
 docs/ProductVariantRead.md
 docs/ProductVariantUpdate.md
 docs/ProductsAPI.md
+docs/QuickStartRequest.md
 docs/ReceiveReturnRequest.md
 docs/Recipient.md
 docs/ReconciliationRead.md

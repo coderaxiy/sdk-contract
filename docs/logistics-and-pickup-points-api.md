@@ -284,7 +284,7 @@ or doing arithmetic.
 |---|---|---|
 | GET | `/admin/pickup-points` | Query: `status`, `region_id` |
 | POST | `/admin/pickup-points` | See `PickupPointCreateRequest` §4 |
-| GET | `/admin/regions` | Not in the original spec — added so a point-creation form has something to populate the `region_id` dropdown with |
+| GET | `/admin/regions` | Not in the original spec — added so a point-creation form has something to populate the `region_id` dropdown with. The 14 Uzbekistan regions (ISO 3166-2:UZ `code`, e.g. `UZ-TK` Tashkent City) are seeded on startup; there is no create endpoint |
 | PATCH | `/admin/pickup-points/{id}` | Partial update, all fields optional |
 | PATCH | `/admin/pickup-points/{id}/status` | `{ status }` — `400` if activating with zero managers |
 | GET | `/admin/pickup-points/{id}/staff` | |

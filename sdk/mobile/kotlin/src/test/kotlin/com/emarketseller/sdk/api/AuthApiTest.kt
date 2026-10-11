@@ -33,6 +33,7 @@ import com.emarketseller.sdk.model.LoginRequest
 import com.emarketseller.sdk.model.MessageResponse
 import com.emarketseller.sdk.model.PasswordResetConfirm
 import com.emarketseller.sdk.model.PasswordResetRequest
+import com.emarketseller.sdk.model.QuickStartRequest
 import com.emarketseller.sdk.model.RegisterRequest
 import com.emarketseller.sdk.model.TokenResponse
 import com.emarketseller.sdk.model.UpdateProfileRequest
@@ -49,6 +50,15 @@ class AuthApiTest : ShouldSpec() {
             //val changePasswordRequest : ChangePasswordRequest =  // ChangePasswordRequest | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : TokenResponse = apiInstance.changeMyPasswordApiV1AuthMePasswordPost(changePasswordRequest, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test completeQuickStartApiV1AuthMeQuickStartPost
+        should("test completeQuickStartApiV1AuthMeQuickStartPost") {
+            // uncomment below to test completeQuickStartApiV1AuthMeQuickStartPost
+            //val quickStartRequest : QuickStartRequest =  // QuickStartRequest | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : UserRead = apiInstance.completeQuickStartApiV1AuthMeQuickStartPost(quickStartRequest, accessToken)
             //result shouldBe ("TODO")
         }
 

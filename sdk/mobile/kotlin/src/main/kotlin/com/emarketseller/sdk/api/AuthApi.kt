@@ -13,6 +13,7 @@ import com.emarketseller.sdk.model.LoginRequest
 import com.emarketseller.sdk.model.MessageResponse
 import com.emarketseller.sdk.model.PasswordResetConfirm
 import com.emarketseller.sdk.model.PasswordResetRequest
+import com.emarketseller.sdk.model.QuickStartRequest
 import com.emarketseller.sdk.model.RegisterRequest
 import com.emarketseller.sdk.model.TokenResponse
 import com.emarketseller.sdk.model.UpdateProfileRequest
@@ -33,6 +34,21 @@ interface AuthApi {
      */
     @POST("api/v1/auth/me/password")
     suspend fun changeMyPasswordApiV1AuthMePasswordPost(@Body changePasswordRequest: ChangePasswordRequest, ): Response<TokenResponse>
+
+    /**
+     * POST api/v1/auth/me/quick-start
+     * Complete Quick Start
+     * Record that I finished or skipped the admin or seller first-run quick start. Idempotent — completing twice keeps the first timestamp.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param quickStartRequest 
+     * @param accessToken  (optional)
+     * @return [UserRead]
+     */
+    @POST("api/v1/auth/me/quick-start")
+    suspend fun completeQuickStartApiV1AuthMeQuickStartPost(@Body quickStartRequest: QuickStartRequest, ): Response<UserRead>
 
     /**
      * POST api/v1/auth/password-reset/confirm

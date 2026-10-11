@@ -49,6 +49,45 @@ open class AuthAPI {
     }
 
     /**
+     Complete Quick Start
+     
+     - parameter quickStartRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: UserRead
+     */
+    open class func completeQuickStartApiV1AuthMeQuickStartPost(quickStartRequest: QuickStartRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> UserRead {
+        return try await completeQuickStartApiV1AuthMeQuickStartPostWithRequestBuilder(quickStartRequest: quickStartRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Complete Quick Start
+     - POST /api/v1/auth/me/quick-start
+     - Record that I finished or skipped the admin or seller first-run quick start. Idempotent — completing twice keeps the first timestamp.
+     - parameter quickStartRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<UserRead> 
+     */
+    open class func completeQuickStartApiV1AuthMeQuickStartPostWithRequestBuilder(quickStartRequest: QuickStartRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<UserRead> {
+        let localVariablePath = "/api/v1/auth/me/quick-start"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: quickStartRequest, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<UserRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Confirm Password Reset
      
      - parameter passwordResetConfirm: (body)  

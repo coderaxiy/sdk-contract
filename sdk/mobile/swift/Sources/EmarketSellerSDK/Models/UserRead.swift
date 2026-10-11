@@ -15,14 +15,18 @@ public struct UserRead: Sendable, Codable, Hashable {
     public var phone: String?
     public var isActive: Bool
     public var roles: [String]?
+    public var adminQuickStartAt: Date?
+    public var sellerQuickStartAt: Date?
 
-    public init(email: String, fullName: String? = nil, id: Int, phone: String? = nil, isActive: Bool, roles: [String]? = nil) {
+    public init(email: String, fullName: String? = nil, id: Int, phone: String? = nil, isActive: Bool, roles: [String]? = nil, adminQuickStartAt: Date? = nil, sellerQuickStartAt: Date? = nil) {
         self.email = email
         self.fullName = fullName
         self.id = id
         self.phone = phone
         self.isActive = isActive
         self.roles = roles
+        self.adminQuickStartAt = adminQuickStartAt
+        self.sellerQuickStartAt = sellerQuickStartAt
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -32,6 +36,8 @@ public struct UserRead: Sendable, Codable, Hashable {
         case phone
         case isActive = "is_active"
         case roles
+        case adminQuickStartAt = "admin_quick_start_at"
+        case sellerQuickStartAt = "seller_quick_start_at"
     }
 
     // Encodable protocol methods
@@ -44,6 +50,8 @@ public struct UserRead: Sendable, Codable, Hashable {
         try container.encodeIfPresent(phone, forKey: .phone)
         try container.encode(isActive, forKey: .isActive)
         try container.encodeIfPresent(roles, forKey: .roles)
+        try container.encodeIfPresent(adminQuickStartAt, forKey: .adminQuickStartAt)
+        try container.encodeIfPresent(sellerQuickStartAt, forKey: .sellerQuickStartAt)
     }
 }
 

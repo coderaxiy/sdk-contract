@@ -27,6 +27,7 @@ All URIs are relative to *http://localhost:8000*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AuthAPI* | [**changeMyPasswordApiV1AuthMePasswordPost**](docs/AuthAPI.md#changemypasswordapiv1authmepasswordpost) | **POST** /api/v1/auth/me/password | Change My Password
+*AuthAPI* | [**completeQuickStartApiV1AuthMeQuickStartPost**](docs/AuthAPI.md#completequickstartapiv1authmequickstartpost) | **POST** /api/v1/auth/me/quick-start | Complete Quick Start
 *AuthAPI* | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](docs/AuthAPI.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** /api/v1/auth/password-reset/confirm | Confirm Password Reset
 *AuthAPI* | [**getMeApiV1AuthMeGet**](docs/AuthAPI.md#getmeapiv1authmeget) | **GET** /api/v1/auth/me | Get Me
 *AuthAPI* | [**loginApiV1AuthLoginPost**](docs/AuthAPI.md#loginapiv1authloginpost) | **POST** /api/v1/auth/login | Login
@@ -300,6 +301,7 @@ Class | Method | HTTP request | Description
  - [MaxAmount](docs/MaxAmount.md)
  - [MessageResponse](docs/MessageResponse.md)
  - [MinAmount](docs/MinAmount.md)
+ - [ModelErrorResponse](docs/ModelErrorResponse.md)
  - [ModerationAction](docs/ModerationAction.md)
  - [ModerationConfigRead](docs/ModerationConfigRead.md)
  - [ModerationConfigUpdate](docs/ModerationConfigUpdate.md)
@@ -366,6 +368,7 @@ Class | Method | HTTP request | Description
  - [ProductVariantCreate](docs/ProductVariantCreate.md)
  - [ProductVariantRead](docs/ProductVariantRead.md)
  - [ProductVariantUpdate](docs/ProductVariantUpdate.md)
+ - [QuickStartRequest](docs/QuickStartRequest.md)
  - [ReceiveReturnRequest](docs/ReceiveReturnRequest.md)
  - [Recipient](docs/Recipient.md)
  - [ReconciliationRead](docs/ReconciliationRead.md)

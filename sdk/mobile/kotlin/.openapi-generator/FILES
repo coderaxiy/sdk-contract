@@ -76,6 +76,7 @@ docs/DocumentStatus.md
 docs/DocumentSubmitRequest.md
 docs/DocumentType.md
 docs/EntityType.md
+docs/ErrorResponse.md
 docs/FlatFeeAmount.md
 docs/GroupStatusUpdateRequest.md
 docs/HTTPValidationError.md
@@ -164,6 +165,7 @@ docs/ProductVariantCreate.md
 docs/ProductVariantRead.md
 docs/ProductVariantUpdate.md
 docs/ProductsApi.md
+docs/QuickStartRequest.md
 docs/ReceiveReturnRequest.md
 docs/Recipient.md
 docs/ReconciliationRead.md
@@ -335,6 +337,7 @@ src/main/kotlin/com/emarketseller/sdk/model/DocumentStatus.kt
 src/main/kotlin/com/emarketseller/sdk/model/DocumentSubmitRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/DocumentType.kt
 src/main/kotlin/com/emarketseller/sdk/model/EntityType.kt
+src/main/kotlin/com/emarketseller/sdk/model/ErrorResponse.kt
 src/main/kotlin/com/emarketseller/sdk/model/FlatFeeAmount.kt
 src/main/kotlin/com/emarketseller/sdk/model/GroupStatusUpdateRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/HTTPValidationError.kt
@@ -419,6 +422,7 @@ src/main/kotlin/com/emarketseller/sdk/model/ProductUpdate.kt
 src/main/kotlin/com/emarketseller/sdk/model/ProductVariantCreate.kt
 src/main/kotlin/com/emarketseller/sdk/model/ProductVariantRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/ProductVariantUpdate.kt
+src/main/kotlin/com/emarketseller/sdk/model/QuickStartRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/ReceiveReturnRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/Recipient.kt
 src/main/kotlin/com/emarketseller/sdk/model/ReconciliationRead.kt
@@ -563,6 +567,7 @@ src/test/kotlin/com/emarketseller/sdk/model/DocumentStatusTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/DocumentSubmitRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/DocumentTypeTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/EntityTypeTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/ErrorResponseTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/FlatFeeAmountTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/GroupStatusUpdateRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/HTTPValidationErrorTest.kt
@@ -647,6 +652,7 @@ src/test/kotlin/com/emarketseller/sdk/model/ProductUpdateTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ProductVariantCreateTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ProductVariantReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ProductVariantUpdateTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/QuickStartRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ReceiveReturnRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/RecipientTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ReconciliationReadTest.kt

@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost:8000*
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**changeMyPasswordApiV1AuthMePasswordPost**](AuthApi.md#changeMyPasswordApiV1AuthMePasswordPost) | **POST** api/v1/auth/me/password | Change My Password |
+| [**completeQuickStartApiV1AuthMeQuickStartPost**](AuthApi.md#completeQuickStartApiV1AuthMeQuickStartPost) | **POST** api/v1/auth/me/quick-start | Complete Quick Start |
 | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](AuthApi.md#confirmPasswordResetApiV1AuthPasswordResetConfirmPost) | **POST** api/v1/auth/password-reset/confirm | Confirm Password Reset |
 | [**getMeApiV1AuthMeGet**](AuthApi.md#getMeApiV1AuthMeGet) | **GET** api/v1/auth/me | Get Me |
 | [**loginApiV1AuthLoginPost**](AuthApi.md#loginApiV1AuthLoginPost) | **POST** api/v1/auth/login | Login |
@@ -45,6 +46,47 @@ launch(Dispatchers.IO) {
 ### Return type
 
 [**TokenResponse**](TokenResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+Complete Quick Start
+
+Record that I finished or skipped the admin or seller first-run quick start. Idempotent — completing twice keeps the first timestamp.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(AuthApi::class.java)
+val quickStartRequest : QuickStartRequest =  // QuickStartRequest | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : UserRead = webService.completeQuickStartApiV1AuthMeQuickStartPost(quickStartRequest, accessToken)
+}
+```
+
+### Parameters
+| **quickStartRequest** | [**QuickStartRequest**](QuickStartRequest.md)|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**UserRead**](UserRead.md)
 
 ### Authorization
 

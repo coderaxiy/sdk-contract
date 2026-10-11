@@ -206,6 +206,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/auth/me/quick-start:
+    post:
+      tags:
+      - auth
+      summary: Complete Quick Start
+      description: 'Record that I finished or skipped the admin or seller first-run quick start.
+
+        Idempotent — completing twice keeps the first timestamp.'
+      operationId: complete_quick_start_api_v1_auth_me_quick_start_post
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuickStartRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/auth/me/password:
     post:
       tags:
@@ -11069,6 +11106,19 @@ components:
       type: object
       title: ProductVariantUpdate
       description: 'PATCH: omitted fields are unchanged; `seller_sku: null` clears it.'
+    QuickStartRequest:
+      properties:
+        app:
+          type: string
+          enum:
+          - admin
+          - seller
+          title: App
+      type: object
+      required:
+      - app
+      title: QuickStartRequest
+      description: POST /auth/me/quick-start — which web app's first-run quick start was completed.
     ReceiveReturnRequest:
       properties:
         condition_note:
@@ -12467,6 +12517,18 @@ components:
           type: array
           title: Roles
           default: []
+        admin_quick_start_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Admin Quick Start At
+        seller_quick_start_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Seller Quick Start At
       type: object
       required:
       - email
@@ -12610,6 +12672,21 @@ components:
       - user_id
       - role
       title: InviteStaffRequest
+    ErrorResponse:
+      type: object
+      title: ErrorResponse
+      description: Body of 400/401/403/404/409/5xx errors. `detail` is a human-readable message in the
+        request's Accept-Language (uz or ru). `code` is a stable machine-readable identifier present on
+        errors raised through the message catalog. Some endpoints return a structured `detail` object
+        instead — see their module guide.
+      properties:
+        detail:
+          title: Detail
+        code:
+          type: string
+          title: Code
+      required:
+      - detail
 servers:
 - url: http://localhost:8000
   description: Local dev

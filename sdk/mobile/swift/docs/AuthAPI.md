@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost:8000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**changeMyPasswordApiV1AuthMePasswordPost**](AuthAPI.md#changemypasswordapiv1authmepasswordpost) | **POST** /api/v1/auth/me/password | Change My Password
+[**completeQuickStartApiV1AuthMeQuickStartPost**](AuthAPI.md#completequickstartapiv1authmequickstartpost) | **POST** /api/v1/auth/me/quick-start | Complete Quick Start
 [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](AuthAPI.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** /api/v1/auth/password-reset/confirm | Confirm Password Reset
 [**getMeApiV1AuthMeGet**](AuthAPI.md#getmeapiv1authmeget) | **GET** /api/v1/auth/me | Get Me
 [**loginApiV1AuthLoginPost**](AuthAPI.md#loginapiv1authloginpost) | **POST** /api/v1/auth/login | Login
@@ -54,6 +55,58 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TokenResponse**](TokenResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **completeQuickStartApiV1AuthMeQuickStartPost**
+```swift
+    open class func completeQuickStartApiV1AuthMeQuickStartPost(quickStartRequest: QuickStartRequest, accessToken: String? = nil, completion: @escaping (_ data: UserRead?, _ error: Error?) -> Void)
+```
+
+Complete Quick Start
+
+Record that I finished or skipped the admin or seller first-run quick start. Idempotent — completing twice keeps the first timestamp.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let quickStartRequest = QuickStartRequest(app: "app_example") // QuickStartRequest | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Complete Quick Start
+AuthAPI.completeQuickStartApiV1AuthMeQuickStartPost(quickStartRequest: quickStartRequest, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **quickStartRequest** | [**QuickStartRequest**](QuickStartRequest.md) |  | 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**UserRead**](UserRead.md)
 
 ### Authorization
 

@@ -206,7 +206,14 @@ product from then on.
 Not included, on purpose: moderation state, `seller_sku`, exact stock, deleted
 variants, the admin who approved it. Product `title`/`description` are
 single-language. Category and attribute labels carry all translations: pick
-`uz` / `ru` / `en` on the client.
+`uz` / `ru` on the client. Content locales are `uz` and `ru` only (server setting
+`CONTENT_LOCALES`); categories saved before that rule may still carry an `en` row or lack
+one of the two until an admin next edits them, so fall back to any available translation.
+
+Admin writes (`POST`/`PATCH /admin/categories`, `PUT /admin/categories/{id}/attributes`)
+must send exactly one non-empty `name` / `label` for each of `uz` and `ru` — `422` with
+`"translations must include exactly: uz, ru (missing: ru)"`, `"unsupported locale: en"` or
+`"duplicate locale: uz"` otherwise. `PATCH` without `translations` leaves them alone.
 
 ---
 

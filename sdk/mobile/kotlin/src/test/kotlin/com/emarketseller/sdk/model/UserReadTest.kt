@@ -69,5 +69,17 @@ class UserReadTest : ShouldSpec() {
             //modelInstance.roles shouldBe ("TODO")
         }
 
+        // to test the property `adminQuickStartAt`
+        should("test adminQuickStartAt") {
+            // uncomment below to test the property
+            //modelInstance.adminQuickStartAt shouldBe ("TODO")
+        }
+
+        // to test the property `sellerQuickStartAt`
+        should("test sellerQuickStartAt") {
+            // uncomment below to test the property
+            //modelInstance.sellerQuickStartAt shouldBe ("TODO")
+        }
+
     }
 }

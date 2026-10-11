@@ -125,6 +125,27 @@ export interface paths {
         patch: operations["update_me_api_v1_auth_me_patch"];
         trace?: never;
     };
+    "/api/v1/auth/me/quick-start": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Complete Quick Start
+         * @description Record that I finished or skipped the admin or seller first-run quick start.
+         *     Idempotent — completing twice keeps the first timestamp.
+         */
+        post: operations["complete_quick_start_api_v1_auth_me_quick_start_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/auth/me/password": {
         parameters: {
             query?: never;
@@ -4892,6 +4913,17 @@ export interface components {
             /** Is Active */
             is_active?: boolean | null;
         };
+        /**
+         * QuickStartRequest
+         * @description POST /auth/me/quick-start — which web app's first-run quick start was completed.
+         */
+        QuickStartRequest: {
+            /**
+             * App
+             * @enum {string}
+             */
+            app: "admin" | "seller";
+        };
         /** ReceiveReturnRequest */
         ReceiveReturnRequest: {
             /** Condition Note */
@@ -5624,6 +5656,10 @@ export interface components {
              * @default []
              */
             roles: string[];
+            /** Admin Quick Start At */
+            admin_quick_start_at?: string | null;
+            /** Seller Quick Start At */
+            seller_quick_start_at?: string | null;
         };
         /**
          * UserUpdate
@@ -5695,6 +5731,16 @@ export interface components {
             /** User Id */
             user_id: number;
             role: components["schemas"]["StaffRole"];
+        };
+        /**
+         * ErrorResponse
+         * @description Body of 400/401/403/404/409/5xx errors. `detail` is a human-readable message in the request's Accept-Language (uz or ru). `code` is a stable machine-readable identifier present on errors raised through the message catalog. Some endpoints return a structured `detail` object instead — see their module guide.
+         */
+        ErrorResponse: {
+            /** Detail */
+            detail: unknown;
+            /** Code */
+            code?: string;
         };
     };
     responses: never;
@@ -5904,6 +5950,41 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["UpdateProfileRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    complete_quick_start_api_v1_auth_me_quick_start_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuickStartRequest"];
             };
         };
         responses: {

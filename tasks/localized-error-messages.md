@@ -101,3 +101,21 @@ Resolution) once the header is honored so we can enable it.
 ## References
 
 docs/api-standards.md → Errors; openapi/api.yaml → error responses (`detail`)
+
+## Progress (backend, 2026-10-12) — still open
+
+Plumbing is live; the long tail is not translated yet, so the task stays open.
+
+- `Accept-Language` is honored on every request: `uz` / `ru`, default `uz`, parsed per RFC
+  (`ru-RU,ru;q=0.9` → `ru`). **You can start sending it now.**
+- Errors raised through the catalog return `{ "detail": "<translated>", "code": "<stable code>" }`.
+  Everything else keeps the English `detail` and has no `code`.
+- Translated so far: the auth/permission guards (`auth.*`, incl. the 401 from the auth
+  middleware), the generic defaults (`common.*`), and `pickup_point.no_active_manager`.
+- `422` `msg` is translated for the common Pydantic types (see `docs/api-standards.md`
+  → Errors → Language).
+- `ErrorResponse` (`detail`, `code?`) added to the spec; docs updated.
+- Next: the module guards, in the order you suggested (status guards, approve/reject, pickup
+  points, shops, product moderation, refunds). Dynamic messages become placeholders
+  (`{role}`, …) so they stay translatable.
+
