@@ -102,11 +102,12 @@ interface UsersApi {
      *
      * @param skip  (optional, default to 0)
      * @param limit  (optional, default to 100)
+     * @param search Email or full name contains (optional)
      * @param accessToken  (optional)
      * @return [kotlin.collections.List<UserRead>]
      */
     @GET("api/v1/users/")
-    suspend fun listUsersApiV1UsersGet(@Query("skip") skip: kotlin.Int? = 0, @Query("limit") limit: kotlin.Int? = 100, ): Response<kotlin.collections.List<UserRead>>
+    suspend fun listUsersApiV1UsersGet(@Query("skip") skip: kotlin.Int? = 0, @Query("limit") limit: kotlin.Int? = 100, @Query("search") search: kotlin.String? = null, ): Response<kotlin.collections.List<UserRead>>
 
     /**
      * POST api/v1/users/{user_id}/reactivate

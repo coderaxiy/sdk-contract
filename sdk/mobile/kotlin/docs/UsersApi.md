@@ -227,16 +227,18 @@ val apiClient = ApiClient()
 val webService = apiClient.createWebservice(UsersApi::class.java)
 val skip : kotlin.Int = 56 // kotlin.Int | 
 val limit : kotlin.Int = 56 // kotlin.Int | 
+val search : kotlin.String = search_example // kotlin.String | Email or full name contains
 val accessToken : kotlin.String = accessToken_example // kotlin.String | 
 
 launch(Dispatchers.IO) {
-    val result : kotlin.collections.List<UserRead> = webService.listUsersApiV1UsersGet(skip, limit, accessToken)
+    val result : kotlin.collections.List<UserRead> = webService.listUsersApiV1UsersGet(skip, limit, search, accessToken)
 }
 ```
 
 ### Parameters
 | **skip** | **kotlin.Int**|  | [optional] [default to 0] |
 | **limit** | **kotlin.Int**|  | [optional] [default to 100] |
+| **search** | **kotlin.String**| Email or full name contains | [optional] |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
 | **accessToken** | **kotlin.String**|  | [optional] |

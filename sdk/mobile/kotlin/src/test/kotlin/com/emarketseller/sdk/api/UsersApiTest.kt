@@ -91,8 +91,9 @@ class UsersApiTest : ShouldSpec() {
             // uncomment below to test listUsersApiV1UsersGet
             //val skip : kotlin.Int = 56 // kotlin.Int | 
             //val limit : kotlin.Int = 56 // kotlin.Int | 
+            //val search : kotlin.String = search_example // kotlin.String | Email or full name contains
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
-            //val result : kotlin.collections.List<UserRead> = apiInstance.listUsersApiV1UsersGet(skip, limit, accessToken)
+            //val result : kotlin.collections.List<UserRead> = apiInstance.listUsersApiV1UsersGet(skip, limit, search, accessToken)
             //result shouldBe ("TODO")
         }
 

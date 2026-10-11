@@ -218,12 +218,13 @@ open class UsersAPI {
      
      - parameter skip: (query)  (optional, default to 0)
      - parameter limit: (query)  (optional, default to 100)
+     - parameter search: (query) Email or full name contains (optional)
      - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: [UserRead]
      */
-    open class func listUsersApiV1UsersGet(skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [UserRead] {
-        return try await listUsersApiV1UsersGetWithRequestBuilder(skip: skip, limit: limit, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    open class func listUsersApiV1UsersGet(skip: Int? = nil, limit: Int? = nil, search: String? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [UserRead] {
+        return try await listUsersApiV1UsersGetWithRequestBuilder(skip: skip, limit: limit, search: search, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
     }
 
     /**
@@ -231,11 +232,12 @@ open class UsersAPI {
      - GET /api/v1/users/
      - parameter skip: (query)  (optional, default to 0)
      - parameter limit: (query)  (optional, default to 100)
+     - parameter search: (query) Email or full name contains (optional)
      - parameter accessToken: ()  (optional)
      - parameter apiConfiguration: The configuration for the http request.
      - returns: RequestBuilder<[UserRead]> 
      */
-    open class func listUsersApiV1UsersGetWithRequestBuilder(skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[UserRead]> {
+    open class func listUsersApiV1UsersGetWithRequestBuilder(skip: Int? = nil, limit: Int? = nil, search: String? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[UserRead]> {
         let localVariablePath = "/api/v1/users/"
         let localVariableURLString = apiConfiguration.basePath + localVariablePath
         let localVariableParameters: [String: any Sendable]? = nil
@@ -244,6 +246,7 @@ open class UsersAPI {
         localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
             "skip": (wrappedValue: skip?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
             "limit": (wrappedValue: limit?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "search": (wrappedValue: search?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
         ])
 
         let localVariableNillableHeaders: [String: (any Sendable)?] = [

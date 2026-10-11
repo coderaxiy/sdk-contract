@@ -170,15 +170,22 @@ or doing arithmetic.
 ### 2.1 Admin: onboarding a new pickup point
 
 1. `POST /admin/pickup-points` — point is created as `pending_setup`.
-2. Assign at least one **manager** — there's no direct "assign staff" admin
-   endpoint; the manager invites further staff themselves via
-   `POST /pickup-staff/staff/invite` **once they're staff**, but the *first*
-   manager has to be created some other way today (e.g. direct DB/seed, or
-   flag this to backend if you need an admin-side "create first manager"
-   endpoint — it doesn't exist yet).
+2. Assign at least one **manager**: `POST /admin/pickup-points/{id}/staff` with
+   `{ "user_id", "role": "manager" }` → `201 PickupPointStaffRead`. Find the user
+   with `GET /users/?search=<email or name>` (needs `users:read`). Errors (each
+   with a `code`): `404 pickup_point.not_found`, `404 pickup_staff.user_not_found`,
+   `400 pickup_staff.user_inactive`, `409 pickup_staff.already_active` (a user is
+   active staff at one point at a time, here or at another point). Once there is a
+   manager, they invite their own operators via `POST /pickup-staff/staff/invite`.
 3. `PATCH /admin/pickup-points/{id}/status` with `{"status": "active"}` —
    **this fails with `400`** if the point has zero active managers. Surface
    that error clearly rather than a generic failure toast.
+
+**Last-manager protection.** Nobody — admin or manager, including a manager acting on
+themselves (`PATCH …/role`, `PATCH …/suspend`, the admin PATCH) — can suspend or demote the
+last active manager of an **active** point: `400 pickup_staff.last_manager`. Set the point to
+`temporarily_closed` first, or assign another manager. Points in any other status aren't
+restricted, but `active` still needs a manager again (§2.1 step 3).
 
 ### 2.2 Central store: receiving from sellers and shipping to points
 
@@ -288,6 +295,8 @@ or doing arithmetic.
 | PATCH | `/admin/pickup-points/{id}` | Partial update, all fields optional |
 | PATCH | `/admin/pickup-points/{id}/status` | `{ status }` — `400` if activating with zero managers |
 | GET | `/admin/pickup-points/{id}/staff` | |
+| PATCH | `/admin/pickup-points/{id}/staff/{staff_id}` | `{ role?, status? }` (at least one) → `PickupPointStaffRead`. Changes a role, suspends (`suspended`) or reactivates (`active`). `404 pickup_staff.not_found` (also when the staff row belongs to another point), `400 pickup_staff.last_manager` (see below), `409 pickup_staff.already_active` when reactivating someone active at another point. Audited (`pickup_point.staff_updated`) |
+| POST | `/admin/pickup-points/{id}/staff` | `{ user_id, role }` → `201 PickupPointStaffRead`. Assigns staff in any role — how the first manager is created. Audited (`pickup_point.staff_assigned`). `409` if the user is already active staff at a point |
 | GET | `/admin/shipments` | Query: `status`, but **only `discrepancy` is accepted** (the endpoint is a fixed discrepancy queue, not a general shipment browser) |
 | PATCH | `/admin/shipments/{id}/resolve-discrepancy` | See §3.3 body shape |
 | GET | `/admin/reconciliations` | Query: `status` (optional — omit for all) |
@@ -308,7 +317,7 @@ or doing arithmetic.
 | GET | `/pickup-staff/reconciliation/current` | Manager only — `403` for `operator` |
 | POST | `/pickup-staff/reconciliation/{id}/declare` | Manager only |
 | GET | `/pickup-staff/staff` | Manager only — co-staff at this point |
-| POST | `/pickup-staff/staff/invite` | Manager only — `{ user_id, role }` |
+| POST | `/pickup-staff/staff/invite` | Manager only — `{ user_id, role }`. `409` (was `400`) if the user is already active staff at a point |
 | PATCH | `/pickup-staff/staff/{id}/role` | Manager only — not in the original spec, added for parity with invite |
 | PATCH | `/pickup-staff/staff/{id}/suspend` | Manager only — same |
 
@@ -480,10 +489,6 @@ umbrella — check `items[]` for the real per-line outcome (§1).
 
 ## 6. Known gaps / things not yet wired up
 
-- **No admin endpoint creates a pickup point's first manager.** Someone has to
-  become staff before they can invite others; there's currently no way to
-  bootstrap that from the admin panel. Flag to backend if this blocks the
-  admin onboarding flow.
 - **No supervisor-override endpoint** for a collection amount mismatch — it's
   a hard `400`, full stop (§2.4).
 - **Orders placed before pickup points were required** have

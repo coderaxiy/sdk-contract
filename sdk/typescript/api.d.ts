@@ -2242,11 +2242,38 @@ export interface paths {
         /** List Pickup Point Staff Admin */
         get: operations["list_pickup_point_staff_admin_api_v1_admin_pickup_points__point_id__staff_get"];
         put?: never;
-        post?: never;
+        /**
+         * Assign Pickup Point Staff Admin
+         * @description Assign a user as staff of any point in any role — this is how a point's first manager
+         *     is created. `409` if the user is already active staff at a point (one point at a time).
+         */
+        post: operations["assign_pickup_point_staff_admin_api_v1_admin_pickup_points__point_id__staff_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/pickup-points/{point_id}/staff/{staff_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Pickup Point Staff Admin
+         * @description Change a staff member's `role` and/or `status` (`suspended` / `active`). `400` if it would
+         *     remove the last active manager of an active point; `409` when reactivating someone who is
+         *     active staff at another point.
+         */
+        patch: operations["update_pickup_point_staff_admin_api_v1_admin_pickup_points__point_id__staff__staff_id__patch"];
         trace?: never;
     };
     "/api/v1/admin/shipments": {
@@ -2784,6 +2811,14 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /**
+         * AdminUpdateStaffRequest
+         * @description PATCH /admin/pickup-points/{id}/staff/{staff_id} — send only what changes.
+         */
+        AdminUpdateStaffRequest: {
+            role?: components["schemas"]["PickupPointStaffRole"] | null;
+            status?: components["schemas"]["PickupPointStaffStatus"] | null;
+        };
         /** AssignCategoryRequest */
         AssignCategoryRequest: {
             /** Category Id */
@@ -6048,6 +6083,8 @@ export interface operations {
             query?: {
                 skip?: number;
                 limit?: number;
+                /** @description Email or full name contains */
+                search?: string | null;
             };
             header?: never;
             path?: never;
@@ -10818,6 +10855,81 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PickupPointStaffRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    assign_pickup_point_staff_admin_api_v1_admin_pickup_points__point_id__staff_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                point_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["app__modules__logistics__schemas__InviteStaffRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PickupPointStaffRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_pickup_point_staff_admin_api_v1_admin_pickup_points__point_id__staff__staff_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                point_id: number;
+                staff_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AdminUpdateStaffRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PickupPointStaffRead"];
                 };
             };
             /** @description Validation Error */

@@ -73,6 +73,7 @@ All URIs are relative to *http://localhost:8000*
 | *CategoriesApi* | [**setAttributesApiV1AdminCategoriesCategoryIdAttributesPut**](docs/CategoriesApi.md#setattributesapiv1admincategoriescategoryidattributesput) | **PUT** api/v1/admin/categories/{category_id}/attributes | Set Attributes |
 | *CategoriesApi* | [**updateCategoryApiV1AdminCategoriesCategoryIdPatch**](docs/CategoriesApi.md#updatecategoryapiv1admincategoriescategoryidpatch) | **PATCH** api/v1/admin/categories/{category_id} | Update Category |
 | *DefaultApi* | [**rootGet**](docs/DefaultApi.md#rootget) | **GET**  | Root |
+| *LogisticsApi* | [**assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost**](docs/LogisticsApi.md#assignpickuppointstaffadminapiv1adminpickuppointspointidstaffpost) | **POST** api/v1/admin/pickup-points/{point_id}/staff | Assign Pickup Point Staff Admin |
 | *LogisticsApi* | [**checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost**](docs/LogisticsApi.md#checkinshipmentapiv1pickupstaffshipmentsshipmentidcheckinpost) | **POST** api/v1/pickup-staff/shipments/{shipment_id}/check-in | Check In Shipment |
 | *LogisticsApi* | [**collectHoldingItemsApiV1PickupStaffHoldingsHoldingIdCollectPost**](docs/LogisticsApi.md#collectholdingitemsapiv1pickupstaffholdingsholdingidcollectpost) | **POST** api/v1/pickup-staff/holdings/{holding_id}/collect | Collect Holding Items |
 | *LogisticsApi* | [**createPickupPointApiV1AdminPickupPointsPost**](docs/LogisticsApi.md#createpickuppointapiv1adminpickuppointspost) | **POST** api/v1/admin/pickup-points | Create Pickup Point |
@@ -105,6 +106,7 @@ All URIs are relative to *http://localhost:8000*
 | *LogisticsApi* | [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](docs/LogisticsApi.md#resolveshipmentdiscrepancyapiv1adminshipmentsshipmentidresolvediscrepancypatch) | **PATCH** api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy |
 | *LogisticsApi* | [**suspendPickupStaffApiV1PickupStaffStaffStaffIdSuspendPatch**](docs/LogisticsApi.md#suspendpickupstaffapiv1pickupstaffstaffstaffidsuspendpatch) | **PATCH** api/v1/pickup-staff/staff/{staff_id}/suspend | Suspend Pickup Staff |
 | *LogisticsApi* | [**updatePickupPointApiV1AdminPickupPointsPointIdPatch**](docs/LogisticsApi.md#updatepickuppointapiv1adminpickuppointspointidpatch) | **PATCH** api/v1/admin/pickup-points/{point_id} | Update Pickup Point |
+| *LogisticsApi* | [**updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch**](docs/LogisticsApi.md#updatepickuppointstaffadminapiv1adminpickuppointspointidstaffstaffidpatch) | **PATCH** api/v1/admin/pickup-points/{point_id}/staff/{staff_id} | Update Pickup Point Staff Admin |
 | *LogisticsApi* | [**updatePickupPointStatusApiV1AdminPickupPointsPointIdStatusPatch**](docs/LogisticsApi.md#updatepickuppointstatusapiv1adminpickuppointspointidstatuspatch) | **PATCH** api/v1/admin/pickup-points/{point_id}/status | Update Pickup Point Status |
 | *LogisticsApi* | [**updatePickupStaffRoleApiV1PickupStaffStaffStaffIdRolePatch**](docs/LogisticsApi.md#updatepickupstaffroleapiv1pickupstaffstaffstaffidrolepatch) | **PATCH** api/v1/pickup-staff/staff/{staff_id}/role | Update Pickup Staff Role |
 | *NotificationsApi* | [**registerDeviceApiV1DevicesPut**](docs/NotificationsApi.md#registerdeviceapiv1devicesput) | **PUT** api/v1/devices | Register Device |
@@ -230,6 +232,7 @@ All URIs are relative to *http://localhost:8000*
 <a id="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [com.emarketseller.sdk.model.AdminUpdateStaffRequest](docs/AdminUpdateStaffRequest.md)
  - [com.emarketseller.sdk.model.Amount](docs/Amount.md)
  - [com.emarketseller.sdk.model.AmountCollected](docs/AmountCollected.md)
  - [com.emarketseller.sdk.model.AppModulesLogisticsSchemasInviteStaffRequest](docs/AppModulesLogisticsSchemasInviteStaffRequest.md)

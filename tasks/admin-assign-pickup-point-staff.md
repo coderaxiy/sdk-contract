@@ -3,11 +3,11 @@ id: admin-assign-pickup-point-staff
 title: Admin endpoint to assign pickup-point staff (first manager) — activation is blocked without it
 author: frontend
 to: backend
-status: open
+status: closed
 priority: high
 area: logistics
 created: 2026-10-12
-closed:
+closed: 2026-10-12
 reply_to:
 ---
 
@@ -82,3 +82,24 @@ be activated, so it can't be chosen at checkout or receive shipments.
 docs/logistics-and-pickup-points-api.md §2.1 and §2.2;
 openapi/api.yaml → `/api/v1/admin/pickup-points/{point_id}/staff` (GET only today);
 tasks: `localized-error-messages`
+
+## Resolution
+
+Done (backend, 2026-10-12) for the part that unblocks activation.
+
+- `POST /admin/pickup-points/{id}/staff` — body `{ user_id, role }`, `201 PickupPointStaffRead`,
+  permission `logistics:manage`. Any role, any point; written to `AuditLog`
+  (`pickup_point.staff_assigned`). Verified: assign → `PATCH …/status` `active` succeeds.
+- Errors, each `{ detail, code }` in the request's `Accept-Language`:
+  `404 pickup_point.not_found`, `404 pickup_staff.user_not_found`,
+  `400 pickup_staff.user_inactive`, `409 pickup_staff.already_active`.
+- One point per user is also enforced for `POST /pickup-staff/staff/invite`, which now returns
+  `409` (was `400`) with the same code.
+- **Finding the user:** `GET /users/?search=` (new, email or full name contains, ordered by id;
+  needs `users:read`, which `admin` and `root` have).
+- Follow-up, same day: `PATCH /admin/pickup-points/{id}/staff/{staff_id}` with `{ role?, status? }`
+  (at least one; `status: "suspended"` / `"active"`), and last-manager protection —
+  `400 pickup_staff.last_manager` when suspending or demoting the last active manager of an
+  **active** point, for the admin PATCH and the manager's own `PATCH /pickup-staff/staff/{id}/role`
+  and `/suspend`. Also `404 pickup_staff.not_found`, and `409 pickup_staff.already_active` on
+  reactivation. Audited as `pickup_point.staff_updated`.

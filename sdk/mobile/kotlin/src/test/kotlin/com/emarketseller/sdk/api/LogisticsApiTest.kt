@@ -27,6 +27,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
 import com.emarketseller.sdk.api.LogisticsApi
+import com.emarketseller.sdk.model.AdminUpdateStaffRequest
 import com.emarketseller.sdk.model.AppModulesLogisticsSchemasInviteStaffRequest
 import com.emarketseller.sdk.model.CashCollectionRecordRead
 import com.emarketseller.sdk.model.CheckInRequest
@@ -62,6 +63,16 @@ class LogisticsApiTest : ShouldSpec() {
     init {
         // uncomment below to create an instance of LogisticsApi
         //val apiInstance = LogisticsApi()
+
+        // to test assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost
+        should("test assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost") {
+            // uncomment below to test assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost
+            //val pointId : kotlin.Int = 56 // kotlin.Int | 
+            //val appModulesLogisticsSchemasInviteStaffRequest : AppModulesLogisticsSchemasInviteStaffRequest =  // AppModulesLogisticsSchemasInviteStaffRequest | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : PickupPointStaffRead = apiInstance.assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost(pointId, appModulesLogisticsSchemasInviteStaffRequest, accessToken)
+            //result shouldBe ("TODO")
+        }
 
         // to test checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost
         should("test checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost") {
@@ -351,6 +362,17 @@ class LogisticsApiTest : ShouldSpec() {
             //val pickupPointUpdateRequest : PickupPointUpdateRequest =  // PickupPointUpdateRequest | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : PickupPointRead = apiInstance.updatePickupPointApiV1AdminPickupPointsPointIdPatch(pointId, pickupPointUpdateRequest, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch
+        should("test updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch") {
+            // uncomment below to test updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch
+            //val pointId : kotlin.Int = 56 // kotlin.Int | 
+            //val staffId : kotlin.Int = 56 // kotlin.Int | 
+            //val adminUpdateStaffRequest : AdminUpdateStaffRequest =  // AdminUpdateStaffRequest | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : PickupPointStaffRead = apiInstance.updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch(pointId, staffId, adminUpdateStaffRequest, accessToken)
             //result shouldBe ("TODO")
         }
 

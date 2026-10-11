@@ -31,6 +31,7 @@ Sources/EmarketSellerSDK/Infrastructure/SynchronizedDictionary.swift
 Sources/EmarketSellerSDK/Infrastructure/URLSessionImplementations.swift
 Sources/EmarketSellerSDK/Infrastructure/Validation.swift
 Sources/EmarketSellerSDK/Models/APIValidationError.swift
+Sources/EmarketSellerSDK/Models/AdminUpdateStaffRequest.swift
 Sources/EmarketSellerSDK/Models/Amount.swift
 Sources/EmarketSellerSDK/Models/AmountCollected.swift
 Sources/EmarketSellerSDK/Models/AppModulesLogisticsSchemasInviteStaffRequest.swift
@@ -249,6 +250,7 @@ Sources/EmarketSellerSDK/Models/WarehouseGroupRead.swift
 Sources/EmarketSellerSDK/Models/WarehouseShipmentCreateRequest.swift
 Sources/EmarketSellerSDK/Models/WhoBearsCost.swift
 docs/APIValidationError.md
+docs/AdminUpdateStaffRequest.md
 docs/Amount.md
 docs/AmountCollected.md
 docs/AppModulesLogisticsSchemasInviteStaffRequest.md

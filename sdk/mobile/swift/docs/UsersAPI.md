@@ -270,7 +270,7 @@ No authorization required
 
 # **listUsersApiV1UsersGet**
 ```swift
-    open class func listUsersApiV1UsersGet(skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, completion: @escaping (_ data: [UserRead]?, _ error: Error?) -> Void)
+    open class func listUsersApiV1UsersGet(skip: Int? = nil, limit: Int? = nil, search: String? = nil, accessToken: String? = nil, completion: @escaping (_ data: [UserRead]?, _ error: Error?) -> Void)
 ```
 
 List Users
@@ -282,10 +282,11 @@ import EmarketSellerSDK
 
 let skip = 987 // Int |  (optional) (default to 0)
 let limit = 987 // Int |  (optional) (default to 100)
+let search = "search_example" // String | Email or full name contains (optional)
 let accessToken = "accessToken_example" // String |  (optional)
 
 // List Users
-UsersAPI.listUsersApiV1UsersGet(skip: skip, limit: limit, accessToken: accessToken) { (response, error) in
+UsersAPI.listUsersApiV1UsersGet(skip: skip, limit: limit, search: search, accessToken: accessToken) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -303,6 +304,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **skip** | **Int** |  | [optional] [default to 0]
  **limit** | **Int** |  | [optional] [default to 100]
+ **search** | **String** | Email or full name contains | [optional] 
  **accessToken** | **String** |  | [optional] 
 
 ### Return type

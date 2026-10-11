@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost:8000*
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
+| [**assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost**](LogisticsApi.md#assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost) | **POST** api/v1/admin/pickup-points/{point_id}/staff | Assign Pickup Point Staff Admin |
 | [**checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost**](LogisticsApi.md#checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost) | **POST** api/v1/pickup-staff/shipments/{shipment_id}/check-in | Check In Shipment |
 | [**collectHoldingItemsApiV1PickupStaffHoldingsHoldingIdCollectPost**](LogisticsApi.md#collectHoldingItemsApiV1PickupStaffHoldingsHoldingIdCollectPost) | **POST** api/v1/pickup-staff/holdings/{holding_id}/collect | Collect Holding Items |
 | [**createPickupPointApiV1AdminPickupPointsPost**](LogisticsApi.md#createPickupPointApiV1AdminPickupPointsPost) | **POST** api/v1/admin/pickup-points | Create Pickup Point |
@@ -36,9 +37,53 @@ All URIs are relative to *http://localhost:8000*
 | [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](LogisticsApi.md#resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch) | **PATCH** api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy |
 | [**suspendPickupStaffApiV1PickupStaffStaffStaffIdSuspendPatch**](LogisticsApi.md#suspendPickupStaffApiV1PickupStaffStaffStaffIdSuspendPatch) | **PATCH** api/v1/pickup-staff/staff/{staff_id}/suspend | Suspend Pickup Staff |
 | [**updatePickupPointApiV1AdminPickupPointsPointIdPatch**](LogisticsApi.md#updatePickupPointApiV1AdminPickupPointsPointIdPatch) | **PATCH** api/v1/admin/pickup-points/{point_id} | Update Pickup Point |
+| [**updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch**](LogisticsApi.md#updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch) | **PATCH** api/v1/admin/pickup-points/{point_id}/staff/{staff_id} | Update Pickup Point Staff Admin |
 | [**updatePickupPointStatusApiV1AdminPickupPointsPointIdStatusPatch**](LogisticsApi.md#updatePickupPointStatusApiV1AdminPickupPointsPointIdStatusPatch) | **PATCH** api/v1/admin/pickup-points/{point_id}/status | Update Pickup Point Status |
 | [**updatePickupStaffRoleApiV1PickupStaffStaffStaffIdRolePatch**](LogisticsApi.md#updatePickupStaffRoleApiV1PickupStaffStaffStaffIdRolePatch) | **PATCH** api/v1/pickup-staff/staff/{staff_id}/role | Update Pickup Staff Role |
 
+
+
+Assign Pickup Point Staff Admin
+
+Assign a user as staff of any point in any role — this is how a point&#39;s first manager is created. &#x60;409&#x60; if the user is already active staff at a point (one point at a time).
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val pointId : kotlin.Int = 56 // kotlin.Int | 
+val appModulesLogisticsSchemasInviteStaffRequest : AppModulesLogisticsSchemasInviteStaffRequest =  // AppModulesLogisticsSchemasInviteStaffRequest | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : PickupPointStaffRead = webService.assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost(pointId, appModulesLogisticsSchemasInviteStaffRequest, accessToken)
+}
+```
+
+### Parameters
+| **pointId** | **kotlin.Int**|  | |
+| **appModulesLogisticsSchemasInviteStaffRequest** | [**AppModulesLogisticsSchemasInviteStaffRequest**](AppModulesLogisticsSchemasInviteStaffRequest.md)|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**PickupPointStaffRead**](PickupPointStaffRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 
 Check In Shipment
@@ -1289,6 +1334,51 @@ launch(Dispatchers.IO) {
 ### Return type
 
 [**PickupPointRead**](PickupPointRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+Update Pickup Point Staff Admin
+
+Change a staff member&#39;s &#x60;role&#x60; and/or &#x60;status&#x60; (&#x60;suspended&#x60; / &#x60;active&#x60;). &#x60;400&#x60; if it would remove the last active manager of an active point; &#x60;409&#x60; when reactivating someone who is active staff at another point.
+
+### Example
+```kotlin
+// Import classes:
+//import com.emarketseller.sdk.*
+//import com.emarketseller.sdk.infrastructure.*
+//import com.emarketseller.sdk.model.*
+
+val apiClient = ApiClient()
+val webService = apiClient.createWebservice(LogisticsApi::class.java)
+val pointId : kotlin.Int = 56 // kotlin.Int | 
+val staffId : kotlin.Int = 56 // kotlin.Int | 
+val adminUpdateStaffRequest : AdminUpdateStaffRequest =  // AdminUpdateStaffRequest | 
+val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+
+launch(Dispatchers.IO) {
+    val result : PickupPointStaffRead = webService.updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch(pointId, staffId, adminUpdateStaffRequest, accessToken)
+}
+```
+
+### Parameters
+| **pointId** | **kotlin.Int**|  | |
+| **staffId** | **kotlin.Int**|  | |
+| **adminUpdateStaffRequest** | [**AdminUpdateStaffRequest**](AdminUpdateStaffRequest.md)|  | |
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **accessToken** | **kotlin.String**|  | [optional] |
+
+### Return type
+
+[**PickupPointStaffRead**](PickupPointStaffRead.md)
 
 ### Authorization
 

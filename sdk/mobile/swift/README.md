@@ -54,6 +54,7 @@ Class | Method | HTTP request | Description
 *CategoriesAPI* | [**setAttributesApiV1AdminCategoriesCategoryIdAttributesPut**](docs/CategoriesAPI.md#setattributesapiv1admincategoriescategoryidattributesput) | **PUT** /api/v1/admin/categories/{category_id}/attributes | Set Attributes
 *CategoriesAPI* | [**updateCategoryApiV1AdminCategoriesCategoryIdPatch**](docs/CategoriesAPI.md#updatecategoryapiv1admincategoriescategoryidpatch) | **PATCH** /api/v1/admin/categories/{category_id} | Update Category
 *DefaultAPI* | [**rootGet**](docs/DefaultAPI.md#rootget) | **GET** / | Root
+*LogisticsAPI* | [**assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost**](docs/LogisticsAPI.md#assignpickuppointstaffadminapiv1adminpickuppointspointidstaffpost) | **POST** /api/v1/admin/pickup-points/{point_id}/staff | Assign Pickup Point Staff Admin
 *LogisticsAPI* | [**checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost**](docs/LogisticsAPI.md#checkinshipmentapiv1pickupstaffshipmentsshipmentidcheckinpost) | **POST** /api/v1/pickup-staff/shipments/{shipment_id}/check-in | Check In Shipment
 *LogisticsAPI* | [**collectHoldingItemsApiV1PickupStaffHoldingsHoldingIdCollectPost**](docs/LogisticsAPI.md#collectholdingitemsapiv1pickupstaffholdingsholdingidcollectpost) | **POST** /api/v1/pickup-staff/holdings/{holding_id}/collect | Collect Holding Items
 *LogisticsAPI* | [**createPickupPointApiV1AdminPickupPointsPost**](docs/LogisticsAPI.md#createpickuppointapiv1adminpickuppointspost) | **POST** /api/v1/admin/pickup-points | Create Pickup Point
@@ -86,6 +87,7 @@ Class | Method | HTTP request | Description
 *LogisticsAPI* | [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](docs/LogisticsAPI.md#resolveshipmentdiscrepancyapiv1adminshipmentsshipmentidresolvediscrepancypatch) | **PATCH** /api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy
 *LogisticsAPI* | [**suspendPickupStaffApiV1PickupStaffStaffStaffIdSuspendPatch**](docs/LogisticsAPI.md#suspendpickupstaffapiv1pickupstaffstaffstaffidsuspendpatch) | **PATCH** /api/v1/pickup-staff/staff/{staff_id}/suspend | Suspend Pickup Staff
 *LogisticsAPI* | [**updatePickupPointApiV1AdminPickupPointsPointIdPatch**](docs/LogisticsAPI.md#updatepickuppointapiv1adminpickuppointspointidpatch) | **PATCH** /api/v1/admin/pickup-points/{point_id} | Update Pickup Point
+*LogisticsAPI* | [**updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch**](docs/LogisticsAPI.md#updatepickuppointstaffadminapiv1adminpickuppointspointidstaffstaffidpatch) | **PATCH** /api/v1/admin/pickup-points/{point_id}/staff/{staff_id} | Update Pickup Point Staff Admin
 *LogisticsAPI* | [**updatePickupPointStatusApiV1AdminPickupPointsPointIdStatusPatch**](docs/LogisticsAPI.md#updatepickuppointstatusapiv1adminpickuppointspointidstatuspatch) | **PATCH** /api/v1/admin/pickup-points/{point_id}/status | Update Pickup Point Status
 *LogisticsAPI* | [**updatePickupStaffRoleApiV1PickupStaffStaffStaffIdRolePatch**](docs/LogisticsAPI.md#updatepickupstaffroleapiv1pickupstaffstaffstaffidrolepatch) | **PATCH** /api/v1/pickup-staff/staff/{staff_id}/role | Update Pickup Staff Role
 *NotificationsAPI* | [**registerDeviceApiV1DevicesPut**](docs/NotificationsAPI.md#registerdeviceapiv1devicesput) | **PUT** /api/v1/devices | Register Device
@@ -211,6 +213,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [APIValidationError](docs/APIValidationError.md)
+ - [AdminUpdateStaffRequest](docs/AdminUpdateStaffRequest.md)
  - [Amount](docs/Amount.md)
  - [AmountCollected](docs/AmountCollected.md)
  - [AppModulesLogisticsSchemasInviteStaffRequest](docs/AppModulesLogisticsSchemasInviteStaffRequest.md)

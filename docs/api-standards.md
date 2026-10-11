@@ -117,7 +117,8 @@ Missing or unsupported (`en`, `fr`, …) falls back to `uz`. The server setting
 
 Codes available so far: `common.*` (default 400/404/409/503 texts), `auth.*` (not
 authenticated, invalid/expired token, session expired, forbidden, role/permission
-required, not a seller, not pickup staff) and `pickup_point.no_active_manager`.
+required, not a seller, not pickup staff), `pickup_point.not_found`,
+`pickup_point.no_active_manager` and `pickup_staff.*` (not found / user not found / inactive / already active / last manager).
 
 ## Paths and IDs
 

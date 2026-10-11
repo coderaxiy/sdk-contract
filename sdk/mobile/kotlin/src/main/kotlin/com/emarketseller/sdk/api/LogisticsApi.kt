@@ -7,6 +7,7 @@ import okhttp3.RequestBody
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+import com.emarketseller.sdk.model.AdminUpdateStaffRequest
 import com.emarketseller.sdk.model.AppModulesLogisticsSchemasInviteStaffRequest
 import com.emarketseller.sdk.model.CashCollectionRecordRead
 import com.emarketseller.sdk.model.CheckInRequest
@@ -39,6 +40,22 @@ import com.emarketseller.sdk.model.WarehouseGroupRead
 import com.emarketseller.sdk.model.WarehouseShipmentCreateRequest
 
 interface LogisticsApi {
+    /**
+     * POST api/v1/admin/pickup-points/{point_id}/staff
+     * Assign Pickup Point Staff Admin
+     * Assign a user as staff of any point in any role — this is how a point&#39;s first manager is created. &#x60;409&#x60; if the user is already active staff at a point (one point at a time).
+     * Responses:
+     *  - 201: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param pointId 
+     * @param appModulesLogisticsSchemasInviteStaffRequest 
+     * @param accessToken  (optional)
+     * @return [PickupPointStaffRead]
+     */
+    @POST("api/v1/admin/pickup-points/{point_id}/staff")
+    suspend fun assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost(@Path("point_id") pointId: kotlin.Int, @Body appModulesLogisticsSchemasInviteStaffRequest: AppModulesLogisticsSchemasInviteStaffRequest, ): Response<PickupPointStaffRead>
+
     /**
      * POST api/v1/pickup-staff/shipments/{shipment_id}/check-in
      * Check In Shipment
@@ -520,6 +537,23 @@ interface LogisticsApi {
      */
     @PATCH("api/v1/admin/pickup-points/{point_id}")
     suspend fun updatePickupPointApiV1AdminPickupPointsPointIdPatch(@Path("point_id") pointId: kotlin.Int, @Body pickupPointUpdateRequest: PickupPointUpdateRequest, ): Response<PickupPointRead>
+
+    /**
+     * PATCH api/v1/admin/pickup-points/{point_id}/staff/{staff_id}
+     * Update Pickup Point Staff Admin
+     * Change a staff member&#39;s &#x60;role&#x60; and/or &#x60;status&#x60; (&#x60;suspended&#x60; / &#x60;active&#x60;). &#x60;400&#x60; if it would remove the last active manager of an active point; &#x60;409&#x60; when reactivating someone who is active staff at another point.
+     * Responses:
+     *  - 200: Successful Response
+     *  - 422: Validation Error
+     *
+     * @param pointId 
+     * @param staffId 
+     * @param adminUpdateStaffRequest 
+     * @param accessToken  (optional)
+     * @return [PickupPointStaffRead]
+     */
+    @PATCH("api/v1/admin/pickup-points/{point_id}/staff/{staff_id}")
+    suspend fun updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch(@Path("point_id") pointId: kotlin.Int, @Path("staff_id") staffId: kotlin.Int, @Body adminUpdateStaffRequest: AdminUpdateStaffRequest, ): Response<PickupPointStaffRead>
 
     /**
      * PATCH api/v1/admin/pickup-points/{point_id}/status

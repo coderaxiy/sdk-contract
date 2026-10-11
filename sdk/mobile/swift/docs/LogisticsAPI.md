@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost:8000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost**](LogisticsAPI.md#assignpickuppointstaffadminapiv1adminpickuppointspointidstaffpost) | **POST** /api/v1/admin/pickup-points/{point_id}/staff | Assign Pickup Point Staff Admin
 [**checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost**](LogisticsAPI.md#checkinshipmentapiv1pickupstaffshipmentsshipmentidcheckinpost) | **POST** /api/v1/pickup-staff/shipments/{shipment_id}/check-in | Check In Shipment
 [**collectHoldingItemsApiV1PickupStaffHoldingsHoldingIdCollectPost**](LogisticsAPI.md#collectholdingitemsapiv1pickupstaffholdingsholdingidcollectpost) | **POST** /api/v1/pickup-staff/holdings/{holding_id}/collect | Collect Holding Items
 [**createPickupPointApiV1AdminPickupPointsPost**](LogisticsAPI.md#createpickuppointapiv1adminpickuppointspost) | **POST** /api/v1/admin/pickup-points | Create Pickup Point
@@ -36,9 +37,64 @@ Method | HTTP request | Description
 [**resolveShipmentDiscrepancyApiV1AdminShipmentsShipmentIdResolveDiscrepancyPatch**](LogisticsAPI.md#resolveshipmentdiscrepancyapiv1adminshipmentsshipmentidresolvediscrepancypatch) | **PATCH** /api/v1/admin/shipments/{shipment_id}/resolve-discrepancy | Resolve Shipment Discrepancy
 [**suspendPickupStaffApiV1PickupStaffStaffStaffIdSuspendPatch**](LogisticsAPI.md#suspendpickupstaffapiv1pickupstaffstaffstaffidsuspendpatch) | **PATCH** /api/v1/pickup-staff/staff/{staff_id}/suspend | Suspend Pickup Staff
 [**updatePickupPointApiV1AdminPickupPointsPointIdPatch**](LogisticsAPI.md#updatepickuppointapiv1adminpickuppointspointidpatch) | **PATCH** /api/v1/admin/pickup-points/{point_id} | Update Pickup Point
+[**updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch**](LogisticsAPI.md#updatepickuppointstaffadminapiv1adminpickuppointspointidstaffstaffidpatch) | **PATCH** /api/v1/admin/pickup-points/{point_id}/staff/{staff_id} | Update Pickup Point Staff Admin
 [**updatePickupPointStatusApiV1AdminPickupPointsPointIdStatusPatch**](LogisticsAPI.md#updatepickuppointstatusapiv1adminpickuppointspointidstatuspatch) | **PATCH** /api/v1/admin/pickup-points/{point_id}/status | Update Pickup Point Status
 [**updatePickupStaffRoleApiV1PickupStaffStaffStaffIdRolePatch**](LogisticsAPI.md#updatepickupstaffroleapiv1pickupstaffstaffstaffidrolepatch) | **PATCH** /api/v1/pickup-staff/staff/{staff_id}/role | Update Pickup Staff Role
 
+
+# **assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost**
+```swift
+    open class func assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost(pointId: Int, appModulesLogisticsSchemasInviteStaffRequest: AppModulesLogisticsSchemasInviteStaffRequest, accessToken: String? = nil, completion: @escaping (_ data: PickupPointStaffRead?, _ error: Error?) -> Void)
+```
+
+Assign Pickup Point Staff Admin
+
+Assign a user as staff of any point in any role — this is how a point's first manager is created. `409` if the user is already active staff at a point (one point at a time).
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let pointId = 987 // Int | 
+let appModulesLogisticsSchemasInviteStaffRequest = app__modules__logistics__schemas__InviteStaffRequest(userId: 123, role: PickupPointStaffRole()) // AppModulesLogisticsSchemasInviteStaffRequest | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Assign Pickup Point Staff Admin
+LogisticsAPI.assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost(pointId: pointId, appModulesLogisticsSchemasInviteStaffRequest: appModulesLogisticsSchemasInviteStaffRequest, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pointId** | **Int** |  | 
+ **appModulesLogisticsSchemasInviteStaffRequest** | [**AppModulesLogisticsSchemasInviteStaffRequest**](AppModulesLogisticsSchemasInviteStaffRequest.md) |  | 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**PickupPointStaffRead**](PickupPointStaffRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **checkInShipmentApiV1PickupStaffShipmentsShipmentIdCheckInPost**
 ```swift
@@ -1638,6 +1694,62 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PickupPointRead**](PickupPointRead.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch**
+```swift
+    open class func updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch(pointId: Int, staffId: Int, adminUpdateStaffRequest: AdminUpdateStaffRequest, accessToken: String? = nil, completion: @escaping (_ data: PickupPointStaffRead?, _ error: Error?) -> Void)
+```
+
+Update Pickup Point Staff Admin
+
+Change a staff member's `role` and/or `status` (`suspended` / `active`). `400` if it would remove the last active manager of an active point; `409` when reactivating someone who is active staff at another point.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import EmarketSellerSDK
+
+let pointId = 987 // Int | 
+let staffId = 987 // Int | 
+let adminUpdateStaffRequest = AdminUpdateStaffRequest(role: PickupPointStaffRole(), status: PickupPointStaffStatus()) // AdminUpdateStaffRequest | 
+let accessToken = "accessToken_example" // String |  (optional)
+
+// Update Pickup Point Staff Admin
+LogisticsAPI.updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch(pointId: pointId, staffId: staffId, adminUpdateStaffRequest: adminUpdateStaffRequest, accessToken: accessToken) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pointId** | **Int** |  | 
+ **staffId** | **Int** |  | 
+ **adminUpdateStaffRequest** | [**AdminUpdateStaffRequest**](AdminUpdateStaffRequest.md) |  | 
+ **accessToken** | **String** |  | [optional] 
+
+### Return type
+
+[**PickupPointStaffRead**](PickupPointStaffRead.md)
 
 ### Authorization
 

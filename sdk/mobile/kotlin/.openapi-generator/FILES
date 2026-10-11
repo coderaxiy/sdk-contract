@@ -1,6 +1,7 @@
 .openapi-generator-ignore
 README.md
 build.gradle
+docs/AdminUpdateStaffRequest.md
 docs/Amount.md
 docs/AmountCollected.md
 docs/AppModulesLogisticsSchemasInviteStaffRequest.md
@@ -265,6 +266,7 @@ src/main/kotlin/com/emarketseller/sdk/infrastructure/StringBuilderAdapter.kt
 src/main/kotlin/com/emarketseller/sdk/infrastructure/URIAdapter.kt
 src/main/kotlin/com/emarketseller/sdk/infrastructure/URLAdapter.kt
 src/main/kotlin/com/emarketseller/sdk/infrastructure/UUIDAdapter.kt
+src/main/kotlin/com/emarketseller/sdk/model/AdminUpdateStaffRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/Amount.kt
 src/main/kotlin/com/emarketseller/sdk/model/AmountCollected.kt
 src/main/kotlin/com/emarketseller/sdk/model/AppModulesLogisticsSchemasInviteStaffRequest.kt
@@ -495,6 +497,7 @@ src/test/kotlin/com/emarketseller/sdk/api/SellersApiTest.kt
 src/test/kotlin/com/emarketseller/sdk/api/ShopsApiTest.kt
 src/test/kotlin/com/emarketseller/sdk/api/UploadsApiTest.kt
 src/test/kotlin/com/emarketseller/sdk/api/UsersApiTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/AdminUpdateStaffRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/AmountCollectedTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/AmountTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/AppModulesLogisticsSchemasInviteStaffRequestTest.kt

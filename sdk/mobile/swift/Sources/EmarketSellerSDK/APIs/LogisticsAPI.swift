@@ -10,6 +10,50 @@ import Foundation
 open class LogisticsAPI {
 
     /**
+     Assign Pickup Point Staff Admin
+     
+     - parameter pointId: (path)  
+     - parameter appModulesLogisticsSchemasInviteStaffRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: PickupPointStaffRead
+     */
+    open class func assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPost(pointId: Int, appModulesLogisticsSchemasInviteStaffRequest: AppModulesLogisticsSchemasInviteStaffRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> PickupPointStaffRead {
+        return try await assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPostWithRequestBuilder(pointId: pointId, appModulesLogisticsSchemasInviteStaffRequest: appModulesLogisticsSchemasInviteStaffRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Assign Pickup Point Staff Admin
+     - POST /api/v1/admin/pickup-points/{point_id}/staff
+     - Assign a user as staff of any point in any role — this is how a point's first manager is created. `409` if the user is already active staff at a point (one point at a time).
+     - parameter pointId: (path)  
+     - parameter appModulesLogisticsSchemasInviteStaffRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<PickupPointStaffRead> 
+     */
+    open class func assignPickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffPostWithRequestBuilder(pointId: Int, appModulesLogisticsSchemasInviteStaffRequest: AppModulesLogisticsSchemasInviteStaffRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<PickupPointStaffRead> {
+        var localVariablePath = "/api/v1/admin/pickup-points/{point_id}/staff"
+        let pointIdPreEscape = "\(APIHelper.mapValueToPathItem(pointId))"
+        let pointIdPostEscape = pointIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{point_id}", with: pointIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: appModulesLogisticsSchemasInviteStaffRequest, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<PickupPointStaffRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Check In Shipment
      
      - parameter shipmentId: (path)  
@@ -1301,6 +1345,55 @@ open class LogisticsAPI {
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<PickupPointRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Update Pickup Point Staff Admin
+     
+     - parameter pointId: (path)  
+     - parameter staffId: (path)  
+     - parameter adminUpdateStaffRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: PickupPointStaffRead
+     */
+    open class func updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatch(pointId: Int, staffId: Int, adminUpdateStaffRequest: AdminUpdateStaffRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> PickupPointStaffRead {
+        return try await updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatchWithRequestBuilder(pointId: pointId, staffId: staffId, adminUpdateStaffRequest: adminUpdateStaffRequest, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Update Pickup Point Staff Admin
+     - PATCH /api/v1/admin/pickup-points/{point_id}/staff/{staff_id}
+     - Change a staff member's `role` and/or `status` (`suspended` / `active`). `400` if it would remove the last active manager of an active point; `409` when reactivating someone who is active staff at another point.
+     - parameter pointId: (path)  
+     - parameter staffId: (path)  
+     - parameter adminUpdateStaffRequest: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<PickupPointStaffRead> 
+     */
+    open class func updatePickupPointStaffAdminApiV1AdminPickupPointsPointIdStaffStaffIdPatchWithRequestBuilder(pointId: Int, staffId: Int, adminUpdateStaffRequest: AdminUpdateStaffRequest, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<PickupPointStaffRead> {
+        var localVariablePath = "/api/v1/admin/pickup-points/{point_id}/staff/{staff_id}"
+        let pointIdPreEscape = "\(APIHelper.mapValueToPathItem(pointId))"
+        let pointIdPostEscape = pointIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{point_id}", with: pointIdPostEscape, options: .literal, range: nil)
+        let staffIdPreEscape = "\(APIHelper.mapValueToPathItem(staffId))"
+        let staffIdPostEscape = staffIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{staff_id}", with: staffIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: adminUpdateStaffRequest, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<PickupPointStaffRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }

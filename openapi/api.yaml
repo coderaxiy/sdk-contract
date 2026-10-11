@@ -301,6 +301,17 @@ paths:
           type: integer
           default: 100
           title: Limit
+      - name: search
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 100
+          - type: 'null'
+          description: Email or full name contains
+          title: Search
+        description: Email or full name contains
       - name: access_token
         in: cookie
         required: false
@@ -5869,6 +5880,100 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - logistics
+      summary: Assign Pickup Point Staff Admin
+      description: 'Assign a user as staff of any point in any role — this is how a point''s first manager
+
+        is created. `409` if the user is already active staff at a point (one point at a time).'
+      operationId: assign_pickup_point_staff_admin_api_v1_admin_pickup_points__point_id__staff_post
+      parameters:
+      - name: point_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Point Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__modules__logistics__schemas__InviteStaffRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PickupPointStaffRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/pickup-points/{point_id}/staff/{staff_id}:
+    patch:
+      tags:
+      - logistics
+      summary: Update Pickup Point Staff Admin
+      description: 'Change a staff member''s `role` and/or `status` (`suspended` / `active`). `400` if
+        it would
+
+        remove the last active manager of an active point; `409` when reactivating someone who is
+
+        active staff at another point.'
+      operationId: update_pickup_point_staff_admin_api_v1_admin_pickup_points__point_id__staff__staff_id__patch
+      parameters:
+      - name: point_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Point Id
+      - name: staff_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Staff Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpdateStaffRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PickupPointStaffRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/admin/shipments:
     get:
       tags:
@@ -7021,6 +7126,19 @@ paths:
               schema: {}
 components:
   schemas:
+    AdminUpdateStaffRequest:
+      properties:
+        role:
+          anyOf:
+          - $ref: '#/components/schemas/PickupPointStaffRole'
+          - type: 'null'
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/PickupPointStaffStatus'
+          - type: 'null'
+      type: object
+      title: AdminUpdateStaffRequest
+      description: PATCH /admin/pickup-points/{id}/staff/{staff_id} — send only what changes.
     AssignCategoryRequest:
       properties:
         category_id:
