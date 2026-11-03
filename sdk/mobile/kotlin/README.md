@@ -45,6 +45,8 @@ All URIs are relative to *http://localhost:8000*
 
 | Class | Method | HTTP request | Description |
 | ------------ | ------------- | ------------- | ------------- |
+| *AdminPhoneOtpsApi* | [**listPhoneOtpsApiV1AdminAuthPhoneOtpsGet**](docs/AdminPhoneOtpsApi.md#listphoneotpsapiv1adminauthphoneotpsget) | **GET** api/v1/admin/auth/phone-otps | List Phone Otps |
+| *AdminPhoneOtpsApi* | [**revealPhoneOtpApiV1AdminAuthPhoneOtpsChallengeIdRevealPost**](docs/AdminPhoneOtpsApi.md#revealphoneotpapiv1adminauthphoneotpschallengeidrevealpost) | **POST** api/v1/admin/auth/phone-otps/{challenge_id}/reveal | Reveal Phone Otp |
 | *AuthApi* | [**changeMyPasswordApiV1AuthMePasswordPost**](docs/AuthApi.md#changemypasswordapiv1authmepasswordpost) | **POST** api/v1/auth/me/password | Change My Password |
 | *AuthApi* | [**completeQuickStartApiV1AuthMeQuickStartPost**](docs/AuthApi.md#completequickstartapiv1authmequickstartpost) | **POST** api/v1/auth/me/quick-start | Complete Quick Start |
 | *AuthApi* | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](docs/AuthApi.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** api/v1/auth/password-reset/confirm | Confirm Password Reset |
@@ -141,6 +143,14 @@ All URIs are relative to *http://localhost:8000*
 | *OrdersApi* | [**runPayoutBatchApiV1AdminPayoutsRunPost**](docs/OrdersApi.md#runpayoutbatchapiv1adminpayoutsrunpost) | **POST** api/v1/admin/payouts/run | Run Payout Batch |
 | *OrdersApi* | [**updateCartItemApiV1CartItemsCartItemIdPatch**](docs/OrdersApi.md#updatecartitemapiv1cartitemscartitemidpatch) | **PATCH** api/v1/cart/items/{cart_item_id} | Update Cart Item |
 | *OrdersApi* | [**updateOrderGroupStatusApiV1SellerOrderGroupsGroupIdStatusPatch**](docs/OrdersApi.md#updateordergroupstatusapiv1sellerordergroupsgroupidstatuspatch) | **PATCH** api/v1/seller/order-groups/{group_id}/status | Update Order Group Status |
+| *PhoneAuthApi* | [**confirmPhoneRecoveryApiV1AuthPhonePasswordResetConfirmPost**](docs/PhoneAuthApi.md#confirmphonerecoveryapiv1authphonepasswordresetconfirmpost) | **POST** api/v1/auth/phone/password-reset/confirm | Confirm Phone Recovery |
+| *PhoneAuthApi* | [**confirmPhoneSignupApiV1AuthPhoneRegisterConfirmPost**](docs/PhoneAuthApi.md#confirmphonesignupapiv1authphoneregisterconfirmpost) | **POST** api/v1/auth/phone/register/confirm | Confirm Phone Signup |
+| *PhoneAuthApi* | [**confirmProfileEmailApiV1AuthMeEmailConfirmPost**](docs/PhoneAuthApi.md#confirmprofileemailapiv1authmeemailconfirmpost) | **POST** api/v1/auth/me/email/confirm | Confirm Profile Email |
+| *PhoneAuthApi* | [**listPhoneOtpsApiV1AdminAuthPhoneOtpsGet**](docs/PhoneAuthApi.md#listphoneotpsapiv1adminauthphoneotpsget) | **GET** api/v1/admin/auth/phone-otps | List Phone Otps |
+| *PhoneAuthApi* | [**requestPhoneRecoveryApiV1AuthPhonePasswordResetRequestPost**](docs/PhoneAuthApi.md#requestphonerecoveryapiv1authphonepasswordresetrequestpost) | **POST** api/v1/auth/phone/password-reset/request | Request Phone Recovery |
+| *PhoneAuthApi* | [**requestPhoneSignupApiV1AuthPhoneRegisterRequestPost**](docs/PhoneAuthApi.md#requestphonesignupapiv1authphoneregisterrequestpost) | **POST** api/v1/auth/phone/register/request | Request Phone Signup |
+| *PhoneAuthApi* | [**requestProfileEmailApiV1AuthMeEmailRequestPost**](docs/PhoneAuthApi.md#requestprofileemailapiv1authmeemailrequestpost) | **POST** api/v1/auth/me/email/request | Request Profile Email |
+| *PhoneAuthApi* | [**revealPhoneOtpApiV1AdminAuthPhoneOtpsChallengeIdRevealPost**](docs/PhoneAuthApi.md#revealphoneotpapiv1adminauthphoneotpschallengeidrevealpost) | **POST** api/v1/admin/auth/phone-otps/{challenge_id}/reveal | Reveal Phone Otp |
 | *ProductsApi* | [**approveBrandApiV1AdminBrandsBrandIdApprovePatch**](docs/ProductsApi.md#approvebrandapiv1adminbrandsbrandidapprovepatch) | **PATCH** api/v1/admin/brands/{brand_id}/approve | Approve Brand |
 | *ProductsApi* | [**approveProductApiV1AdminProductsProductIdApprovePatch**](docs/ProductsApi.md#approveproductapiv1adminproductsproductidapprovepatch) | **PATCH** api/v1/admin/products/{product_id}/approve | Approve Product |
 | *ProductsApi* | [**archiveProductApiV1SellerProductsProductIdArchivePost**](docs/ProductsApi.md#archiveproductapiv1sellerproductsproductidarchivepost) | **POST** api/v1/seller/products/{product_id}/archive | Archive Product |
@@ -232,6 +242,7 @@ All URIs are relative to *http://localhost:8000*
 <a id="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [com.emarketseller.sdk.model.AdminOtpRead](docs/AdminOtpRead.md)
  - [com.emarketseller.sdk.model.AdminUpdateStaffRequest](docs/AdminUpdateStaffRequest.md)
  - [com.emarketseller.sdk.model.Amount](docs/Amount.md)
  - [com.emarketseller.sdk.model.AmountCollected](docs/AmountCollected.md)
@@ -304,6 +315,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.DocumentStatus](docs/DocumentStatus.md)
  - [com.emarketseller.sdk.model.DocumentSubmitRequest](docs/DocumentSubmitRequest.md)
  - [com.emarketseller.sdk.model.DocumentType](docs/DocumentType.md)
+ - [com.emarketseller.sdk.model.EmailAdditionRequest](docs/EmailAdditionRequest.md)
  - [com.emarketseller.sdk.model.EntityType](docs/EntityType.md)
  - [com.emarketseller.sdk.model.ErrorResponse](docs/ErrorResponse.md)
  - [com.emarketseller.sdk.model.FlatFeeAmount](docs/FlatFeeAmount.md)
@@ -341,6 +353,10 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.OrderShopGroupRead](docs/OrderShopGroupRead.md)
  - [com.emarketseller.sdk.model.OrderShopGroupStatus](docs/OrderShopGroupStatus.md)
  - [com.emarketseller.sdk.model.OrderStatus](docs/OrderStatus.md)
+ - [com.emarketseller.sdk.model.OtpChallengeRead](docs/OtpChallengeRead.md)
+ - [com.emarketseller.sdk.model.OtpConfirm](docs/OtpConfirm.md)
+ - [com.emarketseller.sdk.model.OtpRevealRead](docs/OtpRevealRead.md)
+ - [com.emarketseller.sdk.model.OtpRevealRequest](docs/OtpRevealRequest.md)
  - [com.emarketseller.sdk.model.PasswordResetConfirm](docs/PasswordResetConfirm.md)
  - [com.emarketseller.sdk.model.PasswordResetRequest](docs/PasswordResetRequest.md)
  - [com.emarketseller.sdk.model.PaymentMethod](docs/PaymentMethod.md)
@@ -350,6 +366,9 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.Percent](docs/Percent.md)
  - [com.emarketseller.sdk.model.Percent1](docs/Percent1.md)
  - [com.emarketseller.sdk.model.PermissionRead](docs/PermissionRead.md)
+ - [com.emarketseller.sdk.model.PhoneRecoveryConfirm](docs/PhoneRecoveryConfirm.md)
+ - [com.emarketseller.sdk.model.PhoneRequest](docs/PhoneRequest.md)
+ - [com.emarketseller.sdk.model.PhoneSignupRequest](docs/PhoneSignupRequest.md)
  - [com.emarketseller.sdk.model.PickupPointCashReconciliationStatus](docs/PickupPointCashReconciliationStatus.md)
  - [com.emarketseller.sdk.model.PickupPointCreateRequest](docs/PickupPointCreateRequest.md)
  - [com.emarketseller.sdk.model.PickupPointHoldingItemStatus](docs/PickupPointHoldingItemStatus.md)

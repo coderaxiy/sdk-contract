@@ -26,6 +26,8 @@ All URIs are relative to *http://localhost:8000*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AdminPhoneOtpsAPI* | [**listPhoneOtpsApiV1AdminAuthPhoneOtpsGet**](docs/AdminPhoneOtpsAPI.md#listphoneotpsapiv1adminauthphoneotpsget) | **GET** /api/v1/admin/auth/phone-otps | List Phone Otps
+*AdminPhoneOtpsAPI* | [**revealPhoneOtpApiV1AdminAuthPhoneOtpsChallengeIdRevealPost**](docs/AdminPhoneOtpsAPI.md#revealphoneotpapiv1adminauthphoneotpschallengeidrevealpost) | **POST** /api/v1/admin/auth/phone-otps/{challenge_id}/reveal | Reveal Phone Otp
 *AuthAPI* | [**changeMyPasswordApiV1AuthMePasswordPost**](docs/AuthAPI.md#changemypasswordapiv1authmepasswordpost) | **POST** /api/v1/auth/me/password | Change My Password
 *AuthAPI* | [**completeQuickStartApiV1AuthMeQuickStartPost**](docs/AuthAPI.md#completequickstartapiv1authmequickstartpost) | **POST** /api/v1/auth/me/quick-start | Complete Quick Start
 *AuthAPI* | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](docs/AuthAPI.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** /api/v1/auth/password-reset/confirm | Confirm Password Reset
@@ -122,6 +124,14 @@ Class | Method | HTTP request | Description
 *OrdersAPI* | [**runPayoutBatchApiV1AdminPayoutsRunPost**](docs/OrdersAPI.md#runpayoutbatchapiv1adminpayoutsrunpost) | **POST** /api/v1/admin/payouts/run | Run Payout Batch
 *OrdersAPI* | [**updateCartItemApiV1CartItemsCartItemIdPatch**](docs/OrdersAPI.md#updatecartitemapiv1cartitemscartitemidpatch) | **PATCH** /api/v1/cart/items/{cart_item_id} | Update Cart Item
 *OrdersAPI* | [**updateOrderGroupStatusApiV1SellerOrderGroupsGroupIdStatusPatch**](docs/OrdersAPI.md#updateordergroupstatusapiv1sellerordergroupsgroupidstatuspatch) | **PATCH** /api/v1/seller/order-groups/{group_id}/status | Update Order Group Status
+*PhoneAuthAPI* | [**confirmPhoneRecoveryApiV1AuthPhonePasswordResetConfirmPost**](docs/PhoneAuthAPI.md#confirmphonerecoveryapiv1authphonepasswordresetconfirmpost) | **POST** /api/v1/auth/phone/password-reset/confirm | Confirm Phone Recovery
+*PhoneAuthAPI* | [**confirmPhoneSignupApiV1AuthPhoneRegisterConfirmPost**](docs/PhoneAuthAPI.md#confirmphonesignupapiv1authphoneregisterconfirmpost) | **POST** /api/v1/auth/phone/register/confirm | Confirm Phone Signup
+*PhoneAuthAPI* | [**confirmProfileEmailApiV1AuthMeEmailConfirmPost**](docs/PhoneAuthAPI.md#confirmprofileemailapiv1authmeemailconfirmpost) | **POST** /api/v1/auth/me/email/confirm | Confirm Profile Email
+*PhoneAuthAPI* | [**listPhoneOtpsApiV1AdminAuthPhoneOtpsGet**](docs/PhoneAuthAPI.md#listphoneotpsapiv1adminauthphoneotpsget) | **GET** /api/v1/admin/auth/phone-otps | List Phone Otps
+*PhoneAuthAPI* | [**requestPhoneRecoveryApiV1AuthPhonePasswordResetRequestPost**](docs/PhoneAuthAPI.md#requestphonerecoveryapiv1authphonepasswordresetrequestpost) | **POST** /api/v1/auth/phone/password-reset/request | Request Phone Recovery
+*PhoneAuthAPI* | [**requestPhoneSignupApiV1AuthPhoneRegisterRequestPost**](docs/PhoneAuthAPI.md#requestphonesignupapiv1authphoneregisterrequestpost) | **POST** /api/v1/auth/phone/register/request | Request Phone Signup
+*PhoneAuthAPI* | [**requestProfileEmailApiV1AuthMeEmailRequestPost**](docs/PhoneAuthAPI.md#requestprofileemailapiv1authmeemailrequestpost) | **POST** /api/v1/auth/me/email/request | Request Profile Email
+*PhoneAuthAPI* | [**revealPhoneOtpApiV1AdminAuthPhoneOtpsChallengeIdRevealPost**](docs/PhoneAuthAPI.md#revealphoneotpapiv1adminauthphoneotpschallengeidrevealpost) | **POST** /api/v1/admin/auth/phone-otps/{challenge_id}/reveal | Reveal Phone Otp
 *ProductsAPI* | [**approveBrandApiV1AdminBrandsBrandIdApprovePatch**](docs/ProductsAPI.md#approvebrandapiv1adminbrandsbrandidapprovepatch) | **PATCH** /api/v1/admin/brands/{brand_id}/approve | Approve Brand
 *ProductsAPI* | [**approveProductApiV1AdminProductsProductIdApprovePatch**](docs/ProductsAPI.md#approveproductapiv1adminproductsproductidapprovepatch) | **PATCH** /api/v1/admin/products/{product_id}/approve | Approve Product
 *ProductsAPI* | [**archiveProductApiV1SellerProductsProductIdArchivePost**](docs/ProductsAPI.md#archiveproductapiv1sellerproductsproductidarchivepost) | **POST** /api/v1/seller/products/{product_id}/archive | Archive Product
@@ -213,6 +223,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [APIValidationError](docs/APIValidationError.md)
+ - [AdminOtpRead](docs/AdminOtpRead.md)
  - [AdminUpdateStaffRequest](docs/AdminUpdateStaffRequest.md)
  - [Amount](docs/Amount.md)
  - [AmountCollected](docs/AmountCollected.md)
@@ -285,6 +296,7 @@ Class | Method | HTTP request | Description
  - [DocumentStatus](docs/DocumentStatus.md)
  - [DocumentSubmitRequest](docs/DocumentSubmitRequest.md)
  - [DocumentType](docs/DocumentType.md)
+ - [EmailAdditionRequest](docs/EmailAdditionRequest.md)
  - [EntityType](docs/EntityType.md)
  - [FlatFeeAmount](docs/FlatFeeAmount.md)
  - [GroupStatusUpdateRequest](docs/GroupStatusUpdateRequest.md)
@@ -322,6 +334,10 @@ Class | Method | HTTP request | Description
  - [OrderShopGroupRead](docs/OrderShopGroupRead.md)
  - [OrderShopGroupStatus](docs/OrderShopGroupStatus.md)
  - [OrderStatus](docs/OrderStatus.md)
+ - [OtpChallengeRead](docs/OtpChallengeRead.md)
+ - [OtpConfirm](docs/OtpConfirm.md)
+ - [OtpRevealRead](docs/OtpRevealRead.md)
+ - [OtpRevealRequest](docs/OtpRevealRequest.md)
  - [PasswordResetConfirm](docs/PasswordResetConfirm.md)
  - [PasswordResetRequest](docs/PasswordResetRequest.md)
  - [PaymentMethod](docs/PaymentMethod.md)
@@ -331,6 +347,9 @@ Class | Method | HTTP request | Description
  - [Percent](docs/Percent.md)
  - [Percent1](docs/Percent1.md)
  - [PermissionRead](docs/PermissionRead.md)
+ - [PhoneRecoveryConfirm](docs/PhoneRecoveryConfirm.md)
+ - [PhoneRequest](docs/PhoneRequest.md)
+ - [PhoneSignupRequest](docs/PhoneSignupRequest.md)
  - [PickupPointCashReconciliationStatus](docs/PickupPointCashReconciliationStatus.md)
  - [PickupPointCreateRequest](docs/PickupPointCreateRequest.md)
  - [PickupPointHoldingItemStatus](docs/PickupPointHoldingItemStatus.md)

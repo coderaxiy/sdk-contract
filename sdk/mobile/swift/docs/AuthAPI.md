@@ -231,7 +231,7 @@ A guest cart (cart_token cookie) is merged into the buyer's cart and the cookie 
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import EmarketSellerSDK
 
-let loginRequest = LoginRequest(email: "email_example", password: "password_example") // LoginRequest | 
+let loginRequest = LoginRequest(email: "email_example", phone: "phone_example", password: "password_example") // LoginRequest | 
 let cartToken = "cartToken_example" // String |  (optional)
 
 // Login

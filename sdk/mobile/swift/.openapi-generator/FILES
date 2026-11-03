@@ -5,12 +5,14 @@ Cartfile
 EmarketSellerSDK.podspec
 Package.swift
 README.md
+Sources/EmarketSellerSDK/APIs/AdminPhoneOtpsAPI.swift
 Sources/EmarketSellerSDK/APIs/AuthAPI.swift
 Sources/EmarketSellerSDK/APIs/CategoriesAPI.swift
 Sources/EmarketSellerSDK/APIs/DefaultAPI.swift
 Sources/EmarketSellerSDK/APIs/LogisticsAPI.swift
 Sources/EmarketSellerSDK/APIs/NotificationsAPI.swift
 Sources/EmarketSellerSDK/APIs/OrdersAPI.swift
+Sources/EmarketSellerSDK/APIs/PhoneAuthAPI.swift
 Sources/EmarketSellerSDK/APIs/ProductsAPI.swift
 Sources/EmarketSellerSDK/APIs/RolesAPI.swift
 Sources/EmarketSellerSDK/APIs/SellersAPI.swift
@@ -31,6 +33,7 @@ Sources/EmarketSellerSDK/Infrastructure/SynchronizedDictionary.swift
 Sources/EmarketSellerSDK/Infrastructure/URLSessionImplementations.swift
 Sources/EmarketSellerSDK/Infrastructure/Validation.swift
 Sources/EmarketSellerSDK/Models/APIValidationError.swift
+Sources/EmarketSellerSDK/Models/AdminOtpRead.swift
 Sources/EmarketSellerSDK/Models/AdminUpdateStaffRequest.swift
 Sources/EmarketSellerSDK/Models/Amount.swift
 Sources/EmarketSellerSDK/Models/AmountCollected.swift
@@ -103,6 +106,7 @@ Sources/EmarketSellerSDK/Models/DocumentReviewRequest.swift
 Sources/EmarketSellerSDK/Models/DocumentStatus.swift
 Sources/EmarketSellerSDK/Models/DocumentSubmitRequest.swift
 Sources/EmarketSellerSDK/Models/DocumentType.swift
+Sources/EmarketSellerSDK/Models/EmailAdditionRequest.swift
 Sources/EmarketSellerSDK/Models/EntityType.swift
 Sources/EmarketSellerSDK/Models/FlatFeeAmount.swift
 Sources/EmarketSellerSDK/Models/GroupStatusUpdateRequest.swift
@@ -140,6 +144,10 @@ Sources/EmarketSellerSDK/Models/OrderShopGroupDetailRead.swift
 Sources/EmarketSellerSDK/Models/OrderShopGroupRead.swift
 Sources/EmarketSellerSDK/Models/OrderShopGroupStatus.swift
 Sources/EmarketSellerSDK/Models/OrderStatus.swift
+Sources/EmarketSellerSDK/Models/OtpChallengeRead.swift
+Sources/EmarketSellerSDK/Models/OtpConfirm.swift
+Sources/EmarketSellerSDK/Models/OtpRevealRead.swift
+Sources/EmarketSellerSDK/Models/OtpRevealRequest.swift
 Sources/EmarketSellerSDK/Models/PasswordResetConfirm.swift
 Sources/EmarketSellerSDK/Models/PasswordResetRequest.swift
 Sources/EmarketSellerSDK/Models/PaymentMethod.swift
@@ -149,6 +157,9 @@ Sources/EmarketSellerSDK/Models/PayoutStatus.swift
 Sources/EmarketSellerSDK/Models/Percent.swift
 Sources/EmarketSellerSDK/Models/Percent1.swift
 Sources/EmarketSellerSDK/Models/PermissionRead.swift
+Sources/EmarketSellerSDK/Models/PhoneRecoveryConfirm.swift
+Sources/EmarketSellerSDK/Models/PhoneRequest.swift
+Sources/EmarketSellerSDK/Models/PhoneSignupRequest.swift
 Sources/EmarketSellerSDK/Models/PickupPointCashReconciliationStatus.swift
 Sources/EmarketSellerSDK/Models/PickupPointCreateRequest.swift
 Sources/EmarketSellerSDK/Models/PickupPointHoldingItemStatus.swift
@@ -250,6 +261,8 @@ Sources/EmarketSellerSDK/Models/WarehouseGroupRead.swift
 Sources/EmarketSellerSDK/Models/WarehouseShipmentCreateRequest.swift
 Sources/EmarketSellerSDK/Models/WhoBearsCost.swift
 docs/APIValidationError.md
+docs/AdminOtpRead.md
+docs/AdminPhoneOtpsAPI.md
 docs/AdminUpdateStaffRequest.md
 docs/Amount.md
 docs/AmountCollected.md
@@ -325,6 +338,7 @@ docs/DocumentReviewRequest.md
 docs/DocumentStatus.md
 docs/DocumentSubmitRequest.md
 docs/DocumentType.md
+docs/EmailAdditionRequest.md
 docs/EntityType.md
 docs/FlatFeeAmount.md
 docs/GroupStatusUpdateRequest.md
@@ -365,6 +379,10 @@ docs/OrderShopGroupRead.md
 docs/OrderShopGroupStatus.md
 docs/OrderStatus.md
 docs/OrdersAPI.md
+docs/OtpChallengeRead.md
+docs/OtpConfirm.md
+docs/OtpRevealRead.md
+docs/OtpRevealRequest.md
 docs/PasswordResetConfirm.md
 docs/PasswordResetRequest.md
 docs/PaymentMethod.md
@@ -374,6 +392,10 @@ docs/PayoutStatus.md
 docs/Percent.md
 docs/Percent1.md
 docs/PermissionRead.md
+docs/PhoneAuthAPI.md
+docs/PhoneRecoveryConfirm.md
+docs/PhoneRequest.md
+docs/PhoneSignupRequest.md
 docs/PickupPointCashReconciliationStatus.md
 docs/PickupPointCreateRequest.md
 docs/PickupPointHoldingItemStatus.md

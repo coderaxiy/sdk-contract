@@ -13,11 +13,22 @@ All paths are under `/api/v1`, e.g. `GET /api/v1/seller/me`. Local dev:
 
 ## Auth
 
-- `POST /auth/register`, `POST /auth/login`, `POST /auth/logout`, `GET /auth/me`.
+- `POST /auth/register` preserves legacy email signup. Phone/password buyers use
+  `POST /auth/phone/register/request` and `/confirm` (staff callback OTP, no SMS).
+  See [buyer-phone-auth-api.md](buyer-phone-auth-api.md) for signup, recovery, and email addition.
+- `POST /auth/login` accepts exactly one of `email` or `phone`, plus `password` (at most
+  72 UTF-8 bytes). Login uses the unique `verified_phone`, not arbitrary checkout contact data.
+  `POST /auth/logout` and `GET /auth/me` are unchanged.
+- `UserRead.email` is now nullable. `verified_phone` and `phone_verified_at` are nullable;
+  existing email users are preserved and contact phones are never treated as verified.
+- Authorized staff use the [manual OTP inbox](admin-phone-otp-api.md) with `auth:otp:read`.
 - **Account self-service** (any logged-in user):
   - `PATCH /auth/me` — `{ full_name?, phone? }` → `UserRead`. Send only what changes; `phone: null`
     clears the saved number (`phone` is on `UserRead`, `null` by default, 5–30 chars). Both are trimmed.
-    Email can't be changed here.
+    This edits contact data only; it does not replace the authentication `verified_phone`.
+    Email can't be changed here. Phone-only users can add email through
+    `POST /auth/me/email/request` and `/confirm`; until confirmed, email remains null.
+    Self-service email replacement/removal and verified-phone changes are unsupported.
   - `POST /auth/me/quick-start` — `{ app: "admin" | "seller" }` → `UserRead`. Records that the
     caller finished or skipped that web app's one-time first-run quick start. Idempotent: the
     first timestamp is kept. Read it back from `UserRead.admin_quick_start_at` /
@@ -96,7 +107,7 @@ Send the UI language on every request: `Accept-Language: uz` or `Accept-Language
 Missing or unsupported (`en`, `fr`, …) falls back to `uz`. The server setting
 `DEFAULT_LOCALE` / `CONTENT_LOCALES` controls this.
 
-- `detail` (400/401/403/404/409/5xx) is returned in that language for errors in the message
+- `detail` (400/401/403/404/409/429/5xx) is returned in that language for errors in the message
   catalog, together with a stable machine-readable `code`:
 
   ```json
@@ -124,7 +135,7 @@ required, not a seller, not pickup staff), `pickup_point.not_found`,
 
 - Role prefixes: `/admin/...` (admin panel), `/seller/...` (seller website),
   `/pickup-staff/...` (pickup-point app); buyer and public endpoints have no prefix.
-- IDs are integers.
+- Entity IDs are integers; OTP `challenge_id` is an opaque UUID string.
 - State changes are `PATCH` on an action path:
   `PATCH /admin/sellers/{seller_id}/approve`. Actions that need a reason take
   `{"reason": "..."}`.

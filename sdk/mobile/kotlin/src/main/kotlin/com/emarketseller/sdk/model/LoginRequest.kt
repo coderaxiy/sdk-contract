@@ -31,18 +31,22 @@ import kotlinx.serialization.Contextual
 /**
  * 
  *
- * @param email 
  * @param password 
+ * @param email 
+ * @param phone 
  */
 @Serializable
 
 data class LoginRequest (
 
-    @SerialName(value = "email")
-    val email: kotlin.String,
-
     @SerialName(value = "password")
-    val password: kotlin.String
+    val password: kotlin.String,
+
+    @SerialName(value = "email")
+    val email: kotlin.String? = null,
+
+    @SerialName(value = "phone")
+    val phone: kotlin.String? = null
 
 ) {
 

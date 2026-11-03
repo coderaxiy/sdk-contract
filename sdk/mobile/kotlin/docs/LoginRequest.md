@@ -4,8 +4,9 @@
 ## Properties
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
-| **email** | **kotlin.String** |  |  |
 | **password** | **kotlin.String** |  |  |
+| **email** | **kotlin.String** |  |  [optional] |
+| **phone** | **kotlin.String** |  |  [optional] |
 
 
 

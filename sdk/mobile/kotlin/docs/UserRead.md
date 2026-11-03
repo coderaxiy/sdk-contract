@@ -8,6 +8,8 @@
 | **id** | **kotlin.Int** |  |  |
 | **isActive** | **kotlin.Boolean** |  |  |
 | **fullName** | **kotlin.String** |  |  [optional] |
+| **verifiedPhone** | **kotlin.String** |  |  [optional] |
+| **phoneVerifiedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional] |
 | **phone** | **kotlin.String** |  |  [optional] |
 | **roles** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional] |
 | **adminQuickStartAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional] |

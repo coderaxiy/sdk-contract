@@ -9,16 +9,20 @@ import Foundation
 
 public struct LoginRequest: Sendable, Codable, Hashable {
 
-    public var email: String
+    public static let passwordRule = StringRule(minLength: nil, maxLength: 72, pattern: nil)
+    public var email: String?
+    public var phone: String?
     public var password: String
 
-    public init(email: String, password: String) {
+    public init(email: String? = nil, phone: String? = nil, password: String) {
         self.email = email
+        self.phone = phone
         self.password = password
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case email
+        case phone
         case password
     }
 
@@ -26,7 +30,8 @@ public struct LoginRequest: Sendable, Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(email, forKey: .email)
+        try container.encodeIfPresent(email, forKey: .email)
+        try container.encodeIfPresent(phone, forKey: .phone)
         try container.encode(password, forKey: .password)
     }
 }

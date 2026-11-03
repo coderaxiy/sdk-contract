@@ -33,16 +33,22 @@ class LoginRequestTest : ShouldSpec() {
         // uncomment below to create an instance of LoginRequest
         //val modelInstance = LoginRequest()
 
+        // to test the property `password`
+        should("test password") {
+            // uncomment below to test the property
+            //modelInstance.password shouldBe ("TODO")
+        }
+
         // to test the property `email`
         should("test email") {
             // uncomment below to test the property
             //modelInstance.email shouldBe ("TODO")
         }
 
-        // to test the property `password`
-        should("test password") {
+        // to test the property `phone`
+        should("test phone") {
             // uncomment below to test the property
-            //modelInstance.password shouldBe ("TODO")
+            //modelInstance.phone shouldBe ("TODO")
         }
 
     }

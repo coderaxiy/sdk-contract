@@ -9,8 +9,10 @@ import Foundation
 
 public struct UserRead: Sendable, Codable, Hashable {
 
-    public var email: String
+    public var email: String?
     public var fullName: String?
+    public var verifiedPhone: String?
+    public var phoneVerifiedAt: Date?
     public var id: Int
     public var phone: String?
     public var isActive: Bool
@@ -18,9 +20,11 @@ public struct UserRead: Sendable, Codable, Hashable {
     public var adminQuickStartAt: Date?
     public var sellerQuickStartAt: Date?
 
-    public init(email: String, fullName: String? = nil, id: Int, phone: String? = nil, isActive: Bool, roles: [String]? = nil, adminQuickStartAt: Date? = nil, sellerQuickStartAt: Date? = nil) {
+    public init(email: String?, fullName: String? = nil, verifiedPhone: String? = nil, phoneVerifiedAt: Date? = nil, id: Int, phone: String? = nil, isActive: Bool, roles: [String]? = nil, adminQuickStartAt: Date? = nil, sellerQuickStartAt: Date? = nil) {
         self.email = email
         self.fullName = fullName
+        self.verifiedPhone = verifiedPhone
+        self.phoneVerifiedAt = phoneVerifiedAt
         self.id = id
         self.phone = phone
         self.isActive = isActive
@@ -32,6 +36,8 @@ public struct UserRead: Sendable, Codable, Hashable {
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case email
         case fullName = "full_name"
+        case verifiedPhone = "verified_phone"
+        case phoneVerifiedAt = "phone_verified_at"
         case id
         case phone
         case isActive = "is_active"
@@ -46,6 +52,8 @@ public struct UserRead: Sendable, Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(email, forKey: .email)
         try container.encodeIfPresent(fullName, forKey: .fullName)
+        try container.encodeIfPresent(verifiedPhone, forKey: .verifiedPhone)
+        try container.encodeIfPresent(phoneVerifiedAt, forKey: .phoneVerifiedAt)
         try container.encode(id, forKey: .id)
         try container.encodeIfPresent(phone, forKey: .phone)
         try container.encode(isActive, forKey: .isActive)

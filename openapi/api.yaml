@@ -280,6 +280,295 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/auth/phone/register/request:
+    post:
+      tags:
+      - phone-auth
+      summary: Request Phone Signup
+      description: Begin phone/password signup. Staff call the number and relay the OTP; no SMS is sent.
+      operationId: request_phone_signup_api_v1_auth_phone_register_request_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneSignupRequest'
+        required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtpChallengeRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/auth/phone/register/confirm:
+    post:
+      tags:
+      - phone-auth
+      summary: Confirm Phone Signup
+      description: Creates a phone-only buyer after verification. Merges guest cart; login is a separate
+        step.
+      operationId: confirm_phone_signup_api_v1_auth_phone_register_confirm_post
+      parameters:
+      - name: cart_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cart Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OtpConfirm'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/auth/phone/password-reset/request:
+    post:
+      tags:
+      - phone-auth
+      summary: Request Phone Recovery
+      description: Same response for known/unknown numbers. Only active verified-phone accounts reach
+        the staff inbox.
+      operationId: request_phone_recovery_api_v1_auth_phone_password_reset_request_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneRequest'
+        required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtpChallengeRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/auth/phone/password-reset/confirm:
+    post:
+      tags:
+      - phone-auth
+      summary: Confirm Phone Recovery
+      description: password is the new password. Consumes the OTP and invalidates all sessions; login
+        separately.
+      operationId: confirm_phone_recovery_api_v1_auth_phone_password_reset_confirm_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneRecoveryConfirm'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/auth/me/email/request:
+    post:
+      tags:
+      - phone-auth
+      summary: Request Profile Email
+      description: Add an email to a phone-only account. Remains pending until the emailed code is confirmed.
+      operationId: request_profile_email_api_v1_auth_me_email_request_post
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailAdditionRequest'
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtpChallengeRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/auth/me/email/confirm:
+    post:
+      tags:
+      - phone-auth
+      summary: Confirm Profile Email
+      description: Attach the verified email. Replacement/removal are not supported by self-service.
+      operationId: confirm_profile_email_api_v1_auth_me_email_confirm_post
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OtpConfirm'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/auth/phone-otps:
+    get:
+      tags:
+      - phone-auth
+      - admin-phone-otps
+      summary: List Phone Otps
+      description: Pending phone signup/recovery requests; no codes in list responses. Needs auth:otp:read.
+      operationId: list_phone_otps_api_v1_admin_auth_phone_otps_get
+      parameters:
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: phone
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            pattern: ^\+[1-9][0-9]{7,14}$
+          - type: 'null'
+          title: Phone
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdminOtpRead'
+                title: Response List Phone Otps Api V1 Admin Auth Phone Otps Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/auth/phone-otps/{challenge_id}/reveal:
+    post:
+      tags:
+      - phone-auth
+      - admin-phone-otps
+      summary: Reveal Phone Otp
+      description: Audited code reveal for a staff callback to the submitted number. Does not verify the
+        account.
+      operationId: reveal_phone_otp_api_v1_admin_auth_phone_otps__challenge_id__reveal_post
+      parameters:
+      - name: challenge_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Challenge Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OtpRevealRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtpRevealRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/users/:
     get:
       tags:
@@ -7126,6 +7415,37 @@ paths:
               schema: {}
 components:
   schemas:
+    AdminOtpRead:
+      properties:
+        challenge_id:
+          type: string
+          format: uuid
+          title: Challenge Id
+        phone:
+          type: string
+          title: Phone
+        purpose:
+          type: string
+          enum:
+          - phone_signup
+          - phone_recovery
+          title: Purpose
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        expires_at:
+          type: string
+          format: date-time
+          title: Expires At
+      type: object
+      required:
+      - challenge_id
+      - phone
+      - purpose
+      - created_at
+      - expires_at
+      title: AdminOtpRead
     AdminUpdateStaffRequest:
       properties:
         role:
@@ -8773,6 +9093,16 @@ components:
       - bank_confirmation
       - other
       title: DocumentType
+    EmailAdditionRequest:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+      type: object
+      required:
+      - email
+      title: EmailAdditionRequest
     EntityType:
       type: string
       enum:
@@ -8976,15 +9306,22 @@ components:
     LoginRequest:
       properties:
         email:
-          type: string
-          format: email
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
           title: Email
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
         password:
           type: string
+          maxLength: 72
           title: Password
       type: object
       required:
-      - email
       - password
       title: LoginRequest
     ManualAdjustmentRequest:
@@ -9884,6 +10221,77 @@ components:
       - cancelled
       - payment_failed
       title: OrderStatus
+    OtpChallengeRead:
+      properties:
+        challenge_id:
+          type: string
+          format: uuid
+          title: Challenge Id
+        expires_at:
+          type: string
+          format: date-time
+          title: Expires At
+        resend_after_seconds:
+          type: integer
+          title: Resend After Seconds
+          default: 60
+        delivery:
+          type: string
+          enum:
+          - manual_admin
+          - email
+          title: Delivery
+      type: object
+      required:
+      - challenge_id
+      - expires_at
+      - delivery
+      title: OtpChallengeRead
+    OtpConfirm:
+      properties:
+        challenge_id:
+          type: string
+          format: uuid
+          title: Challenge Id
+        code:
+          type: string
+          pattern: ^[0-9]{6}$
+          title: Code
+      type: object
+      required:
+      - challenge_id
+      - code
+      title: OtpConfirm
+    OtpRevealRead:
+      properties:
+        challenge_id:
+          type: string
+          format: uuid
+          title: Challenge Id
+        code:
+          type: string
+          title: Code
+        expires_at:
+          type: string
+          format: date-time
+          title: Expires At
+      type: object
+      required:
+      - challenge_id
+      - code
+      - expires_at
+      title: OtpRevealRead
+    OtpRevealRequest:
+      properties:
+        reason:
+          type: string
+          maxLength: 500
+          minLength: 5
+          title: Reason
+      type: object
+      required:
+      - reason
+      title: OtpRevealRequest
     PasswordResetConfirm:
       properties:
         email:
@@ -10016,6 +10424,59 @@ components:
       - id
       - name
       title: PermissionRead
+    PhoneRecoveryConfirm:
+      properties:
+        password:
+          type: string
+          maxLength: 72
+          minLength: 8
+          title: Password
+        challenge_id:
+          type: string
+          format: uuid
+          title: Challenge Id
+        code:
+          type: string
+          pattern: ^[0-9]{6}$
+          title: Code
+      type: object
+      required:
+      - password
+      - challenge_id
+      - code
+      title: PhoneRecoveryConfirm
+      description: password is the new password.
+    PhoneRequest:
+      properties:
+        phone:
+          type: string
+          title: Phone
+      type: object
+      required:
+      - phone
+      title: PhoneRequest
+    PhoneSignupRequest:
+      properties:
+        password:
+          type: string
+          maxLength: 72
+          minLength: 8
+          title: Password
+        phone:
+          type: string
+          title: Phone
+        full_name:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Full Name
+      type: object
+      required:
+      - password
+      - phone
+      title: PhoneSignupRequest
     PickupPointCashReconciliationStatus:
       type: string
       enum:
@@ -12610,14 +13071,27 @@ components:
     UserRead:
       properties:
         email:
-          type: string
-          format: email
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
           title: Email
         full_name:
           anyOf:
           - type: string
           - type: 'null'
           title: Full Name
+        verified_phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Verified Phone
+        phone_verified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Phone Verified At
         id:
           type: integer
           title: Id

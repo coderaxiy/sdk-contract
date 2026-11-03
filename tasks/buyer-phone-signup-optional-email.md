@@ -3,11 +3,11 @@ id: buyer-phone-signup-optional-email
 title: Support buyer phone signup without email and optional email addition from profile
 author: mobile
 to: backend
-status: open
+status: closed
 priority: high
 area: auth
 created: 2026-11-02
-closed:
+closed: 2026-11-03
 reply_to:
 ---
 
@@ -82,3 +82,45 @@ email should be an optional later profile action, not a signup prerequisite.
 - `tasks/buyer-password-reset.md`: current email-only recovery decision.
 - `market-app/lib/features/auth/data/auth_repository.dart`, `user.dart`, and
   `presentation/auth_pages.dart`, `presentation/account_page.dart`.
+
+
+## Resolution
+
+Implemented in the backend working tree on 2026-11-03; not yet deployed.
+
+- Phone-only buyers request signup at `POST /api/v1/auth/phone/register/request`
+  with phone/password/name, then `/confirm` with challenge UUID + six-digit code.
+  Account creation happens after confirmation, email is null, guest carts merge,
+  and login remains a separate cookie-based step.
+- `POST /auth/login` accepts exactly one email/verified phone identifier. Existing
+  email accounts remain supported. `UserRead.email` is nullable and adds
+  `verified_phone`/`phone_verified_at`. Legacy contact phones are not backfilled
+  or silently upgraded to authentication identities.
+- Public `/auth/phone/password-reset/request` and `/confirm` recover phone-only
+  accounts and revoke all sessions. Fifteen-minute codes, five guesses,
+  three issued challenges/phone/hour, 60-second resend cooldown; latest code only.
+- Authenticated `/auth/me/email/request` and `/confirm` verify optional email
+  addition through existing email delivery. Pending email stays null; duplicates
+  conflict. Replacement/removal and verified-phone changes remain unsupported.
+- No SMS provider exists. Explicit `PHONE_OTP_BACKEND=manual_admin` and a
+  non-default secret enable manual callbacks. Staff need `auth:otp:read` for
+  `GET /admin/auth/phone-otps` and audited
+  `POST /admin/auth/phone-otps/{challenge_id}/reveal`. Staff call the exact submitted
+  number and relay the code; a reveal is not verification. Default is disabled.
+- Migration: `alembic/versions/b6a2d8e4f901_phone_buyer_auth.py`, based on e7a3c5b1d9f4.
+  Apply it and restart before activation; downgrade requires resolving null-email
+  accounts first. No application database migration was applied during tests.
+- Integration docs: `docs/buyer-phone-auth-api.md`, `docs/admin-phone-otp-api.md`,
+  and updated `docs/api-standards.md`, with examples, errors, normalization,
+  localization, recovery, pending-email behavior, and rollout limitations.
+- Exported OpenAPI, validated it, and regenerated TypeScript/Kotlin/Swift SDKs.
+  Validation succeeds with the existing ambiguous shop-path and unused ErrorResponse
+  warnings. Ruff and targeted mypy pass. All 20 HTTP/PostgreSQL regression tests
+  in `tests/api/test_phone_auth.py` pass, including concurrent requests,
+  verification/recovery, permissions, email addition, guest carts and migration.
+  Install `requirements-dev.txt`; run with `TEST_DATABASE_URL` set to a local
+  PostgreSQL URL via `venv/bin/python -m unittest tests.api.test_phone_auth -v`.
+  Tests create/drop isolated schemas and leave application tables untouched.
+- Client handoff tasks remain open: `admin-manual-phone-otp-inbox` (specifically
+  the company staff website agent), `buyer-phone-auth-mobile`, `buyer-phone-auth-web`.
+  These track client implementation; this task closes backend delivery only.

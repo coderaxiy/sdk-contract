@@ -167,6 +167,166 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/auth/phone/register/request": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Request Phone Signup
+         * @description Begin phone/password signup. Staff call the number and relay the OTP; no SMS is sent.
+         */
+        post: operations["request_phone_signup_api_v1_auth_phone_register_request_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/phone/register/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Confirm Phone Signup
+         * @description Creates a phone-only buyer after verification. Merges guest cart; login is a separate step.
+         */
+        post: operations["confirm_phone_signup_api_v1_auth_phone_register_confirm_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/phone/password-reset/request": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Request Phone Recovery
+         * @description Same response for known/unknown numbers. Only active verified-phone accounts reach the staff inbox.
+         */
+        post: operations["request_phone_recovery_api_v1_auth_phone_password_reset_request_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/phone/password-reset/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Confirm Phone Recovery
+         * @description password is the new password. Consumes the OTP and invalidates all sessions; login separately.
+         */
+        post: operations["confirm_phone_recovery_api_v1_auth_phone_password_reset_confirm_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/me/email/request": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Request Profile Email
+         * @description Add an email to a phone-only account. Remains pending until the emailed code is confirmed.
+         */
+        post: operations["request_profile_email_api_v1_auth_me_email_request_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/me/email/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Confirm Profile Email
+         * @description Attach the verified email. Replacement/removal are not supported by self-service.
+         */
+        post: operations["confirm_profile_email_api_v1_auth_me_email_confirm_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/auth/phone-otps": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Phone Otps
+         * @description Pending phone signup/recovery requests; no codes in list responses. Needs auth:otp:read.
+         */
+        get: operations["list_phone_otps_api_v1_admin_auth_phone_otps_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/auth/phone-otps/{challenge_id}/reveal": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Reveal Phone Otp
+         * @description Audited code reveal for a staff callback to the submitted number. Does not verify the account.
+         */
+        post: operations["reveal_phone_otp_api_v1_admin_auth_phone_otps__challenge_id__reveal_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/users/": {
         parameters: {
             query?: never;
@@ -2811,6 +2971,31 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AdminOtpRead */
+        AdminOtpRead: {
+            /**
+             * Challenge Id
+             * Format: uuid
+             */
+            challenge_id: string;
+            /** Phone */
+            phone: string;
+            /**
+             * Purpose
+             * @enum {string}
+             */
+            purpose: "phone_signup" | "phone_recovery";
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Expires At
+             * Format: date-time
+             */
+            expires_at: string;
+        };
         /**
          * AdminUpdateStaffRequest
          * @description PATCH /admin/pickup-points/{id}/staff/{staff_id} — send only what changes.
@@ -3664,6 +3849,14 @@ export interface components {
          * @enum {string}
          */
         DocumentType: "business_license" | "tax_certificate" | "id_document" | "bank_confirmation" | "other";
+        /** EmailAdditionRequest */
+        EmailAdditionRequest: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+        };
         /**
          * EntityType
          * @enum {string}
@@ -3780,11 +3973,10 @@ export interface components {
         };
         /** LoginRequest */
         LoginRequest: {
-            /**
-             * Email
-             * Format: email
-             */
-            email: string;
+            /** Email */
+            email?: string | null;
+            /** Phone */
+            phone?: string | null;
             /** Password */
             password: string;
         };
@@ -4247,6 +4439,59 @@ export interface components {
          * @enum {string}
          */
         OrderStatus: "pending_payment" | "paid" | "partially_fulfilled" | "completed" | "cancelled" | "payment_failed";
+        /** OtpChallengeRead */
+        OtpChallengeRead: {
+            /**
+             * Challenge Id
+             * Format: uuid
+             */
+            challenge_id: string;
+            /**
+             * Expires At
+             * Format: date-time
+             */
+            expires_at: string;
+            /**
+             * Resend After Seconds
+             * @default 60
+             */
+            resend_after_seconds: number;
+            /**
+             * Delivery
+             * @enum {string}
+             */
+            delivery: "manual_admin" | "email";
+        };
+        /** OtpConfirm */
+        OtpConfirm: {
+            /**
+             * Challenge Id
+             * Format: uuid
+             */
+            challenge_id: string;
+            /** Code */
+            code: string;
+        };
+        /** OtpRevealRead */
+        OtpRevealRead: {
+            /**
+             * Challenge Id
+             * Format: uuid
+             */
+            challenge_id: string;
+            /** Code */
+            code: string;
+            /**
+             * Expires At
+             * Format: date-time
+             */
+            expires_at: string;
+        };
+        /** OtpRevealRequest */
+        OtpRevealRequest: {
+            /** Reason */
+            reason: string;
+        };
         /** PasswordResetConfirm */
         PasswordResetConfirm: {
             /**
@@ -4329,6 +4574,35 @@ export interface components {
             name: string;
             /** Description */
             description?: string | null;
+        };
+        /**
+         * PhoneRecoveryConfirm
+         * @description password is the new password.
+         */
+        PhoneRecoveryConfirm: {
+            /** Password */
+            password: string;
+            /**
+             * Challenge Id
+             * Format: uuid
+             */
+            challenge_id: string;
+            /** Code */
+            code: string;
+        };
+        /** PhoneRequest */
+        PhoneRequest: {
+            /** Phone */
+            phone: string;
+        };
+        /** PhoneSignupRequest */
+        PhoneSignupRequest: {
+            /** Password */
+            password: string;
+            /** Phone */
+            phone: string;
+            /** Full Name */
+            full_name?: string | null;
         };
         /**
          * PickupPointCashReconciliationStatus
@@ -5673,13 +5947,14 @@ export interface components {
         };
         /** UserRead */
         UserRead: {
-            /**
-             * Email
-             * Format: email
-             */
-            email: string;
+            /** Email */
+            email: string | null;
             /** Full Name */
             full_name?: string | null;
+            /** Verified Phone */
+            verified_phone?: string | null;
+            /** Phone Verified At */
+            phone_verified_at?: string | null;
             /** Id */
             id: number;
             /** Phone */
@@ -6065,6 +6340,282 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TokenResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    request_phone_signup_api_v1_auth_phone_register_request_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PhoneSignupRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OtpChallengeRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    confirm_phone_signup_api_v1_auth_phone_register_confirm_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                cart_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OtpConfirm"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    request_phone_recovery_api_v1_auth_phone_password_reset_request_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PhoneRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OtpChallengeRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    confirm_phone_recovery_api_v1_auth_phone_password_reset_confirm_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PhoneRecoveryConfirm"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MessageResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    request_profile_email_api_v1_auth_me_email_request_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EmailAdditionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OtpChallengeRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    confirm_profile_email_api_v1_auth_me_email_confirm_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OtpConfirm"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_phone_otps_api_v1_admin_auth_phone_otps_get: {
+        parameters: {
+            query?: {
+                skip?: number;
+                limit?: number;
+                phone?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminOtpRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    reveal_phone_otp_api_v1_admin_auth_phone_otps__challenge_id__reveal_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                challenge_id: string;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OtpRevealRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OtpRevealRead"];
                 };
             };
             /** @description Validation Error */

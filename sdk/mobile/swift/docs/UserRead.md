@@ -5,6 +5,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **email** | **String** |  | 
 **fullName** | **String** |  | [optional] 
+**verifiedPhone** | **String** |  | [optional] 
+**phoneVerifiedAt** | **Date** |  | [optional] 
 **id** | **Int** |  | 
 **phone** | **String** |  | [optional] 
 **isActive** | **Bool** |  | 

@@ -35,6 +35,8 @@ import kotlinx.serialization.Contextual
  * @param id 
  * @param isActive 
  * @param fullName 
+ * @param verifiedPhone 
+ * @param phoneVerifiedAt 
  * @param phone 
  * @param roles 
  * @param adminQuickStartAt 
@@ -45,7 +47,7 @@ import kotlinx.serialization.Contextual
 data class UserRead (
 
     @SerialName(value = "email")
-    val email: kotlin.String,
+    val email: kotlin.String?,
 
     @SerialName(value = "id")
     val id: kotlin.Int,
@@ -55,6 +57,12 @@ data class UserRead (
 
     @SerialName(value = "full_name")
     val fullName: kotlin.String? = null,
+
+    @SerialName(value = "verified_phone")
+    val verifiedPhone: kotlin.String? = null,
+
+    @Contextual @SerialName(value = "phone_verified_at")
+    val phoneVerifiedAt: java.time.OffsetDateTime? = null,
 
     @SerialName(value = "phone")
     val phone: kotlin.String? = null,
