@@ -29,7 +29,7 @@ launch(Dispatchers.IO) {
 ```
 
 ### Parameters
-| **purpose** | [**UploadPurpose**](.md)|  | [enum: shop_logo, shop_banner, product_image, seller_document, refund_evidence] |
+| **purpose** | [**UploadPurpose**](.md)|  | [enum: campaign_artwork, shop_logo, shop_banner, product_image, seller_document, refund_evidence] |
 | **file** | **java.io.File**|  | |
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |

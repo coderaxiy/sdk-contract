@@ -3,6 +3,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**originalUnitPrice** | **String** |  | [optional] 
+**discountPercent** | **Int** |  | [optional] 
+**discountEndsAt** | **Date** |  | [optional] 
 **id** | **Int** |  | 
 **quantity** | **Int** |  | 
 **addedAt** | **Date** |  | 

@@ -28,6 +28,14 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AdminPhoneOtpsAPI* | [**listPhoneOtpsApiV1AdminAuthPhoneOtpsGet**](docs/AdminPhoneOtpsAPI.md#listphoneotpsapiv1adminauthphoneotpsget) | **GET** /api/v1/admin/auth/phone-otps | List Phone Otps
 *AdminPhoneOtpsAPI* | [**revealPhoneOtpApiV1AdminAuthPhoneOtpsChallengeIdRevealPost**](docs/AdminPhoneOtpsAPI.md#revealphoneotpapiv1adminauthphoneotpschallengeidrevealpost) | **POST** /api/v1/admin/auth/phone-otps/{challenge_id}/reveal | Reveal Phone Otp
+*AdminStorefrontAPI* | [**adminCampaignApiV1AdminStorefrontCampaignsCampaignIdGet**](docs/AdminStorefrontAPI.md#admincampaignapiv1adminstorefrontcampaignscampaignidget) | **GET** /api/v1/admin/storefront/campaigns/{campaign_id} | Admin Campaign
+*AdminStorefrontAPI* | [**adminCampaignsApiV1AdminStorefrontCampaignsGet**](docs/AdminStorefrontAPI.md#admincampaignsapiv1adminstorefrontcampaignsget) | **GET** /api/v1/admin/storefront/campaigns | Admin Campaigns
+*AdminStorefrontAPI* | [**adminHomeApiV1AdminStorefrontHomeGet**](docs/AdminStorefrontAPI.md#adminhomeapiv1adminstorefronthomeget) | **GET** /api/v1/admin/storefront/home | Admin Home
+*AdminStorefrontAPI* | [**createCampaignApiV1AdminStorefrontCampaignsPost**](docs/AdminStorefrontAPI.md#createcampaignapiv1adminstorefrontcampaignspost) | **POST** /api/v1/admin/storefront/campaigns | Create Campaign
+*AdminStorefrontAPI* | [**deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete**](docs/AdminStorefrontAPI.md#deletecampaignapiv1adminstorefrontcampaignscampaigniddelete) | **DELETE** /api/v1/admin/storefront/campaigns/{campaign_id} | Delete Campaign
+*AdminStorefrontAPI* | [**previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet**](docs/AdminStorefrontAPI.md#previewcampaignapiv1adminstorefrontcampaignscampaignidpreviewget) | **GET** /api/v1/admin/storefront/campaigns/{campaign_id}/preview | Preview Campaign
+*AdminStorefrontAPI* | [**updateCampaignApiV1AdminStorefrontCampaignsCampaignIdPut**](docs/AdminStorefrontAPI.md#updatecampaignapiv1adminstorefrontcampaignscampaignidput) | **PUT** /api/v1/admin/storefront/campaigns/{campaign_id} | Update Campaign
+*AdminStorefrontAPI* | [**updateHomeApiV1AdminStorefrontHomePut**](docs/AdminStorefrontAPI.md#updatehomeapiv1adminstorefronthomeput) | **PUT** /api/v1/admin/storefront/home | Update Home
 *AuthAPI* | [**changeMyPasswordApiV1AuthMePasswordPost**](docs/AuthAPI.md#changemypasswordapiv1authmepasswordpost) | **POST** /api/v1/auth/me/password | Change My Password
 *AuthAPI* | [**completeQuickStartApiV1AuthMeQuickStartPost**](docs/AuthAPI.md#completequickstartapiv1authmequickstartpost) | **POST** /api/v1/auth/me/quick-start | Complete Quick Start
 *AuthAPI* | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](docs/AuthAPI.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** /api/v1/auth/password-reset/confirm | Confirm Password Reset
@@ -207,6 +215,17 @@ Class | Method | HTTP request | Description
 *ShopsAPI* | [**submitShopForApprovalApiV1SellerShopsShopIdSubmitPost**](docs/ShopsAPI.md#submitshopforapprovalapiv1sellershopsshopidsubmitpost) | **POST** /api/v1/seller/shops/{shop_id}/submit | Submit Shop For Approval
 *ShopsAPI* | [**suspendShopApiV1AdminShopsShopIdSuspendPatch**](docs/ShopsAPI.md#suspendshopapiv1adminshopsshopidsuspendpatch) | **PATCH** /api/v1/admin/shops/{shop_id}/suspend | Suspend Shop
 *ShopsAPI* | [**updateShopApiV1SellerShopsShopIdPatch**](docs/ShopsAPI.md#updateshopapiv1sellershopsshopidpatch) | **PATCH** /api/v1/seller/shops/{shop_id} | Update Shop
+*StorefrontAPI* | [**adminCampaignApiV1AdminStorefrontCampaignsCampaignIdGet**](docs/StorefrontAPI.md#admincampaignapiv1adminstorefrontcampaignscampaignidget) | **GET** /api/v1/admin/storefront/campaigns/{campaign_id} | Admin Campaign
+*StorefrontAPI* | [**adminCampaignsApiV1AdminStorefrontCampaignsGet**](docs/StorefrontAPI.md#admincampaignsapiv1adminstorefrontcampaignsget) | **GET** /api/v1/admin/storefront/campaigns | Admin Campaigns
+*StorefrontAPI* | [**adminHomeApiV1AdminStorefrontHomeGet**](docs/StorefrontAPI.md#adminhomeapiv1adminstorefronthomeget) | **GET** /api/v1/admin/storefront/home | Admin Home
+*StorefrontAPI* | [**createCampaignApiV1AdminStorefrontCampaignsPost**](docs/StorefrontAPI.md#createcampaignapiv1adminstorefrontcampaignspost) | **POST** /api/v1/admin/storefront/campaigns | Create Campaign
+*StorefrontAPI* | [**deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete**](docs/StorefrontAPI.md#deletecampaignapiv1adminstorefrontcampaignscampaigniddelete) | **DELETE** /api/v1/admin/storefront/campaigns/{campaign_id} | Delete Campaign
+*StorefrontAPI* | [**previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet**](docs/StorefrontAPI.md#previewcampaignapiv1adminstorefrontcampaignscampaignidpreviewget) | **GET** /api/v1/admin/storefront/campaigns/{campaign_id}/preview | Preview Campaign
+*StorefrontAPI* | [**storefrontCampaignApiV1StorefrontCampaignsSlugGet**](docs/StorefrontAPI.md#storefrontcampaignapiv1storefrontcampaignsslugget) | **GET** /api/v1/storefront/campaigns/{slug} | Storefront Campaign
+*StorefrontAPI* | [**storefrontHomeApiV1StorefrontHomeGet**](docs/StorefrontAPI.md#storefronthomeapiv1storefronthomeget) | **GET** /api/v1/storefront/home | Storefront Home
+*StorefrontAPI* | [**storefrontSectionProductsApiV1StorefrontCampaignsSlugSectionsSectionIdProductsGet**](docs/StorefrontAPI.md#storefrontsectionproductsapiv1storefrontcampaignsslugsectionssectionidproductsget) | **GET** /api/v1/storefront/campaigns/{slug}/sections/{section_id}/products | Storefront Section Products
+*StorefrontAPI* | [**updateCampaignApiV1AdminStorefrontCampaignsCampaignIdPut**](docs/StorefrontAPI.md#updatecampaignapiv1adminstorefrontcampaignscampaignidput) | **PUT** /api/v1/admin/storefront/campaigns/{campaign_id} | Update Campaign
+*StorefrontAPI* | [**updateHomeApiV1AdminStorefrontHomePut**](docs/StorefrontAPI.md#updatehomeapiv1adminstorefronthomeput) | **PUT** /api/v1/admin/storefront/home | Update Home
 *UploadsAPI* | [**createUploadApiV1UploadsPost**](docs/UploadsAPI.md#createuploadapiv1uploadspost) | **POST** /api/v1/uploads | Create Upload
 *UsersAPI* | [**adminCreateUserApiV1UsersPost**](docs/UsersAPI.md#admincreateuserapiv1userspost) | **POST** /api/v1/users/ | Admin Create User
 *UsersAPI* | [**assignRoleToUserApiV1UsersUserIdRolesPost**](docs/UsersAPI.md#assignroletouserapiv1usersuseridrolespost) | **POST** /api/v1/users/{user_id}/roles | Assign Role To User
@@ -229,6 +248,7 @@ Class | Method | HTTP request | Description
  - [AmountCollected](docs/AmountCollected.md)
  - [AppModulesLogisticsSchemasInviteStaffRequest](docs/AppModulesLogisticsSchemasInviteStaffRequest.md)
  - [AppModulesShopsSchemasInviteStaffRequest](docs/AppModulesShopsSchemasInviteStaffRequest.md)
+ - [ArtworkRead](docs/ArtworkRead.md)
  - [AssignCategoryRequest](docs/AssignCategoryRequest.md)
  - [AssignPermissionRequest](docs/AssignPermissionRequest.md)
  - [AssignRoleRequest](docs/AssignRoleRequest.md)
@@ -240,13 +260,21 @@ Class | Method | HTTP request | Description
  - [BankAccountCreateRequest](docs/BankAccountCreateRequest.md)
  - [BankAccountRead](docs/BankAccountRead.md)
  - [BankOwnerType](docs/BankOwnerType.md)
+ - [BannerIn](docs/BannerIn.md)
+ - [BannerRead](docs/BannerRead.md)
  - [BasePrice](docs/BasePrice.md)
+ - [BlocksInner](docs/BlocksInner.md)
+ - [BlocksInner1](docs/BlocksInner1.md)
  - [BrandFacetRead](docs/BrandFacetRead.md)
  - [BrandPublicRead](docs/BrandPublicRead.md)
  - [BrandRead](docs/BrandRead.md)
  - [BrandRejectRequest](docs/BrandRejectRequest.md)
  - [BrandRequestCreate](docs/BrandRequestCreate.md)
  - [BrandStatus](docs/BrandStatus.md)
+ - [CampaignAdminRead](docs/CampaignAdminRead.md)
+ - [CampaignDestination](docs/CampaignDestination.md)
+ - [CampaignRead](docs/CampaignRead.md)
+ - [CampaignWrite](docs/CampaignWrite.md)
  - [CancelGroupRequest](docs/CancelGroupRequest.md)
  - [CartItemAddRequest](docs/CartItemAddRequest.md)
  - [CartItemRead](docs/CartItemRead.md)
@@ -259,6 +287,8 @@ Class | Method | HTTP request | Description
  - [CashCollectionRecordRead](docs/CashCollectionRecordRead.md)
  - [CatalogFacetsRead](docs/CatalogFacetsRead.md)
  - [CatalogSort](docs/CatalogSort.md)
+ - [CategoriesBlockIn](docs/CategoriesBlockIn.md)
+ - [CategoriesBlockRead](docs/CategoriesBlockRead.md)
  - [CategoryAncestorRead](docs/CategoryAncestorRead.md)
  - [CategoryAssignmentRead](docs/CategoryAssignmentRead.md)
  - [CategoryAssignmentStatus](docs/CategoryAssignmentStatus.md)
@@ -303,11 +333,18 @@ Class | Method | HTTP request | Description
  - [HTTPValidationError](docs/HTTPValidationError.md)
  - [HoldingItemRead](docs/HoldingItemRead.md)
  - [HoldingRead](docs/HoldingRead.md)
+ - [HomeWrite](docs/HomeWrite.md)
+ - [ImageBlockIn](docs/ImageBlockIn.md)
+ - [ImageBlockRead](docs/ImageBlockRead.md)
+ - [ImagePairIn](docs/ImagePairIn.md)
+ - [ImageRead](docs/ImageRead.md)
  - [Latitude](docs/Latitude.md)
  - [Latitude1](docs/Latitude1.md)
  - [LedgerEntryRead](docs/LedgerEntryRead.md)
  - [LedgerEntryType](docs/LedgerEntryType.md)
  - [LedgerStatementRead](docs/LedgerStatementRead.md)
+ - [LocalizedArtwork](docs/LocalizedArtwork.md)
+ - [LocalizedText](docs/LocalizedText.md)
  - [LocationInner](docs/LocationInner.md)
  - [LoginRequest](docs/LoginRequest.md)
  - [Longitude](docs/Longitude.md)
@@ -390,6 +427,8 @@ Class | Method | HTTP request | Description
  - [ProductVariantCreate](docs/ProductVariantCreate.md)
  - [ProductVariantRead](docs/ProductVariantRead.md)
  - [ProductVariantUpdate](docs/ProductVariantUpdate.md)
+ - [ProductsBlockIn](docs/ProductsBlockIn.md)
+ - [ProductsBlockRead](docs/ProductsBlockRead.md)
  - [QuickStartRequest](docs/QuickStartRequest.md)
  - [ReceiveReturnRequest](docs/ReceiveReturnRequest.md)
  - [Recipient](docs/Recipient.md)
@@ -415,6 +454,7 @@ Class | Method | HTTP request | Description
  - [ResolveReconciliationRequest](docs/ResolveReconciliationRequest.md)
  - [RoleCreate](docs/RoleCreate.md)
  - [RoleRead](docs/RoleRead.md)
+ - [SectionDestination](docs/SectionDestination.md)
  - [SellerAdminRead](docs/SellerAdminRead.md)
  - [SellerCategoryRead](docs/SellerCategoryRead.md)
  - [SellerRead](docs/SellerRead.md)
@@ -434,6 +474,9 @@ Class | Method | HTTP request | Description
  - [SlugAvailabilityRead](docs/SlugAvailabilityRead.md)
  - [StaffRole](docs/StaffRole.md)
  - [StatusReasonRequest](docs/StatusReasonRequest.md)
+ - [StorefrontHomeRead](docs/StorefrontHomeRead.md)
+ - [TextBlockIn](docs/TextBlockIn.md)
+ - [TextBlockRead](docs/TextBlockRead.md)
  - [TokenResponse](docs/TokenResponse.md)
  - [TranslationIn](docs/TranslationIn.md)
  - [TranslationRead](docs/TranslationRead.md)

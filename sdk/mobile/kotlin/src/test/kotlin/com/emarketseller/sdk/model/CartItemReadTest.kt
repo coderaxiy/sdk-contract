@@ -102,5 +102,23 @@ class CartItemReadTest : ShouldSpec() {
             //modelInstance.inStock shouldBe ("TODO")
         }
 
+        // to test the property `originalUnitPrice`
+        should("test originalUnitPrice") {
+            // uncomment below to test the property
+            //modelInstance.originalUnitPrice shouldBe ("TODO")
+        }
+
+        // to test the property `discountPercent`
+        should("test discountPercent") {
+            // uncomment below to test the property
+            //modelInstance.discountPercent shouldBe ("TODO")
+        }
+
+        // to test the property `discountEndsAt`
+        should("test discountEndsAt") {
+            // uncomment below to test the property
+            //modelInstance.discountEndsAt shouldBe ("TODO")
+        }
+
     }
 }

@@ -50,6 +50,10 @@ import kotlinx.serialization.Contextual
  * @param brand 
  * @param category 
  * @param createdAt 
+ * @param originalPriceMin 
+ * @param originalPriceMax 
+ * @param discountPercent 
+ * @param discountEndsAt 
  * @param images 
  * @param variants 
  * @param attributes 
@@ -96,6 +100,18 @@ data class ProductPublicRead (
 
     @Contextual @SerialName(value = "created_at")
     val createdAt: java.time.OffsetDateTime,
+
+    @SerialName(value = "original_price_min")
+    val originalPriceMin: kotlin.String? = null,
+
+    @SerialName(value = "original_price_max")
+    val originalPriceMax: kotlin.String? = null,
+
+    @SerialName(value = "discount_percent")
+    val discountPercent: kotlin.Int? = null,
+
+    @Contextual @SerialName(value = "discount_ends_at")
+    val discountEndsAt: java.time.OffsetDateTime? = null,
 
     @SerialName(value = "images")
     val images: kotlin.collections.List<ProductPublicImageRead>? = null,

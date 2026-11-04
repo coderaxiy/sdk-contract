@@ -35,7 +35,7 @@ is harmless.
 
 ## Auth
 
-Every purpose needs a login. All purposes except `refund_evidence` are for
+Every purpose needs a login. All purposes except `refund_evidence` and `campaign_artwork` are for
 registered sellers only — `403 "Not registered as a seller"` otherwise, and
 banned sellers get `403`. `refund_evidence` is open to **any logged-in user** (buyers),
 limited to 30 uploads per day (`400 "Too many uploads today — try again tomorrow"`). Sellers in `pending_review` **can** upload (they need
@@ -45,16 +45,22 @@ to, for KYC documents).
 
 | | |
 |---|---|
-| Query | `purpose` (required): `shop_logo` \| `shop_banner` \| `product_image` \| `seller_document` \| `refund_evidence` |
+| Query | `purpose` (required): `shop_logo` \| `shop_banner` \| `product_image` \| `seller_document` \| `refund_evidence` \| `campaign_artwork` |
 | Body | `multipart/form-data` with one field, `file` |
 | Response | `201` `UploadRead` |
 
 `purpose` is a query parameter, not a form field.
 
+`campaign_artwork` instead needs `storefront:manage` and an active staff account;
+no seller registration is required. It uploads public responsive campaign artwork,
+attached by key through the admin campaign APIs (see
+[storefront-merchandising-admin-api.md](storefront-merchandising-admin-api.md)).
+
 ### Per-purpose rules
 
 | `purpose` | Accepted files | Stored as | Scaled to fit | Access |
 |---|---|---|---|---|
+| `campaign_artwork` | JPEG, PNG, WebP | WebP | 3000 × 3000 | public; `storefront:manage` |
 | `shop_logo` | JPEG, PNG, WebP | WebP | 512 × 512 | public |
 | `shop_banner` | JPEG, PNG, WebP | WebP | 2400 × 2400 | public |
 | `product_image` | JPEG, PNG, WebP | WebP | 2048 × 2048 | public |
@@ -79,7 +85,7 @@ to, for KYC documents).
   id: number
   key: string           // send this when attaching the file
   url: string           // for immediate preview only — see "Private files"
-  purpose: "shop_logo" | "shop_banner" | "product_image" | "seller_document" | "refund_evidence"
+  purpose: "shop_logo" | "shop_banner" | "product_image" | "seller_document" | "refund_evidence" | "campaign_artwork"
   content_type: string  // "image/webp" or "application/pdf"
   size_bytes: number    // size as stored, after re-encoding
   width: number | null  // null for PDFs

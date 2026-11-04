@@ -17,6 +17,10 @@
 | **brand** | [**BrandPublicRead**](BrandPublicRead.md) |  |  |
 | **category** | [**ProductCategoryRead**](ProductCategoryRead.md) |  |  |
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
+| **originalPriceMin** | **kotlin.String** |  |  [optional] |
+| **originalPriceMax** | **kotlin.String** |  |  [optional] |
+| **discountPercent** | **kotlin.Int** |  |  [optional] |
+| **discountEndsAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional] |
 | **images** | [**kotlin.collections.List&lt;ProductPublicImageRead&gt;**](ProductPublicImageRead.md) |  |  [optional] |
 | **variants** | [**kotlin.collections.List&lt;ProductPublicVariantRead&gt;**](ProductPublicVariantRead.md) |  |  [optional] |
 | **attributes** | [**kotlin.collections.List&lt;ProductPublicAttributeRead&gt;**](ProductPublicAttributeRead.md) |  |  [optional] |

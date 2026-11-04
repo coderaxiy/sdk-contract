@@ -3,11 +3,11 @@ id: storefront-home-merchandising
 title: Add admin-managed home campaigns and curated discount collections
 author: mobile
 to: backend
-status: open
+status: closed
 priority: high
 area: storefront
 created: 2026-11-03
-closed:
+closed: 2026-11-04
 reply_to:
 ---
 
@@ -65,3 +65,52 @@ Export OpenAPI from backend code, validate and regenerate SDKs, update module do
 - `openapi/api.yaml`: `/api/v1/categories`, `/api/v1/products`, `CategoryNodeRead`, `ProductCardRead`, `ProductPublicRead`.
 - `docs/storefront-catalog-api.md`, `docs/api-standards.md`, existing media-upload contract.
 - Companion UX/implementation brief: `tasks/storefront-home-web-parity.md`.
+
+
+## Resolution
+
+Backend implementation completed in the working tree on 2026-11-04 (not committed).
+The companion storefront-home-web-parity task belongs to frontend and stays open.
+
+- Implemented guest GET `/api/v1/storefront/home`,
+  `/storefront/campaigns/{slug}`, and
+  `/storefront/campaigns/{slug}/sections/{section_id}/products` with skip/limit,
+  X-Total-Count, canonical cards, deduplication, editor order, stock/publication
+  filtering, bounded previews, and campaign membership checks.
+- Added permission-gated admin campaign CRUD + private preview and home category
+  configuration under `/admin/storefront`; seeded `storefront:manage` to root/admin.
+  Immutable slugs, optimistic revisions, stable block/banner IDs, localized plain
+  copy/responsive artwork, typed blocks and audit actions are implemented.
+- Added `campaign_artwork` upload purpose through existing upload-key handling,
+  with editorial permission instead of seller registration, validated ownership,
+  image normalization and authoritative stored dimensions.
+- Chose **curation only**: marketing never overrides checkout prices. Actual
+  reductions of approved seller prices record prior-price comparison values;
+  increases/unapproved price changes clear them. No fabricated/backfilled savings.
+  Added nullable original-price/discount fields to public cards, detail, variants
+  and cart. Uniform variant ratios are required for a product-level discount;
+  individual variant savings remain exact. discount_ends_at is currently null.
+  Campaign expiration affects visibility, not current product/cart prices.
+- Server schedule uses inclusive start/exclusive end and 404 for inactive links.
+  Public responses/errors are no-store; home/detail include valid_until (≤60s or
+  the next campaign boundary). Russian copy/artwork falls back to Uzbek.
+- Guides: docs/storefront-home-api.md and
+  docs/storefront-merchandising-admin-api.md, including populated/empty examples,
+  variant semantics, draft/expired behavior, limits and cache policy. Updated
+  catalog, media-upload and cart documentation. JSON examples validate against
+  the actual Pydantic models.
+- Exported OpenAPI, validated it, and regenerated TypeScript/Kotlin/Swift SDKs.
+  Existing ambiguous-shop-path and unused-error-schema warnings remain unchanged.
+  Ruff and targeted mypy pass. 20 auth regression tests plus 14 storefront tests
+  passed on isolated PostgreSQL schemas, covering admin/upload authorization,
+  references, scheduling/visibility, IDs/revisions, dedup/order/pagination,
+  ownership/duplicate slugs, uniform/mixed variant discounts, checkout totals after
+  campaign expiration, and migration round-trip.
+- Applied local migration d9f4b7a2c601 (from b6a2d8e4f901), restarted emarket_api,
+  and verified anonymous home/catalog 200, unknown campaign 404/no-store, unauthenticated
+  admin 401, and seeded editorial permission. No example campaigns or fake sale
+  baselines were inserted into application tables. Other environments need this
+  migration and an API restart before clients use the feature.
+- Open client handoffs: storefront-home-ready-mobile, storefront-home-ready-web,
+  and admin-storefront-merchandising-editor. Client UI implementation remains
+  assigned to those agents; the backend task closes API delivery only.

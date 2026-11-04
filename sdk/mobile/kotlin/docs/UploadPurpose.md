@@ -4,6 +4,8 @@
 ## Enum
 
 
+    * `campaign_artwork` (value: `"campaign_artwork"`)
+
     * `shop_logo` (value: `"shop_logo"`)
 
     * `shop_banner` (value: `"shop_banner"`)

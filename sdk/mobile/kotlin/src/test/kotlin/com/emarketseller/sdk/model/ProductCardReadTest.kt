@@ -107,5 +107,29 @@ class ProductCardReadTest : ShouldSpec() {
             //modelInstance.createdAt shouldBe ("TODO")
         }
 
+        // to test the property `originalPriceMin`
+        should("test originalPriceMin") {
+            // uncomment below to test the property
+            //modelInstance.originalPriceMin shouldBe ("TODO")
+        }
+
+        // to test the property `originalPriceMax`
+        should("test originalPriceMax") {
+            // uncomment below to test the property
+            //modelInstance.originalPriceMax shouldBe ("TODO")
+        }
+
+        // to test the property `discountPercent`
+        should("test discountPercent") {
+            // uncomment below to test the property
+            //modelInstance.discountPercent shouldBe ("TODO")
+        }
+
+        // to test the property `discountEndsAt`
+        should("test discountEndsAt") {
+            // uncomment below to test the property
+            //modelInstance.discountEndsAt shouldBe ("TODO")
+        }
+
     }
 }

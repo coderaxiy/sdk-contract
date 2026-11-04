@@ -16,6 +16,10 @@
 | **brand** | [**BrandPublicRead**](BrandPublicRead.md) |  |  |
 | **categoryId** | **kotlin.Int** |  |  |
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
+| **originalPriceMin** | **kotlin.String** |  |  [optional] |
+| **originalPriceMax** | **kotlin.String** |  |  [optional] |
+| **discountPercent** | **kotlin.Int** |  |  [optional] |
+| **discountEndsAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional] |
 
 
 

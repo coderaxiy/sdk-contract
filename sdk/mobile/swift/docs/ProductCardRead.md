@@ -3,6 +3,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**originalPriceMin** | **String** |  | [optional] 
+**originalPriceMax** | **String** |  | [optional] 
+**discountPercent** | **Int** |  | [optional] 
+**discountEndsAt** | **Date** |  | [optional] 
 **id** | **Int** |  | 
 **slug** | **String** |  | 
 **title** | **String** |  | 

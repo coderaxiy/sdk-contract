@@ -70,5 +70,23 @@ class ProductPublicVariantReadTest : ShouldSpec() {
             //modelInstance.imageIds shouldBe ("TODO")
         }
 
+        // to test the property `originalPrice`
+        should("test originalPrice") {
+            // uncomment below to test the property
+            //modelInstance.originalPrice shouldBe ("TODO")
+        }
+
+        // to test the property `discountPercent`
+        should("test discountPercent") {
+            // uncomment below to test the property
+            //modelInstance.discountPercent shouldBe ("TODO")
+        }
+
+        // to test the property `discountEndsAt`
+        should("test discountEndsAt") {
+            // uncomment below to test the property
+            //modelInstance.discountEndsAt shouldBe ("TODO")
+        }
+
     }
 }

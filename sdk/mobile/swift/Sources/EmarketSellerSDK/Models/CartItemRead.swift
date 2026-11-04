@@ -9,9 +9,13 @@ import Foundation
 
 public struct CartItemRead: Sendable, Codable, Hashable {
 
+    public static let originalUnitPriceRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
     public static let priceSnapshotRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
     public static let unitPriceRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
     public static let lineTotalRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
+    public var originalUnitPrice: String?
+    public var discountPercent: Int?
+    public var discountEndsAt: Date?
     public var id: Int
     public var quantity: Int
     public var addedAt: Date
@@ -24,7 +28,10 @@ public struct CartItemRead: Sendable, Codable, Hashable {
     public var available: Bool
     public var inStock: Bool
 
-    public init(id: Int, quantity: Int, addedAt: Date, product: CartProductRead, variant: CartVariantRead?, shop: ShopSummaryRead, priceSnapshot: String, unitPrice: String, lineTotal: String, available: Bool, inStock: Bool) {
+    public init(originalUnitPrice: String? = nil, discountPercent: Int? = nil, discountEndsAt: Date? = nil, id: Int, quantity: Int, addedAt: Date, product: CartProductRead, variant: CartVariantRead?, shop: ShopSummaryRead, priceSnapshot: String, unitPrice: String, lineTotal: String, available: Bool, inStock: Bool) {
+        self.originalUnitPrice = originalUnitPrice
+        self.discountPercent = discountPercent
+        self.discountEndsAt = discountEndsAt
         self.id = id
         self.quantity = quantity
         self.addedAt = addedAt
@@ -39,6 +46,9 @@ public struct CartItemRead: Sendable, Codable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case originalUnitPrice = "original_unit_price"
+        case discountPercent = "discount_percent"
+        case discountEndsAt = "discount_ends_at"
         case id
         case quantity
         case addedAt = "added_at"
@@ -56,6 +66,9 @@ public struct CartItemRead: Sendable, Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(originalUnitPrice, forKey: .originalUnitPrice)
+        try container.encodeIfPresent(discountPercent, forKey: .discountPercent)
+        try container.encodeIfPresent(discountEndsAt, forKey: .discountEndsAt)
         try container.encode(id, forKey: .id)
         try container.encode(quantity, forKey: .quantity)
         try container.encode(addedAt, forKey: .addedAt)

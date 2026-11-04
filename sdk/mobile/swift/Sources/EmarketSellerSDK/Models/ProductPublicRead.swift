@@ -9,8 +9,14 @@ import Foundation
 
 public struct ProductPublicRead: Sendable, Codable, Hashable {
 
+    public static let originalPriceMinRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
+    public static let originalPriceMaxRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
     public static let priceMinRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
     public static let priceMaxRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
+    public var originalPriceMin: String?
+    public var originalPriceMax: String?
+    public var discountPercent: Int?
+    public var discountEndsAt: Date?
     public var id: Int
     public var slug: String
     public var title: String
@@ -28,7 +34,11 @@ public struct ProductPublicRead: Sendable, Codable, Hashable {
     public var attributes: [ProductPublicAttributeRead]?
     public var createdAt: Date
 
-    public init(id: Int, slug: String, title: String, description: String?, platformSku: String?, hasVariants: Bool, priceMin: String, priceMax: String, inStock: Bool, shop: ShopSummaryRead, brand: BrandPublicRead?, category: ProductCategoryRead, images: [ProductPublicImageRead]? = nil, variants: [ProductPublicVariantRead]? = nil, attributes: [ProductPublicAttributeRead]? = nil, createdAt: Date) {
+    public init(originalPriceMin: String? = nil, originalPriceMax: String? = nil, discountPercent: Int? = nil, discountEndsAt: Date? = nil, id: Int, slug: String, title: String, description: String?, platformSku: String?, hasVariants: Bool, priceMin: String, priceMax: String, inStock: Bool, shop: ShopSummaryRead, brand: BrandPublicRead?, category: ProductCategoryRead, images: [ProductPublicImageRead]? = nil, variants: [ProductPublicVariantRead]? = nil, attributes: [ProductPublicAttributeRead]? = nil, createdAt: Date) {
+        self.originalPriceMin = originalPriceMin
+        self.originalPriceMax = originalPriceMax
+        self.discountPercent = discountPercent
+        self.discountEndsAt = discountEndsAt
         self.id = id
         self.slug = slug
         self.title = title
@@ -48,6 +58,10 @@ public struct ProductPublicRead: Sendable, Codable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case originalPriceMin = "original_price_min"
+        case originalPriceMax = "original_price_max"
+        case discountPercent = "discount_percent"
+        case discountEndsAt = "discount_ends_at"
         case id
         case slug
         case title
@@ -70,6 +84,10 @@ public struct ProductPublicRead: Sendable, Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(originalPriceMin, forKey: .originalPriceMin)
+        try container.encodeIfPresent(originalPriceMax, forKey: .originalPriceMax)
+        try container.encodeIfPresent(discountPercent, forKey: .discountPercent)
+        try container.encodeIfPresent(discountEndsAt, forKey: .discountEndsAt)
         try container.encode(id, forKey: .id)
         try container.encode(slug, forKey: .slug)
         try container.encode(title, forKey: .title)

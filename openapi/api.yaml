@@ -3,6 +3,387 @@ info:
   title: emarket-seller
   version: 0.1.0
 paths:
+  /api/v1/storefront/home:
+    get:
+      tags:
+      - storefront
+      summary: Storefront Home
+      operationId: storefront_home_api_v1_storefront_home_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorefrontHomeRead'
+  /api/v1/storefront/campaigns/{slug}:
+    get:
+      tags:
+      - storefront
+      summary: Storefront Campaign
+      operationId: storefront_campaign_api_v1_storefront_campaigns__slug__get
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Slug
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/storefront/campaigns/{slug}/sections/{section_id}/products:
+    get:
+      tags:
+      - storefront
+      summary: Storefront Section Products
+      operationId: storefront_section_products_api_v1_storefront_campaigns__slug__sections__section_id__products_get
+      parameters:
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Slug
+      - name: section_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Section Id
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductCardRead'
+                title: Response Storefront Section Products Api V1 Storefront Campaigns  Slug  Sections  Section
+                  Id  Products Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/storefront/campaigns:
+    get:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Admin Campaigns
+      operationId: admin_campaigns_api_v1_admin_storefront_campaigns_get
+      parameters:
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CampaignAdminRead'
+                title: Response Admin Campaigns Api V1 Admin Storefront Campaigns Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Create Campaign
+      operationId: create_campaign_api_v1_admin_storefront_campaigns_post
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignWrite'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignAdminRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/storefront/campaigns/{campaign_id}:
+    get:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Admin Campaign
+      operationId: admin_campaign_api_v1_admin_storefront_campaigns__campaign_id__get
+      parameters:
+      - name: campaign_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Campaign Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignAdminRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Update Campaign
+      description: Full replacement; send existing block/banner IDs to preserve them and expected_revision
+        to prevent lost edits.
+      operationId: update_campaign_api_v1_admin_storefront_campaigns__campaign_id__put
+      parameters:
+      - name: campaign_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Campaign Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignWrite'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignAdminRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Delete Campaign
+      operationId: delete_campaign_api_v1_admin_storefront_campaigns__campaign_id__delete
+      parameters:
+      - name: campaign_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Campaign Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/storefront/campaigns/{campaign_id}/preview:
+    get:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Preview Campaign
+      description: Render draft content with normal product visibility. Bypasses only campaign publication/schedule.
+      operationId: preview_campaign_api_v1_admin_storefront_campaigns__campaign_id__preview_get
+      parameters:
+      - name: campaign_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Campaign Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/storefront/home:
+    get:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Admin Home
+      operationId: admin_home_api_v1_admin_storefront_home_get
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeWrite'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Update Home
+      operationId: update_home_api_v1_admin_storefront_home_put
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HomeWrite'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomeWrite'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/auth/register:
     post:
       tags:
@@ -7459,6 +7840,17 @@ components:
       type: object
       title: AdminUpdateStaffRequest
       description: PATCH /admin/pickup-points/{id}/staff/{staff_id} — send only what changes.
+    ArtworkRead:
+      properties:
+        mobile:
+          $ref: '#/components/schemas/ImageRead'
+        desktop:
+          $ref: '#/components/schemas/ImageRead'
+      type: object
+      required:
+      - mobile
+      - desktop
+      title: ArtworkRead
     AssignCategoryRequest:
       properties:
         category_id:
@@ -7659,6 +8051,51 @@ components:
       - seller
       - shop
       title: BankOwnerType
+    BannerIn:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+          default: 0
+        title:
+          $ref: '#/components/schemas/LocalizedText'
+        artwork:
+          $ref: '#/components/schemas/LocalizedArtwork'
+      additionalProperties: false
+      type: object
+      required:
+      - title
+      - artwork
+      title: BannerIn
+    BannerRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+        title:
+          type: string
+          title: Title
+        artwork:
+          $ref: '#/components/schemas/ArtworkRead'
+        destination:
+          $ref: '#/components/schemas/CampaignDestination'
+      type: object
+      required:
+      - id
+      - sort_order
+      - title
+      - artwork
+      - destination
+      title: BannerRead
     Body_create_upload_api_v1_uploads_post:
       properties:
         file:
@@ -7782,6 +8219,237 @@ components:
       - approved
       - rejected
       title: BrandStatus
+    CampaignAdminRead:
+      properties:
+        slug:
+          type: string
+          maxLength: 100
+          pattern: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+          title: Slug
+        title:
+          $ref: '#/components/schemas/LocalizedText'
+        intro:
+          anyOf:
+          - $ref: '#/components/schemas/LocalizedText'
+          - type: 'null'
+        hero:
+          anyOf:
+          - $ref: '#/components/schemas/LocalizedArtwork'
+          - type: 'null'
+        published:
+          type: boolean
+          title: Published
+          default: false
+        starts_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Starts At
+        ends_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Ends At
+        category_ids:
+          items:
+            type: integer
+          type: array
+          maxItems: 10
+          title: Category Ids
+        banners:
+          items:
+            $ref: '#/components/schemas/BannerIn'
+          type: array
+          maxItems: 10
+          title: Banners
+        blocks:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ProductsBlockIn'
+            - $ref: '#/components/schemas/TextBlockIn'
+            - $ref: '#/components/schemas/ImageBlockIn'
+            - $ref: '#/components/schemas/CategoriesBlockIn'
+            discriminator:
+              propertyName: type
+              mapping:
+                categories: '#/components/schemas/CategoriesBlockIn'
+                image: '#/components/schemas/ImageBlockIn'
+                products: '#/components/schemas/ProductsBlockIn'
+                text: '#/components/schemas/TextBlockIn'
+          type: array
+          maxItems: 24
+          title: Blocks
+        expected_revision:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Expected Revision
+        id:
+          type: integer
+          title: Id
+        revision:
+          type: integer
+          title: Revision
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      additionalProperties: false
+      type: object
+      required:
+      - slug
+      - title
+      - id
+      - revision
+      - updated_at
+      title: CampaignAdminRead
+    CampaignDestination:
+      properties:
+        type:
+          type: string
+          const: campaign
+          title: Type
+          default: campaign
+        campaign_slug:
+          type: string
+          title: Campaign Slug
+      type: object
+      required:
+      - campaign_slug
+      title: CampaignDestination
+    CampaignRead:
+      properties:
+        valid_until:
+          type: string
+          format: date-time
+          title: Valid Until
+        id:
+          type: integer
+          title: Id
+        slug:
+          type: string
+          title: Slug
+        title:
+          type: string
+          title: Title
+        intro:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Intro
+        hero:
+          anyOf:
+          - $ref: '#/components/schemas/ArtworkRead'
+          - type: 'null'
+        categories:
+          items:
+            $ref: '#/components/schemas/CategoryNodeRead'
+          type: array
+          title: Categories
+        blocks:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ProductsBlockRead'
+            - $ref: '#/components/schemas/TextBlockRead'
+            - $ref: '#/components/schemas/ImageBlockRead'
+            - $ref: '#/components/schemas/CategoriesBlockRead'
+            discriminator:
+              propertyName: type
+              mapping:
+                categories: '#/components/schemas/CategoriesBlockRead'
+                image: '#/components/schemas/ImageBlockRead'
+                products: '#/components/schemas/ProductsBlockRead'
+                text: '#/components/schemas/TextBlockRead'
+          type: array
+          title: Blocks
+      type: object
+      required:
+      - valid_until
+      - id
+      - slug
+      - title
+      - intro
+      - hero
+      - categories
+      - blocks
+      title: CampaignRead
+    CampaignWrite:
+      properties:
+        slug:
+          type: string
+          maxLength: 100
+          pattern: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+          title: Slug
+        title:
+          $ref: '#/components/schemas/LocalizedText'
+        intro:
+          anyOf:
+          - $ref: '#/components/schemas/LocalizedText'
+          - type: 'null'
+        hero:
+          anyOf:
+          - $ref: '#/components/schemas/LocalizedArtwork'
+          - type: 'null'
+        published:
+          type: boolean
+          title: Published
+          default: false
+        starts_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Starts At
+        ends_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Ends At
+        category_ids:
+          items:
+            type: integer
+          type: array
+          maxItems: 10
+          title: Category Ids
+        banners:
+          items:
+            $ref: '#/components/schemas/BannerIn'
+          type: array
+          maxItems: 10
+          title: Banners
+        blocks:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ProductsBlockIn'
+            - $ref: '#/components/schemas/TextBlockIn'
+            - $ref: '#/components/schemas/ImageBlockIn'
+            - $ref: '#/components/schemas/CategoriesBlockIn'
+            discriminator:
+              propertyName: type
+              mapping:
+                categories: '#/components/schemas/CategoriesBlockIn'
+                image: '#/components/schemas/ImageBlockIn'
+                products: '#/components/schemas/ProductsBlockIn'
+                text: '#/components/schemas/TextBlockIn'
+          type: array
+          maxItems: 24
+          title: Blocks
+        expected_revision:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Expected Revision
+      additionalProperties: false
+      type: object
+      required:
+      - slug
+      - title
+      title: CampaignWrite
     CancelGroupRequest:
       properties:
         reason:
@@ -7813,6 +8481,23 @@ components:
       title: CartItemAddRequest
     CartItemRead:
       properties:
+        original_unit_price:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Original Unit Price
+        discount_percent:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Discount Percent
+        discount_ends_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Discount Ends At
         id:
           type: integer
           title: Id
@@ -8039,6 +8724,64 @@ components:
       - price_asc
       - price_desc
       title: CatalogSort
+    CategoriesBlockIn:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+          default: 0
+        title:
+          $ref: '#/components/schemas/LocalizedText'
+        type:
+          type: string
+          const: categories
+          title: Type
+        category_ids:
+          items:
+            type: integer
+          type: array
+          maxItems: 10
+          title: Category Ids
+      additionalProperties: false
+      type: object
+      required:
+      - title
+      - type
+      title: CategoriesBlockIn
+    CategoriesBlockRead:
+      properties:
+        type:
+          type: string
+          const: categories
+          title: Type
+          default: categories
+        id:
+          type: integer
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+        title:
+          type: string
+          title: Title
+        categories:
+          items:
+            $ref: '#/components/schemas/CategoryNodeRead'
+          type: array
+          title: Categories
+      type: object
+      required:
+      - id
+      - sort_order
+      - title
+      - categories
+      title: CategoriesBlockRead
     CategoryAncestorRead:
       properties:
         id:
@@ -9206,6 +9949,107 @@ components:
       - collection_deadline
       - created_at
       title: HoldingRead
+    HomeWrite:
+      properties:
+        category_ids:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+            maxItems: 10
+          - type: 'null'
+          title: Category Ids
+      additionalProperties: false
+      type: object
+      title: HomeWrite
+    ImageBlockIn:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+          default: 0
+        title:
+          $ref: '#/components/schemas/LocalizedText'
+        type:
+          type: string
+          const: image
+          title: Type
+        artwork:
+          $ref: '#/components/schemas/LocalizedArtwork'
+      additionalProperties: false
+      type: object
+      required:
+      - title
+      - type
+      - artwork
+      title: ImageBlockIn
+    ImageBlockRead:
+      properties:
+        type:
+          type: string
+          const: image
+          title: Type
+          default: image
+        id:
+          type: integer
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+        title:
+          type: string
+          title: Title
+        artwork:
+          $ref: '#/components/schemas/ArtworkRead'
+      type: object
+      required:
+      - id
+      - sort_order
+      - title
+      - artwork
+      title: ImageBlockRead
+    ImagePairIn:
+      properties:
+        mobile_key:
+          type: string
+          maxLength: 500
+          minLength: 1
+          title: Mobile Key
+        desktop_key:
+          anyOf:
+          - type: string
+            maxLength: 500
+            minLength: 1
+          - type: 'null'
+          title: Desktop Key
+      additionalProperties: false
+      type: object
+      required:
+      - mobile_key
+      title: ImagePairIn
+    ImageRead:
+      properties:
+        url:
+          type: string
+          title: Url
+        width:
+          type: integer
+          title: Width
+        height:
+          type: integer
+          title: Height
+      type: object
+      required:
+      - url
+      - width
+      - height
+      title: ImageRead
     LedgerEntryRead:
       properties:
         id:
@@ -9303,6 +10147,38 @@ components:
       - balance
       - entries
       title: LedgerStatementRead
+    LocalizedArtwork:
+      properties:
+        uz:
+          $ref: '#/components/schemas/ImagePairIn'
+        ru:
+          anyOf:
+          - $ref: '#/components/schemas/ImagePairIn'
+          - type: 'null'
+      additionalProperties: false
+      type: object
+      required:
+      - uz
+      title: LocalizedArtwork
+    LocalizedText:
+      properties:
+        uz:
+          type: string
+          maxLength: 4000
+          minLength: 1
+          title: Uz
+        ru:
+          anyOf:
+          - type: string
+            maxLength: 4000
+            minLength: 1
+          - type: 'null'
+          title: Ru
+      additionalProperties: false
+      type: object
+      required:
+      - uz
+      title: LocalizedText
     LoginRequest:
       properties:
         email:
@@ -10914,6 +11790,29 @@ components:
       title: ProductAttributeValueRead
     ProductCardRead:
       properties:
+        original_price_min:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Original Price Min
+        original_price_max:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Original Price Max
+        discount_percent:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Discount Percent
+        discount_ends_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Discount Ends At
         id:
           type: integer
           title: Id
@@ -11209,6 +12108,29 @@ components:
       title: ProductPublicImageRead
     ProductPublicRead:
       properties:
+        original_price_min:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Original Price Min
+        original_price_max:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Original Price Max
+        discount_percent:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Discount Percent
+        discount_ends_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Discount Ends At
         id:
           type: integer
           title: Id
@@ -11290,6 +12212,23 @@ components:
       title: ProductPublicRead
     ProductPublicVariantRead:
       properties:
+        original_price:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Original Price
+        discount_percent:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Discount Percent
+        discount_ends_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Discount Ends At
         id:
           type: integer
           title: Id
@@ -11685,6 +12624,83 @@ components:
       type: object
       title: ProductVariantUpdate
       description: 'PATCH: omitted fields are unchanged; `seller_sku: null` clears it.'
+    ProductsBlockIn:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+          default: 0
+        title:
+          $ref: '#/components/schemas/LocalizedText'
+        type:
+          type: string
+          const: products
+          title: Type
+        product_ids:
+          items:
+            type: integer
+          type: array
+          maxItems: 200
+          title: Product Ids
+        home_kind:
+          type: string
+          enum:
+          - none
+          - discount
+          - recommendation
+          title: Home Kind
+          default: none
+        home_sort_order:
+          type: integer
+          title: Home Sort Order
+          default: 0
+      additionalProperties: false
+      type: object
+      required:
+      - title
+      - type
+      title: ProductsBlockIn
+    ProductsBlockRead:
+      properties:
+        type:
+          type: string
+          const: products
+          title: Type
+          default: products
+        id:
+          type: integer
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+        title:
+          type: string
+          title: Title
+        destination:
+          $ref: '#/components/schemas/SectionDestination'
+        products:
+          items:
+            $ref: '#/components/schemas/ProductCardRead'
+          type: array
+          title: Products
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+      - id
+      - sort_order
+      - title
+      - destination
+      - products
+      - total
+      title: ProductsBlockRead
     QuickStartRequest:
       properties:
         app:
@@ -12196,6 +13212,24 @@ components:
       - id
       - name
       title: RoleRead
+    SectionDestination:
+      properties:
+        type:
+          type: string
+          const: campaign_section
+          title: Type
+          default: campaign_section
+        campaign_slug:
+          type: string
+          title: Campaign Slug
+        section_id:
+          type: integer
+          title: Section Id
+      type: object
+      required:
+      - campaign_slug
+      - section_id
+      title: SectionDestination
     SellerAdminRead:
       properties:
         id:
@@ -12897,6 +13931,92 @@ components:
       required:
       - reason
       title: StatusReasonRequest
+    StorefrontHomeRead:
+      properties:
+        valid_until:
+          type: string
+          format: date-time
+          title: Valid Until
+        banners:
+          items:
+            $ref: '#/components/schemas/BannerRead'
+          type: array
+          title: Banners
+        categories:
+          items:
+            $ref: '#/components/schemas/CategoryNodeRead'
+          type: array
+          title: Categories
+        discount_sections:
+          items:
+            $ref: '#/components/schemas/ProductsBlockRead'
+          type: array
+          title: Discount Sections
+        recommendation_section:
+          anyOf:
+          - $ref: '#/components/schemas/ProductsBlockRead'
+          - type: 'null'
+      type: object
+      required:
+      - valid_until
+      - banners
+      - categories
+      - discount_sections
+      - recommendation_section
+      title: StorefrontHomeRead
+    TextBlockIn:
+      properties:
+        id:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+          default: 0
+        title:
+          $ref: '#/components/schemas/LocalizedText'
+        type:
+          type: string
+          const: text
+          title: Type
+        text:
+          $ref: '#/components/schemas/LocalizedText'
+      additionalProperties: false
+      type: object
+      required:
+      - title
+      - type
+      - text
+      title: TextBlockIn
+    TextBlockRead:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          default: text
+        id:
+          type: integer
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+        title:
+          type: string
+          title: Title
+        text:
+          type: string
+          title: Text
+      type: object
+      required:
+      - id
+      - sort_order
+      - title
+      - text
+      title: TextBlockRead
     TokenResponse:
       properties:
         message:
@@ -12987,6 +14107,7 @@ components:
     UploadPurpose:
       type: string
       enum:
+      - campaign_artwork
       - shop_logo
       - shop_banner
       - product_image

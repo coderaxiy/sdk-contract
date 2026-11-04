@@ -310,3 +310,21 @@ Returns `ShopPublicRead`. `404 "Shop not found"` unless the shop is `active`.
 ```
 
 Shop slugs can't change after creation, so no redirect handling is needed.
+
+
+## Recorded discounts (2026-11-04)
+
+Product cards and public detail now add nullable `original_price_min`,
+`original_price_max`, `discount_percent`, `discount_ends_at`. Public variants add
+nullable `original_price`, `discount_percent`, `discount_ends_at`. These are
+read-only comparisons captured from actual seller price reductions of approved
+products; existing products have null comparison values after migration.
+Current price/range, filter/sort, stock and checkout semantics stay the same.
+
+A variant product exposes a product-level reduction only when **all active
+variants have valid reductions at the same exact current/original ratio**;
+otherwise all summary comparison fields are null. Per-variant comparisons remain
+available. Percentages are floored, never inferred from unrelated cheapest
+variants. `discount_ends_at` is currently null; campaign expiration never restores
+an earlier price. See [storefront-home-api.md](storefront-home-api.md) for examples,
+curation rules, and the stricter promotional-stock filter.

@@ -47,6 +47,14 @@ All URIs are relative to *http://localhost:8000*
 | ------------ | ------------- | ------------- | ------------- |
 | *AdminPhoneOtpsApi* | [**listPhoneOtpsApiV1AdminAuthPhoneOtpsGet**](docs/AdminPhoneOtpsApi.md#listphoneotpsapiv1adminauthphoneotpsget) | **GET** api/v1/admin/auth/phone-otps | List Phone Otps |
 | *AdminPhoneOtpsApi* | [**revealPhoneOtpApiV1AdminAuthPhoneOtpsChallengeIdRevealPost**](docs/AdminPhoneOtpsApi.md#revealphoneotpapiv1adminauthphoneotpschallengeidrevealpost) | **POST** api/v1/admin/auth/phone-otps/{challenge_id}/reveal | Reveal Phone Otp |
+| *AdminStorefrontApi* | [**adminCampaignApiV1AdminStorefrontCampaignsCampaignIdGet**](docs/AdminStorefrontApi.md#admincampaignapiv1adminstorefrontcampaignscampaignidget) | **GET** api/v1/admin/storefront/campaigns/{campaign_id} | Admin Campaign |
+| *AdminStorefrontApi* | [**adminCampaignsApiV1AdminStorefrontCampaignsGet**](docs/AdminStorefrontApi.md#admincampaignsapiv1adminstorefrontcampaignsget) | **GET** api/v1/admin/storefront/campaigns | Admin Campaigns |
+| *AdminStorefrontApi* | [**adminHomeApiV1AdminStorefrontHomeGet**](docs/AdminStorefrontApi.md#adminhomeapiv1adminstorefronthomeget) | **GET** api/v1/admin/storefront/home | Admin Home |
+| *AdminStorefrontApi* | [**createCampaignApiV1AdminStorefrontCampaignsPost**](docs/AdminStorefrontApi.md#createcampaignapiv1adminstorefrontcampaignspost) | **POST** api/v1/admin/storefront/campaigns | Create Campaign |
+| *AdminStorefrontApi* | [**deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete**](docs/AdminStorefrontApi.md#deletecampaignapiv1adminstorefrontcampaignscampaigniddelete) | **DELETE** api/v1/admin/storefront/campaigns/{campaign_id} | Delete Campaign |
+| *AdminStorefrontApi* | [**previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet**](docs/AdminStorefrontApi.md#previewcampaignapiv1adminstorefrontcampaignscampaignidpreviewget) | **GET** api/v1/admin/storefront/campaigns/{campaign_id}/preview | Preview Campaign |
+| *AdminStorefrontApi* | [**updateCampaignApiV1AdminStorefrontCampaignsCampaignIdPut**](docs/AdminStorefrontApi.md#updatecampaignapiv1adminstorefrontcampaignscampaignidput) | **PUT** api/v1/admin/storefront/campaigns/{campaign_id} | Update Campaign |
+| *AdminStorefrontApi* | [**updateHomeApiV1AdminStorefrontHomePut**](docs/AdminStorefrontApi.md#updatehomeapiv1adminstorefronthomeput) | **PUT** api/v1/admin/storefront/home | Update Home |
 | *AuthApi* | [**changeMyPasswordApiV1AuthMePasswordPost**](docs/AuthApi.md#changemypasswordapiv1authmepasswordpost) | **POST** api/v1/auth/me/password | Change My Password |
 | *AuthApi* | [**completeQuickStartApiV1AuthMeQuickStartPost**](docs/AuthApi.md#completequickstartapiv1authmequickstartpost) | **POST** api/v1/auth/me/quick-start | Complete Quick Start |
 | *AuthApi* | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](docs/AuthApi.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** api/v1/auth/password-reset/confirm | Confirm Password Reset |
@@ -226,6 +234,17 @@ All URIs are relative to *http://localhost:8000*
 | *ShopsApi* | [**submitShopForApprovalApiV1SellerShopsShopIdSubmitPost**](docs/ShopsApi.md#submitshopforapprovalapiv1sellershopsshopidsubmitpost) | **POST** api/v1/seller/shops/{shop_id}/submit | Submit Shop For Approval |
 | *ShopsApi* | [**suspendShopApiV1AdminShopsShopIdSuspendPatch**](docs/ShopsApi.md#suspendshopapiv1adminshopsshopidsuspendpatch) | **PATCH** api/v1/admin/shops/{shop_id}/suspend | Suspend Shop |
 | *ShopsApi* | [**updateShopApiV1SellerShopsShopIdPatch**](docs/ShopsApi.md#updateshopapiv1sellershopsshopidpatch) | **PATCH** api/v1/seller/shops/{shop_id} | Update Shop |
+| *StorefrontApi* | [**adminCampaignApiV1AdminStorefrontCampaignsCampaignIdGet**](docs/StorefrontApi.md#admincampaignapiv1adminstorefrontcampaignscampaignidget) | **GET** api/v1/admin/storefront/campaigns/{campaign_id} | Admin Campaign |
+| *StorefrontApi* | [**adminCampaignsApiV1AdminStorefrontCampaignsGet**](docs/StorefrontApi.md#admincampaignsapiv1adminstorefrontcampaignsget) | **GET** api/v1/admin/storefront/campaigns | Admin Campaigns |
+| *StorefrontApi* | [**adminHomeApiV1AdminStorefrontHomeGet**](docs/StorefrontApi.md#adminhomeapiv1adminstorefronthomeget) | **GET** api/v1/admin/storefront/home | Admin Home |
+| *StorefrontApi* | [**createCampaignApiV1AdminStorefrontCampaignsPost**](docs/StorefrontApi.md#createcampaignapiv1adminstorefrontcampaignspost) | **POST** api/v1/admin/storefront/campaigns | Create Campaign |
+| *StorefrontApi* | [**deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete**](docs/StorefrontApi.md#deletecampaignapiv1adminstorefrontcampaignscampaigniddelete) | **DELETE** api/v1/admin/storefront/campaigns/{campaign_id} | Delete Campaign |
+| *StorefrontApi* | [**previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet**](docs/StorefrontApi.md#previewcampaignapiv1adminstorefrontcampaignscampaignidpreviewget) | **GET** api/v1/admin/storefront/campaigns/{campaign_id}/preview | Preview Campaign |
+| *StorefrontApi* | [**storefrontCampaignApiV1StorefrontCampaignsSlugGet**](docs/StorefrontApi.md#storefrontcampaignapiv1storefrontcampaignsslugget) | **GET** api/v1/storefront/campaigns/{slug} | Storefront Campaign |
+| *StorefrontApi* | [**storefrontHomeApiV1StorefrontHomeGet**](docs/StorefrontApi.md#storefronthomeapiv1storefronthomeget) | **GET** api/v1/storefront/home | Storefront Home |
+| *StorefrontApi* | [**storefrontSectionProductsApiV1StorefrontCampaignsSlugSectionsSectionIdProductsGet**](docs/StorefrontApi.md#storefrontsectionproductsapiv1storefrontcampaignsslugsectionssectionidproductsget) | **GET** api/v1/storefront/campaigns/{slug}/sections/{section_id}/products | Storefront Section Products |
+| *StorefrontApi* | [**updateCampaignApiV1AdminStorefrontCampaignsCampaignIdPut**](docs/StorefrontApi.md#updatecampaignapiv1adminstorefrontcampaignscampaignidput) | **PUT** api/v1/admin/storefront/campaigns/{campaign_id} | Update Campaign |
+| *StorefrontApi* | [**updateHomeApiV1AdminStorefrontHomePut**](docs/StorefrontApi.md#updatehomeapiv1adminstorefronthomeput) | **PUT** api/v1/admin/storefront/home | Update Home |
 | *UploadsApi* | [**createUploadApiV1UploadsPost**](docs/UploadsApi.md#createuploadapiv1uploadspost) | **POST** api/v1/uploads | Create Upload |
 | *UsersApi* | [**adminCreateUserApiV1UsersPost**](docs/UsersApi.md#admincreateuserapiv1userspost) | **POST** api/v1/users/ | Admin Create User |
 | *UsersApi* | [**assignRoleToUserApiV1UsersUserIdRolesPost**](docs/UsersApi.md#assignroletouserapiv1usersuseridrolespost) | **POST** api/v1/users/{user_id}/roles | Assign Role To User |
@@ -248,6 +267,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.AmountCollected](docs/AmountCollected.md)
  - [com.emarketseller.sdk.model.AppModulesLogisticsSchemasInviteStaffRequest](docs/AppModulesLogisticsSchemasInviteStaffRequest.md)
  - [com.emarketseller.sdk.model.AppModulesShopsSchemasInviteStaffRequest](docs/AppModulesShopsSchemasInviteStaffRequest.md)
+ - [com.emarketseller.sdk.model.ArtworkRead](docs/ArtworkRead.md)
  - [com.emarketseller.sdk.model.AssignCategoryRequest](docs/AssignCategoryRequest.md)
  - [com.emarketseller.sdk.model.AssignPermissionRequest](docs/AssignPermissionRequest.md)
  - [com.emarketseller.sdk.model.AssignRoleRequest](docs/AssignRoleRequest.md)
@@ -259,13 +279,21 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.BankAccountCreateRequest](docs/BankAccountCreateRequest.md)
  - [com.emarketseller.sdk.model.BankAccountRead](docs/BankAccountRead.md)
  - [com.emarketseller.sdk.model.BankOwnerType](docs/BankOwnerType.md)
+ - [com.emarketseller.sdk.model.BannerIn](docs/BannerIn.md)
+ - [com.emarketseller.sdk.model.BannerRead](docs/BannerRead.md)
  - [com.emarketseller.sdk.model.BasePrice](docs/BasePrice.md)
+ - [com.emarketseller.sdk.model.BlocksInner](docs/BlocksInner.md)
+ - [com.emarketseller.sdk.model.BlocksInner1](docs/BlocksInner1.md)
  - [com.emarketseller.sdk.model.BrandFacetRead](docs/BrandFacetRead.md)
  - [com.emarketseller.sdk.model.BrandPublicRead](docs/BrandPublicRead.md)
  - [com.emarketseller.sdk.model.BrandRead](docs/BrandRead.md)
  - [com.emarketseller.sdk.model.BrandRejectRequest](docs/BrandRejectRequest.md)
  - [com.emarketseller.sdk.model.BrandRequestCreate](docs/BrandRequestCreate.md)
  - [com.emarketseller.sdk.model.BrandStatus](docs/BrandStatus.md)
+ - [com.emarketseller.sdk.model.CampaignAdminRead](docs/CampaignAdminRead.md)
+ - [com.emarketseller.sdk.model.CampaignDestination](docs/CampaignDestination.md)
+ - [com.emarketseller.sdk.model.CampaignRead](docs/CampaignRead.md)
+ - [com.emarketseller.sdk.model.CampaignWrite](docs/CampaignWrite.md)
  - [com.emarketseller.sdk.model.CancelGroupRequest](docs/CancelGroupRequest.md)
  - [com.emarketseller.sdk.model.CartItemAddRequest](docs/CartItemAddRequest.md)
  - [com.emarketseller.sdk.model.CartItemRead](docs/CartItemRead.md)
@@ -278,6 +306,8 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.CashCollectionRecordRead](docs/CashCollectionRecordRead.md)
  - [com.emarketseller.sdk.model.CatalogFacetsRead](docs/CatalogFacetsRead.md)
  - [com.emarketseller.sdk.model.CatalogSort](docs/CatalogSort.md)
+ - [com.emarketseller.sdk.model.CategoriesBlockIn](docs/CategoriesBlockIn.md)
+ - [com.emarketseller.sdk.model.CategoriesBlockRead](docs/CategoriesBlockRead.md)
  - [com.emarketseller.sdk.model.CategoryAncestorRead](docs/CategoryAncestorRead.md)
  - [com.emarketseller.sdk.model.CategoryAssignmentRead](docs/CategoryAssignmentRead.md)
  - [com.emarketseller.sdk.model.CategoryAssignmentStatus](docs/CategoryAssignmentStatus.md)
@@ -323,11 +353,18 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.HTTPValidationError](docs/HTTPValidationError.md)
  - [com.emarketseller.sdk.model.HoldingItemRead](docs/HoldingItemRead.md)
  - [com.emarketseller.sdk.model.HoldingRead](docs/HoldingRead.md)
+ - [com.emarketseller.sdk.model.HomeWrite](docs/HomeWrite.md)
+ - [com.emarketseller.sdk.model.ImageBlockIn](docs/ImageBlockIn.md)
+ - [com.emarketseller.sdk.model.ImageBlockRead](docs/ImageBlockRead.md)
+ - [com.emarketseller.sdk.model.ImagePairIn](docs/ImagePairIn.md)
+ - [com.emarketseller.sdk.model.ImageRead](docs/ImageRead.md)
  - [com.emarketseller.sdk.model.Latitude](docs/Latitude.md)
  - [com.emarketseller.sdk.model.Latitude1](docs/Latitude1.md)
  - [com.emarketseller.sdk.model.LedgerEntryRead](docs/LedgerEntryRead.md)
  - [com.emarketseller.sdk.model.LedgerEntryType](docs/LedgerEntryType.md)
  - [com.emarketseller.sdk.model.LedgerStatementRead](docs/LedgerStatementRead.md)
+ - [com.emarketseller.sdk.model.LocalizedArtwork](docs/LocalizedArtwork.md)
+ - [com.emarketseller.sdk.model.LocalizedText](docs/LocalizedText.md)
  - [com.emarketseller.sdk.model.LocationInner](docs/LocationInner.md)
  - [com.emarketseller.sdk.model.LoginRequest](docs/LoginRequest.md)
  - [com.emarketseller.sdk.model.Longitude](docs/Longitude.md)
@@ -409,6 +446,8 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.ProductVariantCreate](docs/ProductVariantCreate.md)
  - [com.emarketseller.sdk.model.ProductVariantRead](docs/ProductVariantRead.md)
  - [com.emarketseller.sdk.model.ProductVariantUpdate](docs/ProductVariantUpdate.md)
+ - [com.emarketseller.sdk.model.ProductsBlockIn](docs/ProductsBlockIn.md)
+ - [com.emarketseller.sdk.model.ProductsBlockRead](docs/ProductsBlockRead.md)
  - [com.emarketseller.sdk.model.QuickStartRequest](docs/QuickStartRequest.md)
  - [com.emarketseller.sdk.model.ReceiveReturnRequest](docs/ReceiveReturnRequest.md)
  - [com.emarketseller.sdk.model.Recipient](docs/Recipient.md)
@@ -434,6 +473,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.ResolveReconciliationRequest](docs/ResolveReconciliationRequest.md)
  - [com.emarketseller.sdk.model.RoleCreate](docs/RoleCreate.md)
  - [com.emarketseller.sdk.model.RoleRead](docs/RoleRead.md)
+ - [com.emarketseller.sdk.model.SectionDestination](docs/SectionDestination.md)
  - [com.emarketseller.sdk.model.SellerAdminRead](docs/SellerAdminRead.md)
  - [com.emarketseller.sdk.model.SellerCategoryRead](docs/SellerCategoryRead.md)
  - [com.emarketseller.sdk.model.SellerRead](docs/SellerRead.md)
@@ -453,6 +493,9 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.SlugAvailabilityRead](docs/SlugAvailabilityRead.md)
  - [com.emarketseller.sdk.model.StaffRole](docs/StaffRole.md)
  - [com.emarketseller.sdk.model.StatusReasonRequest](docs/StatusReasonRequest.md)
+ - [com.emarketseller.sdk.model.StorefrontHomeRead](docs/StorefrontHomeRead.md)
+ - [com.emarketseller.sdk.model.TextBlockIn](docs/TextBlockIn.md)
+ - [com.emarketseller.sdk.model.TextBlockRead](docs/TextBlockRead.md)
  - [com.emarketseller.sdk.model.TokenResponse](docs/TokenResponse.md)
  - [com.emarketseller.sdk.model.TranslationIn](docs/TranslationIn.md)
  - [com.emarketseller.sdk.model.TranslationRead](docs/TranslationRead.md)

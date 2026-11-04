@@ -10,6 +10,9 @@
 | **inStock** | **kotlin.Boolean** |  |  |
 | **attributes** | [**kotlin.collections.Map&lt;kotlin.String, AttributesValue&gt;**](AttributesValue.md) |  |  |
 | **imageIds** | **kotlin.collections.List&lt;kotlin.Int&gt;** |  |  |
+| **originalPrice** | **kotlin.String** |  |  [optional] |
+| **discountPercent** | **kotlin.Int** |  |  [optional] |
+| **discountEndsAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional] |
 
 
 

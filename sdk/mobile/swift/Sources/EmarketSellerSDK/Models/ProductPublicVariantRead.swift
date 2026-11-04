@@ -9,7 +9,11 @@ import Foundation
 
 public struct ProductPublicVariantRead: Sendable, Codable, Hashable {
 
+    public static let originalPriceRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
     public static let priceRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$/")
+    public var originalPrice: String?
+    public var discountPercent: Int?
+    public var discountEndsAt: Date?
     public var id: Int
     public var platformSku: String
     public var price: String
@@ -17,7 +21,10 @@ public struct ProductPublicVariantRead: Sendable, Codable, Hashable {
     public var attributes: [String: AttributesValue]
     public var imageIds: [Int]?
 
-    public init(id: Int, platformSku: String, price: String, inStock: Bool, attributes: [String: AttributesValue], imageIds: [Int]?) {
+    public init(originalPrice: String? = nil, discountPercent: Int? = nil, discountEndsAt: Date? = nil, id: Int, platformSku: String, price: String, inStock: Bool, attributes: [String: AttributesValue], imageIds: [Int]?) {
+        self.originalPrice = originalPrice
+        self.discountPercent = discountPercent
+        self.discountEndsAt = discountEndsAt
         self.id = id
         self.platformSku = platformSku
         self.price = price
@@ -27,6 +34,9 @@ public struct ProductPublicVariantRead: Sendable, Codable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case originalPrice = "original_price"
+        case discountPercent = "discount_percent"
+        case discountEndsAt = "discount_ends_at"
         case id
         case platformSku = "platform_sku"
         case price
@@ -39,6 +49,9 @@ public struct ProductPublicVariantRead: Sendable, Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(originalPrice, forKey: .originalPrice)
+        try container.encodeIfPresent(discountPercent, forKey: .discountPercent)
+        try container.encodeIfPresent(discountEndsAt, forKey: .discountEndsAt)
         try container.encode(id, forKey: .id)
         try container.encode(platformSku, forKey: .platformSku)
         try container.encode(price, forKey: .price)

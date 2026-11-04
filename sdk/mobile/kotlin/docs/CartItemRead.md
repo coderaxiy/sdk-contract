@@ -15,6 +15,9 @@
 | **lineTotal** | **kotlin.String** |  |  |
 | **available** | **kotlin.Boolean** |  |  |
 | **inStock** | **kotlin.Boolean** |  |  |
+| **originalUnitPrice** | **kotlin.String** |  |  [optional] |
+| **discountPercent** | **kotlin.Int** |  |  [optional] |
+| **discountEndsAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional] |
 
 
 

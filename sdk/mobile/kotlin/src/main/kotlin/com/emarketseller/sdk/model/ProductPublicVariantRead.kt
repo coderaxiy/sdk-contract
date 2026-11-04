@@ -38,6 +38,9 @@ import kotlinx.serialization.Contextual
  * @param inStock 
  * @param attributes 
  * @param imageIds 
+ * @param originalPrice 
+ * @param discountPercent 
+ * @param discountEndsAt 
  */
 @Serializable
 
@@ -59,7 +62,16 @@ data class ProductPublicVariantRead (
     val attributes: kotlin.collections.Map<kotlin.String, AttributesValue>,
 
     @SerialName(value = "image_ids")
-    val imageIds: kotlin.collections.List<kotlin.Int>?
+    val imageIds: kotlin.collections.List<kotlin.Int>?,
+
+    @SerialName(value = "original_price")
+    val originalPrice: kotlin.String? = null,
+
+    @SerialName(value = "discount_percent")
+    val discountPercent: kotlin.Int? = null,
+
+    @Contextual @SerialName(value = "discount_ends_at")
+    val discountEndsAt: java.time.OffsetDateTime? = null
 
 ) {
 

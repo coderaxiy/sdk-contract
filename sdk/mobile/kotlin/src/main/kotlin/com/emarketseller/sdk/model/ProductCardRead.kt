@@ -45,6 +45,10 @@ import kotlinx.serialization.Contextual
  * @param brand 
  * @param categoryId 
  * @param createdAt 
+ * @param originalPriceMin 
+ * @param originalPriceMax 
+ * @param discountPercent 
+ * @param discountEndsAt 
  */
 @Serializable
 
@@ -84,7 +88,19 @@ data class ProductCardRead (
     val categoryId: kotlin.Int,
 
     @Contextual @SerialName(value = "created_at")
-    val createdAt: java.time.OffsetDateTime
+    val createdAt: java.time.OffsetDateTime,
+
+    @SerialName(value = "original_price_min")
+    val originalPriceMin: kotlin.String? = null,
+
+    @SerialName(value = "original_price_max")
+    val originalPriceMax: kotlin.String? = null,
+
+    @SerialName(value = "discount_percent")
+    val discountPercent: kotlin.Int? = null,
+
+    @Contextual @SerialName(value = "discount_ends_at")
+    val discountEndsAt: java.time.OffsetDateTime? = null
 
 ) {
 

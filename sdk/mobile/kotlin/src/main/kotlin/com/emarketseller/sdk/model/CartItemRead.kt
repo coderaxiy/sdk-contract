@@ -45,6 +45,9 @@ import kotlinx.serialization.Contextual
  * @param lineTotal 
  * @param available 
  * @param inStock 
+ * @param originalUnitPrice 
+ * @param discountPercent 
+ * @param discountEndsAt 
  */
 @Serializable
 
@@ -81,7 +84,16 @@ data class CartItemRead (
     val available: kotlin.Boolean,
 
     @SerialName(value = "in_stock")
-    val inStock: kotlin.Boolean
+    val inStock: kotlin.Boolean,
+
+    @SerialName(value = "original_unit_price")
+    val originalUnitPrice: kotlin.String? = null,
+
+    @SerialName(value = "discount_percent")
+    val discountPercent: kotlin.Int? = null,
+
+    @Contextual @SerialName(value = "discount_ends_at")
+    val discountEndsAt: java.time.OffsetDateTime? = null
 
 ) {
 

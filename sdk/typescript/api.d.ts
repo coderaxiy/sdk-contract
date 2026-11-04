@@ -4,6 +4,135 @@
  */
 
 export interface paths {
+    "/api/v1/storefront/home": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Storefront Home */
+        get: operations["storefront_home_api_v1_storefront_home_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/storefront/campaigns/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Storefront Campaign */
+        get: operations["storefront_campaign_api_v1_storefront_campaigns__slug__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/storefront/campaigns/{slug}/sections/{section_id}/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Storefront Section Products */
+        get: operations["storefront_section_products_api_v1_storefront_campaigns__slug__sections__section_id__products_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/storefront/campaigns": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Admin Campaigns */
+        get: operations["admin_campaigns_api_v1_admin_storefront_campaigns_get"];
+        put?: never;
+        /** Create Campaign */
+        post: operations["create_campaign_api_v1_admin_storefront_campaigns_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/storefront/campaigns/{campaign_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Admin Campaign */
+        get: operations["admin_campaign_api_v1_admin_storefront_campaigns__campaign_id__get"];
+        /**
+         * Update Campaign
+         * @description Full replacement; send existing block/banner IDs to preserve them and expected_revision to prevent lost edits.
+         */
+        put: operations["update_campaign_api_v1_admin_storefront_campaigns__campaign_id__put"];
+        post?: never;
+        /** Delete Campaign */
+        delete: operations["delete_campaign_api_v1_admin_storefront_campaigns__campaign_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/storefront/campaigns/{campaign_id}/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Preview Campaign
+         * @description Render draft content with normal product visibility. Bypasses only campaign publication/schedule.
+         */
+        get: operations["preview_campaign_api_v1_admin_storefront_campaigns__campaign_id__preview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/storefront/home": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Admin Home */
+        get: operations["admin_home_api_v1_admin_storefront_home_get"];
+        /** Update Home */
+        put: operations["update_home_api_v1_admin_storefront_home_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/auth/register": {
         parameters: {
             query?: never;
@@ -3004,6 +3133,11 @@ export interface components {
             role?: components["schemas"]["PickupPointStaffRole"] | null;
             status?: components["schemas"]["PickupPointStaffStatus"] | null;
         };
+        /** ArtworkRead */
+        ArtworkRead: {
+            mobile: components["schemas"]["ImageRead"];
+            desktop: components["schemas"]["ImageRead"];
+        };
         /** AssignCategoryRequest */
         AssignCategoryRequest: {
             /** Category Id */
@@ -3113,6 +3247,29 @@ export interface components {
          * @enum {string}
          */
         BankOwnerType: "seller" | "shop";
+        /** BannerIn */
+        BannerIn: {
+            /** Id */
+            id?: number | null;
+            /**
+             * Sort Order
+             * @default 0
+             */
+            sort_order: number;
+            title: components["schemas"]["LocalizedText"];
+            artwork: components["schemas"]["LocalizedArtwork"];
+        };
+        /** BannerRead */
+        BannerRead: {
+            /** Id */
+            id: number;
+            /** Sort Order */
+            sort_order: number;
+            /** Title */
+            title: string;
+            artwork: components["schemas"]["ArtworkRead"];
+            destination: components["schemas"]["CampaignDestination"];
+        };
         /** Body_create_upload_api_v1_uploads_post */
         Body_create_upload_api_v1_uploads_post: {
             /**
@@ -3179,6 +3336,97 @@ export interface components {
          * @enum {string}
          */
         BrandStatus: "pending" | "approved" | "rejected";
+        /** CampaignAdminRead */
+        CampaignAdminRead: {
+            /** Slug */
+            slug: string;
+            title: components["schemas"]["LocalizedText"];
+            intro?: components["schemas"]["LocalizedText"] | null;
+            hero?: components["schemas"]["LocalizedArtwork"] | null;
+            /**
+             * Published
+             * @default false
+             */
+            published: boolean;
+            /** Starts At */
+            starts_at?: string | null;
+            /** Ends At */
+            ends_at?: string | null;
+            /** Category Ids */
+            category_ids?: number[];
+            /** Banners */
+            banners?: components["schemas"]["BannerIn"][];
+            /** Blocks */
+            blocks?: (components["schemas"]["ProductsBlockIn"] | components["schemas"]["TextBlockIn"] | components["schemas"]["ImageBlockIn"] | components["schemas"]["CategoriesBlockIn"])[];
+            /** Expected Revision */
+            expected_revision?: number | null;
+            /** Id */
+            id: number;
+            /** Revision */
+            revision: number;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /** CampaignDestination */
+        CampaignDestination: {
+            /**
+             * Type
+             * @default campaign
+             * @constant
+             */
+            type: "campaign";
+            /** Campaign Slug */
+            campaign_slug: string;
+        };
+        /** CampaignRead */
+        CampaignRead: {
+            /**
+             * Valid Until
+             * Format: date-time
+             */
+            valid_until: string;
+            /** Id */
+            id: number;
+            /** Slug */
+            slug: string;
+            /** Title */
+            title: string;
+            /** Intro */
+            intro: string | null;
+            hero: components["schemas"]["ArtworkRead"] | null;
+            /** Categories */
+            categories: components["schemas"]["CategoryNodeRead"][];
+            /** Blocks */
+            blocks: (components["schemas"]["ProductsBlockRead"] | components["schemas"]["TextBlockRead"] | components["schemas"]["ImageBlockRead"] | components["schemas"]["CategoriesBlockRead"])[];
+        };
+        /** CampaignWrite */
+        CampaignWrite: {
+            /** Slug */
+            slug: string;
+            title: components["schemas"]["LocalizedText"];
+            intro?: components["schemas"]["LocalizedText"] | null;
+            hero?: components["schemas"]["LocalizedArtwork"] | null;
+            /**
+             * Published
+             * @default false
+             */
+            published: boolean;
+            /** Starts At */
+            starts_at?: string | null;
+            /** Ends At */
+            ends_at?: string | null;
+            /** Category Ids */
+            category_ids?: number[];
+            /** Banners */
+            banners?: components["schemas"]["BannerIn"][];
+            /** Blocks */
+            blocks?: (components["schemas"]["ProductsBlockIn"] | components["schemas"]["TextBlockIn"] | components["schemas"]["ImageBlockIn"] | components["schemas"]["CategoriesBlockIn"])[];
+            /** Expected Revision */
+            expected_revision?: number | null;
+        };
         /** CancelGroupRequest */
         CancelGroupRequest: {
             /** Reason */
@@ -3195,6 +3443,12 @@ export interface components {
         };
         /** CartItemRead */
         CartItemRead: {
+            /** Original Unit Price */
+            original_unit_price?: string | null;
+            /** Discount Percent */
+            discount_percent?: number | null;
+            /** Discount Ends At */
+            discount_ends_at?: string | null;
             /** Id */
             id: number;
             /** Quantity */
@@ -3318,6 +3572,40 @@ export interface components {
          * @enum {string}
          */
         CatalogSort: "relevance" | "newest" | "price_asc" | "price_desc";
+        /** CategoriesBlockIn */
+        CategoriesBlockIn: {
+            /** Id */
+            id?: number | null;
+            /**
+             * Sort Order
+             * @default 0
+             */
+            sort_order: number;
+            title: components["schemas"]["LocalizedText"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "categories";
+            /** Category Ids */
+            category_ids?: number[];
+        };
+        /** CategoriesBlockRead */
+        CategoriesBlockRead: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "categories";
+            /** Id */
+            id: number;
+            /** Sort Order */
+            sort_order: number;
+            /** Title */
+            title: string;
+            /** Categories */
+            categories: components["schemas"]["CategoryNodeRead"][];
+        };
         /** CategoryAncestorRead */
         CategoryAncestorRead: {
             /** Id */
@@ -3922,6 +4210,59 @@ export interface components {
              */
             items: components["schemas"]["HoldingItemRead"][];
         };
+        /** HomeWrite */
+        HomeWrite: {
+            /** Category Ids */
+            category_ids?: number[] | null;
+        };
+        /** ImageBlockIn */
+        ImageBlockIn: {
+            /** Id */
+            id?: number | null;
+            /**
+             * Sort Order
+             * @default 0
+             */
+            sort_order: number;
+            title: components["schemas"]["LocalizedText"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "image";
+            artwork: components["schemas"]["LocalizedArtwork"];
+        };
+        /** ImageBlockRead */
+        ImageBlockRead: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "image";
+            /** Id */
+            id: number;
+            /** Sort Order */
+            sort_order: number;
+            /** Title */
+            title: string;
+            artwork: components["schemas"]["ArtworkRead"];
+        };
+        /** ImagePairIn */
+        ImagePairIn: {
+            /** Mobile Key */
+            mobile_key: string;
+            /** Desktop Key */
+            desktop_key?: string | null;
+        };
+        /** ImageRead */
+        ImageRead: {
+            /** Url */
+            url: string;
+            /** Width */
+            width: number;
+            /** Height */
+            height: number;
+        };
         /** LedgerEntryRead */
         LedgerEntryRead: {
             /** Id */
@@ -3970,6 +4311,18 @@ export interface components {
             balance: string;
             /** Entries */
             entries: components["schemas"]["LedgerEntryRead"][];
+        };
+        /** LocalizedArtwork */
+        LocalizedArtwork: {
+            uz: components["schemas"]["ImagePairIn"];
+            ru?: components["schemas"]["ImagePairIn"] | null;
+        };
+        /** LocalizedText */
+        LocalizedText: {
+            /** Uz */
+            uz: string;
+            /** Ru */
+            ru?: string | null;
         };
         /** LoginRequest */
         LoginRequest: {
@@ -4840,6 +5193,14 @@ export interface components {
         };
         /** ProductCardRead */
         ProductCardRead: {
+            /** Original Price Min */
+            original_price_min?: string | null;
+            /** Original Price Max */
+            original_price_max?: string | null;
+            /** Discount Percent */
+            discount_percent?: number | null;
+            /** Discount Ends At */
+            discount_ends_at?: string | null;
             /** Id */
             id: number;
             /** Slug */
@@ -5000,6 +5361,14 @@ export interface components {
         };
         /** ProductPublicRead */
         ProductPublicRead: {
+            /** Original Price Min */
+            original_price_min?: string | null;
+            /** Original Price Max */
+            original_price_max?: string | null;
+            /** Discount Percent */
+            discount_percent?: number | null;
+            /** Discount Ends At */
+            discount_ends_at?: string | null;
             /** Id */
             id: number;
             /** Slug */
@@ -5044,6 +5413,12 @@ export interface components {
         };
         /** ProductPublicVariantRead */
         ProductPublicVariantRead: {
+            /** Original Price */
+            original_price?: string | null;
+            /** Discount Percent */
+            discount_percent?: number | null;
+            /** Discount Ends At */
+            discount_ends_at?: string | null;
             /** Id */
             id: number;
             /** Platform Sku */
@@ -5221,6 +5596,54 @@ export interface components {
             image_ids?: number[] | null;
             /** Is Active */
             is_active?: boolean | null;
+        };
+        /** ProductsBlockIn */
+        ProductsBlockIn: {
+            /** Id */
+            id?: number | null;
+            /**
+             * Sort Order
+             * @default 0
+             */
+            sort_order: number;
+            title: components["schemas"]["LocalizedText"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "products";
+            /** Product Ids */
+            product_ids?: number[];
+            /**
+             * Home Kind
+             * @default none
+             * @enum {string}
+             */
+            home_kind: "none" | "discount" | "recommendation";
+            /**
+             * Home Sort Order
+             * @default 0
+             */
+            home_sort_order: number;
+        };
+        /** ProductsBlockRead */
+        ProductsBlockRead: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "products";
+            /** Id */
+            id: number;
+            /** Sort Order */
+            sort_order: number;
+            /** Title */
+            title: string;
+            destination: components["schemas"]["SectionDestination"];
+            /** Products */
+            products: components["schemas"]["ProductCardRead"][];
+            /** Total */
+            total: number;
         };
         /**
          * QuickStartRequest
@@ -5480,6 +5903,19 @@ export interface components {
              * @default []
              */
             permissions: components["schemas"]["PermissionRead"][];
+        };
+        /** SectionDestination */
+        SectionDestination: {
+            /**
+             * Type
+             * @default campaign_section
+             * @constant
+             */
+            type: "campaign_section";
+            /** Campaign Slug */
+            campaign_slug: string;
+            /** Section Id */
+            section_id: number;
         };
         /**
          * SellerAdminRead
@@ -5847,6 +6283,54 @@ export interface components {
             /** Reason */
             reason: string;
         };
+        /** StorefrontHomeRead */
+        StorefrontHomeRead: {
+            /**
+             * Valid Until
+             * Format: date-time
+             */
+            valid_until: string;
+            /** Banners */
+            banners: components["schemas"]["BannerRead"][];
+            /** Categories */
+            categories: components["schemas"]["CategoryNodeRead"][];
+            /** Discount Sections */
+            discount_sections: components["schemas"]["ProductsBlockRead"][];
+            recommendation_section: components["schemas"]["ProductsBlockRead"] | null;
+        };
+        /** TextBlockIn */
+        TextBlockIn: {
+            /** Id */
+            id?: number | null;
+            /**
+             * Sort Order
+             * @default 0
+             */
+            sort_order: number;
+            title: components["schemas"]["LocalizedText"];
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "text";
+            text: components["schemas"]["LocalizedText"];
+        };
+        /** TextBlockRead */
+        TextBlockRead: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "text";
+            /** Id */
+            id: number;
+            /** Sort Order */
+            sort_order: number;
+            /** Title */
+            title: string;
+            /** Text */
+            text: string;
+        };
         /** TokenResponse */
         TokenResponse: {
             /** Message */
@@ -5898,7 +6382,7 @@ export interface components {
          * UploadPurpose
          * @enum {string}
          */
-        UploadPurpose: "shop_logo" | "shop_banner" | "product_image" | "seller_document" | "refund_evidence";
+        UploadPurpose: "campaign_artwork" | "shop_logo" | "shop_banner" | "product_image" | "seller_document" | "refund_evidence";
         /** UploadRead */
         UploadRead: {
             /** Id */
@@ -6061,6 +6545,361 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    storefront_home_api_v1_storefront_home_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StorefrontHomeRead"];
+                };
+            };
+        };
+    };
+    storefront_campaign_api_v1_storefront_campaigns__slug__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    storefront_section_products_api_v1_storefront_campaigns__slug__sections__section_id__products_get: {
+        parameters: {
+            query?: {
+                skip?: number;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                slug: string;
+                section_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductCardRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    admin_campaigns_api_v1_admin_storefront_campaigns_get: {
+        parameters: {
+            query?: {
+                skip?: number;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignAdminRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_campaign_api_v1_admin_storefront_campaigns_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CampaignWrite"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignAdminRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    admin_campaign_api_v1_admin_storefront_campaigns__campaign_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                campaign_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignAdminRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_campaign_api_v1_admin_storefront_campaigns__campaign_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                campaign_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CampaignWrite"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignAdminRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_campaign_api_v1_admin_storefront_campaigns__campaign_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                campaign_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    preview_campaign_api_v1_admin_storefront_campaigns__campaign_id__preview_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                campaign_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CampaignRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    admin_home_api_v1_admin_storefront_home_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HomeWrite"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_home_api_v1_admin_storefront_home_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["HomeWrite"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HomeWrite"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     register_api_v1_auth_register_post: {
         parameters: {
             query?: never;

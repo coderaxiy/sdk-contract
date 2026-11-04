@@ -601,3 +601,14 @@ requested window. Don't sum `entries` yourself and expect it to equal
   refund: the seller still confirms with `confirm-return` once the item reaches
   them. Nothing ships returned items from the point back to the seller yet (see the
   logistics doc, reverse logistics).
+
+
+## Cart discount comparisons (2026-11-04)
+
+`CartItemRead` adds nullable `original_unit_price`, `discount_percent`, and
+`discount_ends_at`. Comparison comes from the **selected variant** or simple
+product's recorded prior price; never use it to calculate totals. `unit_price`
+and `line_total` still use the seller's live price. Campaign expiry/unpublish
+changes marketing visibility only and does not reprice a cart. A seller price
+change still triggers checkout's existing `price_changed` validation against the
+cart snapshot. See [storefront-home-api.md](storefront-home-api.md).

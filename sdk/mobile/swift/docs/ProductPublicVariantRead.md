@@ -3,6 +3,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**originalPrice** | **String** |  | [optional] 
+**discountPercent** | **Int** |  | [optional] 
+**discountEndsAt** | **Date** |  | [optional] 
 **id** | **Int** |  | 
 **platformSku** | **String** |  | 
 **price** | **String** |  | 

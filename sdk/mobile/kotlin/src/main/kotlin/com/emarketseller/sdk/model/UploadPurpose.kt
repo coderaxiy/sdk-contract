@@ -31,10 +31,13 @@ import kotlinx.serialization.Serializable
 /**
  * 
  *
- * Values: shop_logo,shop_banner,product_image,seller_document,refund_evidence
+ * Values: campaign_artwork,shop_logo,shop_banner,product_image,seller_document,refund_evidence
  */
 @Serializable
 enum class UploadPurpose(val value: kotlin.String) {
+
+    @SerialName(value = "campaign_artwork")
+    campaign_artwork("campaign_artwork"),
 
     @SerialName(value = "shop_logo")
     shop_logo("shop_logo"),
