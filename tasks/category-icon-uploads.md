@@ -3,11 +3,11 @@ id: category-icon-uploads
 title: Add category icon uploads with safe SVG and raster representations
 author: frontend
 to: backend
-status: open
+status: closed
 priority: normal
 area: categories
 created: 2026-11-14
-closed:
+closed: 2026-11-14
 reply_to:
 ---
 
@@ -90,3 +90,40 @@ failed upload/retry, save failure/retry, clear, cancel, and unchanged legacy edi
 - `docs/media-uploads-api.md` — upload-first/attach-by-key conventions.
 - `openapi/api.yaml` — category create/update/read and UploadPurpose schemas.
 - Admin repository: `tasks/category-icon-uploads.md` — rollout plan.
+
+## Resolution
+
+Implemented in the backend workspace on 2026-11-14. Migration
+`f1c8a2d4e609` follows `d9f4b7a2c601`; it adds category upload references,
+SVG/raster metadata, cleanup retention timestamps and deletion markers. Existing
+legacy URL rows remain unchanged and no remote URLs are fetched.
+
+- `POST /api/v1/uploads?purpose=category_icon` requires `categories:manage`
+  without seller registration. Inputs are content-detected SVG/PNG/JPEG/WebP,
+  at most 1 MiB and 4096 pixels per side; raster output fits 512 × 512.
+- Static SVG is validated with defusedxml plus an explicit element/attribute
+  allowlist, then rasterized with CairoSVG in bounded subprocesses. CSS, gradients,
+  embedded images and all references are intentionally unsupported; raster uploads
+  remain available for such artwork. The exact subset/limits are documented in
+  `docs/category-icons-api.md`.
+- Category create/PATCH accepts owned category-icon upload keys; reads include
+  nullable `icon_key`, raster `icon_url`, and sanitized `icon_svg`. PATCH omission
+  preserves; null clears. Legacy URL writes remain supported; sending both icon
+  write fields returns 422. Existing category authorization, hierarchy, lifecycle,
+  audits and public cache behavior remain in force.
+- Hourly cleanup handles cancelled/replaced icons after a 24-hour grace period,
+  preserves category references, and locks upload rows against attachment races.
+  A durable deletion marker prevents attachment after partial deletion failures.
+- Updated OpenAPI, TypeScript/Kotlin/Swift SDKs and media/category integration docs.
+
+Validation: 7 processing/security tests and 7 PostgreSQL HTTP/migration tests pass;
+39-test storefront/auth/category regression run passes. Ruff passes for changed
+modules; scoped mypy check passes with Python 3.12 target and missing third-party
+imports ignored. OpenAPI validation passes with two existing warnings; task
+frontmatter validation passes. Storage failure paths use mocks; deployment and
+live object-storage/admin smoke tests remain release steps.
+
+Contract commit: this task's closing commit. Backend changes remain in the working
+checkout alongside pre-existing uncommitted work; they have not been deployed.
+Install updated dependencies (Docker includes libcairo2), apply the migration,
+deploy and verify the API before enabling the admin rollout setting.

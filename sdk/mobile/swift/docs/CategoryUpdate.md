@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **slug** | **String** |  | [optional] 
+**iconKey** | **String** | Category icon upload key; null clears the icon on PATCH | [optional] 
 **iconUrl** | **String** |  | [optional] 
 **sortOrder** | **Int** |  | [optional] 
 **isActive** | **Bool** |  | [optional] 

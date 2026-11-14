@@ -10,9 +10,12 @@ import Foundation
 /** PATCH semantics. parent_id is changed via /move only. is_active&#x3D;False goes through the deactivate preview/confirm flow — reactivation (True) is allowed here since it never destroys data. */
 public struct CategoryUpdate: Sendable, Codable, Hashable {
 
+    public static let iconKeyRule = StringRule(minLength: nil, maxLength: 500, pattern: nil)
     public static let returnWindowDaysRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: true, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
     public static let translationsRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
     public var slug: String?
+    /** Category icon upload key; null clears the icon on PATCH */
+    public var iconKey: String?
     public var iconUrl: String?
     public var sortOrder: Int?
     public var isActive: Bool?
@@ -23,8 +26,9 @@ public struct CategoryUpdate: Sendable, Codable, Hashable {
     public var defaultCommissionRuleId: Int?
     public var translations: [TranslationIn]?
 
-    public init(slug: String? = nil, iconUrl: String? = nil, sortOrder: Int? = nil, isActive: Bool? = nil, requiresDocuments: Bool? = nil, requiredDocumentTypes: [String]? = nil, allowsVariants: Bool? = nil, returnWindowDays: Int? = nil, defaultCommissionRuleId: Int? = nil, translations: [TranslationIn]? = nil) {
+    public init(slug: String? = nil, iconKey: String? = nil, iconUrl: String? = nil, sortOrder: Int? = nil, isActive: Bool? = nil, requiresDocuments: Bool? = nil, requiredDocumentTypes: [String]? = nil, allowsVariants: Bool? = nil, returnWindowDays: Int? = nil, defaultCommissionRuleId: Int? = nil, translations: [TranslationIn]? = nil) {
         self.slug = slug
+        self.iconKey = iconKey
         self.iconUrl = iconUrl
         self.sortOrder = sortOrder
         self.isActive = isActive
@@ -38,6 +42,7 @@ public struct CategoryUpdate: Sendable, Codable, Hashable {
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case slug
+        case iconKey = "icon_key"
         case iconUrl = "icon_url"
         case sortOrder = "sort_order"
         case isActive = "is_active"
@@ -54,6 +59,7 @@ public struct CategoryUpdate: Sendable, Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(slug, forKey: .slug)
+        try container.encodeIfPresent(iconKey, forKey: .iconKey)
         try container.encodeIfPresent(iconUrl, forKey: .iconUrl)
         try container.encodeIfPresent(sortOrder, forKey: .sortOrder)
         try container.encodeIfPresent(isActive, forKey: .isActive)

@@ -52,6 +52,12 @@ class CategoryCreateTest : ShouldSpec() {
             //modelInstance.parentId shouldBe ("TODO")
         }
 
+        // to test the property `iconKey` - Category icon upload key; null clears the icon on PATCH
+        should("test iconKey") {
+            // uncomment below to test the property
+            //modelInstance.iconKey shouldBe ("TODO")
+        }
+
         // to test the property `iconUrl`
         should("test iconUrl") {
             // uncomment below to test the property

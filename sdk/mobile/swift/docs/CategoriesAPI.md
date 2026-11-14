@@ -138,7 +138,7 @@ Create Category
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import EmarketSellerSDK
 
-let categoryCreate = CategoryCreate(parentId: 123, slug: "slug_example", iconUrl: "iconUrl_example", sortOrder: 123, requiresDocuments: false, requiredDocumentTypes: ["requiredDocumentTypes_example"], allowsVariants: false, returnWindowDays: 123, translations: [TranslationIn(locale: "locale_example", name: "name_example", description: "description_example")]) // CategoryCreate | 
+let categoryCreate = CategoryCreate(parentId: 123, slug: "slug_example", iconKey: "iconKey_example", iconUrl: "iconUrl_example", sortOrder: 123, requiresDocuments: false, requiredDocumentTypes: ["requiredDocumentTypes_example"], allowsVariants: false, returnWindowDays: 123, translations: [TranslationIn(locale: "locale_example", name: "name_example", description: "description_example")]) // CategoryCreate | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Create Category
@@ -891,7 +891,7 @@ Update Category
 import EmarketSellerSDK
 
 let categoryId = 987 // Int | 
-let categoryUpdate = CategoryUpdate(slug: "slug_example", iconUrl: "iconUrl_example", sortOrder: 123, isActive: false, requiresDocuments: false, requiredDocumentTypes: ["requiredDocumentTypes_example"], allowsVariants: false, returnWindowDays: 123, defaultCommissionRuleId: 123, translations: [TranslationIn(locale: "locale_example", name: "name_example", description: "description_example")]) // CategoryUpdate | 
+let categoryUpdate = CategoryUpdate(slug: "slug_example", iconKey: "iconKey_example", iconUrl: "iconUrl_example", sortOrder: 123, isActive: false, requiresDocuments: false, requiredDocumentTypes: ["requiredDocumentTypes_example"], allowsVariants: false, returnWindowDays: 123, defaultCommissionRuleId: 123, translations: [TranslationIn(locale: "locale_example", name: "name_example", description: "description_example")]) // CategoryUpdate | 
 let accessToken = "accessToken_example" // String |  (optional)
 
 // Update Category

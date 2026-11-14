@@ -18,6 +18,8 @@
 | **defaultCommissionRuleId** | **kotlin.Int** |  |  |
 | **createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
 | **updatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  |
+| **iconKey** | **kotlin.String** | Category icon upload key; null clears the icon on PATCH |  [optional] |
+| **iconSvg** | **kotlin.String** | Sanitized static SVG markup; null for raster uploads and legacy URLs |  [optional] |
 | **translations** | [**kotlin.collections.List&lt;TranslationRead&gt;**](TranslationRead.md) |  |  [optional] |
 
 

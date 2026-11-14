@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **parentId** | **Int** |  | [optional] 
 **slug** | **String** |  | 
+**iconKey** | **String** | Category icon upload key; null clears the icon on PATCH | [optional] 
 **iconUrl** | **String** |  | [optional] 
 **sortOrder** | **Int** |  | [optional] [default to 0]
 **requiresDocuments** | **Bool** |  | [optional] [default to false]

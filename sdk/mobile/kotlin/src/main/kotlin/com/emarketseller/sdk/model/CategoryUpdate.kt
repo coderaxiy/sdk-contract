@@ -33,6 +33,7 @@ import kotlinx.serialization.Contextual
  * PATCH semantics. parent_id is changed via /move only. is_active=False goes through the deactivate preview/confirm flow — reactivation (True) is allowed here since it never destroys data.
  *
  * @param slug 
+ * @param iconKey Category icon upload key; null clears the icon on PATCH
  * @param iconUrl 
  * @param sortOrder 
  * @param isActive 
@@ -49,6 +50,10 @@ data class CategoryUpdate (
 
     @SerialName(value = "slug")
     val slug: kotlin.String? = null,
+
+    /* Category icon upload key; null clears the icon on PATCH */
+    @SerialName(value = "icon_key")
+    val iconKey: kotlin.String? = null,
 
     @SerialName(value = "icon_url")
     val iconUrl: kotlin.String? = null,

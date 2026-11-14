@@ -231,7 +231,9 @@ type CategoryNodeRead = {
   id: number
   parent_id: number | null
   slug: string               // globally unique
-  icon_url: string | null
+  icon_key: string | null
+  icon_svg: string | null // sanitized server output for SVG uploads
+  icon_url: string | null // raster fallback or legacy URL
   sort_order: number
   is_leaf: boolean
   translations: { locale: string; name: string; description: string | null }[]
@@ -328,3 +330,5 @@ available. Percentages are floored, never inferred from unrelated cheapest
 variants. `discount_ends_at` is currently null; campaign expiration never restores
 an earlier price. See [storefront-home-api.md](storefront-home-api.md) for examples,
 curation rules, and the stricter promotional-stock filter.
+
+Category icon upload and compatibility rules: [category-icons-api.md](category-icons-api.md).

@@ -9,10 +9,13 @@ import Foundation
 
 public struct CategoryCreate: Sendable, Codable, Hashable {
 
+    public static let iconKeyRule = StringRule(minLength: nil, maxLength: 500, pattern: nil)
     public static let returnWindowDaysRule = NumericRule<Int>(minimum: 0, exclusiveMinimum: true, maximum: nil, exclusiveMaximum: false, multipleOf: nil)
     public static let translationsRule = ArrayRule(minItems: 1, maxItems: nil, uniqueItems: false)
     public var parentId: Int?
     public var slug: String
+    /** Category icon upload key; null clears the icon on PATCH */
+    public var iconKey: String?
     public var iconUrl: String?
     public var sortOrder: Int? = 0
     public var requiresDocuments: Bool? = false
@@ -21,9 +24,10 @@ public struct CategoryCreate: Sendable, Codable, Hashable {
     public var returnWindowDays: Int?
     public var translations: [TranslationIn]
 
-    public init(parentId: Int? = nil, slug: String, iconUrl: String? = nil, sortOrder: Int? = 0, requiresDocuments: Bool? = false, requiredDocumentTypes: [String]? = nil, allowsVariants: Bool? = true, returnWindowDays: Int? = nil, translations: [TranslationIn]) {
+    public init(parentId: Int? = nil, slug: String, iconKey: String? = nil, iconUrl: String? = nil, sortOrder: Int? = 0, requiresDocuments: Bool? = false, requiredDocumentTypes: [String]? = nil, allowsVariants: Bool? = true, returnWindowDays: Int? = nil, translations: [TranslationIn]) {
         self.parentId = parentId
         self.slug = slug
+        self.iconKey = iconKey
         self.iconUrl = iconUrl
         self.sortOrder = sortOrder
         self.requiresDocuments = requiresDocuments
@@ -36,6 +40,7 @@ public struct CategoryCreate: Sendable, Codable, Hashable {
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case parentId = "parent_id"
         case slug
+        case iconKey = "icon_key"
         case iconUrl = "icon_url"
         case sortOrder = "sort_order"
         case requiresDocuments = "requires_documents"
@@ -51,6 +56,7 @@ public struct CategoryCreate: Sendable, Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(parentId, forKey: .parentId)
         try container.encode(slug, forKey: .slug)
+        try container.encodeIfPresent(iconKey, forKey: .iconKey)
         try container.encodeIfPresent(iconUrl, forKey: .iconUrl)
         try container.encodeIfPresent(sortOrder, forKey: .sortOrder)
         try container.encodeIfPresent(requiresDocuments, forKey: .requiresDocuments)

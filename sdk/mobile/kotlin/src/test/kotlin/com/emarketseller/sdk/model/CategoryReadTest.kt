@@ -118,6 +118,18 @@ class CategoryReadTest : ShouldSpec() {
             //modelInstance.updatedAt shouldBe ("TODO")
         }
 
+        // to test the property `iconKey` - Category icon upload key; null clears the icon on PATCH
+        should("test iconKey") {
+            // uncomment below to test the property
+            //modelInstance.iconKey shouldBe ("TODO")
+        }
+
+        // to test the property `iconSvg` - Sanitized static SVG markup; null for raster uploads and legacy URLs
+        should("test iconSvg") {
+            // uncomment below to test the property
+            //modelInstance.iconSvg shouldBe ("TODO")
+        }
+
         // to test the property `translations`
         should("test translations") {
             // uncomment below to test the property

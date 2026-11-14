@@ -35,6 +35,7 @@ import kotlinx.serialization.Contextual
  * @param slug 
  * @param translations 
  * @param parentId 
+ * @param iconKey Category icon upload key; null clears the icon on PATCH
  * @param iconUrl 
  * @param sortOrder 
  * @param requiresDocuments 
@@ -54,6 +55,10 @@ data class CategoryCreate (
 
     @SerialName(value = "parent_id")
     val parentId: kotlin.Int? = null,
+
+    /* Category icon upload key; null clears the icon on PATCH */
+    @SerialName(value = "icon_key")
+    val iconKey: kotlin.String? = null,
 
     @SerialName(value = "icon_url")
     val iconUrl: kotlin.String? = null,

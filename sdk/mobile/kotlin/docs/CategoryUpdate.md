@@ -5,6 +5,7 @@
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
 | **slug** | **kotlin.String** |  |  [optional] |
+| **iconKey** | **kotlin.String** | Category icon upload key; null clears the icon on PATCH |  [optional] |
 | **iconUrl** | **kotlin.String** |  |  [optional] |
 | **sortOrder** | **kotlin.Int** |  |  [optional] |
 | **isActive** | **kotlin.Boolean** |  |  [optional] |

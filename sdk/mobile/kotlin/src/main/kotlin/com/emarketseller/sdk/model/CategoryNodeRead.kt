@@ -39,6 +39,8 @@ import kotlinx.serialization.Contextual
  * @param sortOrder 
  * @param isLeaf 
  * @param productCount 
+ * @param iconKey Category icon upload key; null clears the icon on PATCH
+ * @param iconSvg Sanitized static SVG markup; null for raster uploads and legacy URLs
  * @param translations 
  * @param children 
  */
@@ -66,6 +68,14 @@ data class CategoryNodeRead (
 
     @SerialName(value = "product_count")
     val productCount: kotlin.Int,
+
+    /* Category icon upload key; null clears the icon on PATCH */
+    @SerialName(value = "icon_key")
+    val iconKey: kotlin.String? = null,
+
+    /* Sanitized static SVG markup; null for raster uploads and legacy URLs */
+    @SerialName(value = "icon_svg")
+    val iconSvg: kotlin.String? = null,
 
     @SerialName(value = "translations")
     val translations: kotlin.collections.List<TranslationRead>? = null,

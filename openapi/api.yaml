@@ -9026,6 +9026,13 @@ components:
         slug:
           type: string
           title: Slug
+        icon_key:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Icon Key
+          description: Category icon upload key; null clears the icon on PATCH
         icon_url:
           anyOf:
           - type: string
@@ -9089,6 +9096,19 @@ components:
         slug:
           type: string
           title: Slug
+        icon_key:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Icon Key
+          description: Category icon upload key; null clears the icon on PATCH
+        icon_svg:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon Svg
+          description: Sanitized static SVG markup; null for raster uploads and legacy URLs
         icon_url:
           anyOf:
           - type: string
@@ -9139,6 +9159,19 @@ components:
         slug:
           type: string
           title: Slug
+        icon_key:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Icon Key
+          description: Category icon upload key; null clears the icon on PATCH
+        icon_svg:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon Svg
+          description: Sanitized static SVG markup; null for raster uploads and legacy URLs
         icon_url:
           anyOf:
           - type: string
@@ -9214,6 +9247,13 @@ components:
           - type: string
           - type: 'null'
           title: Slug
+        icon_key:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Icon Key
+          description: Category icon upload key; null clears the icon on PATCH
         icon_url:
           anyOf:
           - type: string
@@ -13330,6 +13370,19 @@ components:
         slug:
           type: string
           title: Slug
+        icon_key:
+          anyOf:
+          - type: string
+            maxLength: 500
+          - type: 'null'
+          title: Icon Key
+          description: Category icon upload key; null clears the icon on PATCH
+        icon_svg:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon Svg
+          description: Sanitized static SVG markup; null for raster uploads and legacy URLs
         icon_url:
           anyOf:
           - type: string
@@ -14107,6 +14160,7 @@ components:
     UploadPurpose:
       type: string
       enum:
+      - category_icon
       - campaign_artwork
       - shop_logo
       - shop_banner

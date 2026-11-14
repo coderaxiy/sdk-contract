@@ -47,6 +47,8 @@ import kotlinx.serialization.Contextual
  * @param defaultCommissionRuleId 
  * @param createdAt 
  * @param updatedAt 
+ * @param iconKey Category icon upload key; null clears the icon on PATCH
+ * @param iconSvg Sanitized static SVG markup; null for raster uploads and legacy URLs
  * @param translations 
  * @param ancestors 
  */
@@ -95,6 +97,14 @@ data class SellerCategoryRead (
 
     @Contextual @SerialName(value = "updated_at")
     val updatedAt: java.time.OffsetDateTime,
+
+    /* Category icon upload key; null clears the icon on PATCH */
+    @SerialName(value = "icon_key")
+    val iconKey: kotlin.String? = null,
+
+    /* Sanitized static SVG markup; null for raster uploads and legacy URLs */
+    @SerialName(value = "icon_svg")
+    val iconSvg: kotlin.String? = null,
 
     @SerialName(value = "translations")
     val translations: kotlin.collections.List<TranslationRead>? = null,

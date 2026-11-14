@@ -35,7 +35,7 @@ is harmless.
 
 ## Auth
 
-Every purpose needs a login. All purposes except `refund_evidence` and `campaign_artwork` are for
+Every purpose needs a login. All purposes except `refund_evidence`, `campaign_artwork` and `category_icon` are for
 registered sellers only — `403 "Not registered as a seller"` otherwise, and
 banned sellers get `403`. `refund_evidence` is open to **any logged-in user** (buyers),
 limited to 30 uploads per day (`400 "Too many uploads today — try again tomorrow"`). Sellers in `pending_review` **can** upload (they need
@@ -45,7 +45,7 @@ to, for KYC documents).
 
 | | |
 |---|---|
-| Query | `purpose` (required): `shop_logo` \| `shop_banner` \| `product_image` \| `seller_document` \| `refund_evidence` \| `campaign_artwork` |
+| Query | `purpose` (required): `shop_logo` \| `shop_banner` \| `product_image` \| `seller_document` \| `refund_evidence` \| `campaign_artwork` \| `category_icon` |
 | Body | `multipart/form-data` with one field, `file` |
 | Response | `201` `UploadRead` |
 
@@ -60,6 +60,7 @@ attached by key through the admin campaign APIs (see
 
 | `purpose` | Accepted files | Stored as | Scaled to fit | Access |
 |---|---|---|---|---|
+| `category_icon` | SVG, JPEG, PNG, WebP (1 MiB) | sanitized SVG + WebP, or WebP | 512 × 512 | public; `categories:manage` |
 | `campaign_artwork` | JPEG, PNG, WebP | WebP | 3000 × 3000 | public; `storefront:manage` |
 | `shop_logo` | JPEG, PNG, WebP | WebP | 512 × 512 | public |
 | `shop_banner` | JPEG, PNG, WebP | WebP | 2400 × 2400 | public |
@@ -67,8 +68,9 @@ attached by key through the admin campaign APIs (see
 | `seller_document` | JPEG, PNG, WebP, **PDF** | WebP (images), PDF as-is | 3000 × 3000 | **private** |
 | `refund_evidence` | JPEG, PNG, WebP | WebP | 2048 × 2048 | **private** — the buyer, the shop's seller and admins, through the refund request |
 
+- Category icon limits and SVG processing differ: see [category-icons-api.md](category-icons-api.md).
 - **Max 10 MB** per file as sent, and at most 50 megapixels.
-- Images are **always re-encoded to WebP**: the phone's rotation is applied,
+- Raster images are **always re-encoded to WebP**: the phone's rotation is applied,
   metadata (including GPS location) is removed, transparency is kept. Images
   are only ever scaled down, never up. Don't pre-process on the client beyond
   what your UX needs — at most, downscale very large photos to save upload time.
@@ -85,8 +87,8 @@ attached by key through the admin campaign APIs (see
   id: number
   key: string           // send this when attaching the file
   url: string           // for immediate preview only — see "Private files"
-  purpose: "shop_logo" | "shop_banner" | "product_image" | "seller_document" | "refund_evidence" | "campaign_artwork"
-  content_type: string  // "image/webp" or "application/pdf"
+  purpose: "shop_logo" | "shop_banner" | "product_image" | "seller_document" | "refund_evidence" | "campaign_artwork" | "category_icon"
+  content_type: string  // "image/webp", "image/svg+xml" or "application/pdf"
   size_bytes: number    // size as stored, after re-encoding
   width: number | null  // null for PDFs
   height: number | null

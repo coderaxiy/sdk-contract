@@ -3744,6 +3744,11 @@ export interface components {
             parent_id?: number | null;
             /** Slug */
             slug: string;
+            /**
+             * Icon Key
+             * @description Category icon upload key; null clears the icon on PATCH
+             */
+            icon_key?: string | null;
             /** Icon Url */
             icon_url?: string | null;
             /**
@@ -3784,6 +3789,16 @@ export interface components {
             parent_id: number | null;
             /** Slug */
             slug: string;
+            /**
+             * Icon Key
+             * @description Category icon upload key; null clears the icon on PATCH
+             */
+            icon_key?: string | null;
+            /**
+             * Icon Svg
+             * @description Sanitized static SVG markup; null for raster uploads and legacy URLs
+             */
+            icon_svg?: string | null;
             /** Icon Url */
             icon_url: string | null;
             /** Sort Order */
@@ -3811,6 +3826,16 @@ export interface components {
             parent_id: number | null;
             /** Slug */
             slug: string;
+            /**
+             * Icon Key
+             * @description Category icon upload key; null clears the icon on PATCH
+             */
+            icon_key?: string | null;
+            /**
+             * Icon Svg
+             * @description Sanitized static SVG markup; null for raster uploads and legacy URLs
+             */
+            icon_svg?: string | null;
             /** Icon Url */
             icon_url: string | null;
             /** Sort Order */
@@ -3854,6 +3879,11 @@ export interface components {
         CategoryUpdate: {
             /** Slug */
             slug?: string | null;
+            /**
+             * Icon Key
+             * @description Category icon upload key; null clears the icon on PATCH
+             */
+            icon_key?: string | null;
             /** Icon Url */
             icon_url?: string | null;
             /** Sort Order */
@@ -5972,6 +6002,16 @@ export interface components {
             parent_id: number | null;
             /** Slug */
             slug: string;
+            /**
+             * Icon Key
+             * @description Category icon upload key; null clears the icon on PATCH
+             */
+            icon_key?: string | null;
+            /**
+             * Icon Svg
+             * @description Sanitized static SVG markup; null for raster uploads and legacy URLs
+             */
+            icon_svg?: string | null;
             /** Icon Url */
             icon_url: string | null;
             /** Sort Order */
@@ -6382,7 +6422,7 @@ export interface components {
          * UploadPurpose
          * @enum {string}
          */
-        UploadPurpose: "campaign_artwork" | "shop_logo" | "shop_banner" | "product_image" | "seller_document" | "refund_evidence";
+        UploadPurpose: "category_icon" | "campaign_artwork" | "shop_logo" | "shop_banner" | "product_image" | "seller_document" | "refund_evidence";
         /** UploadRead */
         UploadRead: {
             /** Id */

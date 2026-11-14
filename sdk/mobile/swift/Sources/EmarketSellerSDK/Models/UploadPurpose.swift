@@ -8,6 +8,7 @@
 import Foundation
 
 public enum UploadPurpose: String, Sendable, Codable, CaseIterable {
+    case categoryIcon = "category_icon"
     case campaignArtwork = "campaign_artwork"
     case shopLogo = "shop_logo"
     case shopBanner = "shop_banner"

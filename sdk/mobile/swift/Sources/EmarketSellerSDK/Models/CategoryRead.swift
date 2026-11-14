@@ -9,9 +9,14 @@ import Foundation
 
 public struct CategoryRead: Sendable, Codable, Hashable {
 
+    public static let iconKeyRule = StringRule(minLength: nil, maxLength: 500, pattern: nil)
     public var id: Int
     public var parentId: Int?
     public var slug: String
+    /** Category icon upload key; null clears the icon on PATCH */
+    public var iconKey: String?
+    /** Sanitized static SVG markup; null for raster uploads and legacy URLs */
+    public var iconSvg: String?
     public var iconUrl: String?
     public var sortOrder: Int
     public var isLeaf: Bool
@@ -25,10 +30,12 @@ public struct CategoryRead: Sendable, Codable, Hashable {
     public var updatedAt: Date
     public var translations: [TranslationRead]?
 
-    public init(id: Int, parentId: Int?, slug: String, iconUrl: String?, sortOrder: Int, isLeaf: Bool, isActive: Bool, requiresDocuments: Bool, requiredDocumentTypes: [String]?, allowsVariants: Bool, returnWindowDays: Int?, defaultCommissionRuleId: Int?, createdAt: Date, updatedAt: Date, translations: [TranslationRead]? = nil) {
+    public init(id: Int, parentId: Int?, slug: String, iconKey: String? = nil, iconSvg: String? = nil, iconUrl: String?, sortOrder: Int, isLeaf: Bool, isActive: Bool, requiresDocuments: Bool, requiredDocumentTypes: [String]?, allowsVariants: Bool, returnWindowDays: Int?, defaultCommissionRuleId: Int?, createdAt: Date, updatedAt: Date, translations: [TranslationRead]? = nil) {
         self.id = id
         self.parentId = parentId
         self.slug = slug
+        self.iconKey = iconKey
+        self.iconSvg = iconSvg
         self.iconUrl = iconUrl
         self.sortOrder = sortOrder
         self.isLeaf = isLeaf
@@ -47,6 +54,8 @@ public struct CategoryRead: Sendable, Codable, Hashable {
         case id
         case parentId = "parent_id"
         case slug
+        case iconKey = "icon_key"
+        case iconSvg = "icon_svg"
         case iconUrl = "icon_url"
         case sortOrder = "sort_order"
         case isLeaf = "is_leaf"
@@ -68,6 +77,8 @@ public struct CategoryRead: Sendable, Codable, Hashable {
         try container.encode(id, forKey: .id)
         try container.encode(parentId, forKey: .parentId)
         try container.encode(slug, forKey: .slug)
+        try container.encodeIfPresent(iconKey, forKey: .iconKey)
+        try container.encodeIfPresent(iconSvg, forKey: .iconSvg)
         try container.encode(iconUrl, forKey: .iconUrl)
         try container.encode(sortOrder, forKey: .sortOrder)
         try container.encode(isLeaf, forKey: .isLeaf)
