@@ -33,8 +33,10 @@ are rejected rather than silently removed. Unsupported artwork can be uploaded a
 Limits: 512 elements, depth 16, 32 KiB per attribute, 12,000 geometry/command tokens,
 and finite numeric values bounded by 1,000,000. Parsing and rasterization run in
 separate processes with 3 CPU seconds, 8 wall seconds, 512 MiB address space on Linux,
-and at most two concurrent workers per API process. Invalid/unsafe/over-budget inputs
-return 400; storage outages return 503. Deployment needs libcairo2 (included in Docker);
+and at most two concurrent workers per API process. Waiting for a worker is limited
+to 2 seconds; saturation returns 503. Invalid/unsafe/over-budget inputs
+return 400; storage outages, unavailable renderers and unexpected worker failures return 503.
+Unexpected worker exits are logged separately from invalid-file responses. Deployment needs libcairo2 (included in Docker);
 local macOS development needs `brew install cairo` and, for Python installations
 that do not search Homebrew libraries, `export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib`
 (use `/usr/local/lib` on Intel Macs).
@@ -55,6 +57,9 @@ Admin/seller category reads and public category trees include nullable:
 - `icon_key`: uploaded source key; null for legacy URLs.
 - `icon_url`: public raster fallback URL; legacy URL for old records.
 - `icon_svg`: server-sanitized markup for SVG uploads; otherwise null.
+
+Hex-alpha colors are normalized to equivalent RGBA values so the vector source
+and raster fallback agree.
 
 There is no writable `icon_svg` field. Prefer `icon_url` or `<img src>` for display;
 never inject client-provided SVG. There is no automatic recoloring/theme mode.
@@ -80,3 +85,13 @@ of partially removed media. Storage deletion failures retain that marked record 
 Deploy the migration and backend, publish the regenerated contract, then enable
 `PUBLIC_CATEGORY_ICON_UPLOADS_ENABLED=true` and rebuild the admin. Smoke-test upload,
 retry, save/retry, clear, cancel and unchanged legacy edits before rollout.
+
+## Migration readiness
+
+The API checks the required icon columns before seeding or serving requests. An
+outdated database produces an actionable startup error; it is never silently
+altered by `create_all()`. Apply `alembic upgrade head` to the same `DATABASE_URL`
+used by the API before starting/reloading code that uses the new schema. For local
+Docker: `docker exec emarket_api alembic upgrade head` when the container is running,
+or `docker compose run --rm emarket_api alembic upgrade head` before API startup.
+A code bind mount and Uvicorn reload do not apply database migrations.

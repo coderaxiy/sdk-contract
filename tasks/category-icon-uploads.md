@@ -127,3 +127,24 @@ Contract commit: this task's closing commit. Backend changes remain in the worki
 checkout alongside pre-existing uncommitted work; they have not been deployed.
 Install updated dependencies (Docker includes libcairo2), apply the migration,
 deploy and verify the API before enabling the admin rollout setting.
+
+## Follow-up review — 2026-11-15
+
+A live category load exposed that migration `f1c8a2d4e609` had not been applied to
+the local API database (still at `d9f4b7a2c601`). Applied it and verified both live
+admin and public category endpoints return HTTP 200. Added an actionable startup
+schema check, and strengthened the migration test to reconstruct the actual old
+enum rather than leaving the new enum value from metadata.create_all().
+
+Additional fixes: stable-order locking for icon swaps, refreshing locked upload
+records so stale cleanup markers cannot permit attachment, renderer/runtime
+failures reported as 503 with diagnostics instead of a misleading 400, bounded
+worker waiting, finite viewBox validation, and hex-alpha normalization so sanitized
+source and raster fallback agree. Added concurrency, stale-record, startup-check,
+worker-protocol and renderer-failure regressions.
+
+Validation: 44 database/API regression tests pass; 11 processing/security tests pass
+inside the Linux API container. Ruff and scoped mypy checks pass. OpenAPI export,
+validation and all SDK regeneration completed; schema output is unchanged by these
+internal reliability fixes. Legacy URL reachability remains outside backend
+validation; the documented static SVG subset still rejects CSS and references.
