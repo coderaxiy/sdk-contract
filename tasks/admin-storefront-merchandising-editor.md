@@ -48,3 +48,17 @@ Backend migration d9f4b7a2c601 adds tables, comparison columns and upload enum;
 restart seeds storefront:manage. Content starts empty: editors must create real
 campaigns. Close this task only after admin UI implementation/build/verification.
 
+
+## Frontend handoff
+
+Implement in `emarket-admin`. The current source has no campaign editor route.
+Add a permission-gated entry in the existing admin navigation, then deliver the
+campaign list/editor, draft preview, and home category configuration against the
+published contract. Use the existing admin HTTP client and generated types.
+
+Verify one editor workflow end to end: create a draft with uploaded artwork and
+ordered blocks, preview it, publish it, check the corresponding public payload,
+then unpublish and confirm the public placement disappears. With two editor
+sessions, verify a stale revision shows a recoverable conflict and preserves
+unsaved edits. Record the admin commit and local build and verification in the
+resolution.

@@ -64,3 +64,16 @@ backend tests/api/test_storefront.py; screenshots need the same real local recor
 No admin website work is included here: see admin-storefront-merchandising-editor.
 Close this handoff only after client implementation/build and local verification.
 
+## Frontend handoff
+
+Implement in customer web (`emarket`). Use the
+[UX brief](storefront-home-web-parity.md) for the page behavior and this ticket
+for the published API. Track both tickets against the same implementation.
+
+The current customer web source has no references to the published home or
+campaign paths. Start with `src/pages/index.astro` and the shared API client in
+`src/lib/api/`. Add the home payload and campaign routes, then verify direct
+campaign and section links, back navigation, and the catalog fallback when
+merchandising is empty or temporarily unavailable. Use real published campaign
+data in the local verification. Record the client commit and verification in
+both task resolutions.

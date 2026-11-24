@@ -54,3 +54,17 @@ separately in `admin-manual-phone-otp-inbox`. Do not present automatic SMS deliv
 Test phone-only signup→confirm→login, wrong/expired/resend code, nullable email,
 recovery/session revocation, optional email confirmation, and existing email login.
 Close this task after the client implementation, build, and local verification.
+
+## Frontend handoff
+
+Implement the customer flows in `emarket`. Start with the existing auth endpoints
+in `src/lib/api/endpoints.ts` and the sign-in, registration, recovery, and account
+UI. Also audit user identity displays and API types in `emarket-admin` and
+`emarket-seller-web` for required-but-nullable email. Keep the existing admin
+staff OTP inbox as the operator workflow.
+
+Verify that phone signup confirmation followed by login preserves the guest
+cart, that a phone-only buyer can use the site before adding email, and that
+existing email sign-in still works. Check that admin and seller screens can
+render a phone-only buyer without a placeholder email. Record verification for
+each affected checkout in the resolution.
