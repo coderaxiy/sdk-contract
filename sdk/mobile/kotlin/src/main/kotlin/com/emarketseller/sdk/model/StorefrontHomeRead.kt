@@ -25,6 +25,7 @@ package com.emarketseller.sdk.model
 
 import com.emarketseller.sdk.model.BannerRead
 import com.emarketseller.sdk.model.CategoryNodeRead
+import com.emarketseller.sdk.model.HomepageShopBannerRead
 import com.emarketseller.sdk.model.ProductsBlockRead
 
 import kotlinx.serialization.Serializable
@@ -36,6 +37,7 @@ import kotlinx.serialization.Contextual
  *
  * @param validUntil 
  * @param banners 
+ * @param shopBanners 
  * @param categories 
  * @param discountSections 
  * @param recommendationSection 
@@ -49,6 +51,9 @@ data class StorefrontHomeRead (
 
     @SerialName(value = "banners")
     val banners: kotlin.collections.List<BannerRead>,
+
+    @SerialName(value = "shop_banners")
+    val shopBanners: kotlin.collections.List<HomepageShopBannerRead>,
 
     @SerialName(value = "categories")
     val categories: kotlin.collections.List<CategoryNodeRead>,

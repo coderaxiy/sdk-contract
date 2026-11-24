@@ -32,10 +32,15 @@ Class | Method | HTTP request | Description
 *AdminStorefrontAPI* | [**adminCampaignsApiV1AdminStorefrontCampaignsGet**](docs/AdminStorefrontAPI.md#admincampaignsapiv1adminstorefrontcampaignsget) | **GET** /api/v1/admin/storefront/campaigns | Admin Campaigns
 *AdminStorefrontAPI* | [**adminHomeApiV1AdminStorefrontHomeGet**](docs/AdminStorefrontAPI.md#adminhomeapiv1adminstorefronthomeget) | **GET** /api/v1/admin/storefront/home | Admin Home
 *AdminStorefrontAPI* | [**createCampaignApiV1AdminStorefrontCampaignsPost**](docs/AdminStorefrontAPI.md#createcampaignapiv1adminstorefrontcampaignspost) | **POST** /api/v1/admin/storefront/campaigns | Create Campaign
+*AdminStorefrontAPI* | [**createHomepageShopBannerApiV1AdminStorefrontHomeBannersPost**](docs/AdminStorefrontAPI.md#createhomepageshopbannerapiv1adminstorefronthomebannerspost) | **POST** /api/v1/admin/storefront/home/banners | Create Homepage Shop Banner
 *AdminStorefrontAPI* | [**deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete**](docs/AdminStorefrontAPI.md#deletecampaignapiv1adminstorefrontcampaignscampaigniddelete) | **DELETE** /api/v1/admin/storefront/campaigns/{campaign_id} | Delete Campaign
+*AdminStorefrontAPI* | [**listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGet**](docs/AdminStorefrontAPI.md#listhomepagebannershopsapiv1adminstorefronthomebannersshopsget) | **GET** /api/v1/admin/storefront/home/banners/shops | List Homepage Banner Shops
+*AdminStorefrontAPI* | [**listHomepageShopBannersApiV1AdminStorefrontHomeBannersGet**](docs/AdminStorefrontAPI.md#listhomepageshopbannersapiv1adminstorefronthomebannersget) | **GET** /api/v1/admin/storefront/home/banners | List Homepage Shop Banners
 *AdminStorefrontAPI* | [**previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet**](docs/AdminStorefrontAPI.md#previewcampaignapiv1adminstorefrontcampaignscampaignidpreviewget) | **GET** /api/v1/admin/storefront/campaigns/{campaign_id}/preview | Preview Campaign
+*AdminStorefrontAPI* | [**setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatch**](docs/AdminStorefrontAPI.md#sethomepageshopbannerpublicationapiv1adminstorefronthomebannersbanneridpublicationpatch) | **PATCH** /api/v1/admin/storefront/home/banners/{banner_id}/publication | Set Homepage Shop Banner Publication
 *AdminStorefrontAPI* | [**updateCampaignApiV1AdminStorefrontCampaignsCampaignIdPut**](docs/AdminStorefrontAPI.md#updatecampaignapiv1adminstorefrontcampaignscampaignidput) | **PUT** /api/v1/admin/storefront/campaigns/{campaign_id} | Update Campaign
 *AdminStorefrontAPI* | [**updateHomeApiV1AdminStorefrontHomePut**](docs/AdminStorefrontAPI.md#updatehomeapiv1adminstorefronthomeput) | **PUT** /api/v1/admin/storefront/home | Update Home
+*AdminStorefrontAPI* | [**updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPut**](docs/AdminStorefrontAPI.md#updatehomepageshopbannerapiv1adminstorefronthomebannersbanneridput) | **PUT** /api/v1/admin/storefront/home/banners/{banner_id} | Update Homepage Shop Banner
 *AuthAPI* | [**changeMyPasswordApiV1AuthMePasswordPost**](docs/AuthAPI.md#changemypasswordapiv1authmepasswordpost) | **POST** /api/v1/auth/me/password | Change My Password
 *AuthAPI* | [**completeQuickStartApiV1AuthMeQuickStartPost**](docs/AuthAPI.md#completequickstartapiv1authmequickstartpost) | **POST** /api/v1/auth/me/quick-start | Complete Quick Start
 *AuthAPI* | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](docs/AuthAPI.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** /api/v1/auth/password-reset/confirm | Confirm Password Reset
@@ -219,13 +224,18 @@ Class | Method | HTTP request | Description
 *StorefrontAPI* | [**adminCampaignsApiV1AdminStorefrontCampaignsGet**](docs/StorefrontAPI.md#admincampaignsapiv1adminstorefrontcampaignsget) | **GET** /api/v1/admin/storefront/campaigns | Admin Campaigns
 *StorefrontAPI* | [**adminHomeApiV1AdminStorefrontHomeGet**](docs/StorefrontAPI.md#adminhomeapiv1adminstorefronthomeget) | **GET** /api/v1/admin/storefront/home | Admin Home
 *StorefrontAPI* | [**createCampaignApiV1AdminStorefrontCampaignsPost**](docs/StorefrontAPI.md#createcampaignapiv1adminstorefrontcampaignspost) | **POST** /api/v1/admin/storefront/campaigns | Create Campaign
+*StorefrontAPI* | [**createHomepageShopBannerApiV1AdminStorefrontHomeBannersPost**](docs/StorefrontAPI.md#createhomepageshopbannerapiv1adminstorefronthomebannerspost) | **POST** /api/v1/admin/storefront/home/banners | Create Homepage Shop Banner
 *StorefrontAPI* | [**deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete**](docs/StorefrontAPI.md#deletecampaignapiv1adminstorefrontcampaignscampaigniddelete) | **DELETE** /api/v1/admin/storefront/campaigns/{campaign_id} | Delete Campaign
+*StorefrontAPI* | [**listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGet**](docs/StorefrontAPI.md#listhomepagebannershopsapiv1adminstorefronthomebannersshopsget) | **GET** /api/v1/admin/storefront/home/banners/shops | List Homepage Banner Shops
+*StorefrontAPI* | [**listHomepageShopBannersApiV1AdminStorefrontHomeBannersGet**](docs/StorefrontAPI.md#listhomepageshopbannersapiv1adminstorefronthomebannersget) | **GET** /api/v1/admin/storefront/home/banners | List Homepage Shop Banners
 *StorefrontAPI* | [**previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet**](docs/StorefrontAPI.md#previewcampaignapiv1adminstorefrontcampaignscampaignidpreviewget) | **GET** /api/v1/admin/storefront/campaigns/{campaign_id}/preview | Preview Campaign
+*StorefrontAPI* | [**setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatch**](docs/StorefrontAPI.md#sethomepageshopbannerpublicationapiv1adminstorefronthomebannersbanneridpublicationpatch) | **PATCH** /api/v1/admin/storefront/home/banners/{banner_id}/publication | Set Homepage Shop Banner Publication
 *StorefrontAPI* | [**storefrontCampaignApiV1StorefrontCampaignsSlugGet**](docs/StorefrontAPI.md#storefrontcampaignapiv1storefrontcampaignsslugget) | **GET** /api/v1/storefront/campaigns/{slug} | Storefront Campaign
 *StorefrontAPI* | [**storefrontHomeApiV1StorefrontHomeGet**](docs/StorefrontAPI.md#storefronthomeapiv1storefronthomeget) | **GET** /api/v1/storefront/home | Storefront Home
 *StorefrontAPI* | [**storefrontSectionProductsApiV1StorefrontCampaignsSlugSectionsSectionIdProductsGet**](docs/StorefrontAPI.md#storefrontsectionproductsapiv1storefrontcampaignsslugsectionssectionidproductsget) | **GET** /api/v1/storefront/campaigns/{slug}/sections/{section_id}/products | Storefront Section Products
 *StorefrontAPI* | [**updateCampaignApiV1AdminStorefrontCampaignsCampaignIdPut**](docs/StorefrontAPI.md#updatecampaignapiv1adminstorefrontcampaignscampaignidput) | **PUT** /api/v1/admin/storefront/campaigns/{campaign_id} | Update Campaign
 *StorefrontAPI* | [**updateHomeApiV1AdminStorefrontHomePut**](docs/StorefrontAPI.md#updatehomeapiv1adminstorefronthomeput) | **PUT** /api/v1/admin/storefront/home | Update Home
+*StorefrontAPI* | [**updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPut**](docs/StorefrontAPI.md#updatehomepageshopbannerapiv1adminstorefronthomebannersbanneridput) | **PUT** /api/v1/admin/storefront/home/banners/{banner_id} | Update Homepage Shop Banner
 *UploadsAPI* | [**createUploadApiV1UploadsPost**](docs/UploadsAPI.md#createuploadapiv1uploadspost) | **POST** /api/v1/uploads | Create Upload
 *UsersAPI* | [**adminCreateUserApiV1UsersPost**](docs/UsersAPI.md#admincreateuserapiv1userspost) | **POST** /api/v1/users/ | Admin Create User
 *UsersAPI* | [**assignRoleToUserApiV1UsersUserIdRolesPost**](docs/UsersAPI.md#assignroletouserapiv1usersuseridrolespost) | **POST** /api/v1/users/{user_id}/roles | Assign Role To User
@@ -334,6 +344,11 @@ Class | Method | HTTP request | Description
  - [HoldingItemRead](docs/HoldingItemRead.md)
  - [HoldingRead](docs/HoldingRead.md)
  - [HomeWrite](docs/HomeWrite.md)
+ - [HomepageShopBannerAdminRead](docs/HomepageShopBannerAdminRead.md)
+ - [HomepageShopBannerPublication](docs/HomepageShopBannerPublication.md)
+ - [HomepageShopBannerRead](docs/HomepageShopBannerRead.md)
+ - [HomepageShopBannerWrite](docs/HomepageShopBannerWrite.md)
+ - [HomepageShopOptionRead](docs/HomepageShopOptionRead.md)
  - [ImageBlockIn](docs/ImageBlockIn.md)
  - [ImageBlockRead](docs/ImageBlockRead.md)
  - [ImagePairIn](docs/ImagePairIn.md)
@@ -464,6 +479,7 @@ Class | Method | HTTP request | Description
  - [SetAttributesRequest](docs/SetAttributesRequest.md)
  - [ShipmentItemRead](docs/ShipmentItemRead.md)
  - [ShipmentRead](docs/ShipmentRead.md)
+ - [ShopBannerDestination](docs/ShopBannerDestination.md)
  - [ShopCreateRequest](docs/ShopCreateRequest.md)
  - [ShopPublicRead](docs/ShopPublicRead.md)
  - [ShopRead](docs/ShopRead.md)

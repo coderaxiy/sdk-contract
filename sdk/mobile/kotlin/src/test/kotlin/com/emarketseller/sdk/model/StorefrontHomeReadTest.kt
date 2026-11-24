@@ -29,6 +29,7 @@ import io.kotlintest.specs.ShouldSpec
 import com.emarketseller.sdk.model.StorefrontHomeRead
 import com.emarketseller.sdk.model.BannerRead
 import com.emarketseller.sdk.model.CategoryNodeRead
+import com.emarketseller.sdk.model.HomepageShopBannerRead
 import com.emarketseller.sdk.model.ProductsBlockRead
 
 class StorefrontHomeReadTest : ShouldSpec() {
@@ -46,6 +47,12 @@ class StorefrontHomeReadTest : ShouldSpec() {
         should("test banners") {
             // uncomment below to test the property
             //modelInstance.banners shouldBe ("TODO")
+        }
+
+        // to test the property `shopBanners`
+        should("test shopBanners") {
+            // uncomment below to test the property
+            //modelInstance.shopBanners shouldBe ("TODO")
         }
 
         // to test the property `categories`

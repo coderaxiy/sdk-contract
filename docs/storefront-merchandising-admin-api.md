@@ -21,6 +21,55 @@ Every write records an audit action (`storefront.campaign_saved`,
 `storefront.campaign_deleted`, `storefront.home_saved`). Preview/read responses
 are no-store. Public home/campaign reads need no permission.
 
+## Standalone homepage shop banners
+
+These endpoints use the same cookie login and `storefront:manage` permission.
+Each path is under `/api/v1/admin/storefront/home/banners`.
+
+| Method | Suffix | Input and result |
+|---|---|---|
+| GET | empty | `HomepageShopBannerAdminRead[]`, ordered by `(sort_order,id)` |
+| GET | `/shops` | `HomepageShopOptionRead[]` for active shops, ordered by name and ID. Optional `q` is a case-insensitive name/slug substring (1–100 characters). |
+| POST | empty | `HomepageShopBannerWrite` → `201 HomepageShopBannerAdminRead` in draft state |
+| PUT | `/{banner_id}` | Full `HomepageShopBannerWrite` → `HomepageShopBannerAdminRead`. Keeps publication state. |
+| PATCH | `/{banner_id}/publication` | `HomepageShopBannerPublication` (`{published: boolean}`) → `HomepageShopBannerAdminRead` |
+
+Both lists accept `skip` (default 0) and `limit` (default 50, 1–100).
+`HomepageShopOptionRead` contains `id`, `name`, `slug`, and `status`.
+The banner response includes the editable data plus `id`, `published`, and
+the current `shop` summary, including a shop that has since become non-public.
+
+```json
+{
+  "shop_id": 42,
+  "artwork": {"uz": {"mobile_key": "storefront/artwork/12/shop.webp"}},
+  "sort_order": 0,
+  "starts_at": "2026-11-24T04:00:00Z",
+  "ends_at": null
+}
+```
+
+Use a stable shop ID from the picker. A draft may reference an existing
+non-public shop, but publishing or changing a published banner to a different
+shop requires an active destination. A shop that later becomes non-public hides
+its banners while preserving their publication setting. Upload artwork using
+`campaign_artwork` as described below. A single shared image uses only
+`artwork.uz.mobile_key`. Add `ru` for a separate Russian image and add
+`desktop_key` per locale only when a separate desktop crop is needed. A saving
+editor can retain keys already on this banner. New keys must belong to that
+editor. All referenced uploads must exist, have the correct purpose, and have
+stored image dimensions.
+
+A lower nonnegative `sort_order` appears first. Dates are optional and accept
+ISO 8601 with an offset. The API returns UTC. Present and collect local times
+in `Asia/Tashkent` and convert to UTC before sending. Use `null` for no bound.
+If both bounds exist, end must be after start. Unknown shop and invalid artwork
+return 400. Unknown banner returns 404. Invalid input shape, position, or
+schedule returns 422. Saves and publication changes record audit entries.
+
+Campaign banner endpoints and data retain their existing behavior. Deploy
+backend migration `7b3e2a1c9d04` before enabling the new editor.
+
 ## Upload artwork first
 
 `POST /uploads?purpose=campaign_artwork`, multipart `file`, uses the established

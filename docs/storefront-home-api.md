@@ -9,7 +9,7 @@ The exported OpenAPI and generated SDKs are authoritative.
 
 | GET | Returns |
 |---|---|
-| `/storefront/home` | `StorefrontHomeRead`: `valid_until`, `banners`, `categories`, `discount_sections`, nullable `recommendation_section` |
+| `/storefront/home` | `StorefrontHomeRead`: `valid_until`, campaign `banners`, `shop_banners`, `categories`, `discount_sections`, nullable `recommendation_section` |
 | `/storefront/campaigns/{slug}` | `CampaignRead`: `valid_until`, id, slug, localized title/intro, optional hero, categories, ordered typed blocks |
 | `/storefront/campaigns/{slug}/sections/{section_id}/products?skip=0&limit=20` | Plain `ProductCardRead[]`, `X-Total-Count`; skip ≥ 0, limit 1–100 |
 
@@ -20,6 +20,22 @@ are internal destinations, never arbitrary URLs. Web routes should be
 locale mechanism preserved. Category shortcuts retain category slug links; product
 cards retain the existing shop/product slug destination. The server never asks
 clients to filter draft or scheduled content.
+
+Standalone shop banners are in `shop_banners: HomepageShopBannerRead[]`. Each
+item includes `id`, `sort_order`, `title` (the current shop name), responsive
+`artwork`, and `destination: {type: "shop", shop_id, shop_slug}`. On buyer web,
+link to the existing `/shops/{shop_slug}` route and preserve locale handling.
+Use the slug from each fresh response. The backend resolves it from the shop ID
+and hides the banner once the shop is non-public. Only published banners with
+an active shop and a current display window appear. Start is inclusive and end
+is exclusive. `valid_until` includes the next visible-shop banner schedule
+boundary when it falls before the usual refresh deadline.
+
+Shop banner artwork follows the same Russian-to-Uzbek and desktop-to-mobile
+fallback rules described below. `shop_banners` is ordered by `(sort_order, id)`.
+To combine both arrays in one web carousel, sort by `sort_order`, then shop
+before campaign for cross-type ties, then `id`. Key slides by destination type
+and ID. Campaign banners retain their existing payload and ordering in `banners`.
 
 `404` means unknown/draft/unpublished/not-yet-started/expired campaign, or a section
 not belonging to that campaign (or not a products block). Show campaign unavailable
@@ -129,8 +145,9 @@ percentages, banners, or a client countdown. Historical order prices stay frozen
 Reads use `Cache-Control: no-store`, `Vary: Accept-Language`; public storefront
 error responses also prohibit caching. Do not persist promo responses in CDN,
 service-worker or offline caches. `valid_until` is the earlier of 60 seconds from
-server time and the next relevant campaign boundary (home includes upcoming
-published campaigns; campaign detail includes its own boundary). Re-fetch by that
+server time and the next relevant schedule boundary (home includes upcoming
+published campaigns and eligible shop destinations; campaign detail includes
+its own boundary). Re-fetch by that
 UTC deadline and on returning to the page. If refresh fails, remove expired
 promotional content rather than continue promising savings; categories and the
 ordinary catalog can have independent retry states. Section view-all should
@@ -147,7 +164,7 @@ stale deep links return 404. No invalidation/push subscription is required.
 No active promotions (categories may still contain catalog roots):
 
 ```json
-{"valid_until":"2026-11-04T10:01:00Z","banners":[],"categories":[],"discount_sections":[],"recommendation_section":null}
+{"valid_until":"2026-11-04T10:01:00Z","banners":[],"shop_banners":[],"categories":[],"discount_sections":[],"recommendation_section":null}
 ```
 
 Populated home with missing Russian copy (requesting Russian returns Uzbek):
@@ -158,6 +175,7 @@ Populated home with missing Russian copy (requesting Russian returns Uzbek):
   "banners":[{"id":1,"sort_order":0,"title":"Chegirmalar",
     "artwork":{"mobile":{"url":"https://assets.example/crop.webp","width":600,"height":300},"desktop":{"url":"https://assets.example/wide.webp","width":1200,"height":300}},
     "destination":{"type":"campaign","campaign_slug":"autumn"}}],
+  "shop_banners":[],
   "categories":[],
   "discount_sections":[{"type":"products","id":3,"sort_order":0,"title":"Takliflar",
     "destination":{"type":"campaign_section","campaign_slug":"autumn","section_id":3},"total":1,

@@ -169,6 +169,45 @@ open class StorefrontAPI {
     }
 
     /**
+     Create Homepage Shop Banner
+     
+     - parameter homepageShopBannerWrite: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: HomepageShopBannerAdminRead
+     */
+    open class func createHomepageShopBannerApiV1AdminStorefrontHomeBannersPost(homepageShopBannerWrite: HomepageShopBannerWrite, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> HomepageShopBannerAdminRead {
+        return try await createHomepageShopBannerApiV1AdminStorefrontHomeBannersPostWithRequestBuilder(homepageShopBannerWrite: homepageShopBannerWrite, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Create Homepage Shop Banner
+     - POST /api/v1/admin/storefront/home/banners
+     - Create an unpublished shop banner.
+     - parameter homepageShopBannerWrite: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<HomepageShopBannerAdminRead> 
+     */
+    open class func createHomepageShopBannerApiV1AdminStorefrontHomeBannersPostWithRequestBuilder(homepageShopBannerWrite: HomepageShopBannerWrite, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<HomepageShopBannerAdminRead> {
+        let localVariablePath = "/api/v1/admin/storefront/home/banners"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: homepageShopBannerWrite, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<HomepageShopBannerAdminRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
      Delete Campaign
      
      - parameter campaignId: (path)  
@@ -207,6 +246,98 @@ open class StorefrontAPI {
         let localVariableRequestBuilder: RequestBuilder<Void>.Type = apiConfiguration.requestBuilderFactory.getNonDecodableBuilder()
 
         return localVariableRequestBuilder.init(method: "DELETE", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     List Homepage Banner Shops
+     
+     - parameter q: (query)  (optional)
+     - parameter skip: (query)  (optional, default to 0)
+     - parameter limit: (query)  (optional, default to 50)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [HomepageShopOptionRead]
+     */
+    open class func listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGet(q: String? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [HomepageShopOptionRead] {
+        return try await listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGetWithRequestBuilder(q: q, skip: skip, limit: limit, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     List Homepage Banner Shops
+     - GET /api/v1/admin/storefront/home/banners/shops
+     - Search public shops by name or slug for the banner picker.
+     - parameter q: (query)  (optional)
+     - parameter skip: (query)  (optional, default to 0)
+     - parameter limit: (query)  (optional, default to 50)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[HomepageShopOptionRead]> 
+     */
+    open class func listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGetWithRequestBuilder(q: String? = nil, skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[HomepageShopOptionRead]> {
+        let localVariablePath = "/api/v1/admin/storefront/home/banners/shops"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "q": (wrappedValue: q?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "skip": (wrappedValue: skip?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "limit": (wrappedValue: limit?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[HomepageShopOptionRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     List Homepage Shop Banners
+     
+     - parameter skip: (query)  (optional, default to 0)
+     - parameter limit: (query)  (optional, default to 50)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: [HomepageShopBannerAdminRead]
+     */
+    open class func listHomepageShopBannersApiV1AdminStorefrontHomeBannersGet(skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> [HomepageShopBannerAdminRead] {
+        return try await listHomepageShopBannersApiV1AdminStorefrontHomeBannersGetWithRequestBuilder(skip: skip, limit: limit, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     List Homepage Shop Banners
+     - GET /api/v1/admin/storefront/home/banners
+     - parameter skip: (query)  (optional, default to 0)
+     - parameter limit: (query)  (optional, default to 50)
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<[HomepageShopBannerAdminRead]> 
+     */
+    open class func listHomepageShopBannersApiV1AdminStorefrontHomeBannersGetWithRequestBuilder(skip: Int? = nil, limit: Int? = nil, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<[HomepageShopBannerAdminRead]> {
+        let localVariablePath = "/api/v1/admin/storefront/home/banners"
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters: [String: any Sendable]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "skip": (wrappedValue: skip?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+            "limit": (wrappedValue: limit?.asParameter(codableHelper: apiConfiguration.codableHelper), isExplode: true),
+        ])
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[HomepageShopBannerAdminRead]>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }
 
     /**
@@ -249,6 +380,49 @@ open class StorefrontAPI {
         let localVariableRequestBuilder: RequestBuilder<CampaignRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Set Homepage Shop Banner Publication
+     
+     - parameter bannerId: (path)  
+     - parameter homepageShopBannerPublication: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: HomepageShopBannerAdminRead
+     */
+    open class func setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatch(bannerId: Int, homepageShopBannerPublication: HomepageShopBannerPublication, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> HomepageShopBannerAdminRead {
+        return try await setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatchWithRequestBuilder(bannerId: bannerId, homepageShopBannerPublication: homepageShopBannerPublication, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Set Homepage Shop Banner Publication
+     - PATCH /api/v1/admin/storefront/home/banners/{banner_id}/publication
+     - parameter bannerId: (path)  
+     - parameter homepageShopBannerPublication: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<HomepageShopBannerAdminRead> 
+     */
+    open class func setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatchWithRequestBuilder(bannerId: Int, homepageShopBannerPublication: HomepageShopBannerPublication, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<HomepageShopBannerAdminRead> {
+        var localVariablePath = "/api/v1/admin/storefront/home/banners/{banner_id}/publication"
+        let bannerIdPreEscape = "\(APIHelper.mapValueToPathItem(bannerId))"
+        let bannerIdPostEscape = bannerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{banner_id}", with: bannerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: homepageShopBannerPublication, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<HomepageShopBannerAdminRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }
 
     /**
@@ -454,6 +628,50 @@ open class StorefrontAPI {
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<HomeWrite>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "PUT", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
+    }
+
+    /**
+     Update Homepage Shop Banner
+     
+     - parameter bannerId: (path)  
+     - parameter homepageShopBannerWrite: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: HomepageShopBannerAdminRead
+     */
+    open class func updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPut(bannerId: Int, homepageShopBannerWrite: HomepageShopBannerWrite, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) async throws(ErrorResponse) -> HomepageShopBannerAdminRead {
+        return try await updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPutWithRequestBuilder(bannerId: bannerId, homepageShopBannerWrite: homepageShopBannerWrite, accessToken: accessToken, apiConfiguration: apiConfiguration).execute().body
+    }
+
+    /**
+     Update Homepage Shop Banner
+     - PUT /api/v1/admin/storefront/home/banners/{banner_id}
+     - Replace editable content and schedule while preserving publication state.
+     - parameter bannerId: (path)  
+     - parameter homepageShopBannerWrite: (body)  
+     - parameter accessToken: ()  (optional)
+     - parameter apiConfiguration: The configuration for the http request.
+     - returns: RequestBuilder<HomepageShopBannerAdminRead> 
+     */
+    open class func updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPutWithRequestBuilder(bannerId: Int, homepageShopBannerWrite: HomepageShopBannerWrite, accessToken: String? = nil, apiConfiguration: EmarketSellerSDKAPIConfiguration = EmarketSellerSDKAPIConfiguration.shared) -> RequestBuilder<HomepageShopBannerAdminRead> {
+        var localVariablePath = "/api/v1/admin/storefront/home/banners/{banner_id}"
+        let bannerIdPreEscape = "\(APIHelper.mapValueToPathItem(bannerId))"
+        let bannerIdPostEscape = bannerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{banner_id}", with: bannerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = apiConfiguration.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: homepageShopBannerWrite, codableHelper: apiConfiguration.codableHelper)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: (any Sendable)?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<HomepageShopBannerAdminRead>.Type = apiConfiguration.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "PUT", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false, apiConfiguration: apiConfiguration)
     }

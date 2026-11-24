@@ -384,6 +384,234 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/storefront/home/banners/shops:
+    get:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: List Homepage Banner Shops
+      description: Search public shops by name or slug for the banner picker.
+      operationId: list_homepage_banner_shops_api_v1_admin_storefront_home_banners_shops_get
+      parameters:
+      - name: q
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            minLength: 1
+            maxLength: 100
+          - type: 'null'
+          title: Q
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HomepageShopOptionRead'
+                title: Response List Homepage Banner Shops Api V1 Admin Storefront Home Banners Shops
+                  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/storefront/home/banners:
+    get:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: List Homepage Shop Banners
+      operationId: list_homepage_shop_banners_api_v1_admin_storefront_home_banners_get
+      parameters:
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HomepageShopBannerAdminRead'
+                title: Response List Homepage Shop Banners Api V1 Admin Storefront Home Banners Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Create Homepage Shop Banner
+      description: Create an unpublished shop banner.
+      operationId: create_homepage_shop_banner_api_v1_admin_storefront_home_banners_post
+      parameters:
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HomepageShopBannerWrite'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomepageShopBannerAdminRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/storefront/home/banners/{banner_id}:
+    put:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Update Homepage Shop Banner
+      description: Replace editable content and schedule while preserving publication state.
+      operationId: update_homepage_shop_banner_api_v1_admin_storefront_home_banners__banner_id__put
+      parameters:
+      - name: banner_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Banner Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HomepageShopBannerWrite'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomepageShopBannerAdminRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/admin/storefront/home/banners/{banner_id}/publication:
+    patch:
+      tags:
+      - storefront
+      - admin-storefront
+      summary: Set Homepage Shop Banner Publication
+      operationId: set_homepage_shop_banner_publication_api_v1_admin_storefront_home_banners__banner_id__publication_patch
+      parameters:
+      - name: banner_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Banner Id
+      - name: access_token
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Access Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HomepageShopBannerPublication'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HomepageShopBannerAdminRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/v1/auth/register:
     post:
       tags:
@@ -10002,6 +10230,134 @@ components:
       additionalProperties: false
       type: object
       title: HomeWrite
+    HomepageShopBannerAdminRead:
+      properties:
+        shop_id:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Shop Id
+        artwork:
+          $ref: '#/components/schemas/LocalizedArtwork'
+        starts_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Starts At
+        ends_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Ends At
+        sort_order:
+          type: integer
+          maximum: 2147483647.0
+          minimum: 0.0
+          title: Sort Order
+          default: 0
+        id:
+          type: integer
+          title: Id
+        shop:
+          $ref: '#/components/schemas/HomepageShopOptionRead'
+        published:
+          type: boolean
+          title: Published
+      additionalProperties: false
+      type: object
+      required:
+      - shop_id
+      - artwork
+      - id
+      - shop
+      - published
+      title: HomepageShopBannerAdminRead
+    HomepageShopBannerPublication:
+      properties:
+        published:
+          type: boolean
+          title: Published
+      additionalProperties: false
+      type: object
+      required:
+      - published
+      title: HomepageShopBannerPublication
+    HomepageShopBannerRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        sort_order:
+          type: integer
+          title: Sort Order
+        title:
+          type: string
+          title: Title
+        artwork:
+          $ref: '#/components/schemas/ArtworkRead'
+        destination:
+          $ref: '#/components/schemas/ShopBannerDestination'
+      type: object
+      required:
+      - id
+      - sort_order
+      - title
+      - artwork
+      - destination
+      title: HomepageShopBannerRead
+    HomepageShopBannerWrite:
+      properties:
+        shop_id:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Shop Id
+        artwork:
+          $ref: '#/components/schemas/LocalizedArtwork'
+        starts_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Starts At
+        ends_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Ends At
+        sort_order:
+          type: integer
+          maximum: 2147483647.0
+          minimum: 0.0
+          title: Sort Order
+          default: 0
+      additionalProperties: false
+      type: object
+      required:
+      - shop_id
+      - artwork
+      title: HomepageShopBannerWrite
+    HomepageShopOptionRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+        slug:
+          type: string
+          title: Slug
+        status:
+          $ref: '#/components/schemas/ShopStatus'
+      type: object
+      required:
+      - id
+      - name
+      - slug
+      - status
+      title: HomepageShopOptionRead
     ImageBlockIn:
       properties:
         id:
@@ -13697,6 +14053,24 @@ components:
       - received_by_staff_id
       - created_at
       title: ShipmentRead
+    ShopBannerDestination:
+      properties:
+        type:
+          type: string
+          const: shop
+          title: Type
+          default: shop
+        shop_id:
+          type: integer
+          title: Shop Id
+        shop_slug:
+          type: string
+          title: Shop Slug
+      type: object
+      required:
+      - shop_id
+      - shop_slug
+      title: ShopBannerDestination
     ShopCreateRequest:
       properties:
         name:
@@ -13995,6 +14369,11 @@ components:
             $ref: '#/components/schemas/BannerRead'
           type: array
           title: Banners
+        shop_banners:
+          items:
+            $ref: '#/components/schemas/HomepageShopBannerRead'
+          type: array
+          title: Shop Banners
         categories:
           items:
             $ref: '#/components/schemas/CategoryNodeRead'
@@ -14013,6 +14392,7 @@ components:
       required:
       - valid_until
       - banners
+      - shop_banners
       - categories
       - discount_sections
       - recommendation_section

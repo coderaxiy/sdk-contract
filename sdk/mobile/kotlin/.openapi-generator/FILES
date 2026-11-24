@@ -99,6 +99,11 @@ docs/HTTPValidationError.md
 docs/HoldingItemRead.md
 docs/HoldingRead.md
 docs/HomeWrite.md
+docs/HomepageShopBannerAdminRead.md
+docs/HomepageShopBannerPublication.md
+docs/HomepageShopBannerRead.md
+docs/HomepageShopBannerWrite.md
+docs/HomepageShopOptionRead.md
 docs/ImageBlockIn.md
 docs/ImageBlockRead.md
 docs/ImagePairIn.md
@@ -235,6 +240,7 @@ docs/SellersApi.md
 docs/SetAttributesRequest.md
 docs/ShipmentItemRead.md
 docs/ShipmentRead.md
+docs/ShopBannerDestination.md
 docs/ShopCreateRequest.md
 docs/ShopPublicRead.md
 docs/ShopRead.md
@@ -400,6 +406,11 @@ src/main/kotlin/com/emarketseller/sdk/model/HTTPValidationError.kt
 src/main/kotlin/com/emarketseller/sdk/model/HoldingItemRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/HoldingRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/HomeWrite.kt
+src/main/kotlin/com/emarketseller/sdk/model/HomepageShopBannerAdminRead.kt
+src/main/kotlin/com/emarketseller/sdk/model/HomepageShopBannerPublication.kt
+src/main/kotlin/com/emarketseller/sdk/model/HomepageShopBannerRead.kt
+src/main/kotlin/com/emarketseller/sdk/model/HomepageShopBannerWrite.kt
+src/main/kotlin/com/emarketseller/sdk/model/HomepageShopOptionRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/ImageBlockIn.kt
 src/main/kotlin/com/emarketseller/sdk/model/ImageBlockRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/ImagePairIn.kt
@@ -529,6 +540,7 @@ src/main/kotlin/com/emarketseller/sdk/model/SellerUpdateRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/SetAttributesRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/ShipmentItemRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/ShipmentRead.kt
+src/main/kotlin/com/emarketseller/sdk/model/ShopBannerDestination.kt
 src/main/kotlin/com/emarketseller/sdk/model/ShopCreateRequest.kt
 src/main/kotlin/com/emarketseller/sdk/model/ShopPublicRead.kt
 src/main/kotlin/com/emarketseller/sdk/model/ShopRead.kt
@@ -668,6 +680,11 @@ src/test/kotlin/com/emarketseller/sdk/model/HTTPValidationErrorTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/HoldingItemReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/HoldingReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/HomeWriteTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/HomepageShopBannerAdminReadTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/HomepageShopBannerPublicationTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/HomepageShopBannerReadTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/HomepageShopBannerWriteTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/HomepageShopOptionReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ImageBlockInTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ImageBlockReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ImagePairInTest.kt
@@ -797,6 +814,7 @@ src/test/kotlin/com/emarketseller/sdk/model/SellerUpdateRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/SetAttributesRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ShipmentItemReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ShipmentReadTest.kt
+src/test/kotlin/com/emarketseller/sdk/model/ShopBannerDestinationTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ShopCreateRequestTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ShopPublicReadTest.kt
 src/test/kotlin/com/emarketseller/sdk/model/ShopReadTest.kt

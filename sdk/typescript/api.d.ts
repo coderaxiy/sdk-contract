@@ -133,6 +133,84 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/storefront/home/banners/shops": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Homepage Banner Shops
+         * @description Search public shops by name or slug for the banner picker.
+         */
+        get: operations["list_homepage_banner_shops_api_v1_admin_storefront_home_banners_shops_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/storefront/home/banners": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Homepage Shop Banners */
+        get: operations["list_homepage_shop_banners_api_v1_admin_storefront_home_banners_get"];
+        put?: never;
+        /**
+         * Create Homepage Shop Banner
+         * @description Create an unpublished shop banner.
+         */
+        post: operations["create_homepage_shop_banner_api_v1_admin_storefront_home_banners_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/storefront/home/banners/{banner_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update Homepage Shop Banner
+         * @description Replace editable content and schedule while preserving publication state.
+         */
+        put: operations["update_homepage_shop_banner_api_v1_admin_storefront_home_banners__banner_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/storefront/home/banners/{banner_id}/publication": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Set Homepage Shop Banner Publication */
+        patch: operations["set_homepage_shop_banner_publication_api_v1_admin_storefront_home_banners__banner_id__publication_patch"];
+        trace?: never;
+    };
     "/api/v1/auth/register": {
         parameters: {
             query?: never;
@@ -4245,6 +4323,67 @@ export interface components {
             /** Category Ids */
             category_ids?: number[] | null;
         };
+        /** HomepageShopBannerAdminRead */
+        HomepageShopBannerAdminRead: {
+            /** Shop Id */
+            shop_id: number;
+            artwork: components["schemas"]["LocalizedArtwork"];
+            /** Starts At */
+            starts_at?: string | null;
+            /** Ends At */
+            ends_at?: string | null;
+            /**
+             * Sort Order
+             * @default 0
+             */
+            sort_order: number;
+            /** Id */
+            id: number;
+            shop: components["schemas"]["HomepageShopOptionRead"];
+            /** Published */
+            published: boolean;
+        };
+        /** HomepageShopBannerPublication */
+        HomepageShopBannerPublication: {
+            /** Published */
+            published: boolean;
+        };
+        /** HomepageShopBannerRead */
+        HomepageShopBannerRead: {
+            /** Id */
+            id: number;
+            /** Sort Order */
+            sort_order: number;
+            /** Title */
+            title: string;
+            artwork: components["schemas"]["ArtworkRead"];
+            destination: components["schemas"]["ShopBannerDestination"];
+        };
+        /** HomepageShopBannerWrite */
+        HomepageShopBannerWrite: {
+            /** Shop Id */
+            shop_id: number;
+            artwork: components["schemas"]["LocalizedArtwork"];
+            /** Starts At */
+            starts_at?: string | null;
+            /** Ends At */
+            ends_at?: string | null;
+            /**
+             * Sort Order
+             * @default 0
+             */
+            sort_order: number;
+        };
+        /** HomepageShopOptionRead */
+        HomepageShopOptionRead: {
+            /** Id */
+            id: number;
+            /** Name */
+            name: string;
+            /** Slug */
+            slug: string;
+            status: components["schemas"]["ShopStatus"];
+        };
         /** ImageBlockIn */
         ImageBlockIn: {
             /** Id */
@@ -6172,6 +6311,19 @@ export interface components {
              */
             items: components["schemas"]["ShipmentItemRead"][];
         };
+        /** ShopBannerDestination */
+        ShopBannerDestination: {
+            /**
+             * Type
+             * @default shop
+             * @constant
+             */
+            type: "shop";
+            /** Shop Id */
+            shop_id: number;
+            /** Shop Slug */
+            shop_slug: string;
+        };
         /** ShopCreateRequest */
         ShopCreateRequest: {
             /** Name */
@@ -6332,6 +6484,8 @@ export interface components {
             valid_until: string;
             /** Banners */
             banners: components["schemas"]["BannerRead"][];
+            /** Shop Banners */
+            shop_banners: components["schemas"]["HomepageShopBannerRead"][];
             /** Categories */
             categories: components["schemas"]["CategoryNodeRead"][];
             /** Discount Sections */
@@ -6927,6 +7081,184 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HomeWrite"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_homepage_banner_shops_api_v1_admin_storefront_home_banners_shops_get: {
+        parameters: {
+            query?: {
+                q?: string | null;
+                skip?: number;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HomepageShopOptionRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_homepage_shop_banners_api_v1_admin_storefront_home_banners_get: {
+        parameters: {
+            query?: {
+                skip?: number;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HomepageShopBannerAdminRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_homepage_shop_banner_api_v1_admin_storefront_home_banners_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["HomepageShopBannerWrite"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HomepageShopBannerAdminRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_homepage_shop_banner_api_v1_admin_storefront_home_banners__banner_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                banner_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["HomepageShopBannerWrite"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HomepageShopBannerAdminRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_homepage_shop_banner_publication_api_v1_admin_storefront_home_banners__banner_id__publication_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                banner_id: number;
+            };
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["HomepageShopBannerPublication"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HomepageShopBannerAdminRead"];
                 };
             };
             /** @description Validation Error */

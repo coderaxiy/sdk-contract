@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **validUntil** | **Date** |  | 
 **banners** | [BannerRead] |  | 
+**shopBanners** | [HomepageShopBannerRead] |  | 
 **categories** | [CategoryNodeRead] |  | 
 **discountSections** | [ProductsBlockRead] |  | 
 **recommendationSection** | [**ProductsBlockRead**](ProductsBlockRead.md) |  | 

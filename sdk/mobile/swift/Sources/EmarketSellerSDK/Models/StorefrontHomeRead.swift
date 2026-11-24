@@ -11,13 +11,15 @@ public struct StorefrontHomeRead: Sendable, Codable, Hashable {
 
     public var validUntil: Date
     public var banners: [BannerRead]
+    public var shopBanners: [HomepageShopBannerRead]
     public var categories: [CategoryNodeRead]
     public var discountSections: [ProductsBlockRead]
     public var recommendationSection: ProductsBlockRead?
 
-    public init(validUntil: Date, banners: [BannerRead], categories: [CategoryNodeRead], discountSections: [ProductsBlockRead], recommendationSection: ProductsBlockRead?) {
+    public init(validUntil: Date, banners: [BannerRead], shopBanners: [HomepageShopBannerRead], categories: [CategoryNodeRead], discountSections: [ProductsBlockRead], recommendationSection: ProductsBlockRead?) {
         self.validUntil = validUntil
         self.banners = banners
+        self.shopBanners = shopBanners
         self.categories = categories
         self.discountSections = discountSections
         self.recommendationSection = recommendationSection
@@ -26,6 +28,7 @@ public struct StorefrontHomeRead: Sendable, Codable, Hashable {
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case validUntil = "valid_until"
         case banners
+        case shopBanners = "shop_banners"
         case categories
         case discountSections = "discount_sections"
         case recommendationSection = "recommendation_section"
@@ -37,6 +40,7 @@ public struct StorefrontHomeRead: Sendable, Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(validUntil, forKey: .validUntil)
         try container.encode(banners, forKey: .banners)
+        try container.encode(shopBanners, forKey: .shopBanners)
         try container.encode(categories, forKey: .categories)
         try container.encode(discountSections, forKey: .discountSections)
         try container.encode(recommendationSection, forKey: .recommendationSection)

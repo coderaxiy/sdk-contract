@@ -127,6 +127,11 @@ Sources/EmarketSellerSDK/Models/HTTPValidationError.swift
 Sources/EmarketSellerSDK/Models/HoldingItemRead.swift
 Sources/EmarketSellerSDK/Models/HoldingRead.swift
 Sources/EmarketSellerSDK/Models/HomeWrite.swift
+Sources/EmarketSellerSDK/Models/HomepageShopBannerAdminRead.swift
+Sources/EmarketSellerSDK/Models/HomepageShopBannerPublication.swift
+Sources/EmarketSellerSDK/Models/HomepageShopBannerRead.swift
+Sources/EmarketSellerSDK/Models/HomepageShopBannerWrite.swift
+Sources/EmarketSellerSDK/Models/HomepageShopOptionRead.swift
 Sources/EmarketSellerSDK/Models/ImageBlockIn.swift
 Sources/EmarketSellerSDK/Models/ImageBlockRead.swift
 Sources/EmarketSellerSDK/Models/ImagePairIn.swift
@@ -257,6 +262,7 @@ Sources/EmarketSellerSDK/Models/SellerUpdateRequest.swift
 Sources/EmarketSellerSDK/Models/SetAttributesRequest.swift
 Sources/EmarketSellerSDK/Models/ShipmentItemRead.swift
 Sources/EmarketSellerSDK/Models/ShipmentRead.swift
+Sources/EmarketSellerSDK/Models/ShopBannerDestination.swift
 Sources/EmarketSellerSDK/Models/ShopCreateRequest.swift
 Sources/EmarketSellerSDK/Models/ShopPublicRead.swift
 Sources/EmarketSellerSDK/Models/ShopRead.swift
@@ -384,6 +390,11 @@ docs/HTTPValidationError.md
 docs/HoldingItemRead.md
 docs/HoldingRead.md
 docs/HomeWrite.md
+docs/HomepageShopBannerAdminRead.md
+docs/HomepageShopBannerPublication.md
+docs/HomepageShopBannerRead.md
+docs/HomepageShopBannerWrite.md
+docs/HomepageShopOptionRead.md
 docs/ImageBlockIn.md
 docs/ImageBlockRead.md
 docs/ImagePairIn.md
@@ -521,6 +532,7 @@ docs/SellersAPI.md
 docs/SetAttributesRequest.md
 docs/ShipmentItemRead.md
 docs/ShipmentRead.md
+docs/ShopBannerDestination.md
 docs/ShopCreateRequest.md
 docs/ShopPublicRead.md
 docs/ShopRead.md

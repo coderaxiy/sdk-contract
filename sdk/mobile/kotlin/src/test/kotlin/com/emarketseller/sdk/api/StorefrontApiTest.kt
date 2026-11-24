@@ -32,6 +32,10 @@ import com.emarketseller.sdk.model.CampaignRead
 import com.emarketseller.sdk.model.CampaignWrite
 import com.emarketseller.sdk.model.HTTPValidationError
 import com.emarketseller.sdk.model.HomeWrite
+import com.emarketseller.sdk.model.HomepageShopBannerAdminRead
+import com.emarketseller.sdk.model.HomepageShopBannerPublication
+import com.emarketseller.sdk.model.HomepageShopBannerWrite
+import com.emarketseller.sdk.model.HomepageShopOptionRead
 import com.emarketseller.sdk.model.ProductCardRead
 import com.emarketseller.sdk.model.StorefrontHomeRead
 
@@ -76,6 +80,15 @@ class StorefrontApiTest : ShouldSpec() {
             //result shouldBe ("TODO")
         }
 
+        // to test createHomepageShopBannerApiV1AdminStorefrontHomeBannersPost
+        should("test createHomepageShopBannerApiV1AdminStorefrontHomeBannersPost") {
+            // uncomment below to test createHomepageShopBannerApiV1AdminStorefrontHomeBannersPost
+            //val homepageShopBannerWrite : HomepageShopBannerWrite =  // HomepageShopBannerWrite | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : HomepageShopBannerAdminRead = apiInstance.createHomepageShopBannerApiV1AdminStorefrontHomeBannersPost(homepageShopBannerWrite, accessToken)
+            //result shouldBe ("TODO")
+        }
+
         // to test deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete
         should("test deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete") {
             // uncomment below to test deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete
@@ -84,12 +97,43 @@ class StorefrontApiTest : ShouldSpec() {
             //apiInstance.deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete(campaignId, accessToken)
         }
 
+        // to test listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGet
+        should("test listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGet") {
+            // uncomment below to test listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGet
+            //val q : kotlin.String = q_example // kotlin.String | 
+            //val skip : kotlin.Int = 56 // kotlin.Int | 
+            //val limit : kotlin.Int = 56 // kotlin.Int | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : kotlin.collections.List<HomepageShopOptionRead> = apiInstance.listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGet(q, skip, limit, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test listHomepageShopBannersApiV1AdminStorefrontHomeBannersGet
+        should("test listHomepageShopBannersApiV1AdminStorefrontHomeBannersGet") {
+            // uncomment below to test listHomepageShopBannersApiV1AdminStorefrontHomeBannersGet
+            //val skip : kotlin.Int = 56 // kotlin.Int | 
+            //val limit : kotlin.Int = 56 // kotlin.Int | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : kotlin.collections.List<HomepageShopBannerAdminRead> = apiInstance.listHomepageShopBannersApiV1AdminStorefrontHomeBannersGet(skip, limit, accessToken)
+            //result shouldBe ("TODO")
+        }
+
         // to test previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet
         should("test previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet") {
             // uncomment below to test previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet
             //val campaignId : kotlin.Int = 56 // kotlin.Int | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : CampaignRead = apiInstance.previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet(campaignId, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatch
+        should("test setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatch") {
+            // uncomment below to test setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatch
+            //val bannerId : kotlin.Int = 56 // kotlin.Int | 
+            //val homepageShopBannerPublication : HomepageShopBannerPublication =  // HomepageShopBannerPublication | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : HomepageShopBannerAdminRead = apiInstance.setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatch(bannerId, homepageShopBannerPublication, accessToken)
             //result shouldBe ("TODO")
         }
 
@@ -135,6 +179,16 @@ class StorefrontApiTest : ShouldSpec() {
             //val homeWrite : HomeWrite =  // HomeWrite | 
             //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
             //val result : HomeWrite = apiInstance.updateHomeApiV1AdminStorefrontHomePut(homeWrite, accessToken)
+            //result shouldBe ("TODO")
+        }
+
+        // to test updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPut
+        should("test updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPut") {
+            // uncomment below to test updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPut
+            //val bannerId : kotlin.Int = 56 // kotlin.Int | 
+            //val homepageShopBannerWrite : HomepageShopBannerWrite =  // HomepageShopBannerWrite | 
+            //val accessToken : kotlin.String = accessToken_example // kotlin.String | 
+            //val result : HomepageShopBannerAdminRead = apiInstance.updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPut(bannerId, homepageShopBannerWrite, accessToken)
             //result shouldBe ("TODO")
         }
 

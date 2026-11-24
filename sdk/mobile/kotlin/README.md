@@ -51,10 +51,15 @@ All URIs are relative to *http://localhost:8000*
 | *AdminStorefrontApi* | [**adminCampaignsApiV1AdminStorefrontCampaignsGet**](docs/AdminStorefrontApi.md#admincampaignsapiv1adminstorefrontcampaignsget) | **GET** api/v1/admin/storefront/campaigns | Admin Campaigns |
 | *AdminStorefrontApi* | [**adminHomeApiV1AdminStorefrontHomeGet**](docs/AdminStorefrontApi.md#adminhomeapiv1adminstorefronthomeget) | **GET** api/v1/admin/storefront/home | Admin Home |
 | *AdminStorefrontApi* | [**createCampaignApiV1AdminStorefrontCampaignsPost**](docs/AdminStorefrontApi.md#createcampaignapiv1adminstorefrontcampaignspost) | **POST** api/v1/admin/storefront/campaigns | Create Campaign |
+| *AdminStorefrontApi* | [**createHomepageShopBannerApiV1AdminStorefrontHomeBannersPost**](docs/AdminStorefrontApi.md#createhomepageshopbannerapiv1adminstorefronthomebannerspost) | **POST** api/v1/admin/storefront/home/banners | Create Homepage Shop Banner |
 | *AdminStorefrontApi* | [**deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete**](docs/AdminStorefrontApi.md#deletecampaignapiv1adminstorefrontcampaignscampaigniddelete) | **DELETE** api/v1/admin/storefront/campaigns/{campaign_id} | Delete Campaign |
+| *AdminStorefrontApi* | [**listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGet**](docs/AdminStorefrontApi.md#listhomepagebannershopsapiv1adminstorefronthomebannersshopsget) | **GET** api/v1/admin/storefront/home/banners/shops | List Homepage Banner Shops |
+| *AdminStorefrontApi* | [**listHomepageShopBannersApiV1AdminStorefrontHomeBannersGet**](docs/AdminStorefrontApi.md#listhomepageshopbannersapiv1adminstorefronthomebannersget) | **GET** api/v1/admin/storefront/home/banners | List Homepage Shop Banners |
 | *AdminStorefrontApi* | [**previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet**](docs/AdminStorefrontApi.md#previewcampaignapiv1adminstorefrontcampaignscampaignidpreviewget) | **GET** api/v1/admin/storefront/campaigns/{campaign_id}/preview | Preview Campaign |
+| *AdminStorefrontApi* | [**setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatch**](docs/AdminStorefrontApi.md#sethomepageshopbannerpublicationapiv1adminstorefronthomebannersbanneridpublicationpatch) | **PATCH** api/v1/admin/storefront/home/banners/{banner_id}/publication | Set Homepage Shop Banner Publication |
 | *AdminStorefrontApi* | [**updateCampaignApiV1AdminStorefrontCampaignsCampaignIdPut**](docs/AdminStorefrontApi.md#updatecampaignapiv1adminstorefrontcampaignscampaignidput) | **PUT** api/v1/admin/storefront/campaigns/{campaign_id} | Update Campaign |
 | *AdminStorefrontApi* | [**updateHomeApiV1AdminStorefrontHomePut**](docs/AdminStorefrontApi.md#updatehomeapiv1adminstorefronthomeput) | **PUT** api/v1/admin/storefront/home | Update Home |
+| *AdminStorefrontApi* | [**updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPut**](docs/AdminStorefrontApi.md#updatehomepageshopbannerapiv1adminstorefronthomebannersbanneridput) | **PUT** api/v1/admin/storefront/home/banners/{banner_id} | Update Homepage Shop Banner |
 | *AuthApi* | [**changeMyPasswordApiV1AuthMePasswordPost**](docs/AuthApi.md#changemypasswordapiv1authmepasswordpost) | **POST** api/v1/auth/me/password | Change My Password |
 | *AuthApi* | [**completeQuickStartApiV1AuthMeQuickStartPost**](docs/AuthApi.md#completequickstartapiv1authmequickstartpost) | **POST** api/v1/auth/me/quick-start | Complete Quick Start |
 | *AuthApi* | [**confirmPasswordResetApiV1AuthPasswordResetConfirmPost**](docs/AuthApi.md#confirmpasswordresetapiv1authpasswordresetconfirmpost) | **POST** api/v1/auth/password-reset/confirm | Confirm Password Reset |
@@ -238,13 +243,18 @@ All URIs are relative to *http://localhost:8000*
 | *StorefrontApi* | [**adminCampaignsApiV1AdminStorefrontCampaignsGet**](docs/StorefrontApi.md#admincampaignsapiv1adminstorefrontcampaignsget) | **GET** api/v1/admin/storefront/campaigns | Admin Campaigns |
 | *StorefrontApi* | [**adminHomeApiV1AdminStorefrontHomeGet**](docs/StorefrontApi.md#adminhomeapiv1adminstorefronthomeget) | **GET** api/v1/admin/storefront/home | Admin Home |
 | *StorefrontApi* | [**createCampaignApiV1AdminStorefrontCampaignsPost**](docs/StorefrontApi.md#createcampaignapiv1adminstorefrontcampaignspost) | **POST** api/v1/admin/storefront/campaigns | Create Campaign |
+| *StorefrontApi* | [**createHomepageShopBannerApiV1AdminStorefrontHomeBannersPost**](docs/StorefrontApi.md#createhomepageshopbannerapiv1adminstorefronthomebannerspost) | **POST** api/v1/admin/storefront/home/banners | Create Homepage Shop Banner |
 | *StorefrontApi* | [**deleteCampaignApiV1AdminStorefrontCampaignsCampaignIdDelete**](docs/StorefrontApi.md#deletecampaignapiv1adminstorefrontcampaignscampaigniddelete) | **DELETE** api/v1/admin/storefront/campaigns/{campaign_id} | Delete Campaign |
+| *StorefrontApi* | [**listHomepageBannerShopsApiV1AdminStorefrontHomeBannersShopsGet**](docs/StorefrontApi.md#listhomepagebannershopsapiv1adminstorefronthomebannersshopsget) | **GET** api/v1/admin/storefront/home/banners/shops | List Homepage Banner Shops |
+| *StorefrontApi* | [**listHomepageShopBannersApiV1AdminStorefrontHomeBannersGet**](docs/StorefrontApi.md#listhomepageshopbannersapiv1adminstorefronthomebannersget) | **GET** api/v1/admin/storefront/home/banners | List Homepage Shop Banners |
 | *StorefrontApi* | [**previewCampaignApiV1AdminStorefrontCampaignsCampaignIdPreviewGet**](docs/StorefrontApi.md#previewcampaignapiv1adminstorefrontcampaignscampaignidpreviewget) | **GET** api/v1/admin/storefront/campaigns/{campaign_id}/preview | Preview Campaign |
+| *StorefrontApi* | [**setHomepageShopBannerPublicationApiV1AdminStorefrontHomeBannersBannerIdPublicationPatch**](docs/StorefrontApi.md#sethomepageshopbannerpublicationapiv1adminstorefronthomebannersbanneridpublicationpatch) | **PATCH** api/v1/admin/storefront/home/banners/{banner_id}/publication | Set Homepage Shop Banner Publication |
 | *StorefrontApi* | [**storefrontCampaignApiV1StorefrontCampaignsSlugGet**](docs/StorefrontApi.md#storefrontcampaignapiv1storefrontcampaignsslugget) | **GET** api/v1/storefront/campaigns/{slug} | Storefront Campaign |
 | *StorefrontApi* | [**storefrontHomeApiV1StorefrontHomeGet**](docs/StorefrontApi.md#storefronthomeapiv1storefronthomeget) | **GET** api/v1/storefront/home | Storefront Home |
 | *StorefrontApi* | [**storefrontSectionProductsApiV1StorefrontCampaignsSlugSectionsSectionIdProductsGet**](docs/StorefrontApi.md#storefrontsectionproductsapiv1storefrontcampaignsslugsectionssectionidproductsget) | **GET** api/v1/storefront/campaigns/{slug}/sections/{section_id}/products | Storefront Section Products |
 | *StorefrontApi* | [**updateCampaignApiV1AdminStorefrontCampaignsCampaignIdPut**](docs/StorefrontApi.md#updatecampaignapiv1adminstorefrontcampaignscampaignidput) | **PUT** api/v1/admin/storefront/campaigns/{campaign_id} | Update Campaign |
 | *StorefrontApi* | [**updateHomeApiV1AdminStorefrontHomePut**](docs/StorefrontApi.md#updatehomeapiv1adminstorefronthomeput) | **PUT** api/v1/admin/storefront/home | Update Home |
+| *StorefrontApi* | [**updateHomepageShopBannerApiV1AdminStorefrontHomeBannersBannerIdPut**](docs/StorefrontApi.md#updatehomepageshopbannerapiv1adminstorefronthomebannersbanneridput) | **PUT** api/v1/admin/storefront/home/banners/{banner_id} | Update Homepage Shop Banner |
 | *UploadsApi* | [**createUploadApiV1UploadsPost**](docs/UploadsApi.md#createuploadapiv1uploadspost) | **POST** api/v1/uploads | Create Upload |
 | *UsersApi* | [**adminCreateUserApiV1UsersPost**](docs/UsersApi.md#admincreateuserapiv1userspost) | **POST** api/v1/users/ | Admin Create User |
 | *UsersApi* | [**assignRoleToUserApiV1UsersUserIdRolesPost**](docs/UsersApi.md#assignroletouserapiv1usersuseridrolespost) | **POST** api/v1/users/{user_id}/roles | Assign Role To User |
@@ -354,6 +364,11 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.HoldingItemRead](docs/HoldingItemRead.md)
  - [com.emarketseller.sdk.model.HoldingRead](docs/HoldingRead.md)
  - [com.emarketseller.sdk.model.HomeWrite](docs/HomeWrite.md)
+ - [com.emarketseller.sdk.model.HomepageShopBannerAdminRead](docs/HomepageShopBannerAdminRead.md)
+ - [com.emarketseller.sdk.model.HomepageShopBannerPublication](docs/HomepageShopBannerPublication.md)
+ - [com.emarketseller.sdk.model.HomepageShopBannerRead](docs/HomepageShopBannerRead.md)
+ - [com.emarketseller.sdk.model.HomepageShopBannerWrite](docs/HomepageShopBannerWrite.md)
+ - [com.emarketseller.sdk.model.HomepageShopOptionRead](docs/HomepageShopOptionRead.md)
  - [com.emarketseller.sdk.model.ImageBlockIn](docs/ImageBlockIn.md)
  - [com.emarketseller.sdk.model.ImageBlockRead](docs/ImageBlockRead.md)
  - [com.emarketseller.sdk.model.ImagePairIn](docs/ImagePairIn.md)
@@ -483,6 +498,7 @@ All URIs are relative to *http://localhost:8000*
  - [com.emarketseller.sdk.model.SetAttributesRequest](docs/SetAttributesRequest.md)
  - [com.emarketseller.sdk.model.ShipmentItemRead](docs/ShipmentItemRead.md)
  - [com.emarketseller.sdk.model.ShipmentRead](docs/ShipmentRead.md)
+ - [com.emarketseller.sdk.model.ShopBannerDestination](docs/ShopBannerDestination.md)
  - [com.emarketseller.sdk.model.ShopCreateRequest](docs/ShopCreateRequest.md)
  - [com.emarketseller.sdk.model.ShopPublicRead](docs/ShopPublicRead.md)
  - [com.emarketseller.sdk.model.ShopRead](docs/ShopRead.md)
